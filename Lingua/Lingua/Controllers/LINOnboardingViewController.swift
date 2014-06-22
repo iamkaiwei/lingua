@@ -23,6 +23,7 @@ class LINOnboardingViewController: UIViewController {
         onboarding.pagingEnabled = true
         onboarding.bounces = false
         onboarding.showsHorizontalScrollIndicator = false
+        
         view.addSubview(onboarding)
         
         //Placeholder for onboarding
@@ -35,9 +36,17 @@ class LINOnboardingViewController: UIViewController {
         
         //Login page
         frame.origin.x += 320
-        let pageView = LINLoginView(frame: frame);
-        onboarding.addSubview(pageView)
+        let loginView = LINLoginView(frame: frame);
+        loginView.delegate = self
+        onboarding.addSubview(loginView)
         
         onboarding.contentSize = CGSizeMake(CGRectGetMaxX(frame), CGRectGetHeight(frame))
+    }
+}
+
+extension LINOnboardingViewController: LINLoginViewDelegate {
+    
+    func loginView(loginView: LINLoginView, didLoginWithOption: LoginOptions) {
+        performSegueWithIdentifier("kPickLearningViewControllerSegue", sender: self)
     }
 }

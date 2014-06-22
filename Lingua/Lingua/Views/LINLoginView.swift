@@ -8,9 +8,18 @@
 
 import UIKit
 
+enum LoginOptions {
+    case Facebook, Google
+}
+
+protocol LINLoginViewDelegate {
+    func loginView(loginView: LINLoginView, didLoginWithOption: LoginOptions)
+}
+
 class LINLoginView: UIView {
-
-
+    
+    var delegate: LINLoginViewDelegate?
+    
     init(coder aDecoder: NSCoder!)
     {
         super.init(coder: aDecoder)
@@ -21,5 +30,12 @@ class LINLoginView: UIView {
         addSubview(UINib(nibName: "LINLoginView", bundle: nil).instantiateWithOwner(self, options: nil)[0] as UIView)
     }
     
+    @IBAction func loginWithGoogle(sender: UIButton) {
+        delegate?.loginView(self, didLoginWithOption: .Google)
+    }
+    
+    @IBAction func loginWithFacebook(sender: UIButton) {
+        delegate?.loginView(self, didLoginWithOption: .Facebook)
+    }
     
 }
