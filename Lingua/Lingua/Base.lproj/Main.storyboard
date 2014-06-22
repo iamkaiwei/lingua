@@ -160,12 +160,82 @@
                     </view>
                     <connections>
                         <outlet property="languageLabel" destination="GlV-kO-9g9" id="yEC-mG-7jw"/>
+                        <outlet property="pickButton" destination="N6k-qP-lbc" id="Jnw-0c-bjR"/>
                         <outlet property="pickerView" destination="XhY-kx-Xgz" id="2el-Hm-pRD"/>
+                        <segue destination="3VM-pF-Dsv" kind="show" identifier="kHomeViewControllerSegue" id="Ofh-36-LMW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pgT-KN-vjX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2320" y="331"/>
+            <point key="canvasLocation" x="2333" y="331"/>
+        </scene>
+        <!--Home View Controller-->
+        <scene sceneID="kts-2t-Dwm">
+            <objects>
+                <viewController id="3VM-pF-Dsv" customClass="LINHomeViewController" customModule="Lingua" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="icV-h1-ZMm"/>
+                        <viewControllerLayoutGuide type="bottom" id="Pau-cF-JHm"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="oA8-CE-8uh">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ITY-nd-jX3">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="71"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dqF-TG-jop">
+                                        <rect key="frame" x="20" y="20" width="54" height="30"/>
+                                        <state key="normal" title="Profile">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="axt-Yo-jC8">
+                                        <rect key="frame" x="384" y="21" width="83" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="83" id="9Cc-9S-Tjd"/>
+                                            <constraint firstAttribute="height" constant="30" id="nSu-DK-SRW"/>
+                                        </constraints>
+                                        <state key="normal" title="Message">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.3394160584" green="0.97254901959999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="axt-Yo-jC8" firstAttribute="top" secondItem="ITY-nd-jX3" secondAttribute="top" constant="21" id="8Bw-bo-ZKB"/>
+                                    <constraint firstAttribute="height" constant="71" id="bmj-bZ-LOi"/>
+                                    <constraint firstAttribute="trailing" secondItem="axt-Yo-jC8" secondAttribute="trailing" constant="13" id="xja-xx-xoZ"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nMA-eG-aqu">
+                                <rect key="frame" x="124" y="147" width="233" height="186"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="186" id="HuG-8j-nf5"/>
+                                    <constraint firstAttribute="width" constant="233" id="oe1-7S-3DM"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="73"/>
+                                <state key="normal" title="Teach">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="nMA-eG-aqu" secondAttribute="centerX" id="QCm-Pb-fHz"/>
+                            <constraint firstAttribute="trailing" secondItem="ITY-nd-jX3" secondAttribute="trailing" id="XiW-tT-QMy"/>
+                            <constraint firstItem="nMA-eG-aqu" firstAttribute="top" secondItem="ITY-nd-jX3" secondAttribute="bottom" constant="76" id="eJM-4y-LKi"/>
+                            <constraint firstItem="ITY-nd-jX3" firstAttribute="top" secondItem="oA8-CE-8uh" secondAttribute="top" id="qbE-cB-4Wi"/>
+                            <constraint firstItem="ITY-nd-jX3" firstAttribute="leading" secondItem="oA8-CE-8uh" secondAttribute="leading" id="r8u-nt-byw"/>
+                        </constraints>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KHf-dP-92I" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2927" y="331"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="rHc-HB-iF1">

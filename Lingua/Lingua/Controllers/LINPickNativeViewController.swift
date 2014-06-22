@@ -12,7 +12,8 @@ class LINPickNativeViewController: UIViewController {
 
     @IBOutlet var pickerView: UIPickerView
     @IBOutlet var languageLabel: UILabel
-    
+    @IBOutlet var pickButton: UIButton
+
     let languages = ["Chinese", "English"]
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +22,9 @@ class LINPickNativeViewController: UIViewController {
     }
     
     @IBAction func togglePickerView(sender: UIButton) {
+        if sender.titleForState(.Normal) == "Next" {
+            performSegueWithIdentifier("kHomeViewControllerSegue", sender: self)
+        }
         pickerView.hidden = !pickerView.hidden
     }
 
@@ -42,5 +46,6 @@ extension LINPickNativeViewController: UIPickerViewDataSource, UIPickerViewDeleg
     
     func pickerView(pickerView: UIPickerView!, didSelectRow row: Int, inComponent component: Int) {
         languageLabel.text = languages[row]
+        pickButton.setTitle("Next", forState: .Normal)
     }
 }
