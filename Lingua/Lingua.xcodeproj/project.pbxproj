@@ -14,6 +14,7 @@
 		20448A951954301A00AC639A /* LinguaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20448A941954301A00AC639A /* LinguaTests.swift */; };
 		2082DEEF1957123E009ADF45 /* LINLanguagePickingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2082DEEE1957123E009ADF45 /* LINLanguagePickingHeaderView.swift */; };
 		2082DEF11957127F009ADF45 /* LINLanguagePickingHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2082DEF01957127F009ADF45 /* LINLanguagePickingHeaderView.xib */; };
+		2082DEF319575A55009ADF45 /* LINPickNativeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2082DEF219575A55009ADF45 /* LINPickNativeViewController.swift */; };
 		20BFCCEB1956E1C400A86C2E /* LINPickLearningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20BFCCEA1956E1C400A86C2E /* LINPickLearningViewController.swift */; };
 		20D484A21956D350007B4E96 /* LINLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D484A01956D350007B4E96 /* LINLoginView.swift */; };
 		20D484A31956D350007B4E96 /* LINLoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 20D484A11956D350007B4E96 /* LINLoginView.xib */; };
@@ -43,6 +44,7 @@
 		20448AA719545D4500AC639A /* Lingua-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Lingua-Bridging-Header.h"; sourceTree = "<group>"; };
 		2082DEEE1957123E009ADF45 /* LINLanguagePickingHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINLanguagePickingHeaderView.swift; sourceTree = "<group>"; };
 		2082DEF01957127F009ADF45 /* LINLanguagePickingHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LINLanguagePickingHeaderView.xib; sourceTree = "<group>"; };
+		2082DEF219575A55009ADF45 /* LINPickNativeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINPickNativeViewController.swift; sourceTree = "<group>"; };
 		20BFCCEA1956E1C400A86C2E /* LINPickLearningViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINPickLearningViewController.swift; sourceTree = "<group>"; };
 		20D484A01956D350007B4E96 /* LINLoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINLoginView.swift; sourceTree = "<group>"; };
 		20D484A11956D350007B4E96 /* LINLoginView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LINLoginView.xib; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 			children = (
 				20D484A51956D35D007B4E96 /* LINOnboardingViewController.swift */,
 				20BFCCEA1956E1C400A86C2E /* LINPickLearningViewController.swift */,
+				2082DEF219575A55009ADF45 /* LINPickNativeViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -262,6 +265,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2082DEF319575A55009ADF45 /* LINPickNativeViewController.swift in Sources */,
 				20BFCCEB1956E1C400A86C2E /* LINPickLearningViewController.swift in Sources */,
 				20D484A21956D350007B4E96 /* LINLoginView.swift in Sources */,
 				20448A7F1954301A00AC639A /* AppDelegate.swift in Sources */,
