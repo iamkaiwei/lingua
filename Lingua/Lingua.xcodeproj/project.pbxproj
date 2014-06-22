@@ -7,14 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		200FDBD019558D5A00E14713 /* LINLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200FDBCF19558D5A00E14713 /* LINLoginView.swift */; };
 		20448A7F1954301A00AC639A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20448A7E1954301A00AC639A /* AppDelegate.swift */; };
 		20448A821954301A00AC639A /* Lingua.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 20448A801954301A00AC639A /* Lingua.xcdatamodeld */; };
 		20448A871954301A00AC639A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 20448A851954301A00AC639A /* Main.storyboard */; };
 		20448A891954301A00AC639A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20448A881954301A00AC639A /* Images.xcassets */; };
 		20448A951954301A00AC639A /* LinguaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20448A941954301A00AC639A /* LinguaTests.swift */; };
-		20448A9F1954453600AC639A /* LINOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20448A9E1954453600AC639A /* LINOnboardingViewController.swift */; };
-		20D4849E1956C59C007B4E96 /* LINLoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 20D4849D1956C59C007B4E96 /* LINLoginView.xib */; };
+		20D484A21956D350007B4E96 /* LINLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D484A01956D350007B4E96 /* LINLoginView.swift */; };
+		20D484A31956D350007B4E96 /* LINLoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 20D484A11956D350007B4E96 /* LINLoginView.xib */; };
+		20D484A61956D35D007B4E96 /* LINOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D484A51956D35D007B4E96 /* LINOnboardingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,7 +28,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		200FDBCF19558D5A00E14713 /* LINLoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINLoginView.swift; sourceTree = "<group>"; };
 		20448A791954301A00AC639A /* Lingua.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lingua.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20448A7D1954301A00AC639A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		20448A7E1954301A00AC639A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -38,9 +37,10 @@
 		20448A8E1954301A00AC639A /* LinguaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LinguaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		20448A931954301A00AC639A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		20448A941954301A00AC639A /* LinguaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinguaTests.swift; sourceTree = "<group>"; };
-		20448A9E1954453600AC639A /* LINOnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINOnboardingViewController.swift; sourceTree = "<group>"; };
 		20448AA719545D4500AC639A /* Lingua-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Lingua-Bridging-Header.h"; sourceTree = "<group>"; };
-		20D4849D1956C59C007B4E96 /* LINLoginView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LINLoginView.xib; sourceTree = "<group>"; };
+		20D484A01956D350007B4E96 /* LINLoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINLoginView.swift; sourceTree = "<group>"; };
+		20D484A11956D350007B4E96 /* LINLoginView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LINLoginView.xib; sourceTree = "<group>"; };
+		20D484A51956D35D007B4E96 /* LINOnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINOnboardingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,14 +82,13 @@
 		20448A7B1954301A00AC639A /* Lingua */ = {
 			isa = PBXGroup;
 			children = (
-				20448A7E1954301A00AC639A /* AppDelegate.swift */,
-				20448A851954301A00AC639A /* Main.storyboard */,
-				20448A9E1954453600AC639A /* LINOnboardingViewController.swift */,
+				20D484A71956D36D007B4E96 /* Models */,
+				20D484A81956D36D007B4E96 /* Vendors */,
+				20D484A41956D35D007B4E96 /* Controllers */,
+				20D4849F1956D350007B4E96 /* Views */,
 				20448A881954301A00AC639A /* Images.xcassets */,
 				20448A801954301A00AC639A /* Lingua.xcdatamodeld */,
 				20448A7C1954301A00AC639A /* Supporting Files */,
-				200FDBCF19558D5A00E14713 /* LINLoginView.swift */,
-				20D4849D1956C59C007B4E96 /* LINLoginView.xib */,
 			);
 			path = Lingua;
 			sourceTree = "<group>";
@@ -97,6 +96,8 @@
 		20448A7C1954301A00AC639A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				20448A7E1954301A00AC639A /* AppDelegate.swift */,
+				20448A851954301A00AC639A /* Main.storyboard */,
 				20448AA719545D4500AC639A /* Lingua-Bridging-Header.h */,
 				20448A7D1954301A00AC639A /* Info.plist */,
 			);
@@ -118,6 +119,37 @@
 				20448A931954301A00AC639A /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		20D4849F1956D350007B4E96 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				20D484A01956D350007B4E96 /* LINLoginView.swift */,
+				20D484A11956D350007B4E96 /* LINLoginView.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		20D484A41956D35D007B4E96 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				20D484A51956D35D007B4E96 /* LINOnboardingViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		20D484A71956D36D007B4E96 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		20D484A81956D36D007B4E96 /* Vendors */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Vendors;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -202,7 +234,7 @@
 			files = (
 				20448A871954301A00AC639A /* Main.storyboard in Resources */,
 				20448A891954301A00AC639A /* Images.xcassets in Resources */,
-				20D4849E1956C59C007B4E96 /* LINLoginView.xib in Resources */,
+				20D484A31956D350007B4E96 /* LINLoginView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,10 +252,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				200FDBD019558D5A00E14713 /* LINLoginView.swift in Sources */,
+				20D484A21956D350007B4E96 /* LINLoginView.swift in Sources */,
 				20448A7F1954301A00AC639A /* AppDelegate.swift in Sources */,
 				20448A821954301A00AC639A /* Lingua.xcdatamodeld in Sources */,
-				20448A9F1954453600AC639A /* LINOnboardingViewController.swift in Sources */,
+				20D484A61956D35D007B4E96 /* LINOnboardingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
