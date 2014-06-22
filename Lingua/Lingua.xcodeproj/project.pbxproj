@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		200FDBD019558D5A00E14713 /* LINLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200FDBCF19558D5A00E14713 /* LINLoginView.swift */; };
 		20448A7F1954301A00AC639A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20448A7E1954301A00AC639A /* AppDelegate.swift */; };
 		20448A821954301A00AC639A /* Lingua.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 20448A801954301A00AC639A /* Lingua.xcdatamodeld */; };
-		20448A841954301A00AC639A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20448A831954301A00AC639A /* ViewController.swift */; };
 		20448A871954301A00AC639A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 20448A851954301A00AC639A /* Main.storyboard */; };
 		20448A891954301A00AC639A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20448A881954301A00AC639A /* Images.xcassets */; };
 		20448A951954301A00AC639A /* LinguaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20448A941954301A00AC639A /* LinguaTests.swift */; };
+		20448A9F1954453600AC639A /* LINOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20448A9E1954453600AC639A /* LINOnboardingViewController.swift */; };
+		20D4849E1956C59C007B4E96 /* LINLoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 20D4849D1956C59C007B4E96 /* LINLoginView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,16 +28,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		200FDBCF19558D5A00E14713 /* LINLoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINLoginView.swift; sourceTree = "<group>"; };
 		20448A791954301A00AC639A /* Lingua.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lingua.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20448A7D1954301A00AC639A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		20448A7E1954301A00AC639A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		20448A811954301A00AC639A /* Lingua.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Lingua.xcdatamodel; sourceTree = "<group>"; };
-		20448A831954301A00AC639A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		20448A861954301A00AC639A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		20448A881954301A00AC639A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		20448A8E1954301A00AC639A /* LinguaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LinguaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		20448A931954301A00AC639A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		20448A941954301A00AC639A /* LinguaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinguaTests.swift; sourceTree = "<group>"; };
+		20448A9E1954453600AC639A /* LINOnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINOnboardingViewController.swift; sourceTree = "<group>"; };
+		20448AA719545D4500AC639A /* Lingua-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Lingua-Bridging-Header.h"; sourceTree = "<group>"; };
+		20D4849D1956C59C007B4E96 /* LINLoginView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LINLoginView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,11 +83,13 @@
 			isa = PBXGroup;
 			children = (
 				20448A7E1954301A00AC639A /* AppDelegate.swift */,
-				20448A831954301A00AC639A /* ViewController.swift */,
 				20448A851954301A00AC639A /* Main.storyboard */,
+				20448A9E1954453600AC639A /* LINOnboardingViewController.swift */,
 				20448A881954301A00AC639A /* Images.xcassets */,
 				20448A801954301A00AC639A /* Lingua.xcdatamodeld */,
 				20448A7C1954301A00AC639A /* Supporting Files */,
+				200FDBCF19558D5A00E14713 /* LINLoginView.swift */,
+				20D4849D1956C59C007B4E96 /* LINLoginView.xib */,
 			);
 			path = Lingua;
 			sourceTree = "<group>";
@@ -90,6 +97,7 @@
 		20448A7C1954301A00AC639A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				20448AA719545D4500AC639A /* Lingua-Bridging-Header.h */,
 				20448A7D1954301A00AC639A /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -194,6 +202,7 @@
 			files = (
 				20448A871954301A00AC639A /* Main.storyboard in Resources */,
 				20448A891954301A00AC639A /* Images.xcassets in Resources */,
+				20D4849E1956C59C007B4E96 /* LINLoginView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -211,9 +220,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				20448A841954301A00AC639A /* ViewController.swift in Sources */,
+				200FDBD019558D5A00E14713 /* LINLoginView.swift in Sources */,
 				20448A7F1954301A00AC639A /* AppDelegate.swift in Sources */,
 				20448A821954301A00AC639A /* Lingua.xcdatamodeld in Sources */,
+				20448A9F1954453600AC639A /* LINOnboardingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,6 +342,7 @@
 				INFOPLIST_FILE = Lingua/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Lingua/Lingua-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -343,6 +354,7 @@
 				INFOPLIST_FILE = Lingua/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Lingua/Lingua-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -401,6 +413,7 @@
 				20448A9A1954301A00AC639A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		20448A9B1954301A00AC639A /* Build configuration list for PBXNativeTarget "LinguaTests" */ = {
 			isa = XCConfigurationList;
@@ -409,6 +422,7 @@
 				20448A9D1954301A00AC639A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
