@@ -28,14 +28,14 @@ class LINOnboardingViewController: UIViewController {
         
         //Placeholder for onboarding
         for index in 0..3 {
-            frame.origin.x = [0, 320, 640][index]
+            frame.origin.x = CGRectGetWidth(frame) * CGFloat(index)
             let pageView = UIView(frame: frame)
             pageView.backgroundColor = UIColor(red: Double(arc4random_uniform(255))/255.0, green: Double(arc4random_uniform(255))/255.0, blue: Double(arc4random_uniform(255))/255.0, alpha: 1)
             onboarding.addSubview(pageView)
         }
         
         //Login page
-        frame.origin.x += 320
+        frame.origin.x += CGRectGetWidth(frame)
         let loginView = LINLoginView(frame: frame);
         loginView.delegate = self
         onboarding.addSubview(loginView)
