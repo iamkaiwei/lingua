@@ -23,9 +23,9 @@ class LINPickNativeViewController: UIViewController {
     
     @IBAction func togglePickerView(sender: UIButton) {
         if sender.titleForState(.Normal) == "Next" {
-            let leftDrawer = UIViewController();
+            let leftDrawer = storyboard.instantiateViewControllerWithIdentifier("kLINMyProfileViewController") as LINMyProfileViewController
             let center = storyboard.instantiateViewControllerWithIdentifier("kLINHomeViewController") as LINHomeViewController
-            let rightDrawer = UIViewController();
+            let rightDrawer = storyboard.instantiateViewControllerWithIdentifier("kLINFriendListViewController") as LINFriendListViewController
             
             let drawerController = MMDrawerController(centerViewController: center, leftDrawerViewController: leftDrawer, rightDrawerViewController: rightDrawer)
             drawerController.closeDrawerGestureModeMask = MMCloseDrawerGestureMode.PanningCenterView

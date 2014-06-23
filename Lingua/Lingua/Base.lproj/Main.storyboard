@@ -169,6 +169,49 @@
             </objects>
             <point key="canvasLocation" x="2333" y="331"/>
         </scene>
+        <!--My Profile View Controller-->
+        <scene sceneID="j31-R8-PeU">
+            <objects>
+                <viewController storyboardIdentifier="kLINMyProfileViewController" id="GTX-yj-Z2v" customClass="LINMyProfileViewController" customModule="Lingua" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ky0-OG-94j"/>
+                        <viewControllerLayoutGuide type="bottom" id="q9g-kW-g3M"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="cFZ-NH-MMc">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t0j-I2-22J">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="50"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Profile" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="18K-4R-d8b">
+                                        <rect key="frame" x="64" y="14" width="88" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2fg-61-Uef">
+                                <rect key="frame" x="36" y="78" width="156" height="135"/>
+                                <color key="backgroundColor" red="0.85882352939999995" green="0.22352941179999999" blue="0.38823529410000002" alpha="1" colorSpace="calibratedRGB"/>
+                            </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="User description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fp2-QJ-iFa">
+                                <rect key="frame" x="265" y="83" width="174" height="138"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IuS-Lr-xIX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2927" y="-280"/>
+        </scene>
         <!--Home View Controller-->
         <scene sceneID="kts-2t-Dwm">
             <objects>
@@ -202,6 +245,9 @@
                                         <state key="normal" title="Message">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="openDrawer:" destination="3VM-pF-Dsv" eventType="touchUpInside" id="LGA-SZ-IUy"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.3394160584" green="0.97254901959999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -235,10 +281,41 @@
                         </constraints>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
+                    <connections>
+                        <outlet property="messageButton" destination="axt-Yo-jC8" id="P4w-qW-duF"/>
+                        <outlet property="profileButton" destination="dqF-TG-jop" id="iKg-Hx-R7A"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KHf-dP-92I" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2927" y="331"/>
+        </scene>
+        <!--Friend List View Controller-->
+        <scene sceneID="73U-sA-5tu">
+            <objects>
+                <viewController storyboardIdentifier="kLINFriendListViewController" id="ERx-4d-LVo" customClass="LINFriendListViewController" customModule="Lingua" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="QGe-dl-cQt"/>
+                        <viewControllerLayoutGuide type="bottom" id="MKv-qc-e6l"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="0SP-N3-h2y">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Message" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aWA-2C-L1p">
+                                <rect key="frame" x="34" y="30" width="94" height="41"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ey2-hD-VP2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2927" y="944"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="rHc-HB-iF1">

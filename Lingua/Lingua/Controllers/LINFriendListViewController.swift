@@ -1,5 +1,5 @@
 //
-//  LINHomeViewController.swift
+//  LINFriendListViewController.swift
 //  Lingua
 //
 //  Created by Hoang Ta on 6/23/14.
@@ -8,25 +8,20 @@
 
 import UIKit
 
-class LINHomeViewController: UIViewController {
+class LINFriendListViewController: UIViewController {
 
-    @IBOutlet var profileButton: UIButton
-    @IBOutlet var messageButton: UIButton
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
+        // Do any additional setup after loading the view.
     }
 
-    @IBAction func openDrawer(sender: UIButton) {
-        switch sender {
-        case profileButton: mm_drawerController?.openDrawerSide(.Left, animated: true, completion: nil)
-        case messageButton: mm_drawerController?.openDrawerSide(.Right, animated: true, completion: nil)
-        default: break
-        }
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
     
+
     /*
     // #pragma mark - Navigation
 
