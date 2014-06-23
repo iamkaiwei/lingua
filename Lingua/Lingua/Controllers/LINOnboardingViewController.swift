@@ -30,7 +30,7 @@ class LINOnboardingViewController: UIViewController {
         for index in 0..3 {
             frame.origin.x = CGRectGetWidth(frame) * CGFloat(index)
             let pageView = UIView(frame: frame)
-            pageView.backgroundColor = UIColor(red: Double(arc4random_uniform(255))/255.0, green: Double(arc4random_uniform(255))/255.0, blue: Double(arc4random_uniform(255))/255.0, alpha: 1)
+            pageView.backgroundColor = UIColor(red: CGFloat(arc4random_uniform(255))/255.0, green: CGFloat(arc4random_uniform(255))/255.0, blue: CGFloat(arc4random_uniform(255))/255.0, alpha: 1)
             onboarding.addSubview(pageView)
         }
         

@@ -10,12 +10,21 @@ import UIKit
 
 class LINHomeViewController: UIViewController {
 
+//    init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+//        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+//        
+//    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        
     }
 
+    @IBAction func openDrawer(sender: UIButton) {
+//        openDrawerSide(MMDrawerSide.Left, animated: true, completion: nil)
+    }
+    
     /*
     // #pragma mark - Navigation
 

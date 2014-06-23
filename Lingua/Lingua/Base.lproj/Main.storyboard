@@ -172,7 +172,7 @@
         <!--Home View Controller-->
         <scene sceneID="kts-2t-Dwm">
             <objects>
-                <viewController id="3VM-pF-Dsv" customClass="LINHomeViewController" customModule="Lingua" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="kLINHomeViewController" id="3VM-pF-Dsv" customClass="LINHomeViewController" customModule="Lingua" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="icV-h1-ZMm"/>
                         <viewControllerLayoutGuide type="bottom" id="Pau-cF-JHm"/>
@@ -189,6 +189,9 @@
                                         <state key="normal" title="Profile">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="openDrawer:" destination="3VM-pF-Dsv" eventType="touchUpInside" id="th2-Lp-fYv"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="axt-Yo-jC8">
                                         <rect key="frame" x="384" y="21" width="83" height="30"/>
