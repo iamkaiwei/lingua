@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-Lingua-google-plus-ios-sdk.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Lingua.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -17,12 +22,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>CA33A4900CA94FB7BDD17D0D</key>
+		<key>09E516500111490C9C1D5E7D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E8C63888C09148CD9CF5B0EA</key>
+		<key>60F1F6B9E2754C51A2780BA0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C02FB80924CF4559AD0C8817</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -7,250 +7,571 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0BEE132521344BE386B404BA /* MMDrawerController.m in Sources */ = {isa = PBXBuildFile; fileRef = E8EED7195153462EA970D450 /* MMDrawerController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0"; }; };
-		51352C17CA304231B5BABB05 /* UIViewController+MMDrawerController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCAA16B9C2E4994AFC73288 /* UIViewController+MMDrawerController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0"; }; };
-		54E1F59C4C1941A4BCDDA9DD /* MMDrawerController.h in Headers */ = {isa = PBXBuildFile; fileRef = D13B9F0BC3524E318A26D241 /* MMDrawerController.h */; };
-		794328DCFFF74FFEABE9FD38 /* Pods-Lingua-MMDrawerController-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8106D486F444402788DCC473 /* Pods-Lingua-MMDrawerController-dummy.m */; };
-		91F7686C769449058CBC5143 /* MMDrawerBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E2A9641E68A445BB39807E1 /* MMDrawerBarButtonItem.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0"; }; };
-		94DB217048D24536BBA5E57B /* UIViewController+MMDrawerController.h in Headers */ = {isa = PBXBuildFile; fileRef = 71EA994497034129A0494BF3 /* UIViewController+MMDrawerController.h */; };
-		A618D464639749D581141060 /* MMDrawerController+Subclass.h in Headers */ = {isa = PBXBuildFile; fileRef = F086C6AD414149708C9492D3 /* MMDrawerController+Subclass.h */; };
-		A72655A26F474B59A30C0FCD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEFC2244C3A1456F95F4485A /* Foundation.framework */; };
-		B17DA221C75C4696AB1C71C3 /* MMDrawerBarButtonItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 4A82DD2581B243BF83DE7CAA /* MMDrawerBarButtonItem.h */; };
-		BA05033648B94942AE460361 /* MMDrawerVisualState.m in Sources */ = {isa = PBXBuildFile; fileRef = 8990202F71774D56A28BDE9C /* MMDrawerVisualState.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0"; }; };
-		BB629655572A45B1857C4436 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DE292ABB7034C4E9F3EE315 /* QuartzCore.framework */; };
-		C2C1D404EDD740279BBD9290 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEFC2244C3A1456F95F4485A /* Foundation.framework */; };
-		C64F36FC6F064386BBA980B9 /* MMDrawerVisualState.h in Headers */ = {isa = PBXBuildFile; fileRef = E16FE9DD3C7543159E4CC7F8 /* MMDrawerVisualState.h */; };
-		DF176B5D8CDB4006A5407652 /* libPods-Lingua-MMDrawerController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B4745761EEAF43A3AE43FF15 /* libPods-Lingua-MMDrawerController.a */; };
-		E3F126D00DCA4FD6812E0F14 /* Pods-Lingua-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 30ADDD7927974BC7B67AE37E /* Pods-Lingua-dummy.m */; };
+		04067A50505249A49563F4D5 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A22C8EED7D7241408E95D103 /* CoreLocation.framework */; };
+		07C8A2E4024346EBA6D9002E /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49689C5A38814766956A8B42 /* CoreText.framework */; };
+		0E6DD1BB86D24C1D9B3315DB /* GTLPlusPeopleFeed.h in Headers */ = {isa = PBXBuildFile; fileRef = DB95E28741C34E98B3AED551 /* GTLPlusPeopleFeed.h */; };
+		1205E69EAF434F97B21E1861 /* GoogleOpenSource.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D91513AFE204737A7D1E8A0 /* GoogleOpenSource.framework */; };
+		1307FDFA7F5D4FAA81025969 /* GTLFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = A89DE94A98BF42DA941CCC4E /* GTLFramework.h */; };
+		13BA968D0FB84CF98396C6AD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92BCD93C78644218997B883F /* SystemConfiguration.framework */; };
+		14A745065511436283EE07E3 /* GPPURLHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F3D1FFA623F4A649EF94FE4 /* GPPURLHandler.h */; };
+		16C51DB0328646DFAA45EC38 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 577EB21A03E4429781874C15 /* CoreGraphics.framework */; };
+		1B3D9BAD74AB42ECAB02647F /* GTMHTTPFetcherLogging.h in Headers */ = {isa = PBXBuildFile; fileRef = A096EBF861EB4AE582AD4489 /* GTMHTTPFetcherLogging.h */; };
+		22115D1D25BE4EEFB67FD832 /* GTLQueryPlus.h in Headers */ = {isa = PBXBuildFile; fileRef = 9862EC79E45C4EFAB2E4915F /* GTLQueryPlus.h */; };
+		262CBFF0CC734570A24C93B7 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD4C38A7767846E48E0FF31D /* AddressBook.framework */; };
+		26721243F4A04AFFB805D9CE /* GTMMethodCheck.h in Headers */ = {isa = PBXBuildFile; fileRef = 07BEAA103B3A4B18AC983D10 /* GTMMethodCheck.h */; };
+		269A5DB94F42461B9DD48F75 /* GTLBase64.h in Headers */ = {isa = PBXBuildFile; fileRef = F865F3A7BD4C4161A23BF994 /* GTLBase64.h */; };
+		27F0ECC2B6234D6CA892C646 /* GTLServicePlus.h in Headers */ = {isa = PBXBuildFile; fileRef = 043248C33003446E826EE208 /* GTLServicePlus.h */; };
+		28112D9FFE5146C58D7AF149 /* GTMDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AC7F7FFE20042EEBADC0C1D /* GTMDefines.h */; };
+		299685C084F84C8ABA356F24 /* GPPShare.h in Headers */ = {isa = PBXBuildFile; fileRef = EDD554D6127B46DEA5B3757A /* GPPShare.h */; };
+		2A20377B6BF747B782A21425 /* GTMOAuth2ViewControllerTouch.h in Headers */ = {isa = PBXBuildFile; fileRef = CD87B910537D4F7C8E0E2B0B /* GTMOAuth2ViewControllerTouch.h */; };
+		34FAF2FC89AA4820AC08D647 /* GTLPlusMomentsFeed.h in Headers */ = {isa = PBXBuildFile; fileRef = 5CCD8334FB324771BDDC8363 /* GTLPlusMomentsFeed.h */; };
+		372916D1FA774976A5B69F6E /* MMDrawerBarButtonItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 146C86C375EB4F88B152A4ED /* MMDrawerBarButtonItem.h */; };
+		3B9642B990264907838EAD2B /* GTLPlusComment.h in Headers */ = {isa = PBXBuildFile; fileRef = D6099F86D1EA4312AEDF6991 /* GTLPlusComment.h */; };
+		3C28730CC3EB4623B015EAB8 /* GTLService.h in Headers */ = {isa = PBXBuildFile; fileRef = 1742B753999847ECA2DC19B2 /* GTLService.h */; };
+		3C81D11B92B24EC3A0F54B7D /* GTLQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 2E6CE5B223FD4ED4B822CFE2 /* GTLQuery.h */; };
+		409BEA6731B347F095299701 /* MMDrawerVisualState.m in Sources */ = {isa = PBXBuildFile; fileRef = 375F3977128C4CA5892F2687 /* MMDrawerVisualState.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0"; }; };
+		433BC445CE9248C0BE09CC5A /* GTLDateTime.h in Headers */ = {isa = PBXBuildFile; fileRef = 88F4DA4C66A24EBE951F7D6A /* GTLDateTime.h */; };
+		436E44F5DF4747B5A9BA9A8E /* GTMLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = B53D85334E584E46AED9560F /* GTMLogger.h */; };
+		4690774416D94AD4B35AE32A /* GooglePlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4906765D1049463FA8C14FF5 /* GooglePlus.framework */; };
+		4A96EF443B42410C8BD866E0 /* GTLPlusAclentryResource.h in Headers */ = {isa = PBXBuildFile; fileRef = 25EF75282BBB4B1280B955C4 /* GTLPlusAclentryResource.h */; };
+		4B22D1939EEA445898BC66CE /* GTMNSDictionary+URLArguments.h in Headers */ = {isa = PBXBuildFile; fileRef = 8AFDA81B83EA430AA9E9D596 /* GTMNSDictionary+URLArguments.h */; };
+		4CB340C637264E25A339D9FF /* OpenInChromeController.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C975F7F13E841C78550C3D0 /* OpenInChromeController.h */; };
+		4EF993961F7849EE87C466BD /* GTLErrorObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 16C0AE1D9463402EA18899C3 /* GTLErrorObject.h */; };
+		506E5F7C74D74B9A81371F2A /* GTLPlusAcl.h in Headers */ = {isa = PBXBuildFile; fileRef = C58CF348105B434F9A6DEA56 /* GTLPlusAcl.h */; };
+		56CF16B3DCC646A296BF4E5C /* GTLUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = BA6AC52220384583BB9B32CD /* GTLUtilities.h */; };
+		58BBB00373A04B9E94FCB8F6 /* GTLUploadParameters.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A5073F4CBE14A7B99822537 /* GTLUploadParameters.h */; };
+		5B6FC5CC818E4E7BB572F7E1 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0D40B1975714021A6ACCEE5 /* Security.framework */; };
+		5B9FB6ED822841F0958A0A38 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 049184BCF8CE46CC971EED81 /* Foundation.framework */; };
+		5BC41B337AD44D45B8FC1B3A /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDDDDDBA8FD14516982FBE6E /* AssetsLibrary.framework */; };
+		5CE197F974424166B3FC013C /* Pods-Lingua-google-plus-ios-sdk-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 598033F72A284B3588A778EC /* Pods-Lingua-google-plus-ios-sdk-dummy.m */; };
+		5D8B049123CE4F789F806D2E /* GTLPlusConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = ADB27FCE21DB4404A95EC5DC /* GTLPlusConstants.h */; };
+		5E7EC7E59F4A4C7E8E824A5D /* GTLPlusItemScope.h in Headers */ = {isa = PBXBuildFile; fileRef = 6F701D80A1C644C0A470B211 /* GTLPlusItemScope.h */; };
+		62BC1369ACC74BDEA0CEEF48 /* GTLPlusPlace.h in Headers */ = {isa = PBXBuildFile; fileRef = A6AA2739964C412095F66423 /* GTLPlusPlace.h */; };
+		6407B4B6B67F49B1B53418F9 /* GTLPlusCommentFeed.h in Headers */ = {isa = PBXBuildFile; fileRef = 034A53C37CE74D3597D11456 /* GTLPlusCommentFeed.h */; };
+		6679F44B2DB84219BC78E9FE /* GPPSignInButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 94CE4D96AD684D2AB2C649C1 /* GPPSignInButton.h */; };
+		6AC060CB2161493BA51D37A9 /* GTLPlusPerson.h in Headers */ = {isa = PBXBuildFile; fileRef = 9191246254E04573BA31AB25 /* GTLPlusPerson.h */; };
+		6EA5178238BE4502A5A1EEF5 /* GTLPlusMoment.h in Headers */ = {isa = PBXBuildFile; fileRef = 6E852631570C4A02A6FC8492 /* GTLPlusMoment.h */; };
+		71A9876043C3463CAB6A2CD5 /* GooglePlus.h in Headers */ = {isa = PBXBuildFile; fileRef = DB6408D99CED4B519169D105 /* GooglePlus.h */; };
+		752210BE6C9B430BA9F8C45C /* UIViewController+MMDrawerController.m in Sources */ = {isa = PBXBuildFile; fileRef = F16ACF10DE4445A183D3308E /* UIViewController+MMDrawerController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0"; }; };
+		755BB4DF8C5E48F1BFADECF1 /* GTLJSONParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 4A6B12C7D0FB4461B13DA657 /* GTLJSONParser.h */; };
+		7611F89EA74C400B93896597 /* GTLTargetNamespace.h in Headers */ = {isa = PBXBuildFile; fileRef = 65E06C7792CC4CD9A00B940A /* GTLTargetNamespace.h */; };
+		7859EE589E224F1D824DF4A3 /* GTLPlus.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E3100F45296469DA0C531F7 /* GTLPlus.h */; };
+		7A42A3A4537749D6BA1D3BB2 /* Pods-Lingua-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B91308D3E7164268BA339627 /* Pods-Lingua-dummy.m */; };
+		835449A9BA7E4F0D9B1ADC38 /* MMDrawerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 134C09462D2B4A51A5BF95DC /* MMDrawerController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0"; }; };
+		843DA870DD7443058416FF40 /* MMDrawerBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5410E3FB679441319DCE1A0E /* MMDrawerBarButtonItem.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0"; }; };
+		84E8254E84EF4932A69E963A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 049184BCF8CE46CC971EED81 /* Foundation.framework */; };
+		8723DD6865C242819D982767 /* GTMGarbageCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = E8192AD098304EC89053F38D /* GTMGarbageCollection.h */; };
+		88D397DFA5854577942C813E /* Pods-Lingua-MMDrawerController-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FACFB76E8534FD1BCA55609 /* Pods-Lingua-MMDrawerController-dummy.m */; };
+		8A5C2543FCCF431E94CBF2BB /* GTMNSString+URLArguments.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DC49833FBB64E10BB1BFD95 /* GTMNSString+URLArguments.h */; };
+		8A5DE14000E346C88C9B14D3 /* UIViewController+MMDrawerController.h in Headers */ = {isa = PBXBuildFile; fileRef = C5BD450D84674E5CB712C2D1 /* UIViewController+MMDrawerController.h */; };
+		8C08F85C89B9422A82793665 /* GTLDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 17C15DBA6AA046DABC0B71A6 /* GTLDefines.h */; };
+		943D539F89364F4188112C3A /* GTLPlusActivityFeed.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D10921C517D48BF841AFD1C /* GTLPlusActivityFeed.h */; };
+		9446329CBFDE4157A8D53911 /* GPPDeepLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 27773A656DB749E1914A455C /* GPPDeepLink.h */; };
+		948164946F9B43C683AC28F4 /* GTMHTTPUploadFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = A47B455315D34E6AB0317917 /* GTMHTTPUploadFetcher.h */; };
+		95C7A15FAE21464B80EE21B0 /* libPods-Lingua-MMDrawerController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8C5A035E1D4AD69C2E0A19 /* libPods-Lingua-MMDrawerController.a */; };
+		9E296FA2874D4B2E9EC4507F /* GoogleOpenSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 5C68FD35E7AC47D2B4FF6FB0 /* GoogleOpenSource.h */; };
+		A071A025949C4BFBBFD4D811 /* GTMHTTPFetcherService.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C7DC6DEF81540698F016320 /* GTMHTTPFetcherService.h */; };
+		AA51C2EF14674BF7B5B22709 /* GTMHTTPFetchHistory.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C83C9692B7645EBABDF2F24 /* GTMHTTPFetchHistory.h */; };
+		AB602362595048A98F0C2060 /* GPPSignIn.h in Headers */ = {isa = PBXBuildFile; fileRef = 5811DF4241374683A1BC3276 /* GPPSignIn.h */; };
+		B7931958F3D946ABB7E65BDA /* libPods-Lingua-google-plus-ios-sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C11C92F32334B619199D4E0 /* libPods-Lingua-google-plus-ios-sdk.a */; };
+		BE932D31CA6849A8B8925B5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78CC635CD87A4C5DB6A55407 /* QuartzCore.framework */; };
+		BF469D93A56E4627B53BBEC7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 049184BCF8CE46CC971EED81 /* Foundation.framework */; };
+		C49DF94EBF434CB89CCF2759 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86E9CDCC166C473BAF49193C /* CoreMotion.framework */; };
+		C7BCE9BA71BA483E851FB6DB /* GTMObjC2Runtime.h in Headers */ = {isa = PBXBuildFile; fileRef = FD0FE776DB9D4E8DA42E231A /* GTMObjC2Runtime.h */; };
+		CAA14B0762B44533B6886F6B /* MMDrawerVisualState.h in Headers */ = {isa = PBXBuildFile; fileRef = F5D013414DB04048ABFD0B42 /* MMDrawerVisualState.h */; };
+		D702023B187F4516A73776BF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 631B19DB34884D0FAE3DD071 /* UIKit.framework */; };
+		DDC202206DC04F68951CCA95 /* GTLRuntimeCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = E125E7C1781C4C7D958EE15F /* GTLRuntimeCommon.h */; };
+		E1A9B2E042A14342A4DD352D /* GTMOAuth2SignIn.h in Headers */ = {isa = PBXBuildFile; fileRef = 1D952C876C7149EE92DFAC31 /* GTMOAuth2SignIn.h */; };
+		E466273AFA604F42A40DDA0A /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2B0989EF92643A0B08A6C76 /* MediaPlayer.framework */; };
+		E4FAD186DFD84C7C89F467C1 /* GTLObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 87D3BE4721344AC197F7DEF5 /* GTLObject.h */; };
+		E64E454146CC4F39B81565F8 /* GTLPlusActivity.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9B8A13FD6447B0A8F48964 /* GTLPlusActivity.h */; };
+		ED7C341855A64BA697E454A2 /* GTLBatchResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 1FC54D45FBFA4F5AAA5B90F9 /* GTLBatchResult.h */; };
+		EF43F23DA99F4E00BF953EE3 /* MMDrawerController.h in Headers */ = {isa = PBXBuildFile; fileRef = CE31398AE9B24FE08DA1FE8C /* MMDrawerController.h */; };
+		F05894DA083C4C0F92470F09 /* GTMOAuth2Authentication.h in Headers */ = {isa = PBXBuildFile; fileRef = 93F8095567AB405785F17306 /* GTMOAuth2Authentication.h */; };
+		F2E35B452CEC4B22807CD375 /* GTLBatchQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = C58A79B89E1344798A340FED /* GTLBatchQuery.h */; };
+		FA6A0F51B7A14886B30ECA35 /* MMDrawerController+Subclass.h in Headers */ = {isa = PBXBuildFile; fileRef = 96F03DFF1E294450A4AEC26B /* MMDrawerController+Subclass.h */; };
+		FED469C48F284F8C99C3D482 /* GTMHTTPFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = CE336357BDB94B25884AEF62 /* GTMHTTPFetcher.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		895E073D22514D12952440E2 /* PBXContainerItemProxy */ = {
+		8B7EBFEBA69B4A0891FEFBB1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = BC5F0EA0206244B2A8ACF152 /* Project object */;
+			containerPortal = 6C1B1AA1F1C94F6794DB4D12 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = E8C63888C09148CD9CF5B0EA;
+			remoteGlobalIDString = C02FB80924CF4559AD0C8817;
+			remoteInfo = "Pods-Lingua-google-plus-ios-sdk";
+		};
+		D252C7FC5B264DBAA781A23C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6C1B1AA1F1C94F6794DB4D12 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 09E516500111490C9C1D5E7D;
 			remoteInfo = "Pods-Lingua-MMDrawerController";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0103FB416725493EA08AC52A /* Pods-Lingua-MMDrawerController-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Lingua-MMDrawerController-Private.xcconfig"; sourceTree = "<group>"; };
-		04509553E08045348057EF37 /* Pods-Lingua-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Lingua-acknowledgements.plist"; sourceTree = "<group>"; };
-		12ED7DBA00164DF39C2102A1 /* Pods-Lingua-MMDrawerController.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Lingua-MMDrawerController.xcconfig"; sourceTree = "<group>"; };
-		2D75A10159E740B79B55180D /* libPods-Lingua.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Lingua.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		30ADDD7927974BC7B67AE37E /* Pods-Lingua-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Lingua-dummy.m"; sourceTree = "<group>"; };
-		4A82DD2581B243BF83DE7CAA /* MMDrawerBarButtonItem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MMDrawerBarButtonItem.h; path = MMDrawerController/MMDrawerBarButtonItem.h; sourceTree = "<group>"; };
-		6CC42C6870BD4FE7A05C5416 /* Pods-Lingua-MMDrawerController-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Lingua-MMDrawerController-prefix.pch"; sourceTree = "<group>"; };
-		71EA994497034129A0494BF3 /* UIViewController+MMDrawerController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIViewController+MMDrawerController.h"; path = "MMDrawerController/UIViewController+MMDrawerController.h"; sourceTree = "<group>"; };
-		7E6D230640C04B9BBF700D3D /* Pods-Lingua-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Lingua-acknowledgements.markdown"; sourceTree = "<group>"; };
-		8106D486F444402788DCC473 /* Pods-Lingua-MMDrawerController-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Lingua-MMDrawerController-dummy.m"; sourceTree = "<group>"; };
-		8990202F71774D56A28BDE9C /* MMDrawerVisualState.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MMDrawerVisualState.m; path = MMDrawerController/MMDrawerVisualState.m; sourceTree = "<group>"; };
-		8DE292ABB7034C4E9F3EE315 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
-		90137BADFFCB4BC5849966DC /* Pods-Lingua.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Lingua.xcconfig"; sourceTree = "<group>"; };
-		9E2A9641E68A445BB39807E1 /* MMDrawerBarButtonItem.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MMDrawerBarButtonItem.m; path = MMDrawerController/MMDrawerBarButtonItem.m; sourceTree = "<group>"; };
-		B4745761EEAF43A3AE43FF15 /* libPods-Lingua-MMDrawerController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Lingua-MMDrawerController.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		BBCAA16B9C2E4994AFC73288 /* UIViewController+MMDrawerController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+MMDrawerController.m"; path = "MMDrawerController/UIViewController+MMDrawerController.m"; sourceTree = "<group>"; };
-		C5FAD13F77ED48F7864DE611 /* Pods-Lingua-environment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Lingua-environment.h"; sourceTree = "<group>"; };
-		D01402CE682D4DA1B85FE2FA /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		D13B9F0BC3524E318A26D241 /* MMDrawerController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MMDrawerController.h; path = MMDrawerController/MMDrawerController.h; sourceTree = "<group>"; };
-		E16FE9DD3C7543159E4CC7F8 /* MMDrawerVisualState.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MMDrawerVisualState.h; path = MMDrawerController/MMDrawerVisualState.h; sourceTree = "<group>"; };
-		E3430248672D41FA91241CFF /* Pods-Lingua-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Lingua-resources.sh"; sourceTree = "<group>"; };
-		E8EED7195153462EA970D450 /* MMDrawerController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MMDrawerController.m; path = MMDrawerController/MMDrawerController.m; sourceTree = "<group>"; };
-		EEFC2244C3A1456F95F4485A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		F086C6AD414149708C9492D3 /* MMDrawerController+Subclass.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "MMDrawerController+Subclass.h"; path = "MMDrawerController/MMDrawerController+Subclass.h"; sourceTree = "<group>"; };
+		034A53C37CE74D3597D11456 /* GTLPlusCommentFeed.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTLPlusCommentFeed.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTLPlusCommentFeed.h"; sourceTree = "<group>"; };
+		0418A45FD4664B18A9F24353 /* Pods-Lingua-environment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Lingua-environment.h"; sourceTree = "<group>"; };
+		043248C33003446E826EE208 /* GTLServicePlus.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTLServicePlus.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTLServicePlus.h"; sourceTree = "<group>"; };
+		049184BCF8CE46CC971EED81 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		07BEAA103B3A4B18AC983D10 /* GTMMethodCheck.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTMMethodCheck.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTMMethodCheck.h"; sourceTree = "<group>"; };
+		11D4B33FE03C4C63AABA4ADC /* Pods-Lingua-MMDrawerController.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Lingua-MMDrawerController.xcconfig"; sourceTree = "<group>"; };
+		12D548B3FFB0462B9F0FC776 /* GooglePlus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GooglePlus.framework; path = "google-plus-ios-sdk-1.5.1/GooglePlus.framework"; sourceTree = "<group>"; };
+		134C09462D2B4A51A5BF95DC /* MMDrawerController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MMDrawerController.m; path = MMDrawerController/MMDrawerController.m; sourceTree = "<group>"; };
+		146C86C375EB4F88B152A4ED /* MMDrawerBarButtonItem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MMDrawerBarButtonItem.h; path = MMDrawerController/MMDrawerBarButtonItem.h; sourceTree = "<group>"; };
+		16C0AE1D9463402EA18899C3 /* GTLErrorObject.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTLErrorObject.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTLErrorObject.h"; sourceTree = "<group>"; };
+		1742B753999847ECA2DC19B2 /* GTLService.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTLService.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTLService.h"; sourceTree = "<group>"; };
+		17C15DBA6AA046DABC0B71A6 /* GTLDefines.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTLDefines.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTLDefines.h"; sourceTree = "<group>"; };
+		1D952C876C7149EE92DFAC31 /* GTMOAuth2SignIn.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTMOAuth2SignIn.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTMOAuth2SignIn.h"; sourceTree = "<group>"; };
+		1FC54D45FBFA4F5AAA5B90F9 /* GTLBatchResult.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTLBatchResult.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTLBatchResult.h"; sourceTree = "<group>"; };
+		25EF75282BBB4B1280B955C4 /* GTLPlusAclentryResource.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTLPlusAclentryResource.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTLPlusAclentryResource.h"; sourceTree = "<group>"; };
+		27773A656DB749E1914A455C /* GPPDeepLink.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GPPDeepLink.h; path = "google-plus-ios-sdk-1.5.1/GooglePlus.framework/Versions/A/Headers/GPPDeepLink.h"; sourceTree = "<group>"; };
+		2E6CE5B223FD4ED4B822CFE2 /* GTLQuery.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTLQuery.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTLQuery.h"; sourceTree = "<group>"; };
+		375F3977128C4CA5892F2687 /* MMDrawerVisualState.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MMDrawerVisualState.m; path = MMDrawerController/MMDrawerVisualState.m; sourceTree = "<group>"; };
+		3A473F45DFE749C09806E9B5 /* Pods-Lingua-google-plus-ios-sdk.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Lingua-google-plus-ios-sdk.xcconfig"; sourceTree = "<group>"; };
+		3D10921C517D48BF841AFD1C /* GTLPlusActivityFeed.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTLPlusActivityFeed.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTLPlusActivityFeed.h"; sourceTree = "<group>"; };
+		3F3D1FFA623F4A649EF94FE4 /* GPPURLHandler.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GPPURLHandler.h; path = "google-plus-ios-sdk-1.5.1/GooglePlus.framework/Versions/A/Headers/GPPURLHandler.h"; sourceTree = "<group>"; };
+		4906765D1049463FA8C14FF5 /* GooglePlus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GooglePlus.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/GooglePlus.framework; sourceTree = DEVELOPER_DIR; };
+		49689C5A38814766956A8B42 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/CoreText.framework; sourceTree = DEVELOPER_DIR; };
+		4A6B12C7D0FB4461B13DA657 /* GTLJSONParser.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTLJSONParser.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTLJSONParser.h"; sourceTree = "<group>"; };
+		4D91513AFE204737A7D1E8A0 /* GoogleOpenSource.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleOpenSource.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/GoogleOpenSource.framework; sourceTree = DEVELOPER_DIR; };
+		4DC49833FBB64E10BB1BFD95 /* GTMNSString+URLArguments.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "GTMNSString+URLArguments.h"; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTMNSString+URLArguments.h"; sourceTree = "<group>"; };
+		4E3100F45296469DA0C531F7 /* GTLPlus.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTLPlus.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTLPlus.h"; sourceTree = "<group>"; };
+		4F2A092AE4FF4C7DB2287796 /* libPods-Lingua.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Lingua.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4FA7C0D934E44195A8463BED /* Pods-Lingua-MMDrawerController-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Lingua-MMDrawerController-Private.xcconfig"; sourceTree = "<group>"; };
+		5079EF5E5EA248809B704385 /* Pods-Lingua-MMDrawerController-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Lingua-MMDrawerController-prefix.pch"; sourceTree = "<group>"; };
+		5410E3FB679441319DCE1A0E /* MMDrawerBarButtonItem.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MMDrawerBarButtonItem.m; path = MMDrawerController/MMDrawerBarButtonItem.m; sourceTree = "<group>"; };
+		577EB21A03E4429781874C15 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
+		5811DF4241374683A1BC3276 /* GPPSignIn.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GPPSignIn.h; path = "google-plus-ios-sdk-1.5.1/GooglePlus.framework/Versions/A/Headers/GPPSignIn.h"; sourceTree = "<group>"; };
+		598033F72A284B3588A778EC /* Pods-Lingua-google-plus-ios-sdk-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Lingua-google-plus-ios-sdk-dummy.m"; sourceTree = "<group>"; };
+		5AF478B9754A487D9EC736DD /* Pods-Lingua.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Lingua.xcconfig"; sourceTree = "<group>"; };
+		5B8D9F9CE6D3420AB5281AC3 /* Pods-Lingua-google-plus-ios-sdk-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Lingua-google-plus-ios-sdk-Private.xcconfig"; sourceTree = "<group>"; };
+		5C68FD35E7AC47D2B4FF6FB0 /* GoogleOpenSource.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GoogleOpenSource.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GoogleOpenSource.h"; sourceTree = "<group>"; };
+		5CCD8334FB324771BDDC8363 /* GTLPlusMomentsFeed.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTLPlusMomentsFeed.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTLPlusMomentsFeed.h"; sourceTree = "<group>"; };
+		5FACFB76E8534FD1BCA55609 /* Pods-Lingua-MMDrawerController-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Lingua-MMDrawerController-dummy.m"; sourceTree = "<group>"; };
+		631B19DB34884D0FAE3DD071 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		63B4A600197F4D1AA4865A32 /* Pods-Lingua-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Lingua-resources.sh"; sourceTree = "<group>"; };
+		65E06C7792CC4CD9A00B940A /* GTLTargetNamespace.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTLTargetNamespace.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTLTargetNamespace.h"; sourceTree = "<group>"; };
+		6C83C9692B7645EBABDF2F24 /* GTMHTTPFetchHistory.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTMHTTPFetchHistory.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTMHTTPFetchHistory.h"; sourceTree = "<group>"; };
+		6E852631570C4A02A6FC8492 /* GTLPlusMoment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTLPlusMoment.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTLPlusMoment.h"; sourceTree = "<group>"; };
+		6F701D80A1C644C0A470B211 /* GTLPlusItemScope.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTLPlusItemScope.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTLPlusItemScope.h"; sourceTree = "<group>"; };
+		78CC635CD87A4C5DB6A55407 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
+		7A5073F4CBE14A7B99822537 /* GTLUploadParameters.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTLUploadParameters.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTLUploadParameters.h"; sourceTree = "<group>"; };
+		7AC7F7FFE20042EEBADC0C1D /* GTMDefines.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTMDefines.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTMDefines.h"; sourceTree = "<group>"; };
+		7C975F7F13E841C78550C3D0 /* OpenInChromeController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OpenInChromeController.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/OpenInChromeController.h"; sourceTree = "<group>"; };
+		7D9143EAA16541C58D501450 /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		7F9B8A13FD6447B0A8F48964 /* GTLPlusActivity.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTLPlusActivity.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTLPlusActivity.h"; sourceTree = "<group>"; };
+		86E9CDCC166C473BAF49193C /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/CoreMotion.framework; sourceTree = DEVELOPER_DIR; };
+		87D3BE4721344AC197F7DEF5 /* GTLObject.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTLObject.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTLObject.h"; sourceTree = "<group>"; };
+		88F4DA4C66A24EBE951F7D6A /* GTLDateTime.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTLDateTime.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTLDateTime.h"; sourceTree = "<group>"; };
+		8AFDA81B83EA430AA9E9D596 /* GTMNSDictionary+URLArguments.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "GTMNSDictionary+URLArguments.h"; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTMNSDictionary+URLArguments.h"; sourceTree = "<group>"; };
+		8B8C5A035E1D4AD69C2E0A19 /* libPods-Lingua-MMDrawerController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Lingua-MMDrawerController.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C11C92F32334B619199D4E0 /* libPods-Lingua-google-plus-ios-sdk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Lingua-google-plus-ios-sdk.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C7DC6DEF81540698F016320 /* GTMHTTPFetcherService.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTMHTTPFetcherService.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTMHTTPFetcherService.h"; sourceTree = "<group>"; };
+		9191246254E04573BA31AB25 /* GTLPlusPerson.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTLPlusPerson.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTLPlusPerson.h"; sourceTree = "<group>"; };
+		92BCD93C78644218997B883F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
+		93F8095567AB405785F17306 /* GTMOAuth2Authentication.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTMOAuth2Authentication.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTMOAuth2Authentication.h"; sourceTree = "<group>"; };
+		94CE4D96AD684D2AB2C649C1 /* GPPSignInButton.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GPPSignInButton.h; path = "google-plus-ios-sdk-1.5.1/GooglePlus.framework/Versions/A/Headers/GPPSignInButton.h"; sourceTree = "<group>"; };
+		95645DA4493C4893B8FBCE11 /* Pods-Lingua-google-plus-ios-sdk-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Lingua-google-plus-ios-sdk-prefix.pch"; sourceTree = "<group>"; };
+		96F03DFF1E294450A4AEC26B /* MMDrawerController+Subclass.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "MMDrawerController+Subclass.h"; path = "MMDrawerController/MMDrawerController+Subclass.h"; sourceTree = "<group>"; };
+		9862EC79E45C4EFAB2E4915F /* GTLQueryPlus.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTLQueryPlus.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTLQueryPlus.h"; sourceTree = "<group>"; };
+		A096EBF861EB4AE582AD4489 /* GTMHTTPFetcherLogging.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTMHTTPFetcherLogging.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTMHTTPFetcherLogging.h"; sourceTree = "<group>"; };
+		A22C8EED7D7241408E95D103 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/CoreLocation.framework; sourceTree = DEVELOPER_DIR; };
+		A47B455315D34E6AB0317917 /* GTMHTTPUploadFetcher.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTMHTTPUploadFetcher.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTMHTTPUploadFetcher.h"; sourceTree = "<group>"; };
+		A6AA2739964C412095F66423 /* GTLPlusPlace.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTLPlusPlace.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTLPlusPlace.h"; sourceTree = "<group>"; };
+		A89DE94A98BF42DA941CCC4E /* GTLFramework.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTLFramework.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTLFramework.h"; sourceTree = "<group>"; };
+		ADB27FCE21DB4404A95EC5DC /* GTLPlusConstants.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTLPlusConstants.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTLPlusConstants.h"; sourceTree = "<group>"; };
+		B53D85334E584E46AED9560F /* GTMLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTMLogger.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTMLogger.h"; sourceTree = "<group>"; };
+		B91308D3E7164268BA339627 /* Pods-Lingua-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Lingua-dummy.m"; sourceTree = "<group>"; };
+		BA6AC52220384583BB9B32CD /* GTLUtilities.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTLUtilities.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTLUtilities.h"; sourceTree = "<group>"; };
+		BD4C38A7767846E48E0FF31D /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/AddressBook.framework; sourceTree = DEVELOPER_DIR; };
+		BDB16B1632504BE296B9E309 /* Pods-Lingua-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Lingua-acknowledgements.plist"; sourceTree = "<group>"; };
+		C3A2674EC1C449118F46D778 /* GooglePlus.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = GooglePlus.bundle; path = "google-plus-ios-sdk-1.5.1/GooglePlus.bundle"; sourceTree = "<group>"; };
+		C58A79B89E1344798A340FED /* GTLBatchQuery.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTLBatchQuery.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTLBatchQuery.h"; sourceTree = "<group>"; };
+		C58CF348105B434F9A6DEA56 /* GTLPlusAcl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTLPlusAcl.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTLPlusAcl.h"; sourceTree = "<group>"; };
+		C5BD450D84674E5CB712C2D1 /* UIViewController+MMDrawerController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIViewController+MMDrawerController.h"; path = "MMDrawerController/UIViewController+MMDrawerController.h"; sourceTree = "<group>"; };
+		CC7AF568987C4C8180552235 /* Pods-Lingua-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Lingua-acknowledgements.markdown"; sourceTree = "<group>"; };
+		CD87B910537D4F7C8E0E2B0B /* GTMOAuth2ViewControllerTouch.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTMOAuth2ViewControllerTouch.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTMOAuth2ViewControllerTouch.h"; sourceTree = "<group>"; };
+		CE31398AE9B24FE08DA1FE8C /* MMDrawerController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MMDrawerController.h; path = MMDrawerController/MMDrawerController.h; sourceTree = "<group>"; };
+		CE336357BDB94B25884AEF62 /* GTMHTTPFetcher.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTMHTTPFetcher.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTMHTTPFetcher.h"; sourceTree = "<group>"; };
+		D6099F86D1EA4312AEDF6991 /* GTLPlusComment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTLPlusComment.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTLPlusComment.h"; sourceTree = "<group>"; };
+		DB6408D99CED4B519169D105 /* GooglePlus.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GooglePlus.h; path = "google-plus-ios-sdk-1.5.1/GooglePlus.framework/Versions/A/Headers/GooglePlus.h"; sourceTree = "<group>"; };
+		DB95E28741C34E98B3AED551 /* GTLPlusPeopleFeed.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTLPlusPeopleFeed.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTLPlusPeopleFeed.h"; sourceTree = "<group>"; };
+		DBE8384DED974A2A8418A7C3 /* GoogleOpenSource.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleOpenSource.framework; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework"; sourceTree = "<group>"; };
+		E125E7C1781C4C7D958EE15F /* GTLRuntimeCommon.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTLRuntimeCommon.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTLRuntimeCommon.h"; sourceTree = "<group>"; };
+		E8192AD098304EC89053F38D /* GTMGarbageCollection.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTMGarbageCollection.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTMGarbageCollection.h"; sourceTree = "<group>"; };
+		EDD554D6127B46DEA5B3757A /* GPPShare.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GPPShare.h; path = "google-plus-ios-sdk-1.5.1/GooglePlus.framework/Versions/A/Headers/GPPShare.h"; sourceTree = "<group>"; };
+		EDDDDDBA8FD14516982FBE6E /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/AssetsLibrary.framework; sourceTree = DEVELOPER_DIR; };
+		F0D40B1975714021A6ACCEE5 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		F16ACF10DE4445A183D3308E /* UIViewController+MMDrawerController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+MMDrawerController.m"; path = "MMDrawerController/UIViewController+MMDrawerController.m"; sourceTree = "<group>"; };
+		F2B0989EF92643A0B08A6C76 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/MediaPlayer.framework; sourceTree = DEVELOPER_DIR; };
+		F5D013414DB04048ABFD0B42 /* MMDrawerVisualState.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MMDrawerVisualState.h; path = MMDrawerController/MMDrawerVisualState.h; sourceTree = "<group>"; };
+		F865F3A7BD4C4161A23BF994 /* GTLBase64.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTLBase64.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTLBase64.h"; sourceTree = "<group>"; };
+		FD0FE776DB9D4E8DA42E231A /* GTMObjC2Runtime.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTMObjC2Runtime.h; path = "google-plus-ios-sdk-1.5.1/GoogleOpenSource.framework/Versions/A/Headers/GTMObjC2Runtime.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		13BCED01416149138AEF43C8 /* Frameworks */ = {
+		25E31477C67E43C79F3FD2B8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A72655A26F474B59A30C0FCD /* Foundation.framework in Frameworks */,
-				BB629655572A45B1857C4436 /* QuartzCore.framework in Frameworks */,
+				84E8254E84EF4932A69E963A /* Foundation.framework in Frameworks */,
+				95C7A15FAE21464B80EE21B0 /* libPods-Lingua-MMDrawerController.a in Frameworks */,
+				B7931958F3D946ABB7E65BDA /* libPods-Lingua-google-plus-ios-sdk.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CFB68AFCE03143B5A0218273 /* Frameworks */ = {
+		3D75C71123EC48B983A6C999 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C2C1D404EDD740279BBD9290 /* Foundation.framework in Frameworks */,
-				DF176B5D8CDB4006A5407652 /* libPods-Lingua-MMDrawerController.a in Frameworks */,
+				BF469D93A56E4627B53BBEC7 /* Foundation.framework in Frameworks */,
+				BE932D31CA6849A8B8925B5D /* QuartzCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		66D28BF87CE1487A8B49DD2F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				262CBFF0CC734570A24C93B7 /* AddressBook.framework in Frameworks */,
+				5BC41B337AD44D45B8FC1B3A /* AssetsLibrary.framework in Frameworks */,
+				16C51DB0328646DFAA45EC38 /* CoreGraphics.framework in Frameworks */,
+				04067A50505249A49563F4D5 /* CoreLocation.framework in Frameworks */,
+				C49DF94EBF434CB89CCF2759 /* CoreMotion.framework in Frameworks */,
+				07C8A2E4024346EBA6D9002E /* CoreText.framework in Frameworks */,
+				5B9FB6ED822841F0958A0A38 /* Foundation.framework in Frameworks */,
+				1205E69EAF434F97B21E1861 /* GoogleOpenSource.framework in Frameworks */,
+				4690774416D94AD4B35AE32A /* GooglePlus.framework in Frameworks */,
+				E466273AFA604F42A40DDA0A /* MediaPlayer.framework in Frameworks */,
+				5B6FC5CC818E4E7BB572F7E1 /* Security.framework in Frameworks */,
+				13BA968D0FB84CF98396C6AD /* SystemConfiguration.framework in Frameworks */,
+				D702023B187F4516A73776BF /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2766EBBC9A53483786C5D1C5 /* Core */ = {
+		06B208D17B79496494D8C835 /* MMDrawerVisualStates */ = {
 			isa = PBXGroup;
 			children = (
-				D13B9F0BC3524E318A26D241 /* MMDrawerController.h */,
-				E8EED7195153462EA970D450 /* MMDrawerController.m */,
-				F086C6AD414149708C9492D3 /* MMDrawerController+Subclass.h */,
-				71EA994497034129A0494BF3 /* UIViewController+MMDrawerController.h */,
-				BBCAA16B9C2E4994AFC73288 /* UIViewController+MMDrawerController.m */,
-			);
-			name = Core;
-			sourceTree = "<group>";
-		};
-		569404EC6F8E44B8AFD1B5BC /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				5BA4D06781F141478ACDF99D /* MMDrawerController */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		5A6D186FD4834FFEB6574964 /* MMDrawerBarButtonItem */ = {
-			isa = PBXGroup;
-			children = (
-				4A82DD2581B243BF83DE7CAA /* MMDrawerBarButtonItem.h */,
-				9E2A9641E68A445BB39807E1 /* MMDrawerBarButtonItem.m */,
-			);
-			name = MMDrawerBarButtonItem;
-			sourceTree = "<group>";
-		};
-		5BA4D06781F141478ACDF99D /* MMDrawerController */ = {
-			isa = PBXGroup;
-			children = (
-				2766EBBC9A53483786C5D1C5 /* Core */,
-				5A6D186FD4834FFEB6574964 /* MMDrawerBarButtonItem */,
-				C0E006E3BEA64C5EB373A125 /* MMDrawerVisualStates */,
-				ECC8067B01F14B5E9F264DA7 /* Subclass */,
-				5D96493E105D4A03B2AF8BFE /* Support Files */,
-			);
-			path = MMDrawerController;
-			sourceTree = "<group>";
-		};
-		5D96493E105D4A03B2AF8BFE /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				12ED7DBA00164DF39C2102A1 /* Pods-Lingua-MMDrawerController.xcconfig */,
-				0103FB416725493EA08AC52A /* Pods-Lingua-MMDrawerController-Private.xcconfig */,
-				8106D486F444402788DCC473 /* Pods-Lingua-MMDrawerController-dummy.m */,
-				6CC42C6870BD4FE7A05C5416 /* Pods-Lingua-MMDrawerController-prefix.pch */,
-			);
-			name = "Support Files";
-			sourceTree = SOURCE_ROOT;
-		};
-		62ED957767EB4CADA3190F4D /* Pods-Lingua */ = {
-			isa = PBXGroup;
-			children = (
-				90137BADFFCB4BC5849966DC /* Pods-Lingua.xcconfig */,
-				7E6D230640C04B9BBF700D3D /* Pods-Lingua-acknowledgements.markdown */,
-				04509553E08045348057EF37 /* Pods-Lingua-acknowledgements.plist */,
-				30ADDD7927974BC7B67AE37E /* Pods-Lingua-dummy.m */,
-				C5FAD13F77ED48F7864DE611 /* Pods-Lingua-environment.h */,
-				E3430248672D41FA91241CFF /* Pods-Lingua-resources.sh */,
-			);
-			name = "Pods-Lingua";
-			sourceTree = "<group>";
-		};
-		778547040B17411E9E774033 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				2D75A10159E740B79B55180D /* libPods-Lingua.a */,
-				B4745761EEAF43A3AE43FF15 /* libPods-Lingua-MMDrawerController.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		B66F00467D7040F4B4E3906A /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				C89A97FA2479428F8279F1EC /* iOS */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		C0E006E3BEA64C5EB373A125 /* MMDrawerVisualStates */ = {
-			isa = PBXGroup;
-			children = (
-				E16FE9DD3C7543159E4CC7F8 /* MMDrawerVisualState.h */,
-				8990202F71774D56A28BDE9C /* MMDrawerVisualState.m */,
+				F5D013414DB04048ABFD0B42 /* MMDrawerVisualState.h */,
+				375F3977128C4CA5892F2687 /* MMDrawerVisualState.m */,
 			);
 			name = MMDrawerVisualStates;
 			sourceTree = "<group>";
 		};
-		C491827733E64EE9BA2549DE /* Targets Support Files */ = {
+		246289D3519C4046965860F8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				62ED957767EB4CADA3190F4D /* Pods-Lingua */,
+				C3A2674EC1C449118F46D778 /* GooglePlus.bundle */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		2A3CF7B32B394035A9CB5964 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DBE8384DED974A2A8418A7C3 /* GoogleOpenSource.framework */,
+				12D548B3FFB0462B9F0FC776 /* GooglePlus.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		36EBDB7CB12649B9A4FA0E45 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				11D4B33FE03C4C63AABA4ADC /* Pods-Lingua-MMDrawerController.xcconfig */,
+				4FA7C0D934E44195A8463BED /* Pods-Lingua-MMDrawerController-Private.xcconfig */,
+				5FACFB76E8534FD1BCA55609 /* Pods-Lingua-MMDrawerController-dummy.m */,
+				5079EF5E5EA248809B704385 /* Pods-Lingua-MMDrawerController-prefix.pch */,
+			);
+			name = "Support Files";
+			sourceTree = SOURCE_ROOT;
+		};
+		3CBFF1EF7EA246648D4A1198 /* MMDrawerBarButtonItem */ = {
+			isa = PBXGroup;
+			children = (
+				146C86C375EB4F88B152A4ED /* MMDrawerBarButtonItem.h */,
+				5410E3FB679441319DCE1A0E /* MMDrawerBarButtonItem.m */,
+			);
+			name = MMDrawerBarButtonItem;
+			sourceTree = "<group>";
+		};
+		3D2B579D269340DB8DF4C4AC /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				B757969AEBF241348105CD14 /* Pods-Lingua */,
 			);
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		C86306D854D7462BBB8AFECC = {
+		4FF630B6B2564DDC94C56BE4 /* MMDrawerController */ = {
 			isa = PBXGroup;
 			children = (
-				D01402CE682D4DA1B85FE2FA /* Podfile */,
-				B66F00467D7040F4B4E3906A /* Frameworks */,
-				569404EC6F8E44B8AFD1B5BC /* Pods */,
-				778547040B17411E9E774033 /* Products */,
-				C491827733E64EE9BA2549DE /* Targets Support Files */,
+				A900021141204CDB99E61B75 /* Core */,
+				3CBFF1EF7EA246648D4A1198 /* MMDrawerBarButtonItem */,
+				06B208D17B79496494D8C835 /* MMDrawerVisualStates */,
+				C7A891C538314FC2893499C2 /* Subclass */,
+				36EBDB7CB12649B9A4FA0E45 /* Support Files */,
 			);
+			path = MMDrawerController;
 			sourceTree = "<group>";
 		};
-		C89A97FA2479428F8279F1EC /* iOS */ = {
+		544247977B4147E1B3002A52 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				EEFC2244C3A1456F95F4485A /* Foundation.framework */,
-				8DE292ABB7034C4E9F3EE315 /* QuartzCore.framework */,
+				BD4C38A7767846E48E0FF31D /* AddressBook.framework */,
+				EDDDDDBA8FD14516982FBE6E /* AssetsLibrary.framework */,
+				577EB21A03E4429781874C15 /* CoreGraphics.framework */,
+				A22C8EED7D7241408E95D103 /* CoreLocation.framework */,
+				86E9CDCC166C473BAF49193C /* CoreMotion.framework */,
+				49689C5A38814766956A8B42 /* CoreText.framework */,
+				049184BCF8CE46CC971EED81 /* Foundation.framework */,
+				4D91513AFE204737A7D1E8A0 /* GoogleOpenSource.framework */,
+				4906765D1049463FA8C14FF5 /* GooglePlus.framework */,
+				F2B0989EF92643A0B08A6C76 /* MediaPlayer.framework */,
+				78CC635CD87A4C5DB6A55407 /* QuartzCore.framework */,
+				F0D40B1975714021A6ACCEE5 /* Security.framework */,
+				92BCD93C78644218997B883F /* SystemConfiguration.framework */,
+				631B19DB34884D0FAE3DD071 /* UIKit.framework */,
 			);
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		ECC8067B01F14B5E9F264DA7 /* Subclass */ = {
+		676D3B081DBA4242ACB3663D /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				3A473F45DFE749C09806E9B5 /* Pods-Lingua-google-plus-ios-sdk.xcconfig */,
+				5B8D9F9CE6D3420AB5281AC3 /* Pods-Lingua-google-plus-ios-sdk-Private.xcconfig */,
+				598033F72A284B3588A778EC /* Pods-Lingua-google-plus-ios-sdk-dummy.m */,
+				95645DA4493C4893B8FBCE11 /* Pods-Lingua-google-plus-ios-sdk-prefix.pch */,
+			);
+			name = "Support Files";
+			sourceTree = SOURCE_ROOT;
+		};
+		8B8C66E6BA6547EC8F77D163 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4FF630B6B2564DDC94C56BE4 /* MMDrawerController */,
+				FC54F2526FB34A9D943E9531 /* google-plus-ios-sdk */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		9514AFD0284B431BB2FC450C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4F2A092AE4FF4C7DB2287796 /* libPods-Lingua.a */,
+				8B8C5A035E1D4AD69C2E0A19 /* libPods-Lingua-MMDrawerController.a */,
+				8C11C92F32334B619199D4E0 /* libPods-Lingua-google-plus-ios-sdk.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A6AA469DE9AA4659AAFB5A1A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				544247977B4147E1B3002A52 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A900021141204CDB99E61B75 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				CE31398AE9B24FE08DA1FE8C /* MMDrawerController.h */,
+				134C09462D2B4A51A5BF95DC /* MMDrawerController.m */,
+				96F03DFF1E294450A4AEC26B /* MMDrawerController+Subclass.h */,
+				C5BD450D84674E5CB712C2D1 /* UIViewController+MMDrawerController.h */,
+				F16ACF10DE4445A183D3308E /* UIViewController+MMDrawerController.m */,
+			);
+			name = Core;
+			sourceTree = "<group>";
+		};
+		B757969AEBF241348105CD14 /* Pods-Lingua */ = {
+			isa = PBXGroup;
+			children = (
+				5AF478B9754A487D9EC736DD /* Pods-Lingua.xcconfig */,
+				CC7AF568987C4C8180552235 /* Pods-Lingua-acknowledgements.markdown */,
+				BDB16B1632504BE296B9E309 /* Pods-Lingua-acknowledgements.plist */,
+				B91308D3E7164268BA339627 /* Pods-Lingua-dummy.m */,
+				0418A45FD4664B18A9F24353 /* Pods-Lingua-environment.h */,
+				63B4A600197F4D1AA4865A32 /* Pods-Lingua-resources.sh */,
+			);
+			name = "Pods-Lingua";
+			sourceTree = "<group>";
+		};
+		C7A891C538314FC2893499C2 /* Subclass */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			name = Subclass;
 			sourceTree = "<group>";
 		};
+		F158C597F68D4DF6A288FB55 = {
+			isa = PBXGroup;
+			children = (
+				7D9143EAA16541C58D501450 /* Podfile */,
+				A6AA469DE9AA4659AAFB5A1A /* Frameworks */,
+				8B8C66E6BA6547EC8F77D163 /* Pods */,
+				9514AFD0284B431BB2FC450C /* Products */,
+				3D2B579D269340DB8DF4C4AC /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		FC54F2526FB34A9D943E9531 /* google-plus-ios-sdk */ = {
+			isa = PBXGroup;
+			children = (
+				27773A656DB749E1914A455C /* GPPDeepLink.h */,
+				EDD554D6127B46DEA5B3757A /* GPPShare.h */,
+				5811DF4241374683A1BC3276 /* GPPSignIn.h */,
+				94CE4D96AD684D2AB2C649C1 /* GPPSignInButton.h */,
+				3F3D1FFA623F4A649EF94FE4 /* GPPURLHandler.h */,
+				F865F3A7BD4C4161A23BF994 /* GTLBase64.h */,
+				C58A79B89E1344798A340FED /* GTLBatchQuery.h */,
+				1FC54D45FBFA4F5AAA5B90F9 /* GTLBatchResult.h */,
+				88F4DA4C66A24EBE951F7D6A /* GTLDateTime.h */,
+				17C15DBA6AA046DABC0B71A6 /* GTLDefines.h */,
+				16C0AE1D9463402EA18899C3 /* GTLErrorObject.h */,
+				A89DE94A98BF42DA941CCC4E /* GTLFramework.h */,
+				4A6B12C7D0FB4461B13DA657 /* GTLJSONParser.h */,
+				87D3BE4721344AC197F7DEF5 /* GTLObject.h */,
+				4E3100F45296469DA0C531F7 /* GTLPlus.h */,
+				C58CF348105B434F9A6DEA56 /* GTLPlusAcl.h */,
+				25EF75282BBB4B1280B955C4 /* GTLPlusAclentryResource.h */,
+				7F9B8A13FD6447B0A8F48964 /* GTLPlusActivity.h */,
+				3D10921C517D48BF841AFD1C /* GTLPlusActivityFeed.h */,
+				D6099F86D1EA4312AEDF6991 /* GTLPlusComment.h */,
+				034A53C37CE74D3597D11456 /* GTLPlusCommentFeed.h */,
+				ADB27FCE21DB4404A95EC5DC /* GTLPlusConstants.h */,
+				6F701D80A1C644C0A470B211 /* GTLPlusItemScope.h */,
+				6E852631570C4A02A6FC8492 /* GTLPlusMoment.h */,
+				5CCD8334FB324771BDDC8363 /* GTLPlusMomentsFeed.h */,
+				DB95E28741C34E98B3AED551 /* GTLPlusPeopleFeed.h */,
+				9191246254E04573BA31AB25 /* GTLPlusPerson.h */,
+				A6AA2739964C412095F66423 /* GTLPlusPlace.h */,
+				2E6CE5B223FD4ED4B822CFE2 /* GTLQuery.h */,
+				9862EC79E45C4EFAB2E4915F /* GTLQueryPlus.h */,
+				E125E7C1781C4C7D958EE15F /* GTLRuntimeCommon.h */,
+				1742B753999847ECA2DC19B2 /* GTLService.h */,
+				043248C33003446E826EE208 /* GTLServicePlus.h */,
+				65E06C7792CC4CD9A00B940A /* GTLTargetNamespace.h */,
+				7A5073F4CBE14A7B99822537 /* GTLUploadParameters.h */,
+				BA6AC52220384583BB9B32CD /* GTLUtilities.h */,
+				7AC7F7FFE20042EEBADC0C1D /* GTMDefines.h */,
+				E8192AD098304EC89053F38D /* GTMGarbageCollection.h */,
+				6C83C9692B7645EBABDF2F24 /* GTMHTTPFetchHistory.h */,
+				CE336357BDB94B25884AEF62 /* GTMHTTPFetcher.h */,
+				A096EBF861EB4AE582AD4489 /* GTMHTTPFetcherLogging.h */,
+				8C7DC6DEF81540698F016320 /* GTMHTTPFetcherService.h */,
+				A47B455315D34E6AB0317917 /* GTMHTTPUploadFetcher.h */,
+				B53D85334E584E46AED9560F /* GTMLogger.h */,
+				07BEAA103B3A4B18AC983D10 /* GTMMethodCheck.h */,
+				8AFDA81B83EA430AA9E9D596 /* GTMNSDictionary+URLArguments.h */,
+				4DC49833FBB64E10BB1BFD95 /* GTMNSString+URLArguments.h */,
+				93F8095567AB405785F17306 /* GTMOAuth2Authentication.h */,
+				1D952C876C7149EE92DFAC31 /* GTMOAuth2SignIn.h */,
+				CD87B910537D4F7C8E0E2B0B /* GTMOAuth2ViewControllerTouch.h */,
+				FD0FE776DB9D4E8DA42E231A /* GTMObjC2Runtime.h */,
+				5C68FD35E7AC47D2B4FF6FB0 /* GoogleOpenSource.h */,
+				DB6408D99CED4B519169D105 /* GooglePlus.h */,
+				7C975F7F13E841C78550C3D0 /* OpenInChromeController.h */,
+				2A3CF7B32B394035A9CB5964 /* Frameworks */,
+				246289D3519C4046965860F8 /* Resources */,
+				676D3B081DBA4242ACB3663D /* Support Files */,
+			);
+			path = "google-plus-ios-sdk";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		5F340B78289E4221AC41843F /* Headers */ = {
+		8125A1D61F274ACC81BC8AE2 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B17DA221C75C4696AB1C71C3 /* MMDrawerBarButtonItem.h in Headers */,
-				A618D464639749D581141060 /* MMDrawerController+Subclass.h in Headers */,
-				54E1F59C4C1941A4BCDDA9DD /* MMDrawerController.h in Headers */,
-				C64F36FC6F064386BBA980B9 /* MMDrawerVisualState.h in Headers */,
-				94DB217048D24536BBA5E57B /* UIViewController+MMDrawerController.h in Headers */,
+				9446329CBFDE4157A8D53911 /* GPPDeepLink.h in Headers */,
+				299685C084F84C8ABA356F24 /* GPPShare.h in Headers */,
+				AB602362595048A98F0C2060 /* GPPSignIn.h in Headers */,
+				6679F44B2DB84219BC78E9FE /* GPPSignInButton.h in Headers */,
+				14A745065511436283EE07E3 /* GPPURLHandler.h in Headers */,
+				269A5DB94F42461B9DD48F75 /* GTLBase64.h in Headers */,
+				F2E35B452CEC4B22807CD375 /* GTLBatchQuery.h in Headers */,
+				ED7C341855A64BA697E454A2 /* GTLBatchResult.h in Headers */,
+				433BC445CE9248C0BE09CC5A /* GTLDateTime.h in Headers */,
+				8C08F85C89B9422A82793665 /* GTLDefines.h in Headers */,
+				4EF993961F7849EE87C466BD /* GTLErrorObject.h in Headers */,
+				1307FDFA7F5D4FAA81025969 /* GTLFramework.h in Headers */,
+				755BB4DF8C5E48F1BFADECF1 /* GTLJSONParser.h in Headers */,
+				E4FAD186DFD84C7C89F467C1 /* GTLObject.h in Headers */,
+				7859EE589E224F1D824DF4A3 /* GTLPlus.h in Headers */,
+				506E5F7C74D74B9A81371F2A /* GTLPlusAcl.h in Headers */,
+				4A96EF443B42410C8BD866E0 /* GTLPlusAclentryResource.h in Headers */,
+				E64E454146CC4F39B81565F8 /* GTLPlusActivity.h in Headers */,
+				943D539F89364F4188112C3A /* GTLPlusActivityFeed.h in Headers */,
+				3B9642B990264907838EAD2B /* GTLPlusComment.h in Headers */,
+				6407B4B6B67F49B1B53418F9 /* GTLPlusCommentFeed.h in Headers */,
+				5D8B049123CE4F789F806D2E /* GTLPlusConstants.h in Headers */,
+				5E7EC7E59F4A4C7E8E824A5D /* GTLPlusItemScope.h in Headers */,
+				6EA5178238BE4502A5A1EEF5 /* GTLPlusMoment.h in Headers */,
+				34FAF2FC89AA4820AC08D647 /* GTLPlusMomentsFeed.h in Headers */,
+				0E6DD1BB86D24C1D9B3315DB /* GTLPlusPeopleFeed.h in Headers */,
+				6AC060CB2161493BA51D37A9 /* GTLPlusPerson.h in Headers */,
+				62BC1369ACC74BDEA0CEEF48 /* GTLPlusPlace.h in Headers */,
+				3C81D11B92B24EC3A0F54B7D /* GTLQuery.h in Headers */,
+				22115D1D25BE4EEFB67FD832 /* GTLQueryPlus.h in Headers */,
+				DDC202206DC04F68951CCA95 /* GTLRuntimeCommon.h in Headers */,
+				3C28730CC3EB4623B015EAB8 /* GTLService.h in Headers */,
+				27F0ECC2B6234D6CA892C646 /* GTLServicePlus.h in Headers */,
+				7611F89EA74C400B93896597 /* GTLTargetNamespace.h in Headers */,
+				58BBB00373A04B9E94FCB8F6 /* GTLUploadParameters.h in Headers */,
+				56CF16B3DCC646A296BF4E5C /* GTLUtilities.h in Headers */,
+				28112D9FFE5146C58D7AF149 /* GTMDefines.h in Headers */,
+				8723DD6865C242819D982767 /* GTMGarbageCollection.h in Headers */,
+				AA51C2EF14674BF7B5B22709 /* GTMHTTPFetchHistory.h in Headers */,
+				FED469C48F284F8C99C3D482 /* GTMHTTPFetcher.h in Headers */,
+				1B3D9BAD74AB42ECAB02647F /* GTMHTTPFetcherLogging.h in Headers */,
+				A071A025949C4BFBBFD4D811 /* GTMHTTPFetcherService.h in Headers */,
+				948164946F9B43C683AC28F4 /* GTMHTTPUploadFetcher.h in Headers */,
+				436E44F5DF4747B5A9BA9A8E /* GTMLogger.h in Headers */,
+				26721243F4A04AFFB805D9CE /* GTMMethodCheck.h in Headers */,
+				4B22D1939EEA445898BC66CE /* GTMNSDictionary+URLArguments.h in Headers */,
+				8A5C2543FCCF431E94CBF2BB /* GTMNSString+URLArguments.h in Headers */,
+				F05894DA083C4C0F92470F09 /* GTMOAuth2Authentication.h in Headers */,
+				E1A9B2E042A14342A4DD352D /* GTMOAuth2SignIn.h in Headers */,
+				2A20377B6BF747B782A21425 /* GTMOAuth2ViewControllerTouch.h in Headers */,
+				C7BCE9BA71BA483E851FB6DB /* GTMObjC2Runtime.h in Headers */,
+				9E296FA2874D4B2E9EC4507F /* GoogleOpenSource.h in Headers */,
+				71A9876043C3463CAB6A2CD5 /* GooglePlus.h in Headers */,
+				4CB340C637264E25A339D9FF /* OpenInChromeController.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B4AAF9175013415FA58693D7 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				372916D1FA774976A5B69F6E /* MMDrawerBarButtonItem.h in Headers */,
+				FA6A0F51B7A14886B30ECA35 /* MMDrawerController+Subclass.h in Headers */,
+				EF43F23DA99F4E00BF953EE3 /* MMDrawerController.h in Headers */,
+				CAA14B0762B44533B6886F6B /* MMDrawerVisualState.h in Headers */,
+				8A5DE14000E346C88C9B14D3 /* UIViewController+MMDrawerController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		CA33A4900CA94FB7BDD17D0D /* Pods-Lingua */ = {
+		09E516500111490C9C1D5E7D /* Pods-Lingua-MMDrawerController */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A0ACF3094E8B424C83DEB7B9 /* Build configuration list for PBXNativeTarget "Pods-Lingua" */;
+			buildConfigurationList = 4F222E195EBD4595BF9F1B46 /* Build configuration list for PBXNativeTarget "Pods-Lingua-MMDrawerController" */;
 			buildPhases = (
-				CFDD0961691E4F55AC254AE3 /* Sources */,
-				CFB68AFCE03143B5A0218273 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				E9B2EA97E17A44849DDCBB38 /* PBXTargetDependency */,
-			);
-			name = "Pods-Lingua";
-			productName = "Pods-Lingua";
-			productReference = 2D75A10159E740B79B55180D /* libPods-Lingua.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		E8C63888C09148CD9CF5B0EA /* Pods-Lingua-MMDrawerController */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 53614F5C351B412CB120E536 /* Build configuration list for PBXNativeTarget "Pods-Lingua-MMDrawerController" */;
-			buildPhases = (
-				0DA4EB81BDCD424FB9BD6ED6 /* Sources */,
-				13BCED01416149138AEF43C8 /* Frameworks */,
-				5F340B78289E4221AC41843F /* Headers */,
+				64FE985F61D2456BB0E25E60 /* Sources */,
+				3D75C71123EC48B983A6C999 /* Frameworks */,
+				B4AAF9175013415FA58693D7 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -258,97 +579,149 @@
 			);
 			name = "Pods-Lingua-MMDrawerController";
 			productName = "Pods-Lingua-MMDrawerController";
-			productReference = B4745761EEAF43A3AE43FF15 /* libPods-Lingua-MMDrawerController.a */;
+			productReference = 8B8C5A035E1D4AD69C2E0A19 /* libPods-Lingua-MMDrawerController.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		60F1F6B9E2754C51A2780BA0 /* Pods-Lingua */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 326743AB8F824CCEA259F894 /* Build configuration list for PBXNativeTarget "Pods-Lingua" */;
+			buildPhases = (
+				4D7569318D5E40EEB1E72D9C /* Sources */,
+				25E31477C67E43C79F3FD2B8 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7089A4AD8ADA4A6880B63C88 /* PBXTargetDependency */,
+				A880C8437E55409AB8BA78F8 /* PBXTargetDependency */,
+			);
+			name = "Pods-Lingua";
+			productName = "Pods-Lingua";
+			productReference = 4F2A092AE4FF4C7DB2287796 /* libPods-Lingua.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		C02FB80924CF4559AD0C8817 /* Pods-Lingua-google-plus-ios-sdk */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 07934C82599747CBA4861E44 /* Build configuration list for PBXNativeTarget "Pods-Lingua-google-plus-ios-sdk" */;
+			buildPhases = (
+				78B04A07EE0F4D21B4819B27 /* Sources */,
+				66D28BF87CE1487A8B49DD2F /* Frameworks */,
+				8125A1D61F274ACC81BC8AE2 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-Lingua-google-plus-ios-sdk";
+			productName = "Pods-Lingua-google-plus-ios-sdk";
+			productReference = 8C11C92F32334B619199D4E0 /* libPods-Lingua-google-plus-ios-sdk.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		BC5F0EA0206244B2A8ACF152 /* Project object */ = {
+		6C1B1AA1F1C94F6794DB4D12 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0600;
 			};
-			buildConfigurationList = A9AC2EB194414EC1ADB2A380 /* Build configuration list for PBXProject "Pods" */;
+			buildConfigurationList = 33AEE4854A6A4EA2B63D7116 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = C86306D854D7462BBB8AFECC;
-			productRefGroup = 778547040B17411E9E774033 /* Products */;
+			mainGroup = F158C597F68D4DF6A288FB55;
+			productRefGroup = 9514AFD0284B431BB2FC450C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				CA33A4900CA94FB7BDD17D0D /* Pods-Lingua */,
-				E8C63888C09148CD9CF5B0EA /* Pods-Lingua-MMDrawerController */,
+				60F1F6B9E2754C51A2780BA0 /* Pods-Lingua */,
+				09E516500111490C9C1D5E7D /* Pods-Lingua-MMDrawerController */,
+				C02FB80924CF4559AD0C8817 /* Pods-Lingua-google-plus-ios-sdk */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		0DA4EB81BDCD424FB9BD6ED6 /* Sources */ = {
+		4D7569318D5E40EEB1E72D9C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				91F7686C769449058CBC5143 /* MMDrawerBarButtonItem.m in Sources */,
-				0BEE132521344BE386B404BA /* MMDrawerController.m in Sources */,
-				BA05033648B94942AE460361 /* MMDrawerVisualState.m in Sources */,
-				794328DCFFF74FFEABE9FD38 /* Pods-Lingua-MMDrawerController-dummy.m in Sources */,
-				51352C17CA304231B5BABB05 /* UIViewController+MMDrawerController.m in Sources */,
+				7A42A3A4537749D6BA1D3BB2 /* Pods-Lingua-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CFDD0961691E4F55AC254AE3 /* Sources */ = {
+		64FE985F61D2456BB0E25E60 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E3F126D00DCA4FD6812E0F14 /* Pods-Lingua-dummy.m in Sources */,
+				843DA870DD7443058416FF40 /* MMDrawerBarButtonItem.m in Sources */,
+				835449A9BA7E4F0D9B1ADC38 /* MMDrawerController.m in Sources */,
+				409BEA6731B347F095299701 /* MMDrawerVisualState.m in Sources */,
+				88D397DFA5854577942C813E /* Pods-Lingua-MMDrawerController-dummy.m in Sources */,
+				752210BE6C9B430BA9F8C45C /* UIViewController+MMDrawerController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		78B04A07EE0F4D21B4819B27 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5CE197F974424166B3FC013C /* Pods-Lingua-google-plus-ios-sdk-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		E9B2EA97E17A44849DDCBB38 /* PBXTargetDependency */ = {
+		7089A4AD8ADA4A6880B63C88 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = E8C63888C09148CD9CF5B0EA /* Pods-Lingua-MMDrawerController */;
-			targetProxy = 895E073D22514D12952440E2 /* PBXContainerItemProxy */;
+			target = 09E516500111490C9C1D5E7D /* Pods-Lingua-MMDrawerController */;
+			targetProxy = D252C7FC5B264DBAA781A23C /* PBXContainerItemProxy */;
+		};
+		A880C8437E55409AB8BA78F8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C02FB80924CF4559AD0C8817 /* Pods-Lingua-google-plus-ios-sdk */;
+			targetProxy = 8B7EBFEBA69B4A0891FEFBB1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		45BCD6F7911E4FBAA9C068AF /* Debug */ = {
+		01005E50C9534CB3AF9C6667 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 90137BADFFCB4BC5849966DC /* Pods-Lingua.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
 				COPY_PHASE_STRIP = NO;
-				DSTROOT = /tmp/xcodeproj.dst;
+				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+				VALIDATE_PRODUCT = YES;
 			};
-			name = Debug;
+			name = Release;
 		};
-		74ED1552B3394F49AE866208 /* Debug */ = {
+		26E853A0EB544436ADA07E54 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0103FB416725493EA08AC52A /* Pods-Lingua-MMDrawerController-Private.xcconfig */;
+			baseConfigurationReference = 4FA7C0D934E44195A8463BED /* Pods-Lingua-MMDrawerController-Private.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
@@ -374,16 +747,16 @@
 			};
 			name = Debug;
 		};
-		7DFEF4C1D60A498B8AA56D82 /* Release */ = {
+		4936EABFF42E4312B60FE00D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0103FB416725493EA08AC52A /* Pods-Lingua-MMDrawerController-Private.xcconfig */;
+			baseConfigurationReference = 5B8D9F9CE6D3420AB5281AC3 /* Pods-Lingua-google-plus-ios-sdk-Private.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/xcodeproj.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Pods-Lingua-MMDrawerController-prefix.pch";
+				GCC_PREFIX_HEADER = "Pods-Lingua-google-plus-ios-sdk-prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -404,36 +777,35 @@
 			};
 			name = Release;
 		};
-		AFFDD6A14372478DBF33815F /* Release */ = {
+		6277914E9E2645239A630DEE /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 90137BADFFCB4BC5849966DC /* Pods-Lingua.xcconfig */;
+			baseConfigurationReference = 5B8D9F9CE6D3420AB5281AC3 /* Pods-Lingua-google-plus-ios-sdk-Private.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
+				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/xcodeproj.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Pods-Lingua-google-plus-ios-sdk-prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				OTHER_CFLAGS = (
-					"-DNS_BLOCK_ASSERTIONS=1",
-					"$(inherited)",
-				);
-				OTHER_CPLUSPLUSFLAGS = (
-					"-DNS_BLOCK_ASSERTIONS=1",
-					"$(inherited)",
-				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				VALIDATE_PRODUCT = YES;
 			};
-			name = Release;
+			name = Debug;
 		};
-		CF1AABF599BC4F99AAF256B8 /* Debug */ = {
+		79ECD50E75A84F7397E73A33 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -469,67 +841,132 @@
 			};
 			name = Debug;
 		};
-		D548E7332234447AB5EA11EE /* Release */ = {
+		8AE2271636F540CCAD6202B5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5AF478B9754A487D9EC736DD /* Pods-Lingua.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = NO;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES;
-				COPY_PHASE_STRIP = NO;
-				ENABLE_NS_ASSERTIONS = NO;
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/xcodeproj.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				STRIP_INSTALLED_PRODUCT = NO;
+				OTHER_CFLAGS = (
+					"-DNS_BLOCK_ASSERTIONS=1",
+					"$(inherited)",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-DNS_BLOCK_ASSERTIONS=1",
+					"$(inherited)",
+				);
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
+		AAB4F281768B42AC95F280D0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4FA7C0D934E44195A8463BED /* Pods-Lingua-MMDrawerController-Private.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/xcodeproj.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Pods-Lingua-MMDrawerController-prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_CFLAGS = (
+					"-DNS_BLOCK_ASSERTIONS=1",
+					"$(inherited)",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-DNS_BLOCK_ASSERTIONS=1",
+					"$(inherited)",
+				);
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E503237A36294757BB2A51F1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5AF478B9754A487D9EC736DD /* Pods-Lingua.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/xcodeproj.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		53614F5C351B412CB120E536 /* Build configuration list for PBXNativeTarget "Pods-Lingua-MMDrawerController" */ = {
+		07934C82599747CBA4861E44 /* Build configuration list for PBXNativeTarget "Pods-Lingua-google-plus-ios-sdk" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				74ED1552B3394F49AE866208 /* Debug */,
-				7DFEF4C1D60A498B8AA56D82 /* Release */,
+				6277914E9E2645239A630DEE /* Debug */,
+				4936EABFF42E4312B60FE00D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A0ACF3094E8B424C83DEB7B9 /* Build configuration list for PBXNativeTarget "Pods-Lingua" */ = {
+		326743AB8F824CCEA259F894 /* Build configuration list for PBXNativeTarget "Pods-Lingua" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				45BCD6F7911E4FBAA9C068AF /* Debug */,
-				AFFDD6A14372478DBF33815F /* Release */,
+				E503237A36294757BB2A51F1 /* Debug */,
+				8AE2271636F540CCAD6202B5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A9AC2EB194414EC1ADB2A380 /* Build configuration list for PBXProject "Pods" */ = {
+		33AEE4854A6A4EA2B63D7116 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CF1AABF599BC4F99AAF256B8 /* Debug */,
-				D548E7332234447AB5EA11EE /* Release */,
+				79ECD50E75A84F7397E73A33 /* Debug */,
+				01005E50C9534CB3AF9C6667 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4F222E195EBD4595BF9F1B46 /* Build configuration list for PBXNativeTarget "Pods-Lingua-MMDrawerController" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				26E853A0EB544436ADA07E54 /* Debug */,
+				AAB4F281768B42AC95F280D0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = BC5F0EA0206244B2A8ACF152 /* Project object */;
+	rootObject = 6C1B1AA1F1C94F6794DB4D12 /* Project object */;
 }

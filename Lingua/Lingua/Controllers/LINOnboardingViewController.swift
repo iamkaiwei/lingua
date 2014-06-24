@@ -10,10 +10,14 @@ import UIKit
 
 class LINOnboardingViewController: UIViewController {
     
+    let kClientId = "749496516991-rn2ks5ka1jdbm7l040d0mhs4v0pja35j.apps.googleusercontent.com"
+    let signIn = GPPSignIn.sharedInstance()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         prepareOnboarding()
+        configureGPPSignIn()
     }
     
     func prepareOnboarding() {
@@ -42,11 +46,47 @@ class LINOnboardingViewController: UIViewController {
         
         onboarding.contentSize = CGSizeMake(CGRectGetMaxX(frame), CGRectGetHeight(frame))
     }
+    
+    func configureGPPSignIn() {
+//        let signIn = GPPSignIn.sharedInstance()
+        signIn.shouldFetchGooglePlusUser = true
+        signIn.shouldFetchGoogleUserEmail = true
+        signIn.clientID = kClientId;
+        signIn.scopes = [kGTLAuthScopePlusLogin];
+//        signIn.scopes = [ "profile" ]
+        signIn.delegate = self;
+        signIn.trySilentAuthentication()
+    }
 }
 
 extension LINOnboardingViewController: LINLoginViewDelegate {
     
-    func loginView(loginView: LINLoginView, didLoginWithOption: LoginOptions) {
-        performSegueWithIdentifier("kPickLearningViewControllerSegue", sender: self)
+    func loginView(loginView: LINLoginView, option: LoginOptions) {
+        switch option {
+        case .Google:
+            signIn.authenticate()
+        case .Facebook:
+            performSegueWithIdentifier("kPickLearningViewControllerSegue", sender: self)
+            
+        default: break
+        }
     }
 }
+
+extension LINOnboardingViewController: GPPSignInDelegate {
+    
+    func finishedWithAuth(auth: GTMOAuth2Authentication, error: NSError) {
+        if error != nil {
+            println("Received error \(error) and auth object \(auth)")
+        } else {
+            performSegueWithIdentifier("kPickLearningViewControllerSegue", sender: self)
+        }
+    }
+
+    func presentSignInViewController(viewController: UIViewController!) {
+        navigationController.pushViewController(viewController, animated: true)
+    }
+}
+
+
+

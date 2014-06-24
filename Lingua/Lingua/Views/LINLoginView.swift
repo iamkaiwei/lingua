@@ -13,7 +13,7 @@ enum LoginOptions {
 }
 
 protocol LINLoginViewDelegate {
-    func loginView(loginView: LINLoginView, didLoginWithOption: LoginOptions)
+    func loginView(loginView: LINLoginView, option didLoginWithOption: LoginOptions)
 }
 
 class LINLoginView: UIView {
@@ -31,11 +31,11 @@ class LINLoginView: UIView {
     }
     
     @IBAction func loginWithGoogle(sender: UIButton) {
-        delegate?.loginView(self, didLoginWithOption: .Google)
+        delegate?.loginView(self, option: .Google)
     }
     
     @IBAction func loginWithFacebook(sender: UIButton) {
-        delegate?.loginView(self, didLoginWithOption: .Facebook)
+        delegate?.loginView(self, option: .Facebook)
     }
     
 }
