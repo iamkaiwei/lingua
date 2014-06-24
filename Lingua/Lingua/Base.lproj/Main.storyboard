@@ -15,11 +15,28 @@
                     <view key="view" contentMode="scaleToFill" id="n4l-lf-0j8">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bFN-4b-efp">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="568" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XPY-bz-cFK">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                            </scrollView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="XPY-bz-cFK" secondAttribute="bottom" id="DeT-Ml-Dr3"/>
+                            <constraint firstItem="XPY-bz-cFK" firstAttribute="leading" secondItem="n4l-lf-0j8" secondAttribute="leading" id="IWz-ar-xmz"/>
+                            <constraint firstItem="XPY-bz-cFK" firstAttribute="top" secondItem="n4l-lf-0j8" secondAttribute="top" id="i6A-5z-hwc"/>
+                            <constraint firstAttribute="trailing" secondItem="XPY-bz-cFK" secondAttribute="trailing" id="lQ6-tn-9nw"/>
+                        </constraints>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <navigationItem key="navigationItem" id="UNd-Ce-1s5"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
+                        <outlet property="onboardingView" destination="XPY-bz-cFK" id="gxd-zx-Zzn"/>
                         <segue destination="pMG-Yl-g1n" kind="show" identifier="kPickLearningViewControllerSegue" id="buJ-7z-Da1"/>
                     </connections>
                 </viewController>
