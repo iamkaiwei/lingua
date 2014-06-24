@@ -30,6 +30,12 @@
 				<string>com.2359Media.Lingua</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb513628412097612</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
@@ -41,5 +47,9 @@
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>FacebookAppID</key>
+	<string>513628412097612</string>
+	<key>FacebookDisplayName</key>
+	<string>Lingua</string>
 </dict>
 </plist>

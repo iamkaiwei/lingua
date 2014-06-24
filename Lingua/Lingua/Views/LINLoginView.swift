@@ -18,6 +18,8 @@ protocol LINLoginViewDelegate {
 
 class LINLoginView: UIView {
     
+    @IBOutlet var facebookLoginView: FBLoginView
+    
     var delegate: LINLoginViewDelegate?
     
     init(coder aDecoder: NSCoder!)
