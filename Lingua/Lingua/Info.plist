@@ -51,5 +51,12 @@
 	<string>513628412097612</string>
 	<key>FacebookDisplayName</key>
 	<string>Lingua</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>RobotoSlab-Bold.ttf</string>
+		<string>RobotoSlab-Light.ttf</string>
+		<string>RobotoSlab-Regular.ttf</string>
+		<string>RobotoSlab-Thin.ttf</string>
+	</array>
 </dict>
 </plist>
