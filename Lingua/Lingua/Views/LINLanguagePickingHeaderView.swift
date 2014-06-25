@@ -9,15 +9,18 @@
 import UIKit
 
 protocol LINLanguagePickingHeaderViewDelegate {
-    func didTapShow(header: LINLanguagePickingHeaderView)
+    func didTapHeader(header: LINLanguagePickingHeaderView)
 }
 
 class LINLanguagePickingHeaderView: UIView {
 
-    @IBOutlet var title: UILabel
+    @IBOutlet var titleLabel: UILabel
+    @IBOutlet var bottomLine: UIView
+    @IBOutlet var accessoryImage: UIImageView
     
     class func totalSection() -> Int { return 3 }
-    class func heightForHeader() -> CGFloat { return 50 }
+    class func heightForOpenHeader() -> CGFloat { return 50 }
+    class func heightForClosedHeader() -> CGFloat { return 49 }
     
     var delegate: LINLanguagePickingHeaderViewDelegate?
     var index = 0
@@ -30,10 +33,13 @@ class LINLanguagePickingHeaderView: UIView {
     init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(UINib(nibName: "LINLanguagePickingHeaderView", bundle: nil).instantiateWithOwner(self, options: nil)[0] as UIView)
-        title.text = ""
+        titleLabel.text = ""
+        titleLabel.font = UIFont.appRegularFontWithSize(17)
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: "didTapHeader"))
     }
 
-    @IBAction func didTapShowButton(sender: UIButton) {
-        delegate?.didTapShow(self)
+    func didTapHeader() {
+        delegate?.didTapHeader(self)
+//        accessoryImage.transform = CGAffineTransformMakeRotation(180)
     }
 }
