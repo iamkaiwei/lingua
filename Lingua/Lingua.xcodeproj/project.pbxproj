@@ -16,6 +16,7 @@
 		207630B4195ABFA600D23B2A /* RobotoSlab-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 207630B0195ABFA600D23B2A /* RobotoSlab-Light.ttf */; };
 		207630B5195ABFA600D23B2A /* RobotoSlab-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 207630B1195ABFA600D23B2A /* RobotoSlab-Regular.ttf */; };
 		207630B6195ABFA600D23B2A /* RobotoSlab-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 207630B2195ABFA600D23B2A /* RobotoSlab-Thin.ttf */; };
+		207630B9195AC19800D23B2A /* Font-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207630B8195AC19800D23B2A /* Font-Extensions.swift */; };
 		2082DEEF1957123E009ADF45 /* LINLanguagePickingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2082DEEE1957123E009ADF45 /* LINLanguagePickingHeaderView.swift */; };
 		2082DEF11957127F009ADF45 /* LINLanguagePickingHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2082DEF01957127F009ADF45 /* LINLanguagePickingHeaderView.xib */; };
 		2082DEF319575A55009ADF45 /* LINPickNativeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2082DEF219575A55009ADF45 /* LINPickNativeViewController.swift */; };
@@ -54,6 +55,7 @@
 		207630B0195ABFA600D23B2A /* RobotoSlab-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSlab-Light.ttf"; sourceTree = "<group>"; };
 		207630B1195ABFA600D23B2A /* RobotoSlab-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSlab-Regular.ttf"; sourceTree = "<group>"; };
 		207630B2195ABFA600D23B2A /* RobotoSlab-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSlab-Thin.ttf"; sourceTree = "<group>"; };
+		207630B8195AC19800D23B2A /* Font-Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Font-Extensions.swift"; sourceTree = "<group>"; };
 		2082DEEE1957123E009ADF45 /* LINLanguagePickingHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINLanguagePickingHeaderView.swift; sourceTree = "<group>"; };
 		2082DEF01957127F009ADF45 /* LINLanguagePickingHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LINLanguagePickingHeaderView.xib; sourceTree = "<group>"; };
 		2082DEF219575A55009ADF45 /* LINPickNativeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINPickNativeViewController.swift; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 		20448A7B1954301A00AC639A /* Lingua */ = {
 			isa = PBXGroup;
 			children = (
+				207630B7195AC17700D23B2A /* Extensions */,
 				207630AE195ABE8400D23B2A /* Fonts */,
 				20D484A71956D36D007B4E96 /* Models */,
 				20D484A81956D36D007B4E96 /* Vendors */,
@@ -159,6 +162,14 @@
 				207630B2195ABFA600D23B2A /* RobotoSlab-Thin.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		207630B7195AC17700D23B2A /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				207630B8195AC19800D23B2A /* Font-Extensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		20D4849F1956D350007B4E96 /* Views */ = {
@@ -352,6 +363,7 @@
 				20BFCCEB1956E1C400A86C2E /* LINPickLearningViewController.swift in Sources */,
 				20BF3FA91957EAAA00963B1F /* LINMyProfileViewController.swift in Sources */,
 				20D484A21956D350007B4E96 /* LINLoginView.swift in Sources */,
+				207630B9195AC19800D23B2A /* Font-Extensions.swift in Sources */,
 				20448A7F1954301A00AC639A /* AppDelegate.swift in Sources */,
 				2082DEEF1957123E009ADF45 /* LINLanguagePickingHeaderView.swift in Sources */,
 				20448A821954301A00AC639A /* Lingua.xcdatamodeld in Sources */,

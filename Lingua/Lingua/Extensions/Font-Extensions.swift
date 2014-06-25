@@ -7,3 +7,21 @@
 //
 
 import Foundation
+
+extension UIFont {
+    class func appBoldFontWithSize(size: CGFloat) -> UIFont {
+        return UIFont(name: "RobotoSlab-Bold", size: size)
+    }
+    
+    class func appLightFontWithSize(size: CGFloat) -> UIFont {
+        return UIFont(name: "RobotoSlab-Light", size: size)
+    }
+    
+    class func appRegularFontWithSize(size: CGFloat) -> UIFont {
+        return UIFont(name: "RobotoSlab-Regular", size: size)
+    }
+    
+    class func appThinFontWithSize(size: CGFloat) -> UIFont {
+        return UIFont(name: "RobotoSlab-Thin", size: size)
+    }
+}

@@ -19,6 +19,7 @@ protocol LINLoginViewDelegate {
 class LINLoginView: UIView {
     
     @IBOutlet var facebookLoginView: FBLoginView
+    @IBOutlet var titleLabel: UILabel
     
     var delegate: LINLoginViewDelegate?
     
@@ -30,7 +31,9 @@ class LINLoginView: UIView {
     init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(UINib(nibName: "LINLoginView", bundle: nil).instantiateWithOwner(self, options: nil)[0] as UIView)
+        titleLabel.font = UIFont.appBoldFontWithSize(25)
     }
+    
     
     @IBAction func loginWithGoogle(sender: UIButton) {
         delegate?.loginView(self, option: .Google)

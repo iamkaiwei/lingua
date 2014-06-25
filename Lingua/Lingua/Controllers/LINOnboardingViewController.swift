@@ -15,6 +15,7 @@ class LINOnboardingViewController: UIViewController {
     
     @IBOutlet var onboardingView: UIScrollView
     @IBOutlet var pageControl : UIPageControl
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -103,6 +104,7 @@ extension LINOnboardingViewController: FBLoginViewDelegate {
     
     func loginViewFetchedUserInfo(loginView: FBLoginView!, user: FBGraphUser) {
         performSegueWithIdentifier("kPickLearningViewControllerSegue", sender: self)
+        FBSession.activeSession().closeAndClearTokenInformation() //This line is just for avoiding automatically log in with facebook.
     }
     
 }

@@ -17,7 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: NSDictionary?) -> Bool {
         // Override point for customization after application launch.
-        FBSession.activeSession().closeAndClearTokenInformation() //This line is just for avoiding automatically log in with facebook.
         
         return true
     }

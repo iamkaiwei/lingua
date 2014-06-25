@@ -26,13 +26,14 @@
                                     <outlet property="delegate" destination="dqY-2I-veF" id="LwI-Nr-mDX"/>
                                 </connections>
                             </scrollView>
-                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="4" translatesAutoresizingMaskIntoConstraints="NO" id="Qsm-s3-byh">
+                            <pageControl opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="4" translatesAutoresizingMaskIntoConstraints="NO" id="Qsm-s3-byh">
                                 <rect key="frame" x="203" y="423" width="74" height="37"/>
                                 <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="37" id="sHg-Xm-wWh"/>
                                     <constraint firstAttribute="width" constant="74" id="yOJ-yL-dkm"/>
                                 </constraints>
+                                <color key="pageIndicatorTintColor" red="0.0" green="0.36910615808823527" blue="0.36910615808823527" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="currentPageIndicatorTintColor" red="1" green="0.49659522804054029" blue="0.48983847128378372" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </pageControl>
                         </subviews>
