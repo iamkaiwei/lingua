@@ -14,7 +14,7 @@ class LINOnboardingViewController: UIViewController {
     let GPPSignInInstance = GPPSignIn.sharedInstance()
     
     @IBOutlet var onboardingView: UIScrollView
-    
+    @IBOutlet var pageControl : UIPageControl
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -58,6 +58,13 @@ class LINOnboardingViewController: UIViewController {
     
     func configureFacebookLogin() {
         
+    }
+}
+
+extension LINOnboardingViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(scrollView: UIScrollView!) {
+        pageControl.currentPage = Int(scrollView.contentOffset.x / CGRectGetWidth(scrollView.frame));
     }
 }
 
