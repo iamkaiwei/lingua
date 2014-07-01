@@ -11,3 +11,5 @@
 #import "GooglePlus/GooglePlus.h"
 #import <GoogleOpenSource/GoogleOpenSource.h>
 #import <FacebookSDK/FacebookSDK.h>
+#import <Pusher/Pusher.h>
+#import <Pusher/PTPusherChannel.h>

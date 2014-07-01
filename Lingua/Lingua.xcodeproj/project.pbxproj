@@ -28,6 +28,7 @@
 		20D484A21956D350007B4E96 /* LINLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D484A01956D350007B4E96 /* LINLoginView.swift */; };
 		20D484A31956D350007B4E96 /* LINLoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 20D484A11956D350007B4E96 /* LINLoginView.xib */; };
 		20D484A61956D35D007B4E96 /* LINOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D484A51956D35D007B4E96 /* LINOnboardingViewController.swift */; };
+		92F316801962AB75002005B9 /* PusherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F3167F1962AB75002005B9 /* PusherManager.swift */; };
 		9EB1574369304B35A905E882 /* libPods-Lingua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E5B35F1B8D924BC3AAC02042 /* libPods-Lingua.a */; };
 /* End PBXBuildFile section */
 
@@ -69,6 +70,7 @@
 		20D484A11956D350007B4E96 /* LINLoginView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LINLoginView.xib; sourceTree = "<group>"; };
 		20D484A51956D35D007B4E96 /* LINOnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINOnboardingViewController.swift; sourceTree = "<group>"; };
 		727430CFF7FE45A4B73AC815 /* Pods-Lingua.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lingua.xcconfig"; path = "Pods/Pods-Lingua.xcconfig"; sourceTree = "<group>"; };
+		92F3167F1962AB75002005B9 /* PusherManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PusherManager.swift; sourceTree = "<group>"; };
 		E5B35F1B8D924BC3AAC02042 /* libPods-Lingua.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Lingua.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -120,6 +122,7 @@
 				20D484A81956D36D007B4E96 /* Vendors */,
 				20D484A41956D35D007B4E96 /* Controllers */,
 				20D4849F1956D350007B4E96 /* Views */,
+				92F3167E1962AB45002005B9 /* Managers */,
 				20448A881954301A00AC639A /* Images.xcassets */,
 				20448A801954301A00AC639A /* Lingua.xcdatamodeld */,
 				20448A7C1954301A00AC639A /* Supporting Files */,
@@ -211,6 +214,14 @@
 			children = (
 			);
 			path = Vendors;
+			sourceTree = "<group>";
+		};
+		92F3167E1962AB45002005B9 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				92F3167F1962AB75002005B9 /* PusherManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		CFFA1F0014D9434085221D84 /* Frameworks */ = {
@@ -371,6 +382,7 @@
 				20448A7F1954301A00AC639A /* AppDelegate.swift in Sources */,
 				2082DEEF1957123E009ADF45 /* LINLanguagePickingHeaderView.swift in Sources */,
 				20448A821954301A00AC639A /* Lingua.xcdatamodeld in Sources */,
+				92F316801962AB75002005B9 /* PusherManager.swift in Sources */,
 				20BF3FAB1957ECA700963B1F /* LINFriendListViewController.swift in Sources */,
 				20D484A61956D35D007B4E96 /* LINOnboardingViewController.swift in Sources */,
 			);
