@@ -4,5 +4,6 @@ target "Lingua" do
 pod 'MMDrawerController', '~> 0.5.6'
 pod 'google-plus-ios-sdk', '~> 1.5.1'
 pod 'Facebook-iOS-SDK', '~> 3.15.0'
+pod 'libPusher', '~> 1.5'
 
 end

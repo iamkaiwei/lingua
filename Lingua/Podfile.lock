@@ -3,6 +3,10 @@ PODS:
   - Facebook-iOS-SDK (3.15.0):
     - Bolts
   - google-plus-ios-sdk (1.5.1)
+  - libPusher (1.5):
+    - libPusher/Core
+  - libPusher/Core (1.5):
+    - SocketRocket (= 0.3.1-beta2)
   - MMDrawerController (0.5.6):
     - MMDrawerController/Core
     - MMDrawerController/MMDrawerBarButtonItem
@@ -15,16 +19,20 @@ PODS:
     - MMDrawerController/Core
   - MMDrawerController/Subclass (0.5.6):
     - MMDrawerController/Core
+  - SocketRocket (0.3.1-beta2)
 
 DEPENDENCIES:
   - Facebook-iOS-SDK (~> 3.15.0)
   - google-plus-ios-sdk (~> 1.5.1)
+  - libPusher (~> 1.5)
   - MMDrawerController (~> 0.5.6)
 
 SPEC CHECKSUMS:
   Bolts: 91c2af8eae1d44e1dd75946a5b0ae04a43ea43e4
   Facebook-iOS-SDK: d67a9aa373f28b581e00cefdfd5a1ab8f883ac14
   google-plus-ios-sdk: 98d76ce1f1edbfe8730628aafe017301a734042c
+  libPusher: 583326327a72ab7cd0f38692f61f9061cf4be3d9
   MMDrawerController: 4bae84535ca7a5f4cb55a66a001e6035c3571677
+  SocketRocket: 79a68ae186063c65e1fe6f638b1ae2927aa5f304
 
 COCOAPODS: 0.33.1
