@@ -10,11 +10,11 @@ import UIKit
 
 class LINPickLearningViewController: UIViewController {
 
-    let subjects = [0: "Language", 1: "Written Proficiency", 2: "Spoken Proficiency"]
-    let languages = ["English", "Chinese"]
-    let proficiencies = ["No proficiency", "Elementary proficiency", "Limited proficiency", "Professional proficiency", "Full professional proficiency"]
-    var availableSection: Int?
-    var massArray = [[], [], []]
+    let subjects = ["Language", "Written Proficiency", "Spoken Proficiency"]
+    var selectedSectionIndex: Int? = 0
+    let dataArray = [["English", "Chinese"],
+                    ["No proficiency", "Elementary proficiency", "Limited proficiency", "Professional proficiency", "Full professional proficiency"],
+                    ["No proficiency", "Elementary proficiency", "Limited proficiency", "Professional proficiency", "Full professional proficiency"]]
     
     @IBOutlet var tableView: UITableView
     @IBOutlet var titleLabel: UILabel
@@ -32,7 +32,10 @@ class LINPickLearningViewController: UIViewController {
 extension LINPickLearningViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
-        return massArray[section].count
+        if selectedSectionIndex == section {
+            return dataArray[section].count
+        }
+        return 0
     }
     
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
@@ -43,7 +46,7 @@ extension LINPickLearningViewController: UITableViewDataSource, UITableViewDeleg
         cell.textLabel.font = UIFont.appRegularFontWithSize(14)
         cell.textColor = UIColor.grayColor()
         cell.accessoryView = UIImageView(image: UIImage(named: "Checked")) //This is not working at the moment, possibly due to the xcode 6 beta 2
-        cell.textLabel.text = "\(massArray[indexPath.section][indexPath.row])"
+        cell.textLabel.text = "\(dataArray[indexPath.section][indexPath.row])"
         if indexPath.section == 0 {
             cell.image = nil //First section lists languages only, no proficiency image required
         } else {
@@ -64,7 +67,7 @@ extension LINPickLearningViewController: UITableViewDataSource, UITableViewDeleg
     }
     
     func tableView(tableView: UITableView!, heightForHeaderInSection section: Int) -> CGFloat {
-        if massArray[section].count > 0 {
+        if selectedSectionIndex == section {
             return LINLanguagePickingHeaderView.heightForOpenHeader()
         }
         
@@ -89,25 +92,27 @@ extension LINPickLearningViewController: UITableViewDataSource, UITableViewDeleg
 extension LINPickLearningViewController: LINLanguagePickingHeaderViewDelegate {
     
     func didTapHeader(header: LINLanguagePickingHeaderView) {
-        
-        let indexSet = NSMutableIndexSet()
-        if availableSection != nil {
-            indexSet.addIndex(availableSection!)
-        }
-        
-        if header.index == availableSection {
-            massArray = [[], [], []]
-            availableSection = nil
-        } else {
-            switch header.index {
-            case 0: massArray = [languages, [], []]
-            case 1: massArray = [[], proficiencies, []]
-            case 2: massArray = [[], [], proficiencies]
-            default: massArray = [[], [], []]
+        var oldIndexPaths = Array<NSIndexPath>()
+        if selectedSectionIndex != nil {
+            for index in 0..dataArray[selectedSectionIndex!].count {
+                oldIndexPaths.append(NSIndexPath(forRow: index, inSection: selectedSectionIndex!))
             }
-            availableSection = header.index
-            indexSet.addIndex(availableSection!)
         }
-        tableView.reloadSections(NSIndexSet(indexSet: indexSet), withRowAnimation: .Automatic)
+        
+        var newIndexPaths = Array<NSIndexPath>()
+        if selectedSectionIndex == header.index {
+            selectedSectionIndex = nil
+        }
+        else {
+            selectedSectionIndex = header.index
+            for index in 0..dataArray[selectedSectionIndex!].count {
+                newIndexPaths.append(NSIndexPath(forRow: index, inSection: selectedSectionIndex!))
+            }
+        }
+
+        tableView.beginUpdates()
+        tableView.deleteRowsAtIndexPaths(oldIndexPaths, withRowAnimation: .None)
+        tableView.insertRowsAtIndexPaths(newIndexPaths, withRowAnimation: .None)
+        tableView.endUpdates()
     }
 }
