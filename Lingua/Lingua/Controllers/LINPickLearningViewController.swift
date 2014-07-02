@@ -63,6 +63,9 @@ extension LINPickLearningViewController: UITableViewDataSource, UITableViewDeleg
         header.titleLabel.text = subjects[section]
         header.index = section
         header.delegate = self
+        if section == 0 {
+            header.isExpanded = true
+        }
         return header
     }
     

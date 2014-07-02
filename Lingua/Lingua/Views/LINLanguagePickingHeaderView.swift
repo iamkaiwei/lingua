@@ -24,6 +24,11 @@ class LINLanguagePickingHeaderView: UIView {
     
     var delegate: LINLanguagePickingHeaderViewDelegate?
     var index = 0
+    var isExpanded: Bool = false {
+        didSet {
+            accessoryImage.transform = CGAffineTransformMakeRotation(isExpanded ? M_PI : 0)
+        }
+    }
     
     init(coder aDecoder: NSCoder!)
     {
@@ -40,6 +45,6 @@ class LINLanguagePickingHeaderView: UIView {
 
     func didTapHeader() {
         delegate?.didTapHeader(self)
-//        accessoryImage.transform = CGAffineTransformMakeRotation(180)
+        isExpanded = !isExpanded
     }
 }
