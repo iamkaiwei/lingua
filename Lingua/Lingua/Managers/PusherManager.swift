@@ -50,7 +50,7 @@ class PusherManager : NSObject, PTPusherDelegate {
         println("[pusher-\(connection.socketID)] Pusher client connected");
     }
     
-    func pusher(pusher: PTPusher, connection: PTPusherConnection, failedWithError error: NSError ) {
+    func pusher(pusher: PTPusher, connection: PTPusherConnection, failedWithError error: NSError) {
         println("[pusher] Pusher Connection failed with error: \(error)");
         
         if error.domain == kCFErrorDomainCFNetwork {
@@ -73,6 +73,24 @@ class PusherManager : NSObject, PTPusherDelegate {
     func pusher(pusher: PTPusher, connectionWillAutomaticallyReconnect connection: PTPusherConnection, afterDelay delay: NSTimeInterval) -> Bool {
         println("[pusher-\(pusher.connection.socketID)] Client automatically reconnecting after \(delay) seconds...")
         return true;
+    }
+    
+    func pusher(pusher: PTPusher, didSubscribeToChannel channel: PTPusherChannel) {
+        println("[pusher-\(pusher.connection.socketID)] Subscribed to channel \(channel)");
+    }
+    
+    func pusher(pusher: PTPusher, didFailToSubscribeToChannel channel: PTPusherChannel, withError error: NSError) {
+        println("[pusher-\(pusher.connection.socketID)] Authorization failed for channel \(channel)");
+        
+        let alert : UIAlertView = UIAlertView(title: "Authorization Failed", message: "Client with socket ID \(pusher.connection.socketID) could not be authorized to join channel \(channel.name)", delegate: nil, cancelButtonTitle: "OK")
+        alert.show()
+    }
+    
+    func pusher(pusher: PTPusher, willAuthorizeChannel channel: PTPusherChannel, withRequest request: NSMutableURLRequest) {
+        println("[pusher-\(pusher.connection.socketID)] Authorizing channel access...");
+        
+        // TODOME: [NSString stringWithFormat:@"Bearer %@",[[PSCUserManager sharedInstance] getAccessToken]]
+        request.setValue("Bearer ", forHTTPHeaderField: "Authorization");
     }
     
     // MARK - Reachability
