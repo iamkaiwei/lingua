@@ -11,10 +11,11 @@ import UIKit
 class LINPickLearningViewController: UIViewController {
 
     let subjects = ["Language", "Written Proficiency", "Spoken Proficiency"]
-    var selectedSectionIndex: Int? = 0
     let dataArray = [["English", "Chinese"],
                     ["No proficiency", "Elementary proficiency", "Limited proficiency", "Professional proficiency", "Full professional proficiency"],
                     ["No proficiency", "Elementary proficiency", "Limited proficiency", "Professional proficiency", "Full professional proficiency"]]
+    var selectedSectionIndex: Int? = 0
+    var selectedIndexPaths = Dictionary<Int, NSIndexPath>()
     
     @IBOutlet var tableView: UITableView
     @IBOutlet var titleLabel: UILabel
@@ -24,7 +25,7 @@ class LINPickLearningViewController: UIViewController {
 
         titleLabel.font = UIFont.appRegularFontWithSize(20)
         tableView.tableFooterView = UIView(frame: CGRectZero)
-        tableView.registerClass(UITableViewCell.classForCoder(), forCellReuseIdentifier: "CellIdentifier")
+        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "CellIdentifier")
     }
     
 }
@@ -39,19 +40,20 @@ extension LINPickLearningViewController: UITableViewDataSource, UITableViewDeleg
     }
     
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
-        return tableView.dequeueReusableCellWithIdentifier("CellIdentifier") as UITableViewCell
-    }
-    
-    func tableView(tableView: UITableView!, willDisplayCell cell: UITableViewCell!, forRowAtIndexPath indexPath: NSIndexPath!) {
+        var cell = self.tableView.dequeueReusableCellWithIdentifier("CellIdentifier") as UITableViewCell
         cell.textLabel.font = UIFont.appRegularFontWithSize(14)
         cell.textColor = UIColor.grayColor()
-        cell.accessoryView = UIImageView(image: UIImage(named: "Checked")) //This is not working at the moment, possibly due to the xcode 6 beta 2
         cell.textLabel.text = "\(dataArray[indexPath.section][indexPath.row])"
         if indexPath.section == 0 {
             cell.image = nil //First section lists languages only, no proficiency image required
         } else {
             cell.image = UIImage(named: "Proficiency\(indexPath.row)")
         }
+        if indexPath == selectedIndexPaths[indexPath.section] {
+            cell.accessoryView = UIImageView(image: UIImage(named: "Checked"))
+        }
+        cell.accessoryView = UIImageView(image: UIImage(named: "Checked")) //TODO: This line should be removed after the SDK work properly (for now it doesn't do anything..)
+        return cell
     }
     
     func numberOfSectionsInTableView(tableView: UITableView!) -> Int {
@@ -89,6 +91,15 @@ extension LINPickLearningViewController: UITableViewDataSource, UITableViewDeleg
     
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
         tableView.deselectRowAtIndexPath(indexPath, animated: false)
+        if let oldIndexPath = selectedIndexPaths[indexPath.section] {
+            if indexPath != oldIndexPath {
+                selectedIndexPaths[indexPath.section] = indexPath
+                tableView.reloadRowsAtIndexPaths([oldIndexPath, indexPath], withRowAnimation: .None)
+            }
+        } else {
+            selectedIndexPaths[indexPath.section] = indexPath
+            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
+        }
     }
 }
 
