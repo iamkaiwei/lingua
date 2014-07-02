@@ -12,7 +12,7 @@ protocol LINLanguagePickingHeaderViewDelegate {
     func didTapHeader(header: LINLanguagePickingHeaderView)
 }
 
-class LINLanguagePickingHeaderView: UIView {
+class LINLanguagePickingHeaderView: UITableViewHeaderFooterView {
 
     @IBOutlet var titleLabel: UILabel
     @IBOutlet var bottomLine: UIView
@@ -27,6 +27,25 @@ class LINLanguagePickingHeaderView: UIView {
     var isExpanded: Bool = false {
         didSet {
             accessoryImage.transform = CGAffineTransformMakeRotation(isExpanded ? M_PI : 0)
+        }
+    }
+    var accessoryView: UIView! = nil {
+        willSet {
+            if accessoryView != nil {
+                accessoryView.alpha = 0
+                accessoryView.removeFromSuperview()
+            }
+        }
+        didSet {
+            accessoryView.frame =
+                    CGRectMake(CGRectGetMinX(accessoryImage.frame) - CGRectGetWidth(accessoryView.frame) - 5, //5 for more padding
+                    CGRectGetHeight(self.frame)/2 - CGRectGetHeight(accessoryView.frame)/2,
+                    CGRectGetWidth(accessoryView.frame),
+                    CGRectGetHeight(accessoryView.frame))
+            if let label = accessoryView as? UILabel { //There should be a more generic way than this to set textAlignment
+                label.textAlignment = .Right
+            }
+            addSubview(accessoryView)
         }
     }
     

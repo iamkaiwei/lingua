@@ -100,6 +100,19 @@ extension LINPickLearningViewController: UITableViewDataSource, UITableViewDeleg
             selectedIndexPaths[indexPath.section] = indexPath
             tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
         }
+
+        let header = tableView.headerViewForSection(indexPath.section) as LINLanguagePickingHeaderView
+        let cell = tableView.cellForRowAtIndexPath(indexPath)
+        if indexPath.section == 0 {
+            let label = UILabel()
+            label.font = UIFont.appLightFontWithSize(14)
+            label.text = cell.textLabel.text
+            label.sizeToFit()
+            header.accessoryView = label
+        } else {
+            let imageView = UIImageView(image: cell.image)
+            header.accessoryView = imageView
+        }
     }
 }
 
