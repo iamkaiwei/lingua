@@ -30,12 +30,12 @@ class PusherManager : NSObject, PTPusherDelegate {
     init() {
         super.init()
         
-        pusherClient = PTPusher.pusherWithKey(kPusherAPIKey, delegate: self, encrypted: true) as PTPusher
-        pusherClient.authorizationURL = NSURL.URLWithString(kPuserAuthorizationURL)
+        self.pusherClient = PTPusher.pusherWithKey(kPusherAPIKey, delegate: self, encrypted: true) as PTPusher
+        self.pusherClient.authorizationURL = NSURL.URLWithString(kPuserAuthorizationURL)
     }
     
     func connectToPusher() {
-        pusherClient.connect()
+        self.pusherClient.connect()
     }
     
     
@@ -52,6 +52,55 @@ class PusherManager : NSObject, PTPusherDelegate {
     
     func pusher(pusher: PTPusher, connection: PTPusherConnection, failedWithError error: NSError ) {
         println("[pusher] Pusher Connection failed with error: \(error)");
+        
+        if error.domain == kCFErrorDomainCFNetwork {
+            self.startReachabilityCheck()
+        }
     }
+    
+    func pusher(pusher: PTPusher, connection: PTPusherConnection, didDisconnectWithError error: NSError, willAttemptReconnect: Bool) {
+        println("[pusher-\(pusher.connection.socketID)] Pusher Connection disconnected with error: \(error)");
+        
+        if (willAttemptReconnect) {
+            println("[pusher-\(pusher.connection.socketID)] Client will attempt to reconnect automatically");
+        } else {
+            if error.domain != PTPusherErrorDomain {
+                self.startReachabilityCheck()
+            }
+        }
+    }
+    
+    func pusher(pusher: PTPusher, connectionWillAutomaticallyReconnect connection: PTPusherConnection, afterDelay delay: NSTimeInterval) -> Bool {
+        println("[pusher-\(pusher.connection.socketID)] Client automatically reconnecting after \(delay) seconds...")
+        return true;
+    }
+    
+    // MARK - Reachability
+    
+    func startReachabilityCheck() {
+        let reachability : Reachability = Reachability(hostname: pusherClient.connection.URL.host)
+        if reachability.isReachable() {
+            println("Internet reachable, reconnecting")
+            self.connectToPusher()
+        } else {
+            println("Waiting for reachability");
 
+            let reachableBlock = { (reachability : Reachability) -> Void in
+                if reachability.isReachable() {
+                    println("Internet is now reachable")
+                    reachability.stopNotifier()
+                    
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.connectToPusher()
+                    })
+                }
+            }
+            
+            // reachability.reachableBlock = reachableBlock
+            reachableBlock(reachability)
+            
+            reachability.startNotifier()
+        }
+    }
+    
 }
