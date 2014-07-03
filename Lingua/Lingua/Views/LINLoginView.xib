@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6154.21" systemVersion="14A261i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6154.21" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6153.13"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LINLoginView" customModule="Lingua" customModuleProvider="target">
             <connections>
-                <outlet property="facebookLoginView" destination="fGU-IV-Cwu" id="aec-yI-mJf"/>
                 <outlet property="titleLabel" destination="CUe-Mp-2mw" id="pKH-44-Myz"/>
             </connections>
         </placeholder>
@@ -17,29 +16,37 @@
             <subviews>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Start chatting today" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CUe-Mp-2mw">
                     <rect key="frame" x="20" y="165" width="280" height="53"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fGU-IV-Cwu" customClass="FBLoginView">
-                    <rect key="frame" x="52" y="233" width="216" height="49"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                </view>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1hs-Ql-1BC">
-                    <rect key="frame" x="52" y="302" width="216" height="49"/>
-                    <color key="backgroundColor" red="0.0" green="0.63529411759999999" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
-                    <state key="normal" title="Sign in with Google+">
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v9q-Xi-BgP">
+                    <rect key="frame" x="15" y="226" width="290" height="50"/>
+                    <state key="normal" backgroundImage="FacebookButton">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
-                        <action selector="loginWithGoogle:" destination="-1" eventType="touchUpInside" id="xIM-Pw-vRZ"/>
+                        <action selector="loginWithFacebook:" destination="-1" eventType="touchUpInside" id="yGU-KX-jgv"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tH3-v1-WHr">
+                    <rect key="frame" x="15" y="296" width="290" height="50"/>
+                    <state key="normal" backgroundImage="GoogleButton">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="loginWithGoogle:" destination="-1" eventType="touchUpInside" id="3Hd-jM-X8Y"/>
                     </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.62644213299418605" blue="0.68167469113372092" alpha="1" colorSpace="calibratedRGB"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-            <point key="canvasLocation" x="149" y="440"/>
+            <point key="canvasLocation" x="596" y="381"/>
         </view>
     </objects>
+    <resources>
+        <image name="FacebookButton" width="290" height="50"/>
+        <image name="GoogleButton" width="290" height="50"/>
+    </resources>
 </document>

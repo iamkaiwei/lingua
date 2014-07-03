@@ -34,7 +34,6 @@ class LINLoginView: UIView {
         titleLabel.font = UIFont.appBoldFontWithSize(25)
     }
     
-    
     @IBAction func loginWithGoogle(sender: UIButton) {
         delegate?.loginView(self, option: .Google)
     }
@@ -42,5 +41,4 @@ class LINLoginView: UIView {
     @IBAction func loginWithFacebook(sender: UIButton) {
         delegate?.loginView(self, option: .Facebook)
     }
-    
 }
