@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LINHomeViewController: UIViewController {
+class LINHomeViewController: LINViewController {
 
     @IBOutlet var profileButton: UIButton
     @IBOutlet var messageButton: UIButton

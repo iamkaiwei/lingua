@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		201F2B3D195AF1E100E0C17A /* UIColor-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201F2B3C195AF1E100E0C17A /* UIColor-Extensions.swift */; };
+		2043DFD7196550F8005905B9 /* LINViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2043DFD6196550F8005905B9 /* LINViewController.swift */; };
 		20448A7F1954301A00AC639A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20448A7E1954301A00AC639A /* AppDelegate.swift */; };
 		20448A821954301A00AC639A /* Lingua.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 20448A801954301A00AC639A /* Lingua.xcdatamodeld */; };
 		20448A871954301A00AC639A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 20448A851954301A00AC639A /* Main.storyboard */; };
@@ -47,6 +48,7 @@
 
 /* Begin PBXFileReference section */
 		201F2B3C195AF1E100E0C17A /* UIColor-Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor-Extensions.swift"; sourceTree = "<group>"; };
+		2043DFD6196550F8005905B9 /* LINViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINViewController.swift; sourceTree = "<group>"; };
 		20448A791954301A00AC639A /* Lingua.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lingua.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20448A7D1954301A00AC639A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		20448A7E1954301A00AC639A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -99,6 +101,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2043DFD5196550D8005905B9 /* BaseClasses */ = {
+			isa = PBXGroup;
+			children = (
+				2043DFD6196550F8005905B9 /* LINViewController.swift */,
+			);
+			path = BaseClasses;
+			sourceTree = "<group>";
+		};
 		20448A701954301A00AC639A = {
 			isa = PBXGroup;
 			children = (
@@ -199,6 +209,7 @@
 		20D484A41956D35D007B4E96 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				2043DFD5196550D8005905B9 /* BaseClasses */,
 				20D484A51956D35D007B4E96 /* LINOnboardingViewController.swift */,
 				20BFCCEA1956E1C400A86C2E /* LINPickLearningViewController.swift */,
 				2082DEF219575A55009ADF45 /* LINPickNativeViewController.swift */,
@@ -396,6 +407,7 @@
 				92F316801962AB75002005B9 /* PusherManager.swift in Sources */,
 				20BF3FAB1957ECA700963B1F /* LINFriendListViewController.swift in Sources */,
 				9267833C19655E3200F19DB4 /* LINUser.swift in Sources */,
+				2043DFD7196550F8005905B9 /* LINViewController.swift in Sources */,
 				20D484A61956D35D007B4E96 /* LINOnboardingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

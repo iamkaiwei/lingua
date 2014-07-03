@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LINOnboardingViewController: UIViewController {
+class LINOnboardingViewController: LINViewController {
     
     let kClientId = "749496516991-rn2ks5ka1jdbm7l040d0mhs4v0pja35j.apps.googleusercontent.com"
     let GPPSignInInstance = GPPSignIn.sharedInstance()

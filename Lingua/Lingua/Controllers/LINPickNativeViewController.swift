@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LINPickNativeViewController: UIViewController {
+class LINPickNativeViewController: LINViewController {
 
     @IBOutlet var languageLabel: UILabel
     @IBOutlet var languageLabel2: UILabel
@@ -22,16 +22,14 @@ class LINPickNativeViewController: UIViewController {
         configureUI()
     }
     
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
-    }
-    
     func configureUI() {
         languageLabel.font = UIFont.appRegularFontWithSize(20)
         languageLabel2.font = UIFont.appRegularFontWithSize(17)
         languageLabel3.font = UIFont.appThinFontWithSize(14)
         saveButton.font = UIFont.appBoldFontWithSize(20)
     }
+    
+    
     
     @IBAction func togglePickerView(sender: UIButton) {
         if sender.titleForState(.Normal) == "Next" {

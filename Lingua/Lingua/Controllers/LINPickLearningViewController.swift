@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LINPickLearningViewController: UIViewController {
+class LINPickLearningViewController: LINViewController {
 
     let subjects = ["Language", "Written", "Spoken"]
     let dataArray = [["English", "Chinese"],

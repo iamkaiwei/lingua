@@ -1,26 +1,24 @@
 //
-//  LINFriendListViewController.swift
+//  LINViewController.swift
 //  Lingua
 //
-//  Created by Hoang Ta on 6/23/14.
+//  Created by Hoang Ta on 7/3/14.
 //  Copyright (c) 2014 2359Media. All rights reserved.
 //
 
 import UIKit
 
-class LINFriendListViewController: LINViewController {
+class LINViewController: UIViewController {
+
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
 
     /*
     // #pragma mark - Navigation
