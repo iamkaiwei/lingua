@@ -73,17 +73,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kw2-xt-T8R">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kw2-xt-T8R">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="60"/>
                                 <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Language you want to learn" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="030-fJ-eNO">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Language you want to learn" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="030-fJ-eNO">
                                         <rect key="frame" x="20" y="20" width="347" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="347" id="afu-HK-dfz"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.62644213299999996" blue="0.68167469110000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="030-fJ-eNO" secondAttribute="bottom" id="3mT-LE-WV9"/>
+                                    <constraint firstItem="030-fJ-eNO" firstAttribute="leading" secondItem="kw2-xt-T8R" secondAttribute="leading" constant="20" id="7u1-g2-JTM"/>
+                                    <constraint firstItem="030-fJ-eNO" firstAttribute="top" secondItem="kw2-xt-T8R" secondAttribute="top" constant="20" id="rlZ-CL-fAs"/>
+                                    <constraint firstAttribute="height" constant="60" id="zVW-qM-C8b"/>
+                                </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" bounces="NO" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="0ig-R5-VVX">
                                 <rect key="frame" x="0.0" y="60" width="480" height="420"/>
@@ -111,8 +120,11 @@
                         </subviews>
                         <color key="backgroundColor" red="0.89263556985294112" green="0.89263556985294112" blue="0.89557674632352935" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="kw2-xt-T8R" firstAttribute="leading" secondItem="mPE-TH-X7z" secondAttribute="leading" id="8ZN-nh-EWM"/>
+                            <constraint firstAttribute="trailing" secondItem="kw2-xt-T8R" secondAttribute="trailing" id="I5M-ek-TwU"/>
                             <constraint firstAttribute="trailing" secondItem="Z0S-aL-O8Y" secondAttribute="trailing" id="SlO-Bq-DS2"/>
                             <constraint firstItem="Z0S-aL-O8Y" firstAttribute="top" secondItem="OM2-Sk-eTn" secondAttribute="bottom" id="m5i-6v-MIa"/>
+                            <constraint firstItem="kw2-xt-T8R" firstAttribute="top" secondItem="mPE-TH-X7z" secondAttribute="top" id="oMp-25-MG7"/>
                         </constraints>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
@@ -214,6 +226,10 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KqF-4s-82F" userLabel="Infomation View">
                                 <rect key="frame" x="10" y="110" width="460" height="200"/>
                                 <subviews>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KN4-Ou-ewd">
+                                        <rect key="frame" x="0.0" y="0.0" width="460" height="200"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" placeholderIntrinsicWidth="460" placeholderIntrinsicHeight="180" translatesAutoresizingMaskIntoConstraints="NO" id="FtB-bc-AmR">
                                         <rect key="frame" x="0.0" y="0.0" width="460" height="200"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
