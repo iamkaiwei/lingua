@@ -10,15 +10,27 @@ import UIKit
 
 class LINPickNativeViewController: UIViewController {
 
-    @IBOutlet var pickerView: UIPickerView
     @IBOutlet var languageLabel: UILabel
-    @IBOutlet var pickButton: UIButton
-
+    @IBOutlet var languageLabel2: UILabel
+    @IBOutlet var languageLabel3: UILabel
+    @IBOutlet var saveButton: UIButton
+    
     let languages = ["Chinese", "English"]
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
+        configureUI()
+    }
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent
+    }
+    
+    func configureUI() {
+        languageLabel.font = UIFont.appRegularFontWithSize(20)
+        languageLabel2.font = UIFont.appRegularFontWithSize(17)
+        languageLabel3.font = UIFont.appThinFontWithSize(14)
+        saveButton.font = UIFont.appBoldFontWithSize(20)
     }
     
     @IBAction func togglePickerView(sender: UIButton) {
@@ -32,27 +44,6 @@ class LINPickNativeViewController: UIViewController {
             drawerController.openDrawerGestureModeMask = MMOpenDrawerGestureMode.PanningCenterView | MMOpenDrawerGestureMode.PanningNavigationBar
             navigationController?.pushViewController(drawerController, animated: true)
         }
-        pickerView.hidden = !pickerView.hidden
-    }
-
-}
-
-extension LINPickNativeViewController: UIPickerViewDataSource, UIPickerViewDelegate {
-    
-    func numberOfComponentsInPickerView(pickerView: UIPickerView!) -> Int {
-        return 1
-    }
-    
-    func pickerView(pickerView: UIPickerView!, numberOfRowsInComponent component: Int) -> Int {
-        return languages.count
-    }
-    
-    func pickerView(pickerView: UIPickerView!, titleForRow row: Int, forComponent component: Int) -> String! {
-        return languages[row]
-    }
-    
-    func pickerView(pickerView: UIPickerView!, didSelectRow row: Int, inComponent component: Int) {
-        languageLabel.text = languages[row]
-        pickButton.setTitle("Next", forState: .Normal)
     }
 }
+
