@@ -20,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Parse.setApplicationId("OMS2KayfQ1rDTjkWvAjdiF3GFkxTD9hoPR9SnLSR",clientKey: "JPXeT1Kelnsw66qLwQlrOAP69ybbLXhb5Bvh7YQ5")
         PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
         
+        PFFacebookUtils.initializeFacebook()
+        
         PusherManager.sharedInstance.connectToPusher();
         
         return true
@@ -51,7 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication!, openURL url: NSURL!, sourceApplication: String!, annotation: AnyObject!) -> Bool {
         if url.absoluteString.hasPrefix("fb") {
-            return FBAppCall.handleOpenURL(url, sourceApplication: sourceApplication)
+            return FBAppCall.handleOpenURL(url, sourceApplication: sourceApplication, withSession: PFFacebookUtils.session())
         }
         
         return GPPURLHandler.handleURL(url, sourceApplication: sourceApplication, annotation: annotation) 

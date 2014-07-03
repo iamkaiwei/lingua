@@ -40,7 +40,7 @@ class LINOnboardingViewController: UIViewController {
         frame.origin.x += CGRectGetWidth(frame)
         let loginView = LINLoginView(frame: frame);
         loginView.delegate = self
-        loginView.facebookLoginView.delegate = self
+        // loginView.facebookLoginView.delegate = self
         onboardingView.addSubview(loginView)
         
         onboardingView.contentSize = CGSizeMake(CGRectGetMaxX(frame), CGRectGetHeight(frame))
