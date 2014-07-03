@@ -10,7 +10,7 @@ import UIKit
 
 class LINPickLearningViewController: UIViewController {
 
-    let subjects = ["Language", "Written Proficiency", "Spoken Proficiency"]
+    let subjects = ["Language", "Written", "Spoken"]
     let dataArray = [["English", "Chinese"],
                     ["No proficiency", "Elementary proficiency", "Limited proficiency", "Professional proficiency", "Full professional proficiency"],
                     ["No proficiency", "Elementary proficiency", "Limited proficiency", "Professional proficiency", "Full professional proficiency"]]
@@ -41,19 +41,18 @@ extension LINPickLearningViewController: UITableViewDataSource, UITableViewDeleg
     
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
         var cell = self.tableView.dequeueReusableCellWithIdentifier("CellIdentifier") as UITableViewCell
-        cell.textLabel.font = UIFont.appRegularFontWithSize(14)
-        cell.textColor = UIColor.grayColor()
         cell.textLabel.text = "\(dataArray[indexPath.section][indexPath.row])"
-        if indexPath.section == 0 {
-            cell.image = nil //First section lists languages only, no proficiency image required
-        } else {
-            cell.image = UIImage(named: "Proficiency\(indexPath.row)")
-        }
+        cell.image = indexPath.section == 0 ? nil : UIImage(named: "Proficiency\(indexPath.row)")
+
         if indexPath == selectedIndexPaths[indexPath.section] {
             cell.accessoryView = UIImageView(image: UIImage(named: "Checked"))
         }
         cell.accessoryView = UIImageView(image: UIImage(named: "Checked")) //TODO: This line should be removed after the SDK work properly (for now it doesn't do anything..)
         return cell
+    }
+    
+    func tableView(tableView: UITableView!, willDisplayCell cell: UITableViewCell!, forRowAtIndexPath indexPath: NSIndexPath!) {
+        cell.font = UIFont.appThinFontWithSize(14)
     }
     
     func numberOfSectionsInTableView(tableView: UITableView!) -> Int {
