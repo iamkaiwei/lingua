@@ -7,5 +7,6 @@ pod 'Facebook-iOS-SDK', '~> 3.15.0'
 pod 'libPusher', '~> 1.5'
 pod 'Reachability', '~> 3.1.1'
 pod 'Parse-iOS-SDK', '~> 1.2.19'
+pod 'REMenu', '~> 1.8.5'
 
 end

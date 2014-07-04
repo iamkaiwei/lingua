@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6154.21" systemVersion="14A261i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="8Zj-YW-TvC">
     <dependencies>
-        <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6153.13"/>
     </dependencies>
     <scenes>
@@ -160,6 +159,9 @@
                                         <state key="normal" title="Save">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="saveUserInfo:" destination="lJD-h9-4sb" eventType="touchUpInside" id="FEb-mC-9CL"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Native Language" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7mk-QT-3cT">
                                         <rect key="frame" x="134" y="20" width="212" height="40"/>
@@ -210,6 +212,7 @@
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstItem="LKb-dF-1qe" firstAttribute="top" secondItem="t22-L2-vOZ" secondAttribute="top" constant="5" id="DWh-aJ-YmU"/>
                                     <constraint firstItem="GlV-kO-9g9" firstAttribute="leading" secondItem="t22-L2-vOZ" secondAttribute="leading" constant="10" id="KEV-b9-Tng"/>
@@ -222,6 +225,9 @@
                                     <constraint firstAttribute="bottom" secondItem="GlV-kO-9g9" secondAttribute="bottom" id="we0-br-yTD"/>
                                     <constraint firstAttribute="trailing" secondItem="LKb-dF-1qe" secondAttribute="trailing" constant="5" id="yjl-Ww-xGs"/>
                                 </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="Nfo-TY-HrR" appends="YES" id="yDA-YH-pBA"/>
+                                </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KqF-4s-82F" userLabel="Infomation View">
                                 <rect key="frame" x="10" y="110" width="460" height="200"/>
@@ -265,11 +271,17 @@
                         <outlet property="languageLabel" destination="7mk-QT-3cT" id="4LU-ER-ORj"/>
                         <outlet property="languageLabel2" destination="GlV-kO-9g9" id="51z-vA-Lga"/>
                         <outlet property="languageLabel3" destination="iY2-CF-kEx" id="fNd-Qt-b22"/>
+                        <outlet property="languagePickerView" destination="t22-L2-vOZ" id="9Rq-3O-6Ea"/>
                         <outlet property="saveButton" destination="jRj-Xr-bfq" id="Ze3-pH-tA5"/>
                         <segue destination="3VM-pF-Dsv" kind="show" identifier="kHomeViewControllerSegue" id="Ofh-36-LMW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pgT-KN-vjX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="Nfo-TY-HrR">
+                    <connections>
+                        <action selector="toggleMenu:" destination="lJD-h9-4sb" id="IRX-Vp-TwS"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2333" y="331"/>
         </scene>
