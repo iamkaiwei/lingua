@@ -14,6 +14,7 @@
 		20448A871954301A00AC639A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 20448A851954301A00AC639A /* Main.storyboard */; };
 		20448A891954301A00AC639A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20448A881954301A00AC639A /* Images.xcassets */; };
 		20448A951954301A00AC639A /* LinguaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20448A941954301A00AC639A /* LinguaTests.swift */; };
+		20473E201966D5C200EDF620 /* SZTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 20473E1F1966D5C200EDF620 /* SZTextView.m */; };
 		207630B3195ABFA600D23B2A /* RobotoSlab-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 207630AF195ABFA600D23B2A /* RobotoSlab-Bold.ttf */; };
 		207630B4195ABFA600D23B2A /* RobotoSlab-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 207630B0195ABFA600D23B2A /* RobotoSlab-Light.ttf */; };
 		207630B5195ABFA600D23B2A /* RobotoSlab-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 207630B1195ABFA600D23B2A /* RobotoSlab-Regular.ttf */; };
@@ -59,6 +60,8 @@
 		20448A931954301A00AC639A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		20448A941954301A00AC639A /* LinguaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinguaTests.swift; sourceTree = "<group>"; };
 		20448AA719545D4500AC639A /* Lingua-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Lingua-Bridging-Header.h"; sourceTree = "<group>"; };
+		20473E1E1966D5C200EDF620 /* SZTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZTextView.h; sourceTree = "<group>"; };
+		20473E1F1966D5C200EDF620 /* SZTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZTextView.m; sourceTree = "<group>"; };
 		207630AF195ABFA600D23B2A /* RobotoSlab-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSlab-Bold.ttf"; sourceTree = "<group>"; };
 		207630B0195ABFA600D23B2A /* RobotoSlab-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSlab-Light.ttf"; sourceTree = "<group>"; };
 		207630B1195ABFA600D23B2A /* RobotoSlab-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSlab-Regular.ttf"; sourceTree = "<group>"; };
@@ -174,6 +177,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		20473E1D1966D5C200EDF620 /* SZTextView */ = {
+			isa = PBXGroup;
+			children = (
+				20473E1E1966D5C200EDF620 /* SZTextView.h */,
+				20473E1F1966D5C200EDF620 /* SZTextView.m */,
+			);
+			path = SZTextView;
+			sourceTree = "<group>";
+		};
 		207630AE195ABE8400D23B2A /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -231,6 +243,7 @@
 		20D484A81956D36D007B4E96 /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
+				20473E1D1966D5C200EDF620 /* SZTextView */,
 			);
 			path = Vendors;
 			sourceTree = "<group>";
@@ -406,6 +419,7 @@
 				20448A821954301A00AC639A /* Lingua.xcdatamodeld in Sources */,
 				92F316801962AB75002005B9 /* PusherManager.swift in Sources */,
 				20BF3FAB1957ECA700963B1F /* LINFriendListViewController.swift in Sources */,
+				20473E201966D5C200EDF620 /* SZTextView.m in Sources */,
 				9267833C19655E3200F19DB4 /* LINUser.swift in Sources */,
 				2043DFD7196550F8005905B9 /* LINViewController.swift in Sources */,
 				20D484A61956D35D007B4E96 /* LINOnboardingViewController.swift in Sources */,

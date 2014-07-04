@@ -15,11 +15,14 @@ class LINPickNativeViewController: LINViewController {
     @IBOutlet var languageLabel3: UILabel
     @IBOutlet var languagePickerView: UIView
     @IBOutlet var saveButton: UIButton
+    @IBOutlet var textView: SZTextView
     
-    var stored_dropdown: REMenu?
     var dropdown: REMenu {
-        if stored_dropdown != nil {
-            return stored_dropdown!
+        struct Static {
+            static var instance: REMenu?
+        }
+        if Static.instance != nil {
+            return Static.instance!
         }
     
         let languages = ["English", "Chinese"]
@@ -41,8 +44,11 @@ class LINPickNativeViewController: LINViewController {
         menu.separatorColor = UIColor.appLightGrayColor()
         menu.borderWidth = 0;
         menu.highlightedBackgroundColor = UIColor.appTealColor()
-        stored_dropdown = menu
-        return stored_dropdown!
+        menu.shadowOpacity = 0.8
+        menu.shadowRadius = 5
+        Static.instance = menu
+        return Static.instance!
+            
     }
     
     func handleMenuItem(item: REMenuItem) {
@@ -60,6 +66,12 @@ class LINPickNativeViewController: LINViewController {
         languageLabel2.font = UIFont.appRegularFontWithSize(17)
         languageLabel3.font = UIFont.appThinFontWithSize(14)
         saveButton.font = UIFont.appBoldFontWithSize(20)
+        textView.tintColor = UIColor.appTealColor()
+        textView.font = UIFont.appLightFontWithSize(14)
+        textView.placeholder = "Write an introduction about yourself in your native language. This will help other users find you."
+        textView.placeholderTextColor = UIColor.grayColor()
+        textView.layoutManager.delegate = self
+        textView._placeholderTextView.layoutManager.delegate = self
     }
     
     @IBAction func saveUserInfo(sender: UIButton) {
@@ -85,3 +97,8 @@ class LINPickNativeViewController: LINViewController {
     }
 }
 
+extension LINPickNativeViewController: NSLayoutManagerDelegate {
+    func layoutManager(layoutManager: NSLayoutManager!, lineSpacingAfterGlyphAtIndex glyphIndex: Int, withProposedLineFragmentRect rect: CGRect) -> CGFloat {
+        return 10
+    }
+}

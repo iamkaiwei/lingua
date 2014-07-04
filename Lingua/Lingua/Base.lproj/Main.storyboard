@@ -232,15 +232,14 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KqF-4s-82F" userLabel="Infomation View">
                                 <rect key="frame" x="10" y="110" width="460" height="200"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KN4-Ou-ewd">
-                                        <rect key="frame" x="0.0" y="0.0" width="460" height="200"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" placeholderIntrinsicWidth="460" placeholderIntrinsicHeight="180" translatesAutoresizingMaskIntoConstraints="NO" id="FtB-bc-AmR">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" placeholderIntrinsicWidth="460" placeholderIntrinsicHeight="180" translatesAutoresizingMaskIntoConstraints="NO" id="FtB-bc-AmR" customClass="SZTextView">
                                         <rect key="frame" x="0.0" y="0.0" width="460" height="200"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="lJD-h9-4sb" id="WBo-ah-IDp"/>
+                                        </connections>
                                     </textView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -273,6 +272,7 @@
                         <outlet property="languageLabel3" destination="iY2-CF-kEx" id="fNd-Qt-b22"/>
                         <outlet property="languagePickerView" destination="t22-L2-vOZ" id="9Rq-3O-6Ea"/>
                         <outlet property="saveButton" destination="jRj-Xr-bfq" id="Ze3-pH-tA5"/>
+                        <outlet property="textView" destination="FtB-bc-AmR" id="E8I-Pl-PTZ"/>
                         <segue destination="3VM-pF-Dsv" kind="show" identifier="kHomeViewControllerSegue" id="Ofh-36-LMW"/>
                     </connections>
                 </viewController>
