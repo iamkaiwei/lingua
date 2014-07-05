@@ -10,9 +10,8 @@ import UIKit
 
 class LINPickNativeViewController: LINViewController {
 
-    @IBOutlet var languageLabel: UILabel
-    @IBOutlet var languageLabel2: UILabel
-    @IBOutlet var languageLabel3: UILabel
+    @IBOutlet var subtitle1: UILabel
+    @IBOutlet var subtitle2: UILabel
     @IBOutlet var languagePickerView: UIView
     @IBOutlet var saveButton: UIButton
     @IBOutlet var textView: SZTextView
@@ -29,7 +28,7 @@ class LINPickNativeViewController: LINViewController {
         var items = REMenuItem[]()
         for language in languages {
             let item = REMenuItem(title: language, image: nil, highlightedImage: nil, action: { menuItem in
-                    self.languageLabel3.text = menuItem.title
+                    self.subtitle2.text = menuItem.title
                 })
             item.tag = items.count
             items.append(item)
@@ -52,7 +51,7 @@ class LINPickNativeViewController: LINViewController {
     }
     
     func handleMenuItem(item: REMenuItem) {
-        languageLabel3.text = item.title
+        subtitle2.text = item.title
     }
     
     override func viewDidLoad() {
@@ -62,10 +61,9 @@ class LINPickNativeViewController: LINViewController {
     }
     
     func configureUI() {
-        languageLabel.font = UIFont.appRegularFontWithSize(20)
-        languageLabel2.font = UIFont.appRegularFontWithSize(17)
-        languageLabel3.font = UIFont.appThinFontWithSize(14)
-        saveButton.font = UIFont.appBoldFontWithSize(20)
+        subtitle1.font = UIFont.appRegularFontWithSize(17)
+        subtitle2.font = UIFont.appThinFontWithSize(14)
+        saveButton.font = UIFont.appRegularFontWithSize(21)
         textView.tintColor = UIColor.appTealColor()
         textView.font = UIFont.appLightFontWithSize(14)
         textView.placeholder = "Write an introduction about yourself in your native language. This will help other users find you."

@@ -18,12 +18,10 @@ class LINPickLearningViewController: LINViewController {
     var selectedIndexPaths = Dictionary<Int, NSIndexPath>()
     
     @IBOutlet var tableView: UITableView
-    @IBOutlet var titleLabel: UILabel
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        titleLabel.font = UIFont.appRegularFontWithSize(20)
         tableView.tableFooterView = UIView(frame: CGRectZero)
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "CellIdentifier")
     }

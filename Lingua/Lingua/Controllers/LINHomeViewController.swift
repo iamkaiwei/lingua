@@ -10,7 +10,6 @@ import UIKit
 
 class LINHomeViewController: LINViewController {
 
-    @IBOutlet var titleLabel: UILabel
     @IBOutlet var profileButton: UIButton
     @IBOutlet var messageButton: UIButton
     @IBOutlet var teachButton: UIButton
@@ -20,7 +19,6 @@ class LINHomeViewController: LINViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        titleLabel.font = UIFont.appLightFontWithSize(22)
         tipLabel.textColor = UIColor.grayColor()
         tipLabel.font = UIFont.appLightFontWithSize(14)
     }
