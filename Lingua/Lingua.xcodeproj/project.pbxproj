@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		201323A619683F70004B884D /* LINLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201323A519683F70004B884D /* LINLoadingView.swift */; };
 		201F2B3D195AF1E100E0C17A /* UIColor-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201F2B3C195AF1E100E0C17A /* UIColor-Extensions.swift */; };
 		2043DFD7196550F8005905B9 /* LINViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2043DFD6196550F8005905B9 /* LINViewController.swift */; };
 		20448A7F1954301A00AC639A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20448A7E1954301A00AC639A /* AppDelegate.swift */; };
@@ -48,6 +49,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		201323A519683F70004B884D /* LINLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINLoadingView.swift; sourceTree = "<group>"; };
 		201F2B3C195AF1E100E0C17A /* UIColor-Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor-Extensions.swift"; sourceTree = "<group>"; };
 		2043DFD6196550F8005905B9 /* LINViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINViewController.swift; sourceTree = "<group>"; };
 		20448A791954301A00AC639A /* Lingua.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lingua.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -214,6 +216,7 @@
 				20D484A11956D350007B4E96 /* LINLoginView.xib */,
 				2082DEEE1957123E009ADF45 /* LINLanguagePickingHeaderView.swift */,
 				2082DEF01957127F009ADF45 /* LINLanguagePickingHeaderView.xib */,
+				201323A519683F70004B884D /* LINLoadingView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -423,6 +426,7 @@
 				9267833C19655E3200F19DB4 /* LINUser.swift in Sources */,
 				2043DFD7196550F8005905B9 /* LINViewController.swift in Sources */,
 				20D484A61956D35D007B4E96 /* LINOnboardingViewController.swift in Sources */,
+				201323A619683F70004B884D /* LINLoadingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

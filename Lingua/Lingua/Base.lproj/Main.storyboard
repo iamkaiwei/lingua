@@ -420,13 +420,6 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Loading" translatesAutoresizingMaskIntoConstraints="NO" id="EU0-Ql-NF9">
-                                <rect key="frame" x="161" y="315" width="159" height="11"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="11" id="D4A-VO-ARN"/>
-                                    <constraint firstAttribute="width" constant="159" id="YZb-h2-fih"/>
-                                </constraints>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TZe-Je-U9B">
                                 <rect key="frame" x="250" y="140" width="100" height="100"/>
                                 <constraints>
@@ -442,18 +435,26 @@
                                     <action selector="toggleOption:" destination="3VM-pF-Dsv" eventType="touchUpInside" id="vfa-Sg-RJO"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tDJ-zx-nk4" customClass="LINLoadingView" customModule="Lingua" customModuleProvider="target">
+                                <rect key="frame" x="161" y="315" width="159" height="11"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="159" id="eq0-vK-9YE"/>
+                                    <constraint firstAttribute="height" constant="11" id="qlK-ov-dtY"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="TZe-Je-U9B" secondAttribute="centerX" constant="-60" id="3Kn-U9-iz3"/>
                             <constraint firstAttribute="centerX" secondItem="nMA-eG-aqu" secondAttribute="centerX" constant="60" id="6KX-bl-3Kn"/>
+                            <constraint firstAttribute="centerY" secondItem="tDJ-zx-nk4" secondAttribute="centerY" constant="-80" id="80R-Do-B7j"/>
                             <constraint firstAttribute="centerX" secondItem="HwL-6Q-08g" secondAttribute="centerX" id="CUx-vo-gHX"/>
-                            <constraint firstAttribute="centerX" secondItem="EU0-Ql-NF9" secondAttribute="centerX" id="QJc-hv-cTg"/>
                             <constraint firstAttribute="centerY" secondItem="TZe-Je-U9B" secondAttribute="centerY" constant="50" id="W9d-1O-Mi0"/>
                             <constraint firstAttribute="trailing" secondItem="ITY-nd-jX3" secondAttribute="trailing" id="XiW-tT-QMy"/>
                             <constraint firstAttribute="centerY" secondItem="HwL-6Q-08g" secondAttribute="centerY" constant="-30" id="aAf-Qa-8JD"/>
                             <constraint firstAttribute="centerY" secondItem="nMA-eG-aqu" secondAttribute="centerY" constant="50" id="gQP-uM-8Ib"/>
-                            <constraint firstAttribute="centerY" secondItem="EU0-Ql-NF9" secondAttribute="centerY" constant="-80" id="oAn-8q-bsW"/>
+                            <constraint firstAttribute="centerX" secondItem="tDJ-zx-nk4" secondAttribute="centerX" id="iRl-5E-g7d"/>
                             <constraint firstItem="ITY-nd-jX3" firstAttribute="top" secondItem="oA8-CE-8uh" secondAttribute="top" id="qbE-cB-4Wi"/>
                             <constraint firstItem="ITY-nd-jX3" firstAttribute="leading" secondItem="oA8-CE-8uh" secondAttribute="leading" id="r8u-nt-byw"/>
                         </constraints>
@@ -526,7 +527,6 @@
         <image name="GrayDownArrow" width="14" height="8"/>
         <image name="LearnOff" width="107" height="94"/>
         <image name="LearnOn" width="107" height="94"/>
-        <image name="Loading" width="159" height="11"/>
         <image name="MessageIcon" width="22" height="21"/>
         <image name="ProfileIcon" width="22" height="21"/>
         <image name="TeachOff" width="76" height="96"/>
