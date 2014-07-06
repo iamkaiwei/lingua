@@ -24,14 +24,15 @@ class LINUserManager {
         return self.currentUser.access_token
     }
     
-    func loginWithFacebookOnSuccess(success: ((user: PFUser!)), failture: ((error: NSErrorPointer))) {
+    func loginWithFacebookOnSuccess(success: ((user: PFUser!) -> Void), failture: ((error: NSError!) -> Void)) {
         PFFacebookUtils.logInWithPermissions(NSArray.facebookPermissionArray(), {
             (user: PFUser!, error: NSError!) -> Void in
             if !user {
                 println("Uh oh. The user cancelled the Facebook login.")
+                failture(error: error)
             } else  {
-                
                 self.updateWithCurrentUser(user)
+                success(user: user);
             }
         })
     }
