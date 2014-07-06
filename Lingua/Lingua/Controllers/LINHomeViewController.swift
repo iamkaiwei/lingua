@@ -12,11 +12,15 @@ class LINHomeViewController: LINViewController {
 
     @IBOutlet var profileButton: UIButton
     @IBOutlet var messageButton: UIButton
+    @IBOutlet var teachButton: UIButton
+    @IBOutlet var learnButton: UIButton
+    @IBOutlet var tipLabel: UILabel
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
+        tipLabel.textColor = UIColor.grayColor()
+        tipLabel.font = UIFont.appLightFontWithSize(14)
     }
 
     @IBAction func openDrawer(sender: UIButton) {
@@ -27,14 +31,12 @@ class LINHomeViewController: LINViewController {
         }
     }
     
-    /*
-    // #pragma mark - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue?, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+    @IBAction func toggleOption(sender: UIButton) {
+        if sender.selected {
+            return
+        }
+        teachButton.selected = !teachButton.selected
+        learnButton.selected = !learnButton.selected
     }
-    */
 
 }

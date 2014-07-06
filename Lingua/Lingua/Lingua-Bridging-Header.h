@@ -16,3 +16,4 @@
 #import "Reachability.h"
 #import <Parse/Parse.h>
 #import "REMenu.h"
+#import "SZTextView.h"
