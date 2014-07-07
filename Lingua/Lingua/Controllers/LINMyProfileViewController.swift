@@ -10,22 +10,17 @@ import UIKit
 
 class LINMyProfileViewController: LINViewController {
 
+    @IBOutlet var nameLabel: UILabel
+    @IBOutlet var proficiencyImageView: UIImageView
+    @IBOutlet var avatarImageView: UIImageView
+    @IBOutlet var collectionView: UICollectionView
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
+        nameLabel.font = UIFont.appRegularFontWithSize(17)
+        avatarImageView.layer.cornerRadius = CGRectGetWidth(avatarImageView.frame)/2
+        avatarImageView.layer.borderWidth = 2
+        avatarImageView.layer.borderColor = UIColor.whiteColor().CGColor
     }
-
-    
-
-    /*
-    // #pragma mark - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue?, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
