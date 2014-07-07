@@ -1,7 +1,7 @@
 //
 //  LINLoginView.swift
 //  Lingua
-//
+//  Updated by Kiet Nguyen on 7/7/2014.
 //  Created by Hoang Ta on 6/21/14.
 //  Copyright (c) 2014 2359Media. All rights reserved.
 //
@@ -18,13 +18,12 @@ protocol LINLoginViewDelegate {
 
 class LINLoginView: UIView {
     
-    @IBOutlet var facebookLoginView: FBLoginView
     @IBOutlet var titleLabel: UILabel
+    @IBOutlet var activityIndicatorView: UIActivityIndicatorView
     
     var delegate: LINLoginViewDelegate?
     
-    init(coder aDecoder: NSCoder!)
-    {
+    init(coder aDecoder: NSCoder!) {
         super.init(coder: aDecoder)
     }
     
@@ -34,11 +33,21 @@ class LINLoginView: UIView {
         titleLabel.font = UIFont.appBoldFontWithSize(25)
     }
     
+    // Actions
     @IBAction func loginWithGoogle(sender: UIButton) {
         delegate?.loginView(self, option: .Google)
     }
     
     @IBAction func loginWithFacebook(sender: UIButton) {
         delegate?.loginView(self, option: .Facebook)
+    }
+    
+    // Indicator
+    func startActivityIndicatorView() {
+        activityIndicatorView.startAnimating()
+    }
+    
+    func stopActivityIndicatorView() {
+        activityIndicatorView.stopAnimating()
     }
 }

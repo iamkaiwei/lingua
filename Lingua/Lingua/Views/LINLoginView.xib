@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LINLoginView" customModule="Lingua" customModuleProvider="target">
             <connections>
+                <outlet property="activityIndicatorView" destination="FoP-7r-bDh" id="PdO-Mc-92L"/>
                 <outlet property="titleLabel" destination="CUe-Mp-2mw" id="pKH-44-Myz"/>
             </connections>
         </placeholder>
@@ -38,11 +39,15 @@
                         <action selector="loginWithGoogle:" destination="-1" eventType="touchUpInside" id="3Hd-jM-X8Y"/>
                     </connections>
                 </button>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="FoP-7r-bDh">
+                    <rect key="frame" x="142" y="143" width="37" height="37"/>
+                    <color key="color" cocoaTouchSystemColor="darkTextColor"/>
+                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.62644213299418605" blue="0.68167469113372092" alpha="1" colorSpace="calibratedRGB"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-            <point key="canvasLocation" x="596" y="381"/>
+            <point key="canvasLocation" x="871" y="391"/>
         </view>
     </objects>
     <resources>
