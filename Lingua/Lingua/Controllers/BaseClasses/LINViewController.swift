@@ -11,10 +11,6 @@ import UIKit
 class LINViewController: UIViewController {
 
     @IBOutlet var titleLabel: UILabel
-    
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
