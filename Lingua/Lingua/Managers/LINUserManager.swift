@@ -9,7 +9,7 @@
 import Foundation
 
 class LINUserManager {
-    let currentUser : LINUser = LINUser()
+    var currentUser = LINUser()
     
     class var sharedInstance : LINUserManager {
         get {
@@ -21,23 +21,17 @@ class LINUserManager {
     }
 
     func getAccessToken() -> NSString {
-        return self.currentUser.access_token
+        return currentUser.access_token
     }
     
     func loginWithFacebookOnSuccess(success: ((user: PFUser!) -> Void), failture: ((error: NSError!) -> Void)) {
         PFFacebookUtils.logInWithPermissions(NSArray.facebookPermissionArray(), {
             (user: PFUser!, error: NSError!) -> Void in
             if !user {
-                println("Uh oh. The user cancelled the Facebook login.")
                 failture(error: error)
             } else  {
-                self.updateWithCurrentUser(user)
                 success(user: user);
             }
         })
-    }
-    
-    func updateWithCurrentUser(user: PFUser) {
-        // TODOME: Update to current user
     }
 }

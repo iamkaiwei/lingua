@@ -9,5 +9,5 @@
 import Foundation
 
 class LINUser {
-    let access_token : String = ""
+    var access_token: String = ""
 }

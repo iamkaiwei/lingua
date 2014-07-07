@@ -1,7 +1,7 @@
 //
 //  LINOnboardingViewController.swift
 //  Lingua
-//
+//  Updated by Kiet Nguyen on 7/7/2014.
 //  Created by Hoang Ta on 6/20/14.
 //  Copyright (c) 2014 2359Media. All rights reserved.
 //
@@ -21,14 +21,13 @@ class LINOnboardingViewController: LINViewController {
         
         prepareOnboarding()
         configureGoogleLogin()
-        configureFacebookLogin()
     }
     
     func prepareOnboarding() {
         
         var frame = view.frame
         
-        //Placeholder for onboarding
+        // Placeholder for onboarding
         for index in 0..3 {
             frame.origin.x = CGRectGetWidth(frame) * CGFloat(index)
             let pageView = UIImageView(image: UIImage(named: "Onboarding\(index)"))
@@ -36,11 +35,10 @@ class LINOnboardingViewController: LINViewController {
             onboardingView.addSubview(pageView)
         }
         
-        //Login page
+        // Login page
         frame.origin.x += CGRectGetWidth(frame)
         let loginView = LINLoginView(frame: frame);
         loginView.delegate = self
-        // loginView.facebookLoginView.delegate = self
         onboardingView.addSubview(loginView)
         
         onboardingView.contentSize = CGSizeMake(CGRectGetMaxX(frame), CGRectGetHeight(frame))
@@ -55,10 +53,6 @@ class LINOnboardingViewController: LINViewController {
 //        GPPSignInInstance.scopes = [ "profile" ]
         GPPSignInInstance.delegate = self;
         GPPSignInInstance.trySilentAuthentication()
-    }
-    
-    func configureFacebookLogin() {
-        
     }
 }
 
@@ -75,9 +69,35 @@ extension LINOnboardingViewController: LINLoginViewDelegate {
         switch option {
         case .Google:
             GPPSignInInstance.authenticate()
-        case .Facebook: break
-        default: break
+        case .Facebook:
+            loginWithFacebook(loginView)
+            break
+        default:
+            break
         }
+    }
+    
+    func loginWithFacebook(loginView: LINLoginView) {
+        LINUserManager.sharedInstance.loginWithFacebookOnSuccess(
+        { (user: PFUser!) -> Void in
+            println("User with facebook logged in!");
+            
+            loginView.stopActivityIndicatorView()
+            self.performSegueWithIdentifier("kPickLearningViewControllerSegue", sender: self)
+        },
+        { (error: NSError!) -> Void in
+            loginView.stopActivityIndicatorView()
+            
+            var alert = UIAlertView()
+            if (!error) {
+               alert = UIAlertView(title: "Facebook Login Failed", message: "Make sure you've allowed Lingua to use Facebook in iOS Settings > Privacy > Facebook.", delegate: nil, cancelButtonTitle: "OK")
+            } else {
+                alert = UIAlertView(title: "Facebook Login Failed", message: "The Internet connection appears to be offline.", delegate: nil, cancelButtonTitle: "OK")
+            }
+            alert.show()
+        })
+        
+        loginView.startActivityIndicatorView()
     }
 }
 
@@ -95,22 +115,3 @@ extension LINOnboardingViewController: GPPSignInDelegate {
         navigationController.pushViewController(viewController, animated: true)
     }
 }
-
-extension LINOnboardingViewController: FBLoginViewDelegate {
-    
-    func loginView(loginView: FBLoginView!, error: NSError!) {
-        println(error.localizedDescription)
-    }
-    
-    func loginViewFetchedUserInfo(loginView: FBLoginView!, user: FBGraphUser) {
-        performSegueWithIdentifier("kPickLearningViewControllerSegue", sender: self)
-        FBSession.activeSession().closeAndClearTokenInformation() //This line is just for avoiding automatically log in with facebook.
-    }
-    
-}
-
-
-
-
-
-

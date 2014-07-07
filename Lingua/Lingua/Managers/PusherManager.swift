@@ -39,7 +39,7 @@ class PusherManager : NSObject, PTPusherDelegate {
     }
     
     
-    // MARK: PTPusherDelegate
+    // PTPusherDelegate
     
     func pusher(pusher: PTPusher, connectionWillConnect connection: PTPusherConnection) -> Bool {
         println("[pusher] Pusher client connecting...");
@@ -93,7 +93,7 @@ class PusherManager : NSObject, PTPusherDelegate {
         request.setValue("Bearer ", forHTTPHeaderField: "Authorization");
     }
     
-    // MARK - Reachability
+    // Reachability
     
     func startReachabilityCheck() {
         let reachability : Reachability = Reachability(hostname: pusherClient.connection.URL.host)
@@ -120,5 +120,4 @@ class PusherManager : NSObject, PTPusherDelegate {
             reachability.startNotifier()
         }
     }
-    
 }
