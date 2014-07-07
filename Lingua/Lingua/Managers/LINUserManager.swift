@@ -21,7 +21,7 @@ class LINUserManager {
     }
 
     func getAccessToken() -> NSString {
-        return currentUser.access_token
+        return PFUser.currentUser().sessionToken
     }
     
     func loginWithFacebookOnSuccess(success: ((user: PFUser!) -> Void), failture: ((error: NSError!) -> Void)) {

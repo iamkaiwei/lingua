@@ -30,12 +30,12 @@ class PusherManager : NSObject, PTPusherDelegate {
     init() {
         super.init()
         
-        self.pusherClient = PTPusher.pusherWithKey(kPusherAPIKey, delegate: self, encrypted: true) as PTPusher
-        self.pusherClient.authorizationURL = NSURL.URLWithString(kPuserAuthorizationURL)
+        pusherClient = PTPusher.pusherWithKey(kPusherAPIKey, delegate: self, encrypted: true) as PTPusher
+        pusherClient.authorizationURL = NSURL.URLWithString(kPuserAuthorizationURL)
     }
     
     func connectToPusher() {
-        self.pusherClient.connect()
+        pusherClient.connect()
     }
     
     
@@ -54,7 +54,7 @@ class PusherManager : NSObject, PTPusherDelegate {
         println("[pusher] Pusher Connection failed with error: \(error)");
         
         if error.domain == kCFErrorDomainCFNetwork {
-            self.startReachabilityCheck()
+            startReachabilityCheck()
         }
     }
     
@@ -75,6 +75,8 @@ class PusherManager : NSObject, PTPusherDelegate {
         return true;
     }
     
+    // Subcribe to channel delegate
+    
     func pusher(pusher: PTPusher, didSubscribeToChannel channel: PTPusherChannel) {
         println("[pusher-\(pusher.connection.socketID)] Subscribed to channel \(channel)");
     }
@@ -89,8 +91,7 @@ class PusherManager : NSObject, PTPusherDelegate {
     func pusher(pusher: PTPusher, willAuthorizeChannel channel: PTPusherChannel, withRequest request: NSMutableURLRequest) {
         println("[pusher-\(pusher.connection.socketID)] Authorizing channel access...");
         
-        // TODOME: [NSString stringWithFormat:@"Bearer %@",[[PSCUserManager sharedInstance] getAccessToken]]
-        request.setValue("Bearer ", forHTTPHeaderField: "Authorization");
+        request.setValue("Bearer \(PFUser.currentUser().sessionToken)", forHTTPHeaderField: "Authorization");
     }
     
     // Reachability
@@ -99,23 +100,20 @@ class PusherManager : NSObject, PTPusherDelegate {
         let reachability : Reachability = Reachability(hostname: pusherClient.connection.URL.host)
         if reachability.isReachable() {
             println("Internet reachable, reconnecting")
-            self.connectToPusher()
+            connectToPusher()
         } else {
             println("Waiting for reachability");
 
-            let reachableBlock = { (reachability : Reachability) -> Void in
-                if reachability.isReachable() {
+            reachability.reachableBlock = { (reachability : Reachability?) -> Void in
+                if reachability?.isReachable() {
                     println("Internet is now reachable")
-                    reachability.stopNotifier()
                     
+                    reachability?.stopNotifier()
                     dispatch_async(dispatch_get_main_queue(), {
                         self.connectToPusher()
                     })
                 }
             }
-            
-            // reachability.reachableBlock = reachableBlock
-            reachableBlock(reachability)
             
             reachability.startNotifier()
         }
