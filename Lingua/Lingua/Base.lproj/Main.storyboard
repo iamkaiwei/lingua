@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6154.21" systemVersion="14A261i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="8Zj-YW-TvC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6185.7" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <deployment defaultVersion="1792" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6153.13"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6181.2"/>
     </dependencies>
     <scenes>
         <!--Onboarding View Controller-->
@@ -47,7 +46,6 @@
                             <constraint firstItem="XPY-bz-cFK" firstAttribute="top" secondItem="n4l-lf-0j8" secondAttribute="top" id="i6A-5z-hwc"/>
                             <constraint firstAttribute="trailing" secondItem="XPY-bz-cFK" secondAttribute="trailing" id="lQ6-tn-9nw"/>
                         </constraints>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <navigationItem key="navigationItem" id="UNd-Ce-1s5"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -127,7 +125,6 @@
                             <constraint firstItem="Z0S-aL-O8Y" firstAttribute="top" secondItem="OM2-Sk-eTn" secondAttribute="bottom" id="m5i-6v-MIa"/>
                             <constraint firstItem="kw2-xt-T8R" firstAttribute="top" secondItem="mPE-TH-X7z" secondAttribute="top" id="oMp-25-MG7"/>
                         </constraints>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <connections>
                         <outlet property="tableView" destination="0ig-R5-VVX" id="wFa-Vb-Day"/>
@@ -267,7 +264,6 @@
                             <constraint firstItem="t22-L2-vOZ" firstAttribute="top" secondItem="MAD-Z6-297" secondAttribute="bottom" id="mWi-o9-ygU"/>
                             <constraint firstItem="KqF-4s-82F" firstAttribute="top" secondItem="t22-L2-vOZ" secondAttribute="bottom" constant="10" id="p4V-vx-VFI"/>
                         </constraints>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <connections>
                         <outlet property="languagePickerView" destination="t22-L2-vOZ" id="9Rq-3O-6Ea"/>
@@ -400,7 +396,6 @@
                             <constraint firstItem="q9g-kW-g3M" firstAttribute="top" secondItem="Lve-37-m1q" secondAttribute="bottom" id="sUW-UK-grD"/>
                             <constraint firstItem="t0j-I2-22J" firstAttribute="leading" secondItem="cFZ-NH-MMc" secondAttribute="leading" id="unt-zD-5bd"/>
                         </constraints>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <connections>
                         <outlet property="avatarImageView" destination="2fg-61-Uef" id="HzR-lT-NTa"/>
@@ -541,7 +536,6 @@
                             <constraint firstItem="ITY-nd-jX3" firstAttribute="top" secondItem="oA8-CE-8uh" secondAttribute="top" id="qbE-cB-4Wi"/>
                             <constraint firstItem="ITY-nd-jX3" firstAttribute="leading" secondItem="oA8-CE-8uh" secondAttribute="leading" id="r8u-nt-byw"/>
                         </constraints>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <connections>
                         <outlet property="learnButton" destination="TZe-Je-U9B" id="UiA-Cb-iN9"/>
@@ -576,7 +570,6 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ey2-hD-VP2" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -586,7 +579,7 @@
         <!--Navigation Controller-->
         <scene sceneID="rHc-HB-iF1">
             <objects>
-                <navigationController autoresizesArchivedViewToFullSize="NO" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="8Zj-YW-TvC" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="kRootNavigationController" autoresizesArchivedViewToFullSize="NO" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="8Zj-YW-TvC" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="cg4-VN-Pi3">

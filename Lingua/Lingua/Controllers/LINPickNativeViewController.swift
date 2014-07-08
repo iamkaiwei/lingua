@@ -73,14 +73,7 @@ class LINPickNativeViewController: LINViewController {
     }
     
     @IBAction func saveUserInfo(sender: UIButton) {
-        let leftDrawer = storyboard.instantiateViewControllerWithIdentifier("kLINMyProfileViewController") as LINMyProfileViewController
-        let center = storyboard.instantiateViewControllerWithIdentifier("kLINHomeViewController") as LINHomeViewController
-        let rightDrawer = storyboard.instantiateViewControllerWithIdentifier("kLINFriendListViewController") as LINFriendListViewController
-        
-        let drawerController = MMDrawerController(centerViewController: center, leftDrawerViewController: leftDrawer, rightDrawerViewController: rightDrawer)
-        drawerController.closeDrawerGestureModeMask = MMCloseDrawerGestureMode.PanningCenterView
-        drawerController.openDrawerGestureModeMask = MMOpenDrawerGestureMode.PanningCenterView | MMOpenDrawerGestureMode.PanningNavigationBar
-        navigationController?.pushViewController(drawerController, animated: true)
+        AppDelegate.sharedDelegate().showHomeScreenWithNavigationController(navigationController)
     }
 
     @IBAction func toggleMenu(sender: UITapGestureRecognizer) {

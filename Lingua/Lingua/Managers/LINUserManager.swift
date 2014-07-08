@@ -32,4 +32,12 @@ class LINUserManager {
             }
         })
     }
+    
+    // Check If User is cached and wheather user's account linked to facebook
+    func checkLogin() -> Bool {
+        if PFFacebookUtils.isLinkedWithUser(PFUser.currentUser()) {
+             return true
+        }
+        return false
+    }
 }

@@ -13,8 +13,8 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
                             
     var window: UIWindow?
-
-
+    var storyboard = UIStoryboard()
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: NSDictionary?) -> Bool {
         
         Parse.setApplicationId("OMS2KayfQ1rDTjkWvAjdiF3GFkxTD9hoPR9SnLSR",clientKey: "JPXeT1Kelnsw66qLwQlrOAP69ybbLXhb5Bvh7YQ5")
@@ -22,11 +22,47 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         PFFacebookUtils.initializeFacebook()
         
-        PusherManager.sharedInstance.connectToPusher();
+        PusherManager.sharedInstance.connectToPusher()
+        
+        window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        window!.makeKeyAndVisible()
+        
+        storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if LINUserManager.sharedInstance.checkLogin() {
+            showHomeScreenWithNavigationController(nil)
+        } else {
+            showOnboardingScreen()
+        }
         
         return true
     }
 
+    class func sharedDelegate() -> AppDelegate {
+        return UIApplication.sharedApplication().delegate! as AppDelegate
+    }
+    
+    func showHomeScreenWithNavigationController(navigationController: UINavigationController?) {
+        let leftDrawer = storyboard.instantiateViewControllerWithIdentifier("kLINMyProfileViewController") as LINMyProfileViewController
+        let center = storyboard.instantiateViewControllerWithIdentifier("kLINHomeViewController") as LINHomeViewController
+        let rightDrawer = storyboard.instantiateViewControllerWithIdentifier("kLINFriendListViewController") as LINFriendListViewController
+        
+        let drawerController = MMDrawerController(centerViewController: center, leftDrawerViewController: leftDrawer, rightDrawerViewController: rightDrawer)
+        drawerController.closeDrawerGestureModeMask = MMCloseDrawerGestureMode.PanningCenterView
+        drawerController.openDrawerGestureModeMask = MMOpenDrawerGestureMode.PanningCenterView | MMOpenDrawerGestureMode.PanningNavigationBar
+        
+        if navigationController {
+            navigationController!.pushViewController(drawerController, animated: true)
+        } else {
+            window!.rootViewController = drawerController
+        }
+    }
+    
+    func showOnboardingScreen() {
+        let navigationController = storyboard.instantiateViewControllerWithIdentifier("kRootNavigationController") as UINavigationController
+        
+         window!.rootViewController = navigationController
+    }
+    
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
