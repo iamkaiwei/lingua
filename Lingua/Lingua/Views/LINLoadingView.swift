@@ -51,7 +51,7 @@ class LINLoadingView: UIView {
         let maxY = rect.size.height;
         let additionalOffset = (delta / 5) * CGFloat(currentSnap);
         
-        for i in -1..16 {
+        for i in -1..<16 {
             let minX = CGFloat(i) * delta + additionalOffset
             let path = UIBezierPath()
             path.moveToPoint(CGPointMake(minX, maxY))

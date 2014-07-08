@@ -1,5 +1,4 @@
 platform :ios, '7.0'
-target "Lingua" do
 
 pod 'MMDrawerController', '~> 0.5.6'
 pod 'google-plus-ios-sdk', '~> 1.5.1'
@@ -8,5 +7,3 @@ pod 'libPusher', '~> 1.5'
 pod 'Reachability', '~> 3.1.1'
 pod 'Parse-iOS-SDK', '~> 1.2.18'
 pod 'REMenu', '~> 1.8.5'
-
-end

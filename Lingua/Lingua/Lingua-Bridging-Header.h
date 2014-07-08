@@ -2,7 +2,7 @@
 //  Lingua-Bridging-Header.h
 //  Lingua
 //
-//  Created by Hoang Ta on 6/20/14.
+//  Created by Hoang Ta on 7/8/14.
 //  Copyright (c) 2014 2359Media. All rights reserved.
 //
 

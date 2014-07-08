@@ -64,7 +64,7 @@ class PusherManager : NSObject, PTPusherDelegate {
         if (willAttemptReconnect) {
             println("[pusher-\(pusher.connection.socketID)] Client will attempt to reconnect automatically");
         } else {
-            if error.domain != PTPusherErrorDomain {
+            if error.domain != String(PTPusherErrorDomain) {
                 self.startReachabilityCheck()
             }
         }

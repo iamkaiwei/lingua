@@ -40,7 +40,7 @@ extension LINPickLearningViewController: UITableViewDataSource, UITableViewDeleg
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
         var cell = self.tableView.dequeueReusableCellWithIdentifier("CellIdentifier") as UITableViewCell
         cell.textLabel.text = "\(dataArray[indexPath.section][indexPath.row])"
-        cell.image = indexPath.section == 0 ? nil : UIImage(named: "Proficiency\(indexPath.row)")
+        cell.imageView.image = indexPath.section == 0 ? nil : UIImage(named: "Proficiency\(indexPath.row)")
 
         if indexPath == selectedIndexPaths[indexPath.section] {
             cell.accessoryView = UIImageView(image: UIImage(named: "Checked"))
@@ -50,7 +50,7 @@ extension LINPickLearningViewController: UITableViewDataSource, UITableViewDeleg
     }
     
     func tableView(tableView: UITableView!, willDisplayCell cell: UITableViewCell!, forRowAtIndexPath indexPath: NSIndexPath!) {
-        cell.font = UIFont.appThinFontWithSize(14)
+        cell.textLabel.font = UIFont.appThinFontWithSize(14)
     }
     
     func numberOfSectionsInTableView(tableView: UITableView!) -> Int {
@@ -107,8 +107,7 @@ extension LINPickLearningViewController: UITableViewDataSource, UITableViewDeleg
             label.sizeToFit()
             header.accessoryView = label
         } else {
-            let imageView = UIImageView(image: cell.image)
-            header.accessoryView = imageView
+            header.accessoryView = UIImageView(image: cell.imageView.image)
         }
     }
 }
@@ -118,7 +117,7 @@ extension LINPickLearningViewController: LINLanguagePickingHeaderViewDelegate {
     func didTapHeader(header: LINLanguagePickingHeaderView) {
         var oldIndexPaths = Array<NSIndexPath>()
         if selectedSectionIndex != nil {
-            for index in 0..dataArray[selectedSectionIndex!].count {
+            for index in 0..<dataArray[selectedSectionIndex!].count {
                 oldIndexPaths.append(NSIndexPath(forRow: index, inSection: selectedSectionIndex!))
             }
         }
@@ -129,7 +128,7 @@ extension LINPickLearningViewController: LINLanguagePickingHeaderViewDelegate {
         }
         else {
             selectedSectionIndex = header.index
-            for index in 0..dataArray[selectedSectionIndex!].count {
+            for index in 0..<dataArray[selectedSectionIndex!].count {
                 newIndexPaths.append(NSIndexPath(forRow: index, inSection: selectedSectionIndex!))
             }
         }

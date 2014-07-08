@@ -21,9 +21,10 @@
 		207630B5195ABFA600D23B2A /* RobotoSlab-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 207630B1195ABFA600D23B2A /* RobotoSlab-Regular.ttf */; };
 		207630B6195ABFA600D23B2A /* RobotoSlab-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 207630B2195ABFA600D23B2A /* RobotoSlab-Thin.ttf */; };
 		207630B9195AC19800D23B2A /* UIFont-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207630B8195AC19800D23B2A /* UIFont-Extensions.swift */; };
+		2078D969196C1769009BF095 /* LINUserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9267833919655D4500F19DB4 /* LINUserManager.swift */; };
+		2078D96A196C180C009BF095 /* LINPickNativeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2082DEF219575A55009ADF45 /* LINPickNativeViewController.swift */; };
 		2082DEEF1957123E009ADF45 /* LINLanguagePickingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2082DEEE1957123E009ADF45 /* LINLanguagePickingHeaderView.swift */; };
 		2082DEF11957127F009ADF45 /* LINLanguagePickingHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2082DEF01957127F009ADF45 /* LINLanguagePickingHeaderView.xib */; };
-		2082DEF319575A55009ADF45 /* LINPickNativeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2082DEF219575A55009ADF45 /* LINPickNativeViewController.swift */; };
 		2082DEF5195762E8009ADF45 /* LINHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2082DEF4195762E8009ADF45 /* LINHomeViewController.swift */; };
 		20BF3FA91957EAAA00963B1F /* LINMyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20BF3FA81957EAAA00963B1F /* LINMyProfileViewController.swift */; };
 		20BF3FAB1957ECA700963B1F /* LINFriendListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20BF3FAA1957ECA700963B1F /* LINFriendListViewController.swift */; };
@@ -31,11 +32,11 @@
 		20D484A21956D350007B4E96 /* LINLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D484A01956D350007B4E96 /* LINLoginView.swift */; };
 		20D484A31956D350007B4E96 /* LINLoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 20D484A11956D350007B4E96 /* LINLoginView.xib */; };
 		20D484A61956D35D007B4E96 /* LINOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D484A51956D35D007B4E96 /* LINOnboardingViewController.swift */; };
-		9267833A19655D4500F19DB4 /* LINUserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9267833919655D4500F19DB4 /* LINUserManager.swift */; };
 		9267833E196561D800F19DB4 /* NSArray-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9267833D196561D800F19DB4 /* NSArray-Extensions.swift */; };
 		9268DFBB1969CEFC00C89603 /* LINUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9268DFBA1969CEFC00C89603 /* LINUser.swift */; };
 		92F316801962AB75002005B9 /* PusherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F3167F1962AB75002005B9 /* PusherManager.swift */; };
 		9EB1574369304B35A905E882 /* libPods-Lingua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E5B35F1B8D924BC3AAC02042 /* libPods-Lingua.a */; };
+		E46E5139087642CABE516AED /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 81D3DA7628DD45F7938E71F3 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,7 +62,6 @@
 		20448A8E1954301A00AC639A /* LinguaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LinguaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		20448A931954301A00AC639A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		20448A941954301A00AC639A /* LinguaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinguaTests.swift; sourceTree = "<group>"; };
-		20448AA719545D4500AC639A /* Lingua-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Lingua-Bridging-Header.h"; sourceTree = "<group>"; };
 		20473E1E1966D5C200EDF620 /* SZTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZTextView.h; sourceTree = "<group>"; };
 		20473E1F1966D5C200EDF620 /* SZTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZTextView.m; sourceTree = "<group>"; };
 		207630AF195ABFA600D23B2A /* RobotoSlab-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSlab-Bold.ttf"; sourceTree = "<group>"; };
@@ -73,17 +73,19 @@
 		2082DEF01957127F009ADF45 /* LINLanguagePickingHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LINLanguagePickingHeaderView.xib; sourceTree = "<group>"; };
 		2082DEF219575A55009ADF45 /* LINPickNativeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINPickNativeViewController.swift; sourceTree = "<group>"; };
 		2082DEF4195762E8009ADF45 /* LINHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINHomeViewController.swift; sourceTree = "<group>"; };
+		2089A57D196C01C0001E5FB7 /* Lingua-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Lingua-Bridging-Header.h"; sourceTree = "<group>"; };
 		20BF3FA81957EAAA00963B1F /* LINMyProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINMyProfileViewController.swift; sourceTree = "<group>"; };
 		20BF3FAA1957ECA700963B1F /* LINFriendListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINFriendListViewController.swift; sourceTree = "<group>"; };
 		20BFCCEA1956E1C400A86C2E /* LINPickLearningViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINPickLearningViewController.swift; sourceTree = "<group>"; };
 		20D484A01956D350007B4E96 /* LINLoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINLoginView.swift; sourceTree = "<group>"; };
 		20D484A11956D350007B4E96 /* LINLoginView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LINLoginView.xib; sourceTree = "<group>"; };
 		20D484A51956D35D007B4E96 /* LINOnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINOnboardingViewController.swift; sourceTree = "<group>"; };
-		727430CFF7FE45A4B73AC815 /* Pods-Lingua.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lingua.xcconfig"; path = "Pods/Pods-Lingua.xcconfig"; sourceTree = "<group>"; };
+		81D3DA7628DD45F7938E71F3 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9267833919655D4500F19DB4 /* LINUserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINUserManager.swift; sourceTree = "<group>"; };
 		9267833D196561D800F19DB4 /* NSArray-Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSArray-Extensions.swift"; sourceTree = "<group>"; };
 		9268DFBA1969CEFC00C89603 /* LINUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINUser.swift; sourceTree = "<group>"; };
 		92F3167F1962AB75002005B9 /* PusherManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PusherManager.swift; sourceTree = "<group>"; };
+		C8726A87F4DA410EA300A2B5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		E5B35F1B8D924BC3AAC02042 /* libPods-Lingua.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Lingua.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -93,6 +95,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9EB1574369304B35A905E882 /* libPods-Lingua.a in Frameworks */,
+				E46E5139087642CABE516AED /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -120,8 +123,8 @@
 				20448A7B1954301A00AC639A /* Lingua */,
 				20448A911954301A00AC639A /* LinguaTests */,
 				20448A7A1954301A00AC639A /* Products */,
-				727430CFF7FE45A4B73AC815 /* Pods-Lingua.xcconfig */,
 				CFFA1F0014D9434085221D84 /* Frameworks */,
+				C8726A87F4DA410EA300A2B5 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -147,6 +150,7 @@
 				20448A881954301A00AC639A /* Images.xcassets */,
 				20448A801954301A00AC639A /* Lingua.xcdatamodeld */,
 				20448A7C1954301A00AC639A /* Supporting Files */,
+				2089A57D196C01C0001E5FB7 /* Lingua-Bridging-Header.h */,
 			);
 			path = Lingua;
 			sourceTree = "<group>";
@@ -156,7 +160,6 @@
 			children = (
 				20448A7E1954301A00AC639A /* AppDelegate.swift */,
 				20448A851954301A00AC639A /* Main.storyboard */,
-				20448AA719545D4500AC639A /* Lingua-Bridging-Header.h */,
 				20448A7D1954301A00AC639A /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -264,6 +267,7 @@
 			isa = PBXGroup;
 			children = (
 				E5B35F1B8D924BC3AAC02042 /* libPods-Lingua.a */,
+				81D3DA7628DD45F7938E71F3 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -398,7 +402,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-Lingua-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -409,8 +413,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9267833E196561D800F19DB4 /* NSArray-Extensions.swift in Sources */,
-				9267833A19655D4500F19DB4 /* LINUserManager.swift in Sources */,
-				2082DEF319575A55009ADF45 /* LINPickNativeViewController.swift in Sources */,
 				201F2B3D195AF1E100E0C17A /* UIColor-Extensions.swift in Sources */,
 				2082DEF5195762E8009ADF45 /* LINHomeViewController.swift in Sources */,
 				20BFCCEB1956E1C400A86C2E /* LINPickLearningViewController.swift in Sources */,
@@ -418,12 +420,14 @@
 				20D484A21956D350007B4E96 /* LINLoginView.swift in Sources */,
 				207630B9195AC19800D23B2A /* UIFont-Extensions.swift in Sources */,
 				20448A7F1954301A00AC639A /* AppDelegate.swift in Sources */,
+				2078D96A196C180C009BF095 /* LINPickNativeViewController.swift in Sources */,
 				2082DEEF1957123E009ADF45 /* LINLanguagePickingHeaderView.swift in Sources */,
 				20448A821954301A00AC639A /* Lingua.xcdatamodeld in Sources */,
 				92F316801962AB75002005B9 /* PusherManager.swift in Sources */,
 				20BF3FAB1957ECA700963B1F /* LINFriendListViewController.swift in Sources */,
 				20473E201966D5C200EDF620 /* SZTextView.m in Sources */,
 				2043DFD7196550F8005905B9 /* LINViewController.swift in Sources */,
+				2078D969196C1769009BF095 /* LINUserManager.swift in Sources */,
 				9268DFBB1969CEFC00C89603 /* LINUser.swift in Sources */,
 				20D484A61956D35D007B4E96 /* LINOnboardingViewController.swift in Sources */,
 				201323A619683F70004B884D /* LINLoadingView.swift in Sources */,
@@ -498,6 +502,7 @@
 				METAL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -533,34 +538,39 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				METAL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
 		20448A991954301A00AC639A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 727430CFF7FE45A4B73AC815 /* Pods-Lingua.xcconfig */;
+			baseConfigurationReference = C8726A87F4DA410EA300A2B5 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				DEFINES_MODULE = NO;
 				INFOPLIST_FILE = Lingua/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Lingua/Lingua-Bridging-Header.h";
 			};
 			name = Debug;
 		};
 		20448A9A1954301A00AC639A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 727430CFF7FE45A4B73AC815 /* Pods-Lingua.xcconfig */;
+			baseConfigurationReference = C8726A87F4DA410EA300A2B5 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				DEFINES_MODULE = NO;
 				INFOPLIST_FILE = Lingua/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Lingua/Lingua-Bridging-Header.h";
 			};
 			name = Release;

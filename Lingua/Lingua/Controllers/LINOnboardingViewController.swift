@@ -28,7 +28,7 @@ class LINOnboardingViewController: LINViewController {
         var frame = view.frame
         
         // Placeholder for onboarding
-        for index in 0..3 {
+        for index in 0..<3 {
             frame.origin.x = CGRectGetWidth(frame) * CGFloat(index)
             let pageView = UIImageView(image: UIImage(named: "Onboarding\(index)"))
             pageView.frame = frame
