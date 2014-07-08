@@ -19,12 +19,10 @@ class PusherManager : NSObject, PTPusherDelegate {
     var pusherClient : PTPusher = PTPusher()
     
     class var sharedInstance : PusherManager {
-        get {
-            struct Static {
-                static let instance : PusherManager = PusherManager()
-            }
-            return Static.instance;
+        struct Static {
+            static let instance : PusherManager = PusherManager()
         }
+        return Static.instance;
     }
 
     init() {

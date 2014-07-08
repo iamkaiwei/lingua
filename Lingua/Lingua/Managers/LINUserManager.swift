@@ -12,12 +12,10 @@ class LINUserManager {
     var currentUser = LINUser()
     
     class var sharedInstance : LINUserManager {
-        get {
-            struct Static {
-                static let instance : LINUserManager = LINUserManager()
-            }
-            return Static.instance;
+        struct Static {
+            static let instance : LINUserManager = LINUserManager()
         }
+        return Static.instance;
     }
 
     func getAccessToken() -> NSString {
