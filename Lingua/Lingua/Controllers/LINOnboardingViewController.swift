@@ -79,13 +79,13 @@ extension LINOnboardingViewController: LINLoginViewDelegate {
     
     func loginWithFacebook(loginView: LINLoginView) {
         LINUserManager.sharedInstance.loginWithFacebookOnSuccess(
-        { (user: PFUser!) -> Void in
+        { (user: PFUser?) -> Void in
             println("User with facebook logged in!");
             
             loginView.stopActivityIndicatorView()
             self.performSegueWithIdentifier("kPickLearningViewControllerSegue", sender: self)
         },
-        { (error: NSError!) -> Void in
+        { (error: NSError?) -> Void in
             loginView.stopActivityIndicatorView()
             
             var alert = UIAlertView()

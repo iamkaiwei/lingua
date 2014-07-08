@@ -24,7 +24,7 @@ class LINUserManager {
         return PFUser.currentUser().sessionToken
     }
     
-    func loginWithFacebookOnSuccess(success: ((user: PFUser!) -> Void), failture: ((error: NSError!) -> Void)) {
+    func loginWithFacebookOnSuccess(success: ((user: PFUser?) -> Void), failture: ((error: NSError?) -> Void)) {
         PFFacebookUtils.logInWithPermissions(NSArray.facebookPermissionArray(), {
             (user: PFUser!, error: NSError!) -> Void in
             if !user {
