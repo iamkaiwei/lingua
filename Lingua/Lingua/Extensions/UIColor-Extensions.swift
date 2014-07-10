@@ -16,4 +16,8 @@ extension UIColor {
     class func appTealColor() -> UIColor {
         return UIColor(red: 0, green: 0.6274, blue: 0.6823, alpha: 1)
     }
+    
+    class func appRedColor() -> UIColor {
+        return UIColor(red: 1, green: 0.4196, blue: 0.4470, alpha: 1)
+    }
 }
