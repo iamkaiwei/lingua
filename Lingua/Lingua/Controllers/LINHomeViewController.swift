@@ -15,14 +15,41 @@ class LINHomeViewController: LINViewController {
     @IBOutlet var teachButton: UIButton
     @IBOutlet var learnButton: UIButton
     @IBOutlet var tipLabel: UILabel
+    @IBOutlet var authorLabel: UILabel
+    @IBOutlet var loadingView: LINLoadingView
+    
+    var timer: NSTimer?
+    let (quotes, authors) = NSArray.quotes()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tipLabel.textColor = UIColor.grayColor()
         tipLabel.font = UIFont.appLightFontWithSize(14)
+        authorLabel.textColor = UIColor.grayColor()
+        authorLabel.font = UIFont.appLightFontWithSize(14)
+        timer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "changeTip", userInfo: nil, repeats: true)
+        showTip()
     }
 
+    func showTip() {
+        loadingView.hidden = false
+        authorLabel.hidden = false
+        timer?.fire()
+    }
+    
+    func hideTip() {
+        loadingView.hidden = true
+        authorLabel.hidden = true
+        timer?.invalidate()
+    }
+    
+    func changeTip() {
+        let index = arc4random_uniform(UInt32(quotes.count))
+        tipLabel.text = quotes[Int(index)]
+        authorLabel.text = authors[Int(index)]
+    }
+    
     @IBAction func openDrawer(sender: UIButton) {
         switch sender {
         case profileButton: mm_drawerController?.openDrawerSide(.Left, animated: true, completion: nil)

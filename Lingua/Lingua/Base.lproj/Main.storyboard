@@ -492,11 +492,11 @@
                                     <action selector="toggleOption:" destination="3VM-pF-Dsv" eventType="touchUpInside" id="KZw-ve-Myf"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to choose teach or learn" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HwL-6Q-08g">
-                                <rect key="frame" x="20" y="250" width="440" height="40"/>
+                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Author" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4co-B1-bWX">
+                                <rect key="frame" x="240" y="330" width="200" height="20"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="440" id="0wb-Or-XQt"/>
-                                    <constraint firstAttribute="height" constant="40" id="ApK-Ty-sQy"/>
+                                    <constraint firstAttribute="width" constant="200" id="SRh-n6-GTQ"/>
+                                    <constraint firstAttribute="height" constant="20" id="lvs-Vb-eVH"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -517,32 +517,47 @@
                                     <action selector="toggleOption:" destination="3VM-pF-Dsv" eventType="touchUpInside" id="vfa-Sg-RJO"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tDJ-zx-nk4" customClass="LINLoadingView" customModule="Lingua" customModuleProvider="target">
-                                <rect key="frame" x="161" y="315" width="159" height="11"/>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tDJ-zx-nk4" customClass="LINLoadingView" customModule="Lingua" customModuleProvider="target">
+                                <rect key="frame" x="161" y="385" width="159" height="11"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="159" id="eq0-vK-9YE"/>
                                     <constraint firstAttribute="height" constant="11" id="qlK-ov-dtY"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to choose teach or learn" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="440" translatesAutoresizingMaskIntoConstraints="NO" id="HwL-6Q-08g">
+                                <rect key="frame" x="20" y="250" width="440" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="ApK-Ty-sQy"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="TZe-Je-U9B" secondAttribute="centerX" constant="-60" id="3Kn-U9-iz3"/>
+                            <constraint firstAttribute="trailing" secondItem="HwL-6Q-08g" secondAttribute="trailing" constant="20" id="4ye-iD-Z6I"/>
                             <constraint firstAttribute="centerX" secondItem="nMA-eG-aqu" secondAttribute="centerX" constant="60" id="6KX-bl-3Kn"/>
-                            <constraint firstAttribute="centerY" secondItem="tDJ-zx-nk4" secondAttribute="centerY" constant="-80" id="80R-Do-B7j"/>
+                            <constraint firstAttribute="centerY" secondItem="tDJ-zx-nk4" secondAttribute="centerY" constant="-150" id="80R-Do-B7j"/>
                             <constraint firstAttribute="centerX" secondItem="HwL-6Q-08g" secondAttribute="centerX" id="CUx-vo-gHX"/>
+                            <constraint firstItem="HwL-6Q-08g" firstAttribute="leading" secondItem="oA8-CE-8uh" secondAttribute="leading" constant="20" id="NqO-mw-9Fa"/>
+                            <constraint firstAttribute="centerY" secondItem="4co-B1-bWX" secondAttribute="centerY" constant="-100" id="Nyi-aE-U4x"/>
                             <constraint firstAttribute="centerY" secondItem="TZe-Je-U9B" secondAttribute="centerY" constant="50" id="W9d-1O-Mi0"/>
                             <constraint firstAttribute="trailing" secondItem="ITY-nd-jX3" secondAttribute="trailing" id="XiW-tT-QMy"/>
-                            <constraint firstAttribute="centerY" secondItem="HwL-6Q-08g" secondAttribute="centerY" constant="-30" id="aAf-Qa-8JD"/>
+                            <constraint firstAttribute="centerY" secondItem="HwL-6Q-08g" secondAttribute="centerY" constant="-50" id="aAf-Qa-8JD"/>
                             <constraint firstAttribute="centerY" secondItem="nMA-eG-aqu" secondAttribute="centerY" constant="50" id="gQP-uM-8Ib"/>
                             <constraint firstAttribute="centerX" secondItem="tDJ-zx-nk4" secondAttribute="centerX" id="iRl-5E-g7d"/>
                             <constraint firstItem="ITY-nd-jX3" firstAttribute="top" secondItem="oA8-CE-8uh" secondAttribute="top" id="qbE-cB-4Wi"/>
                             <constraint firstItem="ITY-nd-jX3" firstAttribute="leading" secondItem="oA8-CE-8uh" secondAttribute="leading" id="r8u-nt-byw"/>
+                            <constraint firstAttribute="trailing" secondItem="4co-B1-bWX" secondAttribute="trailing" constant="40" id="vFE-E0-4lM"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="authorLabel" destination="4co-B1-bWX" id="9GP-Wh-ZTp"/>
                         <outlet property="learnButton" destination="TZe-Je-U9B" id="UiA-Cb-iN9"/>
+                        <outlet property="loadingView" destination="tDJ-zx-nk4" id="xwK-pp-a4l"/>
                         <outlet property="messageButton" destination="axt-Yo-jC8" id="P4w-qW-duF"/>
                         <outlet property="profileButton" destination="dqF-TG-jop" id="iKg-Hx-R7A"/>
                         <outlet property="teachButton" destination="nMA-eG-aqu" id="dgm-WQ-BED"/>
