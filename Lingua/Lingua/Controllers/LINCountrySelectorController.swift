@@ -12,7 +12,7 @@ class LINCountrySelectorController: LINViewController {
 
     @IBOutlet var tableView: UITableView
 
-    let (names, codes) = NSArray.countryNamesAndCodes()
+    let (names, codes) = LINResourceHelper.countryNamesAndCodes()
     
     override func viewDidLoad() {
         super.viewDidLoad()

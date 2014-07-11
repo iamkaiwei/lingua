@@ -19,7 +19,7 @@ class LINHomeViewController: LINViewController {
     @IBOutlet var loadingView: LINLoadingView
     
     var timer: NSTimer?
-    let (quotes, authors) = NSArray.quotes()
+    let (quotes, authors) = LINResourceHelper.quotes()
     
     override func viewDidLoad() {
         super.viewDidLoad()
