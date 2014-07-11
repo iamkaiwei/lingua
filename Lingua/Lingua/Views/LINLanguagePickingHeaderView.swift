@@ -8,6 +8,13 @@
 
 import UIKit
 
+enum ArrowDirection {
+    case Up
+    case Down
+    case Left
+    case Right
+}
+
 protocol LINLanguagePickingHeaderViewDelegate {
     func didTapHeader(header: LINLanguagePickingHeaderView)
 }
@@ -24,11 +31,18 @@ class LINLanguagePickingHeaderView: UITableViewHeaderFooterView {
     
     var delegate: LINLanguagePickingHeaderViewDelegate?
     var index = 0
-    var isExpanded: Bool = false {
+    var accessoryDirection: ArrowDirection = .Down {
         didSet {
-            accessoryImage.transform = CGAffineTransformMakeRotation(isExpanded ? M_PI : 0)
+            switch accessoryDirection {
+            case .Down: accessoryImage.transform = CGAffineTransformMakeRotation(0)
+            case .Up: accessoryImage.transform = CGAffineTransformMakeRotation(M_PI)
+            case .Left: accessoryImage.transform = CGAffineTransformMakeRotation(M_PI_2)
+            case .Right: accessoryImage.transform = CGAffineTransformMakeRotation(M_PI*1.5)
+            default: break
+            }
         }
     }
+    
     var accessoryView: UIView! = nil {
         willSet {
             if accessoryView != nil {
@@ -64,6 +78,10 @@ class LINLanguagePickingHeaderView: UITableViewHeaderFooterView {
 
     func didTapHeader() {
         delegate?.didTapHeader(self)
-        isExpanded = !isExpanded
+        if accessoryDirection == .Down {
+            accessoryDirection = .Up
+        } else if accessoryDirection == .Up {
+            accessoryDirection = .Down
+        }
     }
 }

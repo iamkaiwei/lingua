@@ -11,10 +11,8 @@ import UIKit
 class LINPickLearningViewController: LINViewController {
 
     let subjects = ["Language", "Written", "Spoken"]
-    let dataArray = [["English", "Chinese"],
-                    ["No proficiency", "Elementary proficiency", "Limited proficiency", "Professional proficiency", "Full professional proficiency"],
-                    ["No proficiency", "Elementary proficiency", "Limited proficiency", "Professional proficiency", "Full professional proficiency"]]
-    var selectedSectionIndex: Int? = 0
+    let dataArray = ["No proficiency", "Elementary proficiency", "Limited proficiency", "Professional proficiency", "Full professional proficiency"]
+    var selectedSectionIndex: Int? = 1
     var selectedIndexPaths = Dictionary<Int, NSIndexPath>()
     
     @IBOutlet var tableView: UITableView
@@ -26,20 +24,25 @@ class LINPickLearningViewController: LINViewController {
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "CellIdentifier")
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
+    
 }
 
 extension LINPickLearningViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
-        if selectedSectionIndex == section {
-            return dataArray[section].count
+        if selectedSectionIndex == section && section != 0 {
+            return dataArray.count
         }
         return 0
     }
     
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
         var cell = self.tableView.dequeueReusableCellWithIdentifier("CellIdentifier") as UITableViewCell
-        cell.textLabel.text = "\(dataArray[indexPath.section][indexPath.row])"
+        cell.textLabel.text = "\(dataArray[indexPath.row])"
         cell.imageView.image = indexPath.section == 0 ? nil : UIImage(named: "Proficiency\(indexPath.row)")
 
         if indexPath == selectedIndexPaths[indexPath.section] {
@@ -63,7 +66,10 @@ extension LINPickLearningViewController: UITableViewDataSource, UITableViewDeleg
         header.index = section
         header.delegate = self
         if section == 0 {
-            header.isExpanded = true
+            header.accessoryDirection = .Right
+        }
+        if section == selectedSectionIndex {
+            header.accessoryDirection = .Up
         }
         return header
     }
@@ -115,9 +121,15 @@ extension LINPickLearningViewController: UITableViewDataSource, UITableViewDeleg
 extension LINPickLearningViewController: LINLanguagePickingHeaderViewDelegate {
     
     func didTapHeader(header: LINLanguagePickingHeaderView) {
+        if header.index == 0 {
+            let viewController = storyboard.instantiateViewControllerWithIdentifier("kLINCountrySelectorController") as LINCountrySelectorController
+            navigationController!.pushViewController(viewController, animated: true)
+            return;
+        }
+        
         var oldIndexPaths = Array<NSIndexPath>()
         if selectedSectionIndex != nil {
-            for index in 0..<dataArray[selectedSectionIndex!].count {
+            for index in 0..<dataArray.count {
                 oldIndexPaths.append(NSIndexPath(forRow: index, inSection: selectedSectionIndex!))
             }
         }
@@ -127,8 +139,12 @@ extension LINPickLearningViewController: LINLanguagePickingHeaderViewDelegate {
             selectedSectionIndex = nil
         }
         else {
+            if selectedSectionIndex != nil {
+                let headerView = tableView.headerViewForSection(selectedSectionIndex!) as LINLanguagePickingHeaderView
+                headerView.accessoryDirection = .Down
+            }
             selectedSectionIndex = header.index
-            for index in 0..<dataArray[selectedSectionIndex!].count {
+            for index in 0..<dataArray.count {
                 newIndexPaths.append(NSIndexPath(forRow: index, inSection: selectedSectionIndex!))
             }
         }
