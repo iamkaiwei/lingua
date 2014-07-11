@@ -279,10 +279,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t22-L2-vOZ" userLabel="Language Picker View">
-                                <rect key="frame" x="0.0" y="60" width="480" height="40"/>
+                                <rect key="frame" x="0.0" y="60" width="480" height="50"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Language" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GlV-kO-9g9">
-                                        <rect key="frame" x="10" y="0.0" width="136" height="40"/>
+                                        <rect key="frame" x="10" y="0.0" width="136" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="136" id="C2K-Q1-h4S"/>
                                         </constraints>
@@ -290,7 +290,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="English" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iY2-CF-kEx">
-                                        <rect key="frame" x="255" y="0.0" width="190" height="40"/>
+                                        <rect key="frame" x="255" y="0.0" width="190" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="190" id="Ggd-hq-tYM"/>
                                         </constraints>
@@ -298,7 +298,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="GrayDownArrow" translatesAutoresizingMaskIntoConstraints="NO" id="LKb-dF-1qe">
-                                        <rect key="frame" x="445" y="5" width="30" height="30"/>
+                                        <rect key="frame" x="445" y="5" width="30" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="30" id="A2j-qC-77w"/>
                                         </constraints>
@@ -312,18 +312,18 @@
                                     <constraint firstAttribute="bottom" secondItem="LKb-dF-1qe" secondAttribute="bottom" constant="5" id="Klb-0h-TjW"/>
                                     <constraint firstItem="iY2-CF-kEx" firstAttribute="top" secondItem="t22-L2-vOZ" secondAttribute="top" id="OZX-L9-1T5"/>
                                     <constraint firstItem="LKb-dF-1qe" firstAttribute="leading" secondItem="iY2-CF-kEx" secondAttribute="trailing" id="eSW-NP-uzP"/>
-                                    <constraint firstAttribute="height" constant="40" id="kQt-c7-iaj"/>
+                                    <constraint firstAttribute="height" constant="50" id="kQt-c7-iaj"/>
                                     <constraint firstItem="GlV-kO-9g9" firstAttribute="top" secondItem="t22-L2-vOZ" secondAttribute="top" id="lCs-Es-HIM"/>
                                     <constraint firstAttribute="bottom" secondItem="iY2-CF-kEx" secondAttribute="bottom" id="o4H-NB-LXZ"/>
                                     <constraint firstAttribute="bottom" secondItem="GlV-kO-9g9" secondAttribute="bottom" id="we0-br-yTD"/>
                                     <constraint firstAttribute="trailing" secondItem="LKb-dF-1qe" secondAttribute="trailing" constant="5" id="yjl-Ww-xGs"/>
                                 </constraints>
                                 <connections>
-                                    <outletCollection property="gestureRecognizers" destination="Nfo-TY-HrR" appends="YES" id="yDA-YH-pBA"/>
+                                    <outletCollection property="gestureRecognizers" destination="Nfo-TY-HrR" appends="YES" id="BIs-jy-ErC"/>
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KqF-4s-82F" userLabel="Infomation View">
-                                <rect key="frame" x="10" y="110" width="460" height="200"/>
+                                <rect key="frame" x="10" y="120" width="460" height="200"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" placeholderIntrinsicWidth="460" placeholderIntrinsicHeight="180" translatesAutoresizingMaskIntoConstraints="NO" id="FtB-bc-AmR" customClass="SZTextView">
                                         <rect key="frame" x="0.0" y="0.0" width="460" height="200"/>
@@ -359,6 +359,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="arrowImageView" destination="LKb-dF-1qe" id="gBL-N6-F8I"/>
                         <outlet property="languagePickerView" destination="t22-L2-vOZ" id="9Rq-3O-6Ea"/>
                         <outlet property="saveButton" destination="jRj-Xr-bfq" id="Ze3-pH-tA5"/>
                         <outlet property="subtitle1" destination="GlV-kO-9g9" id="AgF-Pi-zMr"/>
@@ -371,7 +372,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pgT-KN-vjX" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="Nfo-TY-HrR">
                     <connections>
-                        <action selector="toggleMenu:" destination="lJD-h9-4sb" id="IRX-Vp-TwS"/>
+                        <action selector="showCountryList:" destination="lJD-h9-4sb" id="xfi-Q3-c0Q"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>

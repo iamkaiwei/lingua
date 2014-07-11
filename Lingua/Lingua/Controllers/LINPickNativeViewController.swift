@@ -14,45 +14,8 @@ class LINPickNativeViewController: LINViewController {
     @IBOutlet var subtitle2: UILabel
     @IBOutlet var languagePickerView: UIView
     @IBOutlet var saveButton: UIButton
+    @IBOutlet var arrowImageView: UIImageView
     @IBOutlet var textView: SZTextView
-    
-    var dropdown: REMenu {
-        struct Static {
-            static var instance: REMenu?
-        }
-        if Static.instance != nil {
-            return Static.instance!
-        }
-    
-        let languages = ["English", "Chinese"]
-        var items = [REMenuItem]()
-        for language in languages {
-            let item = REMenuItem(title: language, image: nil, highlightedImage: nil, action: { menuItem in
-                    self.subtitle2.text = menuItem.title
-                })
-            item.tag = items.count
-            items.append(item)
-        }
-        let menu = REMenu(items: items)
-        menu.backgroundColor = UIColor.whiteColor()
-        menu.font = UIFont.appThinFontWithSize(14)
-        menu.textColor = UIColor.blackColor()
-        menu.textOffset = CGSizeMake(-35, 0);
-        menu.itemHeight = 40
-        menu.textAlignment = .Right;
-        menu.separatorColor = UIColor.appLightGrayColor()
-        menu.borderWidth = 0;
-        menu.highlightedBackgroundColor = UIColor.appTealColor()
-        menu.shadowOpacity = 0.8
-        menu.shadowRadius = 5
-        Static.instance = menu
-        return Static.instance!
-            
-    }
-    
-    func handleMenuItem(item: REMenuItem) {
-        subtitle2.text = item.title
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,6 +24,7 @@ class LINPickNativeViewController: LINViewController {
     }
     
     func configureUI() {
+        arrowImageView.transform = CGAffineTransformMakeRotation(-M_PI_2)
         subtitle1.font = UIFont.appRegularFontWithSize(17)
         subtitle2.font = UIFont.appThinFontWithSize(14)
         saveButton.titleLabel.font = UIFont.appRegularFontWithSize(21)
@@ -76,15 +40,9 @@ class LINPickNativeViewController: LINViewController {
         AppDelegate.sharedDelegate().showHomeScreenWithNavigationController(navigationController)
     }
 
-    @IBAction func toggleMenu(sender: UITapGestureRecognizer) {
-        if dropdown.isOpen {
-            dropdown.close()
-        } else {
-            var frame = languagePickerView.frame
-            frame.origin.y += (frame.height + 2)
-            frame.size.height *= CGFloat(dropdown.items.count + 1)
-            dropdown.showFromRect(frame, inView: view)
-        }
+    @IBAction func showCountryList(sender: UITapGestureRecognizer) {
+        let viewController = storyboard.instantiateViewControllerWithIdentifier("kLINCountrySelectorController") as LINCountrySelectorController
+        navigationController!.pushViewController(viewController, animated: true)
     }
 }
 
