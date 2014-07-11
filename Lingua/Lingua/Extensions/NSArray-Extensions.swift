@@ -27,4 +27,20 @@ extension NSArray {
         }
         return (quotes, authors)
     }
+    
+    class func countryNamesAndCodes() -> (names: Array<String>, codes: Array<String>) {
+        var names = Array<String>()
+        var codes = Array<String>()
+        for code in NSLocale.ISOCountryCodes() as [String] {
+            
+            let identifier = NSLocale.localeIdentifierFromComponents([NSLocaleCountryCode: code])
+            let countryName = NSLocale.currentLocale().displayNameForKey(NSLocaleIdentifier, value: identifier)
+            if countryName != nil {
+                codes.append(code)
+                names.append(countryName)
+            }
+        }
+        return (names, codes)
+    }
+
 }

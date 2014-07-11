@@ -17,4 +17,8 @@ class LINViewController: UIViewController {
 
         titleLabel?.setValue(UIFont.appLightFontWithSize(21), forKey: "font")
     }
+    
+    @IBAction func dismiss(sender: UIButton) {
+        navigationController.popViewControllerAnimated(true)
+    }
 }
