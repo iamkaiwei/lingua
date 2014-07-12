@@ -12,8 +12,7 @@ class LINCountrySelectorController: LINViewController {
 
     @IBOutlet var tableView: UITableView
 
-    let (names, codes) = LINResourceHelper.countryNamesAndCodes()
-    
+    let countryNames = LINResourceHelper.countryNamesAndCodes()
     override func viewDidLoad() {
         super.viewDidLoad()
     
@@ -25,12 +24,12 @@ class LINCountrySelectorController: LINViewController {
 extension LINCountrySelectorController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
-        return names.count
+        return countryNames.count
     }
     
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
         var cell = self.tableView.dequeueReusableCellWithIdentifier("CellIdentifier") as UITableViewCell
-        cell.textLabel.text = names[indexPath.row]
+        cell.textLabel.text = countryNames[indexPath.row]
         return cell
     }
     
