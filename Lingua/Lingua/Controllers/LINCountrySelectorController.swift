@@ -13,25 +13,65 @@ class LINCountrySelectorController: LINViewController {
     @IBOutlet var tableView: UITableView
 
     let countryNames = LINResourceHelper.countryNamesAndCodes()
+    var countryNameHeaders: [String] {
+        struct Static {
+            static var instance: [String]?
+        }
+            
+        if let chars = Static.instance {
+            return chars
+        }
+
+        var chars = [String]()
+        chars = [String]()
+        for name in countryNames {
+            let char = "\(Array(name)[0])"
+            if !contains(chars, char) {
+                chars.append(char)
+            }
+        }
+        Static.instance = chars
+        return chars
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     
         tableView.registerClass(LINTableViewCell.self, forCellReuseIdentifier: "CellIdentifier")
+        tableView.sectionIndexColor = UIColor.appTealColor()
     }
     
+
 }
 
 extension LINCountrySelectorController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
-        return countryNames.count
+        let char = countryNameHeaders[section]
+        return countryNames.filter{ $0.hasPrefix(char) }.count
     }
     
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
         var cell = self.tableView.dequeueReusableCellWithIdentifier("CellIdentifier") as UITableViewCell
-        cell.textLabel.text = countryNames[indexPath.row]
+        let char = countryNameHeaders[indexPath.section]
+        cell.textLabel.text = countryNames.filter{ $0.hasPrefix(char) }[indexPath.row]
         return cell
     }
     
+    func sectionIndexTitlesForTableView(tableView: UITableView!) -> [AnyObject]! {
+        return countryNameHeaders
+    }
     
+    func tableView(tableView: UITableView!, sectionForSectionIndexTitle title: String!, atIndex index: Int) -> Int {
+        return index;
+    }
+    
+    func numberOfSectionsInTableView(tableView: UITableView!) -> Int {
+        return countryNameHeaders.count
+    }
+    
+    func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+
+    }
 }
