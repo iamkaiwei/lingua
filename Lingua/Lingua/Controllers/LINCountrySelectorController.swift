@@ -12,27 +12,8 @@ class LINCountrySelectorController: LINViewController {
 
     @IBOutlet var tableView: UITableView
 
-    let countryNames = LINResourceHelper.countryNamesAndCodes()
-    var countryNameHeaders: [String] {
-        struct Static {
-            static var instance: [String]?
-        }
-            
-        if let chars = Static.instance {
-            return chars
-        }
-
-        var chars = [String]()
-        chars = [String]()
-        for name in countryNames {
-            let char = "\(Array(name)[0])"
-            if !contains(chars, char) {
-                chars.append(char)
-            }
-        }
-        Static.instance = chars
-        return chars
-    }
+    let countryNames = LINResourceHelper.countryNames()
+    var countryNameHeaders = LINResourceHelper.countryNameHeaders()
     
     override func viewDidLoad() {
         super.viewDidLoad()
