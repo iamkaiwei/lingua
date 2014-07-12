@@ -1,5 +1,5 @@
 //
-//  LINHomeViewController.swift
+//  LINHomeController.swift
 //  Lingua
 //
 //  Created by Hoang Ta on 6/23/14.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LINHomeViewController: LINViewController {
+class LINHomeController: LINViewController {
 
     @IBOutlet var profileButton: UIButton
     @IBOutlet var messageButton: UIButton

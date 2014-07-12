@@ -1,5 +1,5 @@
 //
-//  LINPickNativeViewController.swift
+//  LINPickNativeLanguageController.swift
 //  Lingua
 //
 //  Created by Hoang Ta on 6/23/14.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LINPickNativeViewController: LINViewController {
+class LINPickNativeLanguageController: LINViewController {
 
     @IBOutlet var subtitle1: UILabel
     @IBOutlet var subtitle2: UILabel
@@ -46,7 +46,7 @@ class LINPickNativeViewController: LINViewController {
     }
 }
 
-extension LINPickNativeViewController: NSLayoutManagerDelegate {
+extension LINPickNativeLanguageController: NSLayoutManagerDelegate {
     func layoutManager(layoutManager: NSLayoutManager!, lineSpacingAfterGlyphAtIndex glyphIndex: Int, withProposedLineFragmentRect rect: CGRect) -> CGFloat {
         return 10
     }

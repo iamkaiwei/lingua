@@ -42,9 +42,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func showHomeScreenWithNavigationController(navigationController: UINavigationController?) {
-        let leftDrawer = storyboard.instantiateViewControllerWithIdentifier("kLINMyProfileViewController") as LINMyProfileViewController
-        let center = storyboard.instantiateViewControllerWithIdentifier("kLINHomeViewController") as LINHomeViewController
-        let rightDrawer = storyboard.instantiateViewControllerWithIdentifier("kLINFriendListViewController") as LINFriendListViewController
+        let leftDrawer = storyboard.instantiateViewControllerWithIdentifier("kLINMyProfileController") as LINMyProfileController
+        let center = storyboard.instantiateViewControllerWithIdentifier("kLINHomeController") as LINHomeController
+        let rightDrawer = storyboard.instantiateViewControllerWithIdentifier("kLINFriendListController") as LINFriendListController
         
         let drawerController = MMDrawerController(centerViewController: center, leftDrawerViewController: leftDrawer, rightDrawerViewController: rightDrawer)
         drawerController.closeDrawerGestureModeMask = MMCloseDrawerGestureMode.PanningCenterView

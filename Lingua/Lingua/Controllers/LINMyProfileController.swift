@@ -1,5 +1,5 @@
 //
-//  LINMyProfileViewController.swift
+//  LINMyProfileController.swift
 //  Lingua
 //
 //  Created by Hoang Ta on 6/23/14.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LINMyProfileViewController: LINViewController {
+class LINMyProfileController: LINViewController {
 
     @IBOutlet var nameLabel: UILabel
     @IBOutlet var proficiencyImageView: UIImageView
@@ -31,7 +31,7 @@ class LINMyProfileViewController: LINViewController {
     }
 }
 
-extension LINMyProfileViewController: UICollectionViewDataSource {
+extension LINMyProfileController: UICollectionViewDataSource {
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView!) -> Int {
         return 3

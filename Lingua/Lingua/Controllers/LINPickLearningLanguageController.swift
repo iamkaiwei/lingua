@@ -1,5 +1,5 @@
 //
-//  LINPickLearningViewController.swift
+//  LINPickLearningLanguageController.swift
 //  Lingua
 //
 //  Created by Hoang Ta on 6/22/14.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LINPickLearningViewController: LINViewController {
+class LINPickLearningLanguageController: LINViewController {
 
     let subjects = ["Language", "Written", "Spoken"]
     let dataArray = ["No proficiency", "Elementary proficiency", "Limited proficiency", "Professional proficiency", "Full professional proficiency"]
@@ -31,7 +31,7 @@ class LINPickLearningViewController: LINViewController {
     
 }
 
-extension LINPickLearningViewController: UITableViewDataSource, UITableViewDelegate {
+extension LINPickLearningLanguageController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
         if selectedSectionIndex == section && section != 0 {
@@ -114,7 +114,7 @@ extension LINPickLearningViewController: UITableViewDataSource, UITableViewDeleg
     }
 }
 
-extension LINPickLearningViewController: LINLanguagePickingHeaderViewDelegate {
+extension LINPickLearningLanguageController: LINLanguagePickingHeaderViewDelegate {
     
     func didTapHeader(header: LINLanguagePickingHeaderView) {
         if header.index == 0 {

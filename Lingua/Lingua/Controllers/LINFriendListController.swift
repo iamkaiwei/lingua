@@ -1,5 +1,5 @@
 //
-//  LINFriendListViewController.swift
+//  LINFriendListController.swift
 //  Lingua
 //
 //  Created by Hoang Ta on 6/23/14.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LINFriendListViewController: LINViewController {
+class LINFriendListController: LINViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

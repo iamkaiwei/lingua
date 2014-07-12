@@ -1,5 +1,5 @@
 //
-//  LINOnboardingViewController.swift
+//  LINOnboardingController.swift
 //  Lingua
 //  Updated by Kiet Nguyen on 7/7/2014.
 //  Created by Hoang Ta on 6/20/14.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LINOnboardingViewController: LINViewController {
+class LINOnboardingController: LINViewController {
     
     let kClientId = "749496516991-rn2ks5ka1jdbm7l040d0mhs4v0pja35j.apps.googleusercontent.com"
     let GPPSignInInstance = GPPSignIn.sharedInstance()
@@ -56,14 +56,14 @@ class LINOnboardingViewController: LINViewController {
     }
 }
 
-extension LINOnboardingViewController: UIScrollViewDelegate {
+extension LINOnboardingController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(scrollView: UIScrollView!) {
         pageControl.currentPage = Int(scrollView.contentOffset.x / CGRectGetWidth(scrollView.frame));
     }
 }
 
-extension LINOnboardingViewController: LINLoginViewDelegate {
+extension LINOnboardingController: LINLoginViewDelegate {
     
     func loginView(loginView: LINLoginView, option: LoginOptions) {
         switch option {
@@ -101,7 +101,7 @@ extension LINOnboardingViewController: LINLoginViewDelegate {
     }
 }
 
-extension LINOnboardingViewController: GPPSignInDelegate {
+extension LINOnboardingController: GPPSignInDelegate {
     
     func finishedWithAuth(auth: GTMOAuth2Authentication!, error: NSError!) {
         if error != nil {

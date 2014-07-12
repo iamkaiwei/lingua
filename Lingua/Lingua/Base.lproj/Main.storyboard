@@ -4,10 +4,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6181.2"/>
     </dependencies>
     <scenes>
-        <!--Onboarding View Controller-->
+        <!--Onboarding Controller-->
         <scene sceneID="ntx-KY-8Cn">
             <objects>
-                <viewController storyboardIdentifier="kLINOnboardingViewController" id="dqY-2I-veF" customClass="LINOnboardingViewController" customModule="Lingua" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="kLINOnboardingController" id="dqY-2I-veF" customClass="LINOnboardingController" customModule="Lingua" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XcK-Dz-FXq"/>
                         <viewControllerLayoutGuide type="bottom" id="SxS-Cs-wxd"/>
@@ -137,10 +137,10 @@
             </objects>
             <point key="canvasLocation" x="1721" y="-280"/>
         </scene>
-        <!--Pick Learning View Controller-->
+        <!--Pick Learning Language Controller-->
         <scene sceneID="fRN-4s-ljB">
             <objects>
-                <viewController storyboardIdentifier="kLINPickLearningViewController" id="pMG-Yl-g1n" customClass="LINPickLearningViewController" customModule="Lingua" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="kLINPickLearningLanguageController" id="pMG-Yl-g1n" customClass="LINPickLearningLanguageController" customModule="Lingua" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="OM2-Sk-eTn"/>
                         <viewControllerLayoutGuide type="bottom" id="Nag-wS-NbX"/>
@@ -213,10 +213,10 @@
             </objects>
             <point key="canvasLocation" x="1715" y="331"/>
         </scene>
-        <!--Pick Native View Controller-->
+        <!--Pick Native Language Controller-->
         <scene sceneID="Fyc-vL-KHm">
             <objects>
-                <viewController storyboardIdentifier="kLINPickNativeViewController" id="lJD-h9-4sb" customClass="LINPickNativeViewController" customModule="Lingua" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="kLINPickNativeViewController" id="lJD-h9-4sb" customClass="LINPickNativeLanguageController" customModule="Lingua" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ghl-JI-r7q"/>
                         <viewControllerLayoutGuide type="bottom" id="mWi-sL-IHl"/>
@@ -378,10 +378,10 @@
             </objects>
             <point key="canvasLocation" x="2333" y="331"/>
         </scene>
-        <!--My Profile View Controller-->
+        <!--My Profile Controller-->
         <scene sceneID="j31-R8-PeU">
             <objects>
-                <viewController storyboardIdentifier="kLINMyProfileViewController" id="GTX-yj-Z2v" customClass="LINMyProfileViewController" customModule="Lingua" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="kLINMyProfileController" id="GTX-yj-Z2v" customClass="LINMyProfileController" customModule="Lingua" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ky0-OG-94j"/>
                         <viewControllerLayoutGuide type="bottom" id="q9g-kW-g3M"/>
@@ -507,10 +507,10 @@
             </objects>
             <point key="canvasLocation" x="2927" y="-280"/>
         </scene>
-        <!--Home View Controller-->
+        <!--Home Controller-->
         <scene sceneID="kts-2t-Dwm">
             <objects>
-                <viewController storyboardIdentifier="kLINHomeViewController" id="3VM-pF-Dsv" customClass="LINHomeViewController" customModule="Lingua" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="kLINHomeController" id="3VM-pF-Dsv" customClass="LINHomeController" customModule="Lingua" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="icV-h1-ZMm"/>
                         <viewControllerLayoutGuide type="bottom" id="Pau-cF-JHm"/>
@@ -663,10 +663,10 @@
             </objects>
             <point key="canvasLocation" x="2927" y="331"/>
         </scene>
-        <!--Friend List View Controller-->
+        <!--Friend List Controller-->
         <scene sceneID="73U-sA-5tu">
             <objects>
-                <viewController storyboardIdentifier="kLINFriendListViewController" id="ERx-4d-LVo" customClass="LINFriendListViewController" customModule="Lingua" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="kLINFriendListController" id="ERx-4d-LVo" customClass="LINFriendListController" customModule="Lingua" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="QGe-dl-cQt"/>
                         <viewControllerLayoutGuide type="bottom" id="MKv-qc-e6l"/>
