@@ -21,7 +21,7 @@ class LINPickLearningViewController: LINViewController {
         super.viewDidLoad()
 
         tableView.tableFooterView = UIView(frame: CGRectZero)
-        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "CellIdentifier")
+        tableView.registerClass(LINTableViewCell.self, forCellReuseIdentifier: "CellIdentifier")
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -50,10 +50,6 @@ extension LINPickLearningViewController: UITableViewDataSource, UITableViewDeleg
         }
         cell.accessoryView = UIImageView(image: UIImage(named: "Checked")) //TODO: This line should be removed after the SDK work properly (for now it doesn't do anything..)
         return cell
-    }
-    
-    func tableView(tableView: UITableView!, willDisplayCell cell: UITableViewCell!, forRowAtIndexPath indexPath: NSIndexPath!) {
-        cell.textLabel.font = UIFont.appThinFontWithSize(14)
     }
     
     func numberOfSectionsInTableView(tableView: UITableView!) -> Int {
@@ -93,7 +89,7 @@ extension LINPickLearningViewController: UITableViewDataSource, UITableViewDeleg
     }
     
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: false)
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
         if let oldIndexPath = selectedIndexPaths[indexPath.section] {
             if indexPath != oldIndexPath {
                 selectedIndexPaths[indexPath.section] = indexPath

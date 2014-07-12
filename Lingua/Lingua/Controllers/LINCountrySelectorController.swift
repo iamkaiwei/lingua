@@ -17,7 +17,7 @@ class LINCountrySelectorController: LINViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "CellIdentifier")
+        tableView.registerClass(LINTableViewCell.self, forCellReuseIdentifier: "CellIdentifier")
     }
     
 }
@@ -34,8 +34,5 @@ extension LINCountrySelectorController: UITableViewDataSource, UITableViewDelega
         return cell
     }
     
-    func tableView(tableView: UITableView!, willDisplayCell cell: UITableViewCell!, forRowAtIndexPath indexPath: NSIndexPath!) {
-        cell.textLabel.font = UIFont.appThinFontWithSize(14)
-    }
     
 }
