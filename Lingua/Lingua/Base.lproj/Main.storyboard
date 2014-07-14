@@ -716,34 +716,33 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ff0-BB-hPN" id="pIi-1v-Xud">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Avatar_1" translatesAutoresizingMaskIntoConstraints="NO" id="Gkq-RF-lFc">
-                                                    <rect key="frame" x="20" y="9" width="50" height="50"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Avatar_1" translatesAutoresizingMaskIntoConstraints="NO" id="Gkq-RF-lFc">
+                                                    <rect key="frame" x="20" y="10" width="50" height="50"/>
                                                 </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Teaching English" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vZE-UA-lmc">
-                                                    <rect key="frame" x="85" y="28" width="184" height="21"/>
+                                                    <rect key="frame" x="77" y="30" width="184" height="21"/>
                                                     <fontDescription key="fontDescription" name="RobotoSlab-Regular" family="Roboto Slab" pointSize="13"/>
                                                     <color key="textColor" red="0.5999411940574646" green="0.60004258155822754" blue="0.59991961717605591" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="20/6" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CCa-Gv-m22">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="20/6" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CCa-Gv-m22">
                                                     <rect key="frame" x="221" y="9" width="48" height="21"/>
                                                     <fontDescription key="fontDescription" name="RobotoSlab-Light" family="Roboto Slab" pointSize="13"/>
                                                     <color key="textColor" red="0.24878698587417603" green="0.61424487829208374" blue="0.68069750070571899" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Kenny" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uCf-jK-8tc">
-                                                    <rect key="frame" x="85" y="10" width="121" height="21"/>
+                                                    <rect key="frame" x="77" y="10" width="136" height="23"/>
                                                     <fontDescription key="fontDescription" name="RobotoSlab-Regular" family="Roboto Slab" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="uCf-jK-8tc" firstAttribute="top" secondItem="pIi-1v-Xud" secondAttribute="top" constant="10" id="Kgw-1c-GjA"/>
-                                                <constraint firstItem="uCf-jK-8tc" firstAttribute="leading" secondItem="Gkq-RF-lFc" secondAttribute="trailing" constant="15" id="MY7-Q0-v5r"/>
-                                                <constraint firstItem="vZE-UA-lmc" firstAttribute="leading" secondItem="Gkq-RF-lFc" secondAttribute="trailing" constant="15" id="Pui-cz-Wob"/>
+                                                <constraint firstItem="vZE-UA-lmc" firstAttribute="leading" secondItem="Gkq-RF-lFc" secondAttribute="trailing" constant="7" id="8rK-Sq-tV5"/>
+                                                <constraint firstItem="uCf-jK-8tc" firstAttribute="leading" secondItem="Gkq-RF-lFc" secondAttribute="trailing" constant="7" id="P9h-eQ-Get"/>
                                                 <constraint firstAttribute="bottom" secondItem="Gkq-RF-lFc" secondAttribute="bottom" constant="10" id="XRX-X6-sVL"/>
                                                 <constraint firstItem="Gkq-RF-lFc" firstAttribute="top" secondItem="pIi-1v-Xud" secondAttribute="top" constant="9" id="Zaq-Fd-YbH"/>
-                                                <constraint firstItem="CCa-Gv-m22" firstAttribute="leading" secondItem="uCf-jK-8tc" secondAttribute="trailing" constant="15" id="iyq-8t-UDJ"/>
+                                                <constraint firstItem="uCf-jK-8tc" firstAttribute="top" secondItem="pIi-1v-Xud" secondAttribute="top" constant="10" id="b4E-5t-gVO"/>
                                                 <constraint firstItem="Gkq-RF-lFc" firstAttribute="leading" secondItem="pIi-1v-Xud" secondAttribute="leading" constant="20" id="zIU-yO-igV"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -779,7 +778,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ey2-hD-VP2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2634" y="900"/>
+            <point key="canvasLocation" x="2634" y="899"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="rHc-HB-iF1">
