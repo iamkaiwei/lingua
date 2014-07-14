@@ -39,6 +39,7 @@
 		20D484A61956D35D007B4E96 /* LINOnboardingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D484A51956D35D007B4E96 /* LINOnboardingController.swift */; };
 		20D5BA41196F32ED00DD8158 /* Quotes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 20D5BA40196F32ED00DD8158 /* Quotes.txt */; };
 		3539D820182145359C2B8DA9 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 81D3DA7628DD45F7938E71F3 /* libPods.a */; };
+		921D225A19729AA3002AE34A /* LINFriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921D225919729AA3002AE34A /* LINFriendCell.swift */; };
 		9267833E196561D800F19DB4 /* NSArray-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9267833D196561D800F19DB4 /* NSArray-Extensions.swift */; };
 		9268DFBB1969CEFC00C89603 /* LINUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9268DFBA1969CEFC00C89603 /* LINUser.swift */; };
 		92F316801962AB75002005B9 /* PusherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F3167F1962AB75002005B9 /* PusherManager.swift */; };
@@ -106,6 +107,7 @@
 		20D484A51956D35D007B4E96 /* LINOnboardingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINOnboardingController.swift; sourceTree = "<group>"; };
 		20D5BA40196F32ED00DD8158 /* Quotes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Quotes.txt; sourceTree = "<group>"; };
 		81D3DA7628DD45F7938E71F3 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		921D225919729AA3002AE34A /* LINFriendCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINFriendCell.swift; sourceTree = "<group>"; };
 		9267833919655D4500F19DB4 /* LINUserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINUserManager.swift; sourceTree = "<group>"; };
 		9267833D196561D800F19DB4 /* NSArray-Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSArray-Extensions.swift"; sourceTree = "<group>"; };
 		9268DFBA1969CEFC00C89603 /* LINUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINUser.swift; sourceTree = "<group>"; };
@@ -250,6 +252,7 @@
 				201323A519683F70004B884D /* LINLoadingView.swift */,
 				20B27FB1196D3C24003BFFB6 /* LINBadgeCell.swift */,
 				200D2A821971135B00949A1E /* LINTableViewCell.swift */,
+				921D225919729AA3002AE34A /* LINFriendCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -456,6 +459,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9267833E196561D800F19DB4 /* NSArray-Extensions.swift in Sources */,
+				921D225A19729AA3002AE34A /* LINFriendCell.swift in Sources */,
 				201F2B3D195AF1E100E0C17A /* UIColor-Extensions.swift in Sources */,
 				2082DEF5195762E8009ADF45 /* LINHomeController.swift in Sources */,
 				2050F81F196FF39D0059D236 /* LINResourceHelper.swift in Sources */,
