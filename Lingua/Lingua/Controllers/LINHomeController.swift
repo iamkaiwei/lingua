@@ -64,6 +64,9 @@ class LINHomeController: LINViewController {
         }
         teachButton.selected = !teachButton.selected
         learnButton.selected = !learnButton.selected
+        
+        let chatController = storyboard.instantiateViewControllerWithIdentifier("kLINChatController") as LINChatController
+        navigationController?.pushViewController(chatController, animated: true)
     }
 
 }

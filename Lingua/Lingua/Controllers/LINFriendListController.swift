@@ -17,7 +17,7 @@ class LINFriendListController: LINViewController {
 
         tableView.rowHeight = 70
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -38,5 +38,9 @@ extension LINFriendListController: UITableViewDataSource, UITableViewDelegate {
         let cell = self.tableView.dequeueReusableCellWithIdentifier("kFriendCellIdentifier") as UITableViewCell
         
         return cell
+    }
+    
+    func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
+        performSegueWithIdentifier("kLINChatControllerIdentifier", sender: self)
     }
 }
