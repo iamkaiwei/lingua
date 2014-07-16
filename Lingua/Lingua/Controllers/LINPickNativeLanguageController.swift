@@ -24,7 +24,7 @@ class LINPickNativeLanguageController: LINViewController {
     }
     
     func configureUI() {
-        arrowImageView.transform = CGAffineTransformMakeRotation(-M_PI_2)
+        arrowImageView.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
         subtitle1.font = UIFont.appRegularFontWithSize(17)
         subtitle2.font = UIFont.appThinFontWithSize(14)
         saveButton.titleLabel.font = UIFont.appRegularFontWithSize(21)

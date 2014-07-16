@@ -35,9 +35,9 @@ class LINLanguagePickingHeaderView: UITableViewHeaderFooterView {
         didSet {
             switch accessoryDirection {
             case .Down: accessoryImage.transform = CGAffineTransformMakeRotation(0)
-            case .Up: accessoryImage.transform = CGAffineTransformMakeRotation(M_PI)
-            case .Left: accessoryImage.transform = CGAffineTransformMakeRotation(M_PI_2)
-            case .Right: accessoryImage.transform = CGAffineTransformMakeRotation(M_PI*1.5)
+            case .Up: accessoryImage.transform = CGAffineTransformMakeRotation(CGFloat(M_PI))
+            case .Left: accessoryImage.transform = CGAffineTransformMakeRotation(CGFloat(M_PI_2))
+            case .Right: accessoryImage.transform = CGAffineTransformMakeRotation(CGFloat(M_PI*1.5))
             default: break
             }
         }
