@@ -9,7 +9,7 @@
 import Foundation
 import QuartzCore
 
-class LINChatController: UIViewController {
+class LINChatController: UIViewController, UITextViewDelegate {
 
     @IBOutlet var inputContainerView: UIView
     @IBOutlet var inputTextView: UITextView
@@ -122,4 +122,16 @@ class LINChatController: UIViewController {
             self.view.layoutIfNeeded()
         })
     }
+    
+    // MARK - TextView Delegate
+    
+    func textViewDidChange(textView: UITextView!) {
+        if  textView.text.utf16count > 0 {
+            sendButton.hidden = false
+            speakButton.hidden = true
+        } else {
+            sendButton.hidden = true
+            speakButton.hidden = false
+        }
+   }
 }

@@ -934,22 +934,26 @@
                                         </state>
                                     </button>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Y9g-eK-znw">
-                                        <rect key="frame" x="83" y="9" width="348" height="27"/>
+                                        <rect key="frame" x="83" y="9" width="341" height="27"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="27" id="y8h-MK-b7y"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardType="alphabet"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="90d-9n-3fJ" id="aHy-xl-EBZ"/>
+                                        </connections>
                                     </textView>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fc0-XD-CwJ" userLabel="Send">
-                                        <rect key="frame" x="443" y="12" width="22" height="22"/>
+                                        <rect key="frame" x="432" y="12" width="48" height="22"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="22" id="iPA-Hy-G0O"/>
+                                            <constraint firstAttribute="width" constant="48" id="iPA-Hy-G0O"/>
                                             <constraint firstAttribute="height" constant="22" id="taV-Q8-dKl"/>
                                         </constraints>
-                                        <state key="normal" image="Icn_emoticon">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <state key="normal" title="Send">
+                                            <color key="titleColor" red="0.0" green="0.62644213299999996" blue="0.68167469110000001" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                     </button>
                                 </subviews>
@@ -964,8 +968,8 @@
                                     <constraint firstAttribute="bottom" secondItem="Mpn-9b-L9K" secondAttribute="bottom" constant="7" id="YIO-T0-fI9"/>
                                     <constraint firstAttribute="bottom" secondItem="mt9-PG-q4O" secondAttribute="bottom" constant="7" id="bAX-fv-0pG"/>
                                     <constraint firstAttribute="height" constant="45" id="e2a-gB-MEG"/>
-                                    <constraint firstItem="fc0-XD-CwJ" firstAttribute="leading" secondItem="Y9g-eK-znw" secondAttribute="trailing" constant="12" id="g8I-MB-NZU"/>
-                                    <constraint firstAttribute="trailing" secondItem="fc0-XD-CwJ" secondAttribute="trailing" constant="15" id="rdy-Yh-CnT"/>
+                                    <constraint firstItem="fc0-XD-CwJ" firstAttribute="leading" secondItem="Y9g-eK-znw" secondAttribute="trailing" constant="8" id="g8I-MB-NZU"/>
+                                    <constraint firstAttribute="trailing" secondItem="fc0-XD-CwJ" secondAttribute="trailing" id="rdy-Yh-CnT"/>
                                     <constraint firstAttribute="bottom" secondItem="Y9g-eK-znw" secondAttribute="bottom" constant="9" id="uab-A5-7q7"/>
                                     <constraint firstAttribute="bottom" secondItem="fc0-XD-CwJ" secondAttribute="bottom" constant="11" id="xdF-tj-FFZ"/>
                                 </constraints>
