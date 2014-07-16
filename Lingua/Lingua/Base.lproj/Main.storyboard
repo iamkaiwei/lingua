@@ -940,7 +940,7 @@
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="27" id="y8h-MK-b7y"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardType="alphabet"/>
                                     </textView>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fc0-XD-CwJ" userLabel="Send">
                                         <rect key="frame" x="443" y="12" width="22" height="22"/>
@@ -997,9 +997,11 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <connections>
                         <outlet property="inputContainerView" destination="79N-R5-BYb" id="Acv-O5-8nv"/>
+                        <outlet property="inputContainerViewBottomLayoutGuideConstraint" destination="FsH-Oe-Ha7" id="GPl-8L-ACl"/>
                         <outlet property="inputTextView" destination="Y9g-eK-znw" id="P87-WZ-16y"/>
                         <outlet property="sendButton" destination="fc0-XD-CwJ" id="rKg-OV-Oj5"/>
                         <outlet property="speakButton" destination="kNQ-GM-kg3" id="TAB-gc-Fab"/>
+                        <outlet property="tableView" destination="wR0-OC-umP" id="HC5-Bc-fXE"/>
                         <outlet property="titleNavLabel" destination="i5z-9I-FL4" id="RHf-yd-eN4"/>
                     </connections>
                 </viewController>
