@@ -70,8 +70,10 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDataSo
     @IBAction func buttonSendTouched(sender: UIButton) {
         if (inputTextView.text.utf16count > 0) {
             let bubbleData = BubbleData(text: inputTextView.text, createAt: NSDate(), bubbleType: BubbleType.Mine)
-           
+            
             addBubbleViewCellWithBubbleData(bubbleData)
+            
+            inputTextView.text = ""
         }
     }
     
