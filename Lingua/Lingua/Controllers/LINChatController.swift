@@ -55,6 +55,9 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDataSo
     func configureInputContainerView () {
         inputContainerView.layer.borderColor = UIColor(red: 153.0/255, green: 153.0/255, blue: 153.0/255, alpha: 1.0).CGColor
         inputContainerView.layer.borderWidth = 0.5
+        
+        inputTextView.clipsToBounds = true
+        inputTextView.layer.cornerRadius = 10.0
     }
     
     func configureTapGestureOnTableView() {

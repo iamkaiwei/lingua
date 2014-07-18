@@ -12,6 +12,8 @@
         <mutableArray key="RobotoSlab-Regular.ttf">
             <string>RobotoSlab-Regular</string>
             <string>RobotoSlab-Regular</string>
+            <string>RobotoSlab-Regular</string>
+            <string>RobotoSlab-Regular</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -940,10 +942,11 @@
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Y9g-eK-znw">
                                         <rect key="frame" x="83" y="9" width="341" height="27"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" red="0.0" green="0.62644213299999996" blue="0.68167469110000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="27" id="y8h-MK-b7y"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <fontDescription key="fontDescription" name="RobotoSlab-Regular" family="Roboto Slab" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardType="alphabet"/>
                                         <connections>
                                             <outlet property="delegate" destination="90d-9n-3fJ" id="aHy-xl-EBZ"/>
@@ -955,9 +958,9 @@
                                             <constraint firstAttribute="width" constant="48" id="iPA-Hy-G0O"/>
                                             <constraint firstAttribute="height" constant="22" id="taV-Q8-dKl"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <fontDescription key="fontDescription" name="RobotoSlab-Regular" family="Roboto Slab" pointSize="17"/>
                                         <state key="normal" title="Send">
-                                            <color key="titleColor" red="0.0" green="0.62644213299999996" blue="0.68167469110000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleColor" red="0.5999411940574646" green="0.60004258155822754" blue="0.59991961717605591" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="buttonSendTouched:" destination="90d-9n-3fJ" eventType="touchUpInside" id="ZRQ-bF-WTu"/>
