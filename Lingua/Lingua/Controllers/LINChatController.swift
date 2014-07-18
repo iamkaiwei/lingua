@@ -119,12 +119,24 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDataSo
         bubblesDataArray.append(bubbleData2)
         
         tableView.reloadData()
+        
+        scrollBubbleTableViewToBottomAnimated(false)
+    }
+    
+    func scrollBubbleTableViewToBottomAnimated(animated: Bool) {
+        let lastRowIdx = bubblesDataArray.count - 1
+        
+        if lastRowIdx >= 0 {
+            tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: lastRowIdx, inSection: 0), atScrollPosition: UITableViewScrollPosition.Bottom, animated: animated)
+        }
     }
 
     // MARK: Keyboard Events Notifications
 
     func handleKeyboardWillShowNotification(notification: NSNotification) {
         keyboardWillChangeFrameWithNotification(notification, showKeyboard: true)
+        
+        scrollBubbleTableViewToBottomAnimated(true)
     }
     
     func handleKeyboardWillHideNotification(notification: NSNotification) {
