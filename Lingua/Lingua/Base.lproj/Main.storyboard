@@ -959,6 +959,9 @@
                                         <state key="normal" title="Send">
                                             <color key="titleColor" red="0.0" green="0.62644213299999996" blue="0.68167469110000001" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="buttonSendTouched:" destination="90d-9n-3fJ" eventType="touchUpInside" id="ZRQ-bF-WTu"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.89403235912322998" green="0.89417922496795654" blue="0.8940010666847229" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

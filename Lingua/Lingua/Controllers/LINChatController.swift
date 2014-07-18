@@ -64,6 +64,14 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDataSo
     
     // MARK: Actions
     
+    @IBAction func buttonSendTouched(sender: UIButton) {
+        if (inputTextView.text.utf16count > 0) {
+            let bubbleData = BubbleData(text: inputTextView.text, createAt: NSDate(), bubbleType: BubbleType.Mine)
+           
+            addBubbleViewCellWithBubbleData(bubbleData)
+        }
+    }
+    
     @IBAction func backButtonTouched(sender: UIButton) {
         if navigationController {
             navigationController.popViewControllerAnimated(true)
@@ -106,20 +114,20 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDataSo
     
     // MARK: Functions 
     
+    func addBubbleViewCellWithBubbleData(bubbleData: BubbleData) {
+        bubblesDataArray.append(bubbleData)
+        
+        let indexPaths = [NSIndexPath(forRow: bubblesDataArray.count - 1, inSection: 0)]
+        
+        tableView.beginUpdates()
+        tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.Bottom)
+        tableView.endUpdates()
+        
+        scrollBubbleTableViewToBottomAnimated(true)
+    }
+    
     func loadBubblesData() {
-        let bubbleData1 = BubbleData(text: "I Love You I Love You I Love You I Love You I Love You", createAt: NSDate(), bubbleType: BubbleType.SomeoneElse)
-        let bubbleData2 = BubbleData(text: "Thank you Thank you Thank you Thank you Thank you Thank you Thank you", createAt: NSDate(), bubbleType: BubbleType.Mine)
-
-        bubblesDataArray.append(bubbleData1)
-        bubblesDataArray.append(bubbleData1)
-        bubblesDataArray.append(bubbleData1)
-        
-        bubblesDataArray.append(bubbleData2)
-        bubblesDataArray.append(bubbleData2)
-        bubblesDataArray.append(bubbleData2)
-        
         tableView.reloadData()
-        
         scrollBubbleTableViewToBottomAnimated(false)
     }
     
