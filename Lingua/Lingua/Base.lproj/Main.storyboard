@@ -891,6 +891,10 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="wR0-OC-umP">
                                 <rect key="frame" x="0.0" y="108" width="480" height="327"/>
                                 <color key="backgroundColor" red="0.89403235912322998" green="0.89417922496795654" blue="0.8940010666847229" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="90d-9n-3fJ" id="SKa-Kv-jrV"/>
+                                    <outlet property="delegate" destination="90d-9n-3fJ" id="5eQ-ik-agd"/>
+                                </connections>
                             </tableView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Avatar_2" translatesAutoresizingMaskIntoConstraints="NO" id="SgE-EU-cwm">
                                 <rect key="frame" x="12" y="75" width="54" height="54"/>

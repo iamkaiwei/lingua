@@ -9,7 +9,7 @@
 import Foundation
 import QuartzCore
 
-class LINChatController: UIViewController, UITextViewDelegate {
+class LINChatController: UIViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet var inputContainerView: UIView
     @IBOutlet var inputTextView: UITextView
@@ -20,11 +20,15 @@ class LINChatController: UIViewController, UITextViewDelegate {
     
     @IBOutlet var inputContainerViewBottomLayoutGuideConstraint: NSLayoutConstraint
     
+    var bubblesDataArray = [BubbleData]()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureInputContainerView()
         configureTapGestureOnTableView()
+        
+        loadBubblesData()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -72,8 +76,53 @@ class LINChatController: UIViewController, UITextViewDelegate {
         inputTextView.resignFirstResponder()
     }
     
-    // MARK: Keyboard Events Notifications
+    // MARK: UITableView datasource
     
+    func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
+        return bubblesDataArray.count
+    }
+    
+    func numberOfSectionsInTableView(tableView: UITableView!) -> Int {
+        return 1
+    }
+    
+    func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
+        let cellIdentifier = "kBubbleCell"
+        var cell: BubbleCell? = self.tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as? BubbleCell
+        if !cell {
+            cell = BubbleCell()
+        }
+        
+        let bubbleData = bubblesDataArray[indexPath.row]
+        cell!.configureCellWithBubbleData(bubbleData)
+        
+        return cell
+    }
+
+    func tableView(tableView: UITableView!, heightForRowAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
+        let bubbleData = bubblesDataArray[indexPath.row]
+        return bubbleData.insets.top + bubbleData.view.frame.size.height + bubbleData.insets.bottom + 10;
+    }
+    
+    // MARK: Functions 
+    
+    func loadBubblesData() {
+        let bubbleData1 = BubbleData(text: "I Love You I Love You I Love You I Love You I Love You", createAt: NSDate(), bubbleType: BubbleType.SomeoneElse)
+        let bubbleData2 = BubbleData(text: "Thank you Thank you Thank you Thank you Thank you Thank you Thank you", createAt: NSDate(), bubbleType: BubbleType.Mine)
+
+        bubblesDataArray.append(bubbleData1)
+        bubblesDataArray.append(bubbleData1)
+        bubblesDataArray.append(bubbleData1)
+        
+        bubblesDataArray.append(bubbleData2)
+        bubblesDataArray.append(bubbleData2)
+        bubblesDataArray.append(bubbleData2)
+        
+        tableView.reloadData()
+    }
+
+    // MARK: Keyboard Events Notifications
+
     func handleKeyboardWillShowNotification(notification: NSNotification) {
         keyboardWillChangeFrameWithNotification(notification, showKeyboard: true)
     }
