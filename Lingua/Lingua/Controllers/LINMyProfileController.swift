@@ -58,7 +58,7 @@ extension LINMyProfileController: UICollectionViewDataSource {
         label.font = UIFont.appRegularFontWithSize(14)
         label.textColor = headerColors[indexPath.section]
         label.text = headerTitles[indexPath.section]
-        label.frame = headerView.bounds
+        label.frame = CGRectMake(10, 0, CGRectGetWidth(headerView.bounds), CGRectGetHeight(headerView.bounds))
         headerView.addSubview(label)
         return headerView
     }
