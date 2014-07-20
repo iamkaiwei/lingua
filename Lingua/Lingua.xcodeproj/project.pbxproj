@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		200D2A831971135B00949A1E /* LINTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200D2A821971135B00949A1E /* LINTableViewCell.swift */; };
 		201323A619683F70004B884D /* LINLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201323A519683F70004B884D /* LINLoadingView.swift */; };
 		201F2B3D195AF1E100E0C17A /* UIColor-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201F2B3C195AF1E100E0C17A /* UIColor-Extensions.swift */; };
 		2043DFD7196550F8005905B9 /* LINViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2043DFD6196550F8005905B9 /* LINViewController.swift */; };
@@ -38,8 +37,8 @@
 		20D484A31956D350007B4E96 /* LINLoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 20D484A11956D350007B4E96 /* LINLoginView.xib */; };
 		20D484A61956D35D007B4E96 /* LINOnboardingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D484A51956D35D007B4E96 /* LINOnboardingController.swift */; };
 		20D5BA41196F32ED00DD8158 /* Quotes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 20D5BA40196F32ED00DD8158 /* Quotes.txt */; };
+		20DC655D197BE6A2008DA659 /* LINTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DC655C197BE6A2008DA659 /* LINTableViewCell.swift */; };
 		3539D820182145359C2B8DA9 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 81D3DA7628DD45F7938E71F3 /* libPods.a */; };
-		921D225A19729AA3002AE34A /* LINFriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921D225919729AA3002AE34A /* LINFriendCell.swift */; };
 		925E002A19740C06001D75D4 /* LINChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925E002919740C06001D75D4 /* LINChatController.swift */; };
 		9267833E196561D800F19DB4 /* NSArray-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9267833D196561D800F19DB4 /* NSArray-Extensions.swift */; };
 		9268DFBB1969CEFC00C89603 /* LINUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9268DFBA1969CEFC00C89603 /* LINUser.swift */; };
@@ -73,7 +72,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		200D2A821971135B00949A1E /* LINTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LINTableViewCell.swift; path = ../LINTableViewCell.swift; sourceTree = "<group>"; };
 		201323A519683F70004B884D /* LINLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINLoadingView.swift; sourceTree = "<group>"; };
 		201F2B3C195AF1E100E0C17A /* UIColor-Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor-Extensions.swift"; sourceTree = "<group>"; };
 		2043DFD6196550F8005905B9 /* LINViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINViewController.swift; sourceTree = "<group>"; };
@@ -109,8 +107,8 @@
 		20D484A11956D350007B4E96 /* LINLoginView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LINLoginView.xib; sourceTree = "<group>"; };
 		20D484A51956D35D007B4E96 /* LINOnboardingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINOnboardingController.swift; sourceTree = "<group>"; };
 		20D5BA40196F32ED00DD8158 /* Quotes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Quotes.txt; sourceTree = "<group>"; };
+		20DC655C197BE6A2008DA659 /* LINTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINTableViewCell.swift; sourceTree = "<group>"; };
 		81D3DA7628DD45F7938E71F3 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		921D225919729AA3002AE34A /* LINFriendCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LINFriendCell.swift; path = ../LINFriendCell.swift; sourceTree = "<group>"; };
 		925E002919740C06001D75D4 /* LINChatController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINChatController.swift; sourceTree = "<group>"; };
 		9267833919655D4500F19DB4 /* LINUserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINUserManager.swift; sourceTree = "<group>"; };
 		9267833D196561D800F19DB4 /* NSArray-Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSArray-Extensions.swift"; sourceTree = "<group>"; };
@@ -251,7 +249,6 @@
 		20D4849F1956D350007B4E96 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				92B3534019797C4C001FE86B /* TableViewCells */,
 				92B3533B19796228001FE86B /* BubbleTableView */,
 				20D484A01956D350007B4E96 /* LINLoginView.swift */,
 				20D484A11956D350007B4E96 /* LINLoginView.xib */,
@@ -259,6 +256,7 @@
 				2082DEF01957127F009ADF45 /* LINLanguagePickingHeaderView.xib */,
 				201323A519683F70004B884D /* LINLoadingView.swift */,
 				20B27FB1196D3C24003BFFB6 /* LINBadgeCell.swift */,
+				20DC655C197BE6A2008DA659 /* LINTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -310,15 +308,6 @@
 				92B3533C19796238001FE86B /* BubbleCell.swift */,
 			);
 			path = BubbleTableView;
-			sourceTree = "<group>";
-		};
-		92B3534019797C4C001FE86B /* TableViewCells */ = {
-			isa = PBXGroup;
-			children = (
-				200D2A821971135B00949A1E /* LINTableViewCell.swift */,
-				921D225919729AA3002AE34A /* LINFriendCell.swift */,
-			);
-			path = TableViewCells;
 			sourceTree = "<group>";
 		};
 		92F3167E1962AB45002005B9 /* Managers */ = {
@@ -485,11 +474,11 @@
 			files = (
 				9267833E196561D800F19DB4 /* NSArray-Extensions.swift in Sources */,
 				92B3533F19796298001FE86B /* BubbleData.swift in Sources */,
-				921D225A19729AA3002AE34A /* LINFriendCell.swift in Sources */,
 				201F2B3D195AF1E100E0C17A /* UIColor-Extensions.swift in Sources */,
 				925E002A19740C06001D75D4 /* LINChatController.swift in Sources */,
 				2082DEF5195762E8009ADF45 /* LINHomeController.swift in Sources */,
 				2050F81F196FF39D0059D236 /* LINResourceHelper.swift in Sources */,
+				20DC655D197BE6A2008DA659 /* LINTableViewCell.swift in Sources */,
 				20974985196FCCC00070E8C3 /* LINCountrySelectorController.swift in Sources */,
 				20B27FB2196D3C24003BFFB6 /* LINBadgeCell.swift in Sources */,
 				20BFCCEB1956E1C400A86C2E /* LINPickLearningLanguageController.swift in Sources */,
@@ -502,7 +491,6 @@
 				2078D96A196C180C009BF095 /* LINPickNativeLanguageController.swift in Sources */,
 				2082DEEF1957123E009ADF45 /* LINLanguagePickingHeaderView.swift in Sources */,
 				20448A821954301A00AC639A /* Lingua.xcdatamodeld in Sources */,
-				200D2A831971135B00949A1E /* LINTableViewCell.swift in Sources */,
 				92F316801962AB75002005B9 /* PusherManager.swift in Sources */,
 				20BF3FAB1957ECA700963B1F /* LINFriendListController.swift in Sources */,
 				20473E201966D5C200EDF620 /* SZTextView.m in Sources */,
