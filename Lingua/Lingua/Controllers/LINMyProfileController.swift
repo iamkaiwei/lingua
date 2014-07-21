@@ -35,7 +35,7 @@ class LINMyProfileController: LINViewController {
         introductionView.introduction = "This is a very long intro duction This is a very long introduct This is a very long introduct"
         
         collectionView.registerClass(LINBadgeCell.self, forCellWithReuseIdentifier: "BadgeCellIdentifier")
-        collectionView.registerClass(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "BadgeHeaderIdentifier")
+        collectionView.registerClass(LINBadgeHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "BadgeHeaderIdentifier")
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -70,13 +70,9 @@ extension LINMyProfileController: UICollectionViewDataSource {
     }
     
     func collectionView(collectionView: UICollectionView!, viewForSupplementaryElementOfKind kind: String!, atIndexPath indexPath: NSIndexPath!) -> UICollectionReusableView! {
-        let headerView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "BadgeHeaderIdentifier", forIndexPath: indexPath) as UICollectionReusableView
-        let label = UILabel()
-        label.font = UIFont.appRegularFontWithSize(14)
-        label.textColor = headerColors[indexPath.section]
-        label.text = headerTitles[indexPath.section]
-        label.frame = CGRectMake(10, 0, CGRectGetWidth(headerView.bounds), CGRectGetHeight(headerView.bounds))
-        headerView.addSubview(label)
+        let headerView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "BadgeHeaderIdentifier", forIndexPath: indexPath) as LINBadgeHeaderView
+        headerView.titleLabel.textColor = headerColors[indexPath.section]
+        headerView.titleLabel.text = headerTitles[indexPath.section]
         return headerView
     }
 }

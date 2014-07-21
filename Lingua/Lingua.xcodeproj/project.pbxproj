@@ -17,6 +17,7 @@
 		20448A951954301A00AC639A /* LinguaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20448A941954301A00AC639A /* LinguaTests.swift */; };
 		20473E201966D5C200EDF620 /* SZTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 20473E1F1966D5C200EDF620 /* SZTextView.m */; };
 		2050F81F196FF39D0059D236 /* LINResourceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2050F81E196FF39D0059D236 /* LINResourceHelper.swift */; };
+		2065405E197D3B0B00E9F978 /* LINBadgeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2065405D197D3B0B00E9F978 /* LINBadgeHeaderView.swift */; };
 		207630B3195ABFA600D23B2A /* RobotoSlab-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 207630AF195ABFA600D23B2A /* RobotoSlab-Bold.ttf */; };
 		207630B4195ABFA600D23B2A /* RobotoSlab-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 207630B0195ABFA600D23B2A /* RobotoSlab-Light.ttf */; };
 		207630B5195ABFA600D23B2A /* RobotoSlab-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 207630B1195ABFA600D23B2A /* RobotoSlab-Regular.ttf */; };
@@ -89,6 +90,7 @@
 		20473E1E1966D5C200EDF620 /* SZTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZTextView.h; sourceTree = "<group>"; };
 		20473E1F1966D5C200EDF620 /* SZTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZTextView.m; sourceTree = "<group>"; };
 		2050F81E196FF39D0059D236 /* LINResourceHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINResourceHelper.swift; sourceTree = "<group>"; };
+		2065405D197D3B0B00E9F978 /* LINBadgeHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINBadgeHeaderView.swift; sourceTree = "<group>"; };
 		207630AF195ABFA600D23B2A /* RobotoSlab-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSlab-Bold.ttf"; sourceTree = "<group>"; };
 		207630B0195ABFA600D23B2A /* RobotoSlab-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSlab-Light.ttf"; sourceTree = "<group>"; };
 		207630B1195ABFA600D23B2A /* RobotoSlab-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSlab-Regular.ttf"; sourceTree = "<group>"; };
@@ -227,6 +229,14 @@
 			path = SZTextView;
 			sourceTree = "<group>";
 		};
+		2065405C197D3B0B00E9F978 /* Supplementary Views */ = {
+			isa = PBXGroup;
+			children = (
+				2065405D197D3B0B00E9F978 /* LINBadgeHeaderView.swift */,
+			);
+			path = "Supplementary Views";
+			sourceTree = "<group>";
+		};
 		207630AE195ABE8400D23B2A /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -253,6 +263,7 @@
 		20D4849F1956D350007B4E96 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2065405C197D3B0B00E9F978 /* Supplementary Views */,
 				20DC655E197BEA4F008DA659 /* Cells */,
 				20D484A01956D350007B4E96 /* LINLoginView.swift */,
 				20D484A11956D350007B4E96 /* LINLoginView.xib */,
@@ -489,6 +500,7 @@
 				20DC6564197BEA4F008DA659 /* BubbleCell.swift in Sources */,
 				20BF3FA91957EAAA00963B1F /* LINMyProfileController.swift in Sources */,
 				20D484A21956D350007B4E96 /* LINLoginView.swift in Sources */,
+				2065405E197D3B0B00E9F978 /* LINBadgeHeaderView.swift in Sources */,
 				20B27FB4196D3D7B003BFFB6 /* LINBadgeFlowLayout.swift in Sources */,
 				20DC6568197BEA4F008DA659 /* LINTableViewCell.swift in Sources */,
 				207630B9195AC19800D23B2A /* UIFont-Extensions.swift in Sources */,
