@@ -65,6 +65,8 @@ extension LINMyProfileController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("BadgeCellIdentifier", forIndexPath: indexPath) as LINBadgeCell
         if indexPath.section == 1 {
             cell.imageView.image = UIImage(named: "LearningBadge")
+        } else {
+            cell.imageView.image = UIImage(named: "TeachingBadge")
         }
         return cell
     }
