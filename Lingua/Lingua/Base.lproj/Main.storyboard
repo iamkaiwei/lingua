@@ -403,7 +403,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t0j-I2-22J">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t0j-I2-22J" userLabel="Navigation View">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="60"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Profile" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="18K-4R-d8b">
@@ -425,7 +425,7 @@
                                     <constraint firstAttribute="bottom" secondItem="18K-4R-d8b" secondAttribute="bottom" constant="5" id="wlV-wh-nUU"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9rv-wF-JJh">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9rv-wF-JJh" userLabel="Profile Header View">
                                 <rect key="frame" x="0.0" y="60" width="480" height="45"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Kavin" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oqr-bi-Ult">
@@ -448,6 +448,9 @@
                                         <state key="normal" image="Edit">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="editProfile:" destination="GTX-yj-Z2v" eventType="touchUpInside" id="G3F-4Q-F9W"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -464,12 +467,8 @@
                                     <constraint firstAttribute="bottom" secondItem="GkW-2K-K2c" secondAttribute="bottom" constant="4" id="zC1-Zo-QFe"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rVA-m0-ECS" customClass="LINIntroductionView" customModule="Lingua" customModuleProvider="target">
-                                <rect key="frame" x="65" y="105" width="405" height="50"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="480" placeholderIntrinsicHeight="375" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Lve-37-m1q">
-                                <rect key="frame" x="0.0" y="155" width="480" height="325"/>
+                            <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="480" placeholderIntrinsicHeight="375" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Lve-37-m1q">
+                                <rect key="frame" x="0.0" y="105" width="480" height="375"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="aMU-4C-F1n" customClass="LINBadgeFlowLayout" customModule="Lingua" customModuleProvider="target">
                                     <size key="itemSize" width="50" height="50"/>
@@ -501,30 +500,38 @@
                                     <constraint firstAttribute="width" constant="54" id="jSO-lV-ZFg"/>
                                 </constraints>
                             </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rVA-m0-ECS" customClass="LINIntroductionView" customModule="Lingua" customModuleProvider="target">
+                                <rect key="frame" x="65" y="105" width="405" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="sSd-7R-taj"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.89263556990000004" green="0.89263556990000004" blue="0.89557674629999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Lve-37-m1q" secondAttribute="trailing" id="48A-Xi-eaE"/>
+                            <constraint firstItem="rVA-m0-ECS" firstAttribute="top" secondItem="9rv-wF-JJh" secondAttribute="bottom" id="CSS-XL-JdF"/>
+                            <constraint firstItem="Lve-37-m1q" firstAttribute="top" secondItem="9rv-wF-JJh" secondAttribute="bottom" id="EI2-Ye-1QO"/>
                             <constraint firstAttribute="trailing" secondItem="t0j-I2-22J" secondAttribute="trailing" id="GN0-Y1-SbB"/>
-                            <constraint firstItem="rVA-m0-ECS" firstAttribute="leading" secondItem="2fg-61-Uef" secondAttribute="trailing" constant="3" id="JmT-Fy-9GG"/>
                             <constraint firstItem="2fg-61-Uef" firstAttribute="leading" secondItem="cFZ-NH-MMc" secondAttribute="leading" constant="8" id="QLk-mD-aat"/>
+                            <constraint firstItem="rVA-m0-ECS" firstAttribute="leading" secondItem="2fg-61-Uef" secondAttribute="trailing" constant="3" id="TET-Oc-IRV"/>
                             <constraint firstItem="9rv-wF-JJh" firstAttribute="leading" secondItem="cFZ-NH-MMc" secondAttribute="leading" id="X7R-VT-4At"/>
+                            <constraint firstAttribute="trailing" secondItem="rVA-m0-ECS" secondAttribute="trailing" constant="10" id="XaW-Ja-4PJ"/>
                             <constraint firstItem="t0j-I2-22J" firstAttribute="top" secondItem="cFZ-NH-MMc" secondAttribute="top" id="ZL3-Va-wMO"/>
                             <constraint firstAttribute="trailing" secondItem="9rv-wF-JJh" secondAttribute="trailing" id="Zfd-Ta-zto"/>
-                            <constraint firstItem="Lve-37-m1q" firstAttribute="top" secondItem="rVA-m0-ECS" secondAttribute="bottom" id="bsv-i0-SEB"/>
-                            <constraint firstItem="Lve-37-m1q" firstAttribute="top" secondItem="9rv-wF-JJh" secondAttribute="bottom" constant="50" id="cCf-2Z-P6y"/>
                             <constraint firstItem="2fg-61-Uef" firstAttribute="top" secondItem="t0j-I2-22J" secondAttribute="bottom" constant="8" id="dEr-AD-fJO"/>
                             <constraint firstItem="Lve-37-m1q" firstAttribute="leading" secondItem="cFZ-NH-MMc" secondAttribute="leading" id="mNg-9B-0Ql"/>
-                            <constraint firstItem="rVA-m0-ECS" firstAttribute="top" secondItem="9rv-wF-JJh" secondAttribute="bottom" id="mmy-fF-SLp"/>
                             <constraint firstItem="9rv-wF-JJh" firstAttribute="top" secondItem="t0j-I2-22J" secondAttribute="bottom" id="s0y-cn-0aF"/>
                             <constraint firstItem="q9g-kW-g3M" firstAttribute="top" secondItem="Lve-37-m1q" secondAttribute="bottom" id="sUW-UK-grD"/>
                             <constraint firstItem="t0j-I2-22J" firstAttribute="leading" secondItem="cFZ-NH-MMc" secondAttribute="leading" id="unt-zD-5bd"/>
-                            <constraint firstAttribute="trailing" secondItem="rVA-m0-ECS" secondAttribute="trailing" constant="10" id="z87-Sq-qKp"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="avatarImageView" destination="2fg-61-Uef" id="HzR-lT-NTa"/>
                         <outlet property="collectionView" destination="Lve-37-m1q" id="egk-l1-Ot6"/>
+                        <outlet property="collectionViewTopSpaceConstraint" destination="EI2-Ye-1QO" id="6Ba-tG-XDz"/>
+                        <outlet property="introductionView" destination="rVA-m0-ECS" id="VJm-JR-dx0"/>
                         <outlet property="nameLabel" destination="oqr-bi-Ult" id="mLm-1A-ewq"/>
                         <outlet property="proficiencyImageView" destination="GkW-2K-K2c" id="e90-Ma-8Qy"/>
                         <outlet property="titleLabel" destination="18K-4R-d8b" id="c6T-0n-mfw"/>

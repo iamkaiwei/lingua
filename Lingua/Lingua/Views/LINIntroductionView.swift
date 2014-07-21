@@ -8,20 +8,52 @@
 
 import UIKit
 
+protocol LINIntroductionViewDelegate {
+    func introductionView(introductionView: LINIntroductionView, didChangeToHeight height: CGFloat)
+}
+
 class LINIntroductionView: UIView {
 
+    var delegate: LINIntroductionViewDelegate?
+    var introductionLabel: UILabel?
+    var bubbleImage: UIImageView?
     var introduction: String = "" {
         didSet {
-            let font = UIFont.appRegularFontWithSize(14)
-            let rect = NSString(string: introduction).boundingRectWithSize(CGSize(width: frame.size.width, height: 9999),
+            introductionLabel!.text = introduction
+            let font = UIFont.appRegularFontWithSize(13)
+            var rect = NSString(string: introduction).boundingRectWithSize(CGSize(width: frame.size.width - 20, height: 9999),
                 options: .UsesLineFragmentOrigin,
                 attributes: [NSFontAttributeName: font],
                 context: nil)
+            
+            //Resize label
+            rect.origin = CGPointMake(10, 15)
+            introductionLabel!.frame = rect
+            
+            //Resize bubbleImage
+            var tempFrame = self.bounds
+            tempFrame.size.height = CGRectGetHeight(rect) + 20
+            bubbleImage!.frame = tempFrame
+            
+            //Resize this
+            tempFrame.origin = self.frame.origin
+            self.frame = tempFrame
+            //** Maybe we should add layout constraints to commonInit() instead of changing subviews' frame..
+            
+            delegate?.introductionView(self, didChangeToHeight: CGRectGetHeight(self.frame))
         }
     }
     
     func commonInit() {
         backgroundColor = UIColor.clearColor()
+        bubbleImage = UIImageView(frame: bounds)
+        bubbleImage!.image = UIImage(named: "ChatBoxLeft")
+        addSubview(bubbleImage)
+        
+        introductionLabel = UILabel()
+        introductionLabel!.font = UIFont.appRegularFontWithSize(13)
+        introductionLabel!.numberOfLines = 0
+        addSubview(introductionLabel)
     }
     
     init(frame: CGRect) {
@@ -32,11 +64,5 @@ class LINIntroductionView: UIView {
     init(coder aDecoder: NSCoder!) {
         super.init(coder: aDecoder)
         commonInit()
-    }
-    
-    override func layoutSubviews() {
-        let bubbleImage = UIImageView(frame: bounds)
-        bubbleImage.image = UIImage(named: "ChatBoxLeft")
-        addSubview(bubbleImage)
     }
 }

@@ -14,6 +14,8 @@ class LINMyProfileController: LINViewController {
     @IBOutlet var proficiencyImageView: UIImageView
     @IBOutlet var avatarImageView: UIImageView
     @IBOutlet var collectionView: UICollectionView
+    @IBOutlet var introductionView: LINIntroductionView
+    @IBOutlet var collectionViewTopSpaceConstraint: NSLayoutConstraint
     
     var headerTitles = ["Teacher Badges", "Learner Badges", "\"Teach 5 more users to level up\""]
     var headerColors = [UIColor.appTealColor(), UIColor.appRedColor(), UIColor.grayColor()]
@@ -21,13 +23,28 @@ class LINMyProfileController: LINViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         nameLabel.font = UIFont.appRegularFontWithSize(17)
         avatarImageView.layer.cornerRadius = CGRectGetWidth(avatarImageView.frame)/2
         avatarImageView.layer.borderWidth = 2
         avatarImageView.layer.borderColor = UIColor.whiteColor().CGColor
-
+        introductionView.delegate = self;
+        introductionView.introduction = "This is a very long intro duction This is a very long introduct This is a very long introduct"
+        
         collectionView.registerClass(LINBadgeCell.self, forCellWithReuseIdentifier: "BadgeCellIdentifier")
         collectionView.registerClass(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "BadgeHeaderIdentifier")
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        collectionView.setNeedsUpdateConstraints()
+    }
+    
+    @IBAction func editProfile(sender: UIButton) {
+        
     }
 }
 
@@ -61,5 +78,13 @@ extension LINMyProfileController: UICollectionViewDataSource {
         label.frame = CGRectMake(10, 0, CGRectGetWidth(headerView.bounds), CGRectGetHeight(headerView.bounds))
         headerView.addSubview(label)
         return headerView
+    }
+}
+
+extension LINMyProfileController: LINIntroductionViewDelegate {
+    
+    func introductionView(introductionView: LINIntroductionView, didChangeToHeight height: CGFloat) {
+        let padding: CGFloat = 20
+        collectionViewTopSpaceConstraint.constant = height + padding
     }
 }
