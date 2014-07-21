@@ -464,8 +464,12 @@
                                     <constraint firstAttribute="bottom" secondItem="GkW-2K-K2c" secondAttribute="bottom" constant="4" id="zC1-Zo-QFe"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rVA-m0-ECS" customClass="LINIntroductionView" customModule="Lingua" customModuleProvider="target">
+                                <rect key="frame" x="65" y="105" width="405" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="480" placeholderIntrinsicHeight="375" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Lve-37-m1q">
-                                <rect key="frame" x="0.0" y="105" width="480" height="375"/>
+                                <rect key="frame" x="0.0" y="155" width="480" height="325"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="aMU-4C-F1n" customClass="LINBadgeFlowLayout" customModule="Lingua" customModuleProvider="target">
                                     <size key="itemSize" width="50" height="50"/>
@@ -489,23 +493,33 @@
                                     <outlet property="delegate" destination="GTX-yj-Z2v" id="mPF-2N-vdw"/>
                                 </connections>
                             </collectionView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Avatar3" translatesAutoresizingMaskIntoConstraints="NO" id="2fg-61-Uef">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Avatar3" translatesAutoresizingMaskIntoConstraints="NO" id="2fg-61-Uef">
                                 <rect key="frame" x="8" y="68" width="54" height="54"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="54" id="ffe-8h-6kt"/>
+                                    <constraint firstAttribute="width" constant="54" id="jSO-lV-ZFg"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.89263556990000004" green="0.89263556990000004" blue="0.89557674629999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Lve-37-m1q" secondAttribute="trailing" id="48A-Xi-eaE"/>
                             <constraint firstAttribute="trailing" secondItem="t0j-I2-22J" secondAttribute="trailing" id="GN0-Y1-SbB"/>
+                            <constraint firstItem="rVA-m0-ECS" firstAttribute="leading" secondItem="2fg-61-Uef" secondAttribute="trailing" constant="3" id="JmT-Fy-9GG"/>
+                            <constraint firstItem="2fg-61-Uef" firstAttribute="leading" secondItem="cFZ-NH-MMc" secondAttribute="leading" constant="8" id="QLk-mD-aat"/>
                             <constraint firstItem="9rv-wF-JJh" firstAttribute="leading" secondItem="cFZ-NH-MMc" secondAttribute="leading" id="X7R-VT-4At"/>
                             <constraint firstItem="t0j-I2-22J" firstAttribute="top" secondItem="cFZ-NH-MMc" secondAttribute="top" id="ZL3-Va-wMO"/>
                             <constraint firstAttribute="trailing" secondItem="9rv-wF-JJh" secondAttribute="trailing" id="Zfd-Ta-zto"/>
-                            <constraint firstItem="Lve-37-m1q" firstAttribute="top" secondItem="9rv-wF-JJh" secondAttribute="bottom" id="cCf-2Z-P6y"/>
+                            <constraint firstItem="Lve-37-m1q" firstAttribute="top" secondItem="rVA-m0-ECS" secondAttribute="bottom" id="bsv-i0-SEB"/>
+                            <constraint firstItem="Lve-37-m1q" firstAttribute="top" secondItem="9rv-wF-JJh" secondAttribute="bottom" constant="50" id="cCf-2Z-P6y"/>
+                            <constraint firstItem="2fg-61-Uef" firstAttribute="top" secondItem="t0j-I2-22J" secondAttribute="bottom" constant="8" id="dEr-AD-fJO"/>
                             <constraint firstItem="Lve-37-m1q" firstAttribute="leading" secondItem="cFZ-NH-MMc" secondAttribute="leading" id="mNg-9B-0Ql"/>
+                            <constraint firstItem="rVA-m0-ECS" firstAttribute="top" secondItem="9rv-wF-JJh" secondAttribute="bottom" id="mmy-fF-SLp"/>
                             <constraint firstItem="9rv-wF-JJh" firstAttribute="top" secondItem="t0j-I2-22J" secondAttribute="bottom" id="s0y-cn-0aF"/>
                             <constraint firstItem="q9g-kW-g3M" firstAttribute="top" secondItem="Lve-37-m1q" secondAttribute="bottom" id="sUW-UK-grD"/>
                             <constraint firstItem="t0j-I2-22J" firstAttribute="leading" secondItem="cFZ-NH-MMc" secondAttribute="leading" id="unt-zD-5bd"/>
+                            <constraint firstAttribute="trailing" secondItem="rVA-m0-ECS" secondAttribute="trailing" constant="10" id="z87-Sq-qKp"/>
                         </constraints>
                     </view>
                     <connections>

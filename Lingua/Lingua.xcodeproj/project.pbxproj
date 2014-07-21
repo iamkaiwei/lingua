@@ -32,6 +32,7 @@
 		20BF3FA91957EAAA00963B1F /* LINMyProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20BF3FA81957EAAA00963B1F /* LINMyProfileController.swift */; };
 		20BF3FAB1957ECA700963B1F /* LINFriendListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20BF3FAA1957ECA700963B1F /* LINFriendListController.swift */; };
 		20BFCCEB1956E1C400A86C2E /* LINPickLearningLanguageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20BFCCEA1956E1C400A86C2E /* LINPickLearningLanguageController.swift */; };
+		20C7BB44197C491300E4D9FE /* LINIntroductionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C7BB43197C491300E4D9FE /* LINIntroductionView.swift */; };
 		20D484A21956D350007B4E96 /* LINLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D484A01956D350007B4E96 /* LINLoginView.swift */; };
 		20D484A31956D350007B4E96 /* LINLoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 20D484A11956D350007B4E96 /* LINLoginView.xib */; };
 		20D484A61956D35D007B4E96 /* LINOnboardingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D484A51956D35D007B4E96 /* LINOnboardingController.swift */; };
@@ -103,6 +104,7 @@
 		20BF3FA81957EAAA00963B1F /* LINMyProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINMyProfileController.swift; sourceTree = "<group>"; };
 		20BF3FAA1957ECA700963B1F /* LINFriendListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINFriendListController.swift; sourceTree = "<group>"; };
 		20BFCCEA1956E1C400A86C2E /* LINPickLearningLanguageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINPickLearningLanguageController.swift; sourceTree = "<group>"; };
+		20C7BB43197C491300E4D9FE /* LINIntroductionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINIntroductionView.swift; sourceTree = "<group>"; };
 		20D484A01956D350007B4E96 /* LINLoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINLoginView.swift; sourceTree = "<group>"; };
 		20D484A11956D350007B4E96 /* LINLoginView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LINLoginView.xib; sourceTree = "<group>"; };
 		20D484A51956D35D007B4E96 /* LINOnboardingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINOnboardingController.swift; sourceTree = "<group>"; };
@@ -257,6 +259,7 @@
 				2082DEEE1957123E009ADF45 /* LINLanguagePickingHeaderView.swift */,
 				2082DEF01957127F009ADF45 /* LINLanguagePickingHeaderView.xib */,
 				201323A519683F70004B884D /* LINLoadingView.swift */,
+				20C7BB43197C491300E4D9FE /* LINIntroductionView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -477,6 +480,7 @@
 			files = (
 				9267833E196561D800F19DB4 /* NSArray-Extensions.swift in Sources */,
 				201F2B3D195AF1E100E0C17A /* UIColor-Extensions.swift in Sources */,
+				20C7BB44197C491300E4D9FE /* LINIntroductionView.swift in Sources */,
 				925E002A19740C06001D75D4 /* LINChatController.swift in Sources */,
 				2082DEF5195762E8009ADF45 /* LINHomeController.swift in Sources */,
 				2050F81F196FF39D0059D236 /* LINResourceHelper.swift in Sources */,
