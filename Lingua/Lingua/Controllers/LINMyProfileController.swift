@@ -10,12 +10,12 @@ import UIKit
 
 class LINMyProfileController: LINViewController {
 
-    @IBOutlet var nameLabel: UILabel!
-    @IBOutlet var proficiencyImageView: UIImageView!
-    @IBOutlet var avatarImageView: UIImageView!
-    @IBOutlet var collectionView: UICollectionView!
-    @IBOutlet var introductionView: LINIntroductionView!
-    @IBOutlet var collectionViewTopSpaceConstraint: NSLayoutConstraint!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var proficiencyImageView: UIImageView!
+    @IBOutlet weak var avatarImageView: UIImageView!
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var introductionView: LINIntroductionView!
+    @IBOutlet weak var collectionViewTopSpaceConstraint: NSLayoutConstraint!
     
     var headerTitles = ["Teacher Badges", "Learner Badges", "\"Teach 5 more users to level up\""]
     var headerColors = [UIColor.appTealColor(), UIColor.appRedColor(), UIColor.grayColor()]

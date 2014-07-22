@@ -11,14 +11,14 @@ import QuartzCore
 
 class LINChatController: UIViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate {
 
-    @IBOutlet var inputContainerView: UIView!
-    @IBOutlet var inputTextView: UITextView!
-    @IBOutlet var speakButton: UIButton!
-    @IBOutlet var sendButton: UIButton!
-    @IBOutlet var titleNavLabel: UILabel!
-    @IBOutlet var tableView: UITableView!
+    @IBOutlet weak var inputContainerView: UIView!
+    @IBOutlet weak var inputTextView: UITextView!
+    @IBOutlet weak var speakButton: UIButton!
+    @IBOutlet weak var sendButton: UIButton!
+    @IBOutlet weak var titleNavLabel: UILabel!
+    @IBOutlet weak var tableView: UITableView!
     
-    @IBOutlet var inputContainerViewBottomLayoutGuideConstraint: NSLayoutConstraint!
+    @IBOutlet weak var inputContainerViewBottomLayoutGuideConstraint: NSLayoutConstraint!
     
     var bubblesDataArray = [BubbleData]()
 
