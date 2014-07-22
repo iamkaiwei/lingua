@@ -32,12 +32,14 @@ class PusherManager : NSObject, PTPusherDelegate {
         pusherClient.authorizationURL = NSURL.URLWithString(kPuserAuthorizationURL)
     }
     
+    // MARK: Pusher utils
+    
     func connectToPusher() {
         pusherClient.connect()
     }
     
     
-    // PTPusherDelegate
+    // MARK: PTPusher Delegate
     
     func pusher(pusher: PTPusher, connectionWillConnect connection: PTPusherConnection) -> Bool {
         println("[pusher] Pusher client connecting...");
@@ -73,7 +75,7 @@ class PusherManager : NSObject, PTPusherDelegate {
         return true;
     }
     
-    // Subcribe to channel delegate
+    // MARK: Subcribed to channel delegate
     
     func pusher(pusher: PTPusher, didSubscribeToChannel channel: PTPusherChannel) {
         println("[pusher-\(pusher.connection.socketID)] Subscribed to channel \(channel)");
@@ -92,7 +94,7 @@ class PusherManager : NSObject, PTPusherDelegate {
         request.setValue("Bearer \(PFUser.currentUser().sessionToken)", forHTTPHeaderField: "Authorization");
     }
     
-    // Reachability
+    // MARK: Reachability
     
     func startReachabilityCheck() {
         let reachability : Reachability = Reachability(hostname: pusherClient.connection.URL.host)

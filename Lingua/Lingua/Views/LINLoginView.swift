@@ -33,7 +33,7 @@ class LINLoginView: UIView {
         titleLabel.font = UIFont.appBoldFontWithSize(25)
     }
     
-    // Actions
+    // MARK: Actions
     @IBAction func loginWithGoogle(sender: UIButton) {
         delegate?.loginView(self, option: .Google)
     }
@@ -42,7 +42,7 @@ class LINLoginView: UIView {
         delegate?.loginView(self, option: .Facebook)
     }
     
-    // Indicator
+    // MARK: Indicator
     func startActivityIndicatorView() {
         activityIndicatorView.startAnimating()
     }
