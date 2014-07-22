@@ -68,14 +68,13 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDataSo
     // MARK: Actions
     
     @IBAction func buttonSendTouched(sender: UIButton) {
-        // FIXME
-//        if (inputTextView.text.utf16count > 0) {
-//            let bubbleData = BubbleData(text: inputTextView.text, createAt: NSDate(), bubbleType: BubbleType.Mine)
-//            
-//            addBubbleViewCellWithBubbleData(bubbleData)
-//            
-//            inputTextView.text = ""
-//        }
+        if (inputTextView.text.length() > 0) {
+            let bubbleData = BubbleData(text: inputTextView.text, createAt: NSDate(), bubbleType: BubbleType.Mine)
+            
+            addBubbleViewCellWithBubbleData(bubbleData)
+            
+            inputTextView.text = ""
+        }
     }
     
     @IBAction func backButtonTouched(sender: UIButton) {
@@ -201,13 +200,12 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDataSo
     // MARK - TextView Delegate
     
     func textViewDidChange(textView: UITextView!) {
-        // FIXME
-//        if  textView.text.utf16count > 0 {
-//            sendButton.hidden = false
-//            speakButton.hidden = true
-//        } else {
-//            sendButton.hidden = true
-//            speakButton.hidden = false
-//        }
+        if  textView.text.length() > 0 {
+            sendButton.hidden = false
+            speakButton.hidden = true
+        } else {
+            sendButton.hidden = true
+            speakButton.hidden = false
+        }
    }
 }
