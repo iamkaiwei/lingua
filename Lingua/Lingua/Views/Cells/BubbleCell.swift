@@ -26,7 +26,7 @@ class BubbleCell: UITableViewCell {
         let type = bubbleData.type
         let bubbleSize = bubbleData.view.frame.size
     
-        var offsetX = (type == BubbleType.SomeoneElse ? 5 : frame.size.width  - bubbleSize.width - bubbleData.insets.left - bubbleData.insets.right - 5)
+        let offsetX = (type == BubbleType.SomeoneElse ? 5 : frame.size.width  - bubbleSize.width - bubbleData.insets.left - bubbleData.insets.right - 5)
         
         customView.removeFromSuperview()
         
@@ -43,16 +43,14 @@ class BubbleCell: UITableViewCell {
             bubbleImageView.image = UIImage(named: "Chat_bubble_sender").resizableImageWithCapInsets(UIEdgeInsetsMake(14, 15, 14, 15)) // Box_chat_left
         }
         
-        // FIXME
         bubbleImageView.frame = CGRect(x: offsetX + 0,
                                        y: 5,
                                       width: bubbleSize.width + bubbleData.insets.left + bubbleData.insets.right,
                                       height: bubbleSize.height + bubbleData.insets.top + bubbleData.insets.bottom)
         
-        // FIXME
         // Add time create
-       //  offsetX = (type == BubbleType.SomeoneElse ? (customView.frame.origin.x + customView.frame.size.width + 20) : (customView.frame.origin.x - 60))
-        let createAtLabel = UILabel(frame: CGRect(x: offsetX,
+        let offsetXCreateAtLabel = (type == BubbleType.SomeoneElse ? (customView.frame.origin.x + customView.frame.size.width + 20) : (customView.frame.origin.x - 60))
+        let createAtLabel = UILabel(frame: CGRect(x: offsetXCreateAtLabel,
                                                   y: customView.frame.origin.y + customView.frame.size.height/2 - 10,
                                                   width: 100, height: 20))
         createAtLabel.text = "10:56 pm"
