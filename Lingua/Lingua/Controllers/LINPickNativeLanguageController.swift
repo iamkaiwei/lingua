@@ -10,12 +10,12 @@ import UIKit
 
 class LINPickNativeLanguageController: LINViewController {
 
-    @IBOutlet var subtitle1: UILabel!
-    @IBOutlet var subtitle2: UILabel!
-    @IBOutlet var languagePickerView: UIView!
-    @IBOutlet var saveButton: UIButton!
-    @IBOutlet var arrowImageView: UIImageView!
-    @IBOutlet var textView: SZTextView!
+    @IBOutlet weak var subtitle1: UILabel!
+    @IBOutlet weak var subtitle2: UILabel!
+    @IBOutlet weak var languagePickerView: UIView!
+    @IBOutlet weak var saveButton: UIButton!
+    @IBOutlet weak var arrowImageView: UIImageView!
+    @IBOutlet weak var textView: SZTextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()

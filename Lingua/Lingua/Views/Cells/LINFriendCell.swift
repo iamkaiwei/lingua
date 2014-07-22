@@ -10,8 +10,8 @@ import Foundation
 import UIKit
 
 class LINFriendCell: UITableViewCell {
-    @IBOutlet var avatarImgView: UIImageView!
-    @IBOutlet var nameLabel: UILabel!
-    @IBOutlet var roleName: UILabel!
-    @IBOutlet var dateLabel: UILabel!
+    @IBOutlet weak var avatarImgView: UIImageView!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var roleName: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
 }

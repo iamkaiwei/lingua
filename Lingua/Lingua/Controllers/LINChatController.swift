@@ -10,7 +10,6 @@ import Foundation
 import QuartzCore
 
 class LINChatController: UIViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate {
-
     @IBOutlet var inputContainerView: UIView!
     @IBOutlet var inputTextView: UITextView!
     @IBOutlet var speakButton: UIButton!

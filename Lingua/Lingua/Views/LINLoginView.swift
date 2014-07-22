@@ -18,8 +18,8 @@ protocol LINLoginViewDelegate {
 
 class LINLoginView: UIView {
     
-    @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var activityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
     var delegate: LINLoginViewDelegate?
     
