@@ -16,7 +16,7 @@ class BubbleCell: UITableViewCell {
     init(style: UITableViewCellStyle, reuseIdentifier: String!) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        selectionStyle = .
+        selectionStyle = .None
         contentView.addSubview(bubbleImageView)
         backgroundColor = UIColor.clearColor()
         contentView.backgroundColor = UIColor.clearColor()
