@@ -18,17 +18,14 @@ class LINOnboardingController: LINViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        automaticallyAdjustsScrollViewInsets = false
         prepareOnboarding()
         configureGoogleLogin()
     }
     
     func prepareOnboarding() {
-        
         var frame = view.frame
-        
-        // Placeholder for onboarding
-        for index in 0..<3 {
+        for index in 0...2 {
             frame.origin.x = CGRectGetWidth(frame) * CGFloat(index)
             let pageView = UIImageView(image: UIImage(named: "Onboarding\(index)"))
             pageView.frame = frame
@@ -37,10 +34,9 @@ class LINOnboardingController: LINViewController {
         
         // Login page
         frame.origin.x += CGRectGetWidth(frame)
-        let loginView = LINLoginView(frame: frame);
+        let loginView = LINLoginView(frame);
         loginView.delegate = self
         onboardingView.addSubview(loginView)
-        
         onboardingView.contentSize = CGSizeMake(CGRectGetMaxX(frame), CGRectGetHeight(frame))
     }
     

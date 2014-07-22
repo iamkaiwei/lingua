@@ -27,7 +27,7 @@ class LINLoginView: UIView {
         super.init(coder: aDecoder)
     }
     
-    init(frame: CGRect) {
+    init(_ frame: CGRect) {
         super.init(frame: frame)
         addSubview(UINib(nibName: "LINLoginView", bundle: nil).instantiateWithOwner(self, options: nil)[0] as UIView)
         titleLabel.font = UIFont.appBoldFontWithSize(25)
