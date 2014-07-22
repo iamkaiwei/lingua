@@ -15,12 +15,11 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDataSo
     @IBOutlet var inputTextView: UITextView!
     @IBOutlet var speakButton: UIButton!
     @IBOutlet var sendButton: UIButton!
-    @IBOutlet var titleNavLabel: UILabel!
     @IBOutlet var tableView: UITableView!
     
     @IBOutlet var inputContainerViewBottomLayoutGuideConstraint: NSLayoutConstraint!
     
-    var bubblesDataArray = [BubbleData]()
+    var messagesDataArray = [BubbleData]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +27,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDataSo
         configureInputContainerView()
         configureTapGestureOnTableView()
         
-        loadBubblesData()
+        loadHistoryChatData()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -69,7 +68,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDataSo
     
     @IBAction func buttonSendTouched(sender: UIButton) {
         if (inputTextView.text.utf16Count > 0) {
-            let bubbleData = BubbleData(text: inputTextView.text, createAt: NSDate(), bubbleType: BubbleType.Mine)
+            let bubbleData = BubbleData(text: inputTextView.text, createAt: NSDate(), bubbleType: BubbleType.SomeoneElse)
             
             addBubbleViewCellWithBubbleData(bubbleData)
             
@@ -92,7 +91,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDataSo
     // MARK: UITableView datasource
     
     func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
-        return bubblesDataArray.count
+        return messagesDataArray.count
     }
     
     func numberOfSectionsInTableView(tableView: UITableView!) -> Int {
@@ -106,23 +105,23 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDataSo
             cell = BubbleCell()
         }
         
-        let bubbleData = bubblesDataArray[indexPath.row]
+        let bubbleData = messagesDataArray[indexPath.row]
         cell!.configureCellWithBubbleData(bubbleData)
         
         return cell
     }
 
     func tableView(tableView: UITableView!, heightForRowAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
-        let bubbleData = bubblesDataArray[indexPath.row]
+        let bubbleData = messagesDataArray[indexPath.row]
         return bubbleData.insets.top + bubbleData.view.frame.size.height + bubbleData.insets.bottom + 10;
     }
     
     // MARK: Functions 
     
     func addBubbleViewCellWithBubbleData(bubbleData: BubbleData) {
-        bubblesDataArray.append(bubbleData)
+        messagesDataArray.append(bubbleData)
         
-        let indexPaths = [NSIndexPath(forRow: bubblesDataArray.count - 1, inSection: 0)]
+        let indexPaths = [NSIndexPath(forRow: messagesDataArray.count - 1, inSection: 0)]
         
         tableView.beginUpdates()
         tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.Bottom)
@@ -131,13 +130,13 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDataSo
         scrollBubbleTableViewToBottomAnimated(true)
     }
     
-    func loadBubblesData() {
+    func loadHistoryChatData() {
         tableView.reloadData()
         scrollBubbleTableViewToBottomAnimated(false)
     }
     
     func scrollBubbleTableViewToBottomAnimated(animated: Bool) {
-        let lastRowIdx = bubblesDataArray.count - 1
+        let lastRowIdx = messagesDataArray.count - 1
         
         if lastRowIdx >= 0 {
             tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: lastRowIdx, inSection: 0), atScrollPosition: UITableViewScrollPosition.Bottom, animated: animated)

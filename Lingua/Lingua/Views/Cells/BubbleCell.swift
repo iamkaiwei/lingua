@@ -16,7 +16,7 @@ class BubbleCell: UITableViewCell {
     init(style: UITableViewCellStyle, reuseIdentifier: String!) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        selectionStyle = .None
+        selectionStyle = .
         contentView.addSubview(bubbleImageView)
         backgroundColor = UIColor.clearColor()
         contentView.backgroundColor = UIColor.clearColor()
@@ -38,9 +38,9 @@ class BubbleCell: UITableViewCell {
         contentView.addSubview(customView)
         
         if type == BubbleType.SomeoneElse {
-            bubbleImageView.image = UIImage(named: "Chat_bubble_receiver").resizableImageWithCapInsets(UIEdgeInsetsMake(14, 21, 14, 21))  // Box_chat_right
+            bubbleImageView.image = UIImage(named: "ChatBoxLeft") // .resizableImageWithCapInsets(UIEdgeInsetsMake(14, 15, 14, 15))  // (14, 21, 14, 21) Chat_bubble_receiver
         } else {
-            bubbleImageView.image = UIImage(named: "Chat_bubble_sender").resizableImageWithCapInsets(UIEdgeInsetsMake(14, 15, 14, 15)) // Box_chat_left
+            bubbleImageView.image = UIImage(named: "ChatBoxRight") // .resizableImageWithCapInsets(UIEdgeInsetsMake(14, 15, 14, 15)) // Chat_bubble_sender
         }
         
         bubbleImageView.frame = CGRect(x: offsetX + 0,

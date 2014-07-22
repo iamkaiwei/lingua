@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		201323A619683F70004B884D /* LINLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201323A519683F70004B884D /* LINLoadingView.swift */; };
-		201F2B3D195AF1E100E0C17A /* UIColor-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201F2B3C195AF1E100E0C17A /* UIColor-Extensions.swift */; };
+		201F2B3D195AF1E100E0C17A /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201F2B3C195AF1E100E0C17A /* UIColor+Extensions.swift */; };
 		2043DFD7196550F8005905B9 /* LINViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2043DFD6196550F8005905B9 /* LINViewController.swift */; };
 		20448A7F1954301A00AC639A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20448A7E1954301A00AC639A /* AppDelegate.swift */; };
 		20448A821954301A00AC639A /* Lingua.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 20448A801954301A00AC639A /* Lingua.xcdatamodeld */; };
@@ -17,7 +17,7 @@
 		20448A951954301A00AC639A /* LinguaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20448A941954301A00AC639A /* LinguaTests.swift */; };
 		20473E201966D5C200EDF620 /* SZTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 20473E1F1966D5C200EDF620 /* SZTextView.m */; };
 		2065405E197D3B0B00E9F978 /* LINBadgeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2065405D197D3B0B00E9F978 /* LINBadgeHeaderView.swift */; };
-		207630B9195AC19800D23B2A /* UIFont-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207630B8195AC19800D23B2A /* UIFont-Extensions.swift */; };
+		207630B9195AC19800D23B2A /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207630B8195AC19800D23B2A /* UIFont+Extensions.swift */; };
 		2078D969196C1769009BF095 /* LINUserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9267833919655D4500F19DB4 /* LINUserManager.swift */; };
 		2078D96A196C180C009BF095 /* LINPickNativeLanguageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2082DEF219575A55009ADF45 /* LINPickNativeLanguageController.swift */; };
 		2082DEEF1957123E009ADF45 /* LINLanguagePickingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2082DEEE1957123E009ADF45 /* LINLanguagePickingHeaderView.swift */; };
@@ -44,8 +44,9 @@
 		92313490197E4E26003BD927 /* RobotoSlab-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9231348C197E4E26003BD927 /* RobotoSlab-Regular.ttf */; };
 		92313491197E4E26003BD927 /* RobotoSlab-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9231348D197E4E26003BD927 /* RobotoSlab-Thin.ttf */; };
 		92313494197E4EAA003BD927 /* Quotes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 92313493197E4EAA003BD927 /* Quotes.txt */; };
+		92313496197E5B08003BD927 /* LINMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92313495197E5B08003BD927 /* LINMessage.swift */; };
 		925E002A19740C06001D75D4 /* LINChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925E002919740C06001D75D4 /* LINChatController.swift */; };
-		9267833E196561D800F19DB4 /* NSArray-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9267833D196561D800F19DB4 /* NSArray-Extensions.swift */; };
+		9267833E196561D800F19DB4 /* NSArray+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9267833D196561D800F19DB4 /* NSArray+Extensions.swift */; };
 		9268DFBB1969CEFC00C89603 /* LINUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9268DFBA1969CEFC00C89603 /* LINUser.swift */; };
 		92F316801962AB75002005B9 /* PusherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F3167F1962AB75002005B9 /* PusherManager.swift */; };
 /* End PBXBuildFile section */
@@ -76,7 +77,7 @@
 
 /* Begin PBXFileReference section */
 		201323A519683F70004B884D /* LINLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINLoadingView.swift; sourceTree = "<group>"; };
-		201F2B3C195AF1E100E0C17A /* UIColor-Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor-Extensions.swift"; sourceTree = "<group>"; };
+		201F2B3C195AF1E100E0C17A /* UIColor+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		2043DFD6196550F8005905B9 /* LINViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINViewController.swift; sourceTree = "<group>"; };
 		20448A791954301A00AC639A /* Lingua.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lingua.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20448A7D1954301A00AC639A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -90,7 +91,7 @@
 		20473E1E1966D5C200EDF620 /* SZTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZTextView.h; sourceTree = "<group>"; };
 		20473E1F1966D5C200EDF620 /* SZTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZTextView.m; sourceTree = "<group>"; };
 		2065405D197D3B0B00E9F978 /* LINBadgeHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINBadgeHeaderView.swift; sourceTree = "<group>"; };
-		207630B8195AC19800D23B2A /* UIFont-Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont-Extensions.swift"; sourceTree = "<group>"; };
+		207630B8195AC19800D23B2A /* UIFont+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
 		2082DEEE1957123E009ADF45 /* LINLanguagePickingHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINLanguagePickingHeaderView.swift; sourceTree = "<group>"; };
 		2082DEF01957127F009ADF45 /* LINLanguagePickingHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LINLanguagePickingHeaderView.xib; sourceTree = "<group>"; };
 		2082DEF219575A55009ADF45 /* LINPickNativeLanguageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINPickNativeLanguageController.swift; sourceTree = "<group>"; };
@@ -117,9 +118,10 @@
 		9231348C197E4E26003BD927 /* RobotoSlab-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSlab-Regular.ttf"; sourceTree = "<group>"; };
 		9231348D197E4E26003BD927 /* RobotoSlab-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSlab-Thin.ttf"; sourceTree = "<group>"; };
 		92313493197E4EAA003BD927 /* Quotes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Quotes.txt; sourceTree = "<group>"; };
+		92313495197E5B08003BD927 /* LINMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINMessage.swift; sourceTree = "<group>"; };
 		925E002919740C06001D75D4 /* LINChatController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINChatController.swift; sourceTree = "<group>"; };
 		9267833919655D4500F19DB4 /* LINUserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINUserManager.swift; sourceTree = "<group>"; };
-		9267833D196561D800F19DB4 /* NSArray-Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSArray-Extensions.swift"; sourceTree = "<group>"; };
+		9267833D196561D800F19DB4 /* NSArray+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSArray+Extensions.swift"; sourceTree = "<group>"; };
 		9268DFBA1969CEFC00C89603 /* LINUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINUser.swift; sourceTree = "<group>"; };
 		929F38AB196C7C0F009A7E6A /* libPods-libPusher.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-libPusher.a"; path = "Pods/build/Debug-iphoneos/libPods-libPusher.a"; sourceTree = "<group>"; };
 		92F3167F1962AB75002005B9 /* PusherManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PusherManager.swift; sourceTree = "<group>"; };
@@ -240,9 +242,9 @@
 		207630B7195AC17700D23B2A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				207630B8195AC19800D23B2A /* UIFont-Extensions.swift */,
-				201F2B3C195AF1E100E0C17A /* UIColor-Extensions.swift */,
-				9267833D196561D800F19DB4 /* NSArray-Extensions.swift */,
+				207630B8195AC19800D23B2A /* UIFont+Extensions.swift */,
+				201F2B3C195AF1E100E0C17A /* UIColor+Extensions.swift */,
+				9267833D196561D800F19DB4 /* NSArray+Extensions.swift */,
 				20B27FB3196D3D7B003BFFB6 /* LINBadgeFlowLayout.swift */,
 			);
 			path = Extensions;
@@ -339,6 +341,7 @@
 			isa = PBXGroup;
 			children = (
 				9268DFBA1969CEFC00C89603 /* LINUser.swift */,
+				92313495197E5B08003BD927 /* LINMessage.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -505,8 +508,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9267833E196561D800F19DB4 /* NSArray-Extensions.swift in Sources */,
-				201F2B3D195AF1E100E0C17A /* UIColor-Extensions.swift in Sources */,
+				9267833E196561D800F19DB4 /* NSArray+Extensions.swift in Sources */,
+				201F2B3D195AF1E100E0C17A /* UIColor+Extensions.swift in Sources */,
 				20C7BB44197C491300E4D9FE /* LINIntroductionView.swift in Sources */,
 				925E002A19740C06001D75D4 /* LINChatController.swift in Sources */,
 				2082DEF5195762E8009ADF45 /* LINHomeController.swift in Sources */,
@@ -518,7 +521,7 @@
 				2065405E197D3B0B00E9F978 /* LINBadgeHeaderView.swift in Sources */,
 				20B27FB4196D3D7B003BFFB6 /* LINBadgeFlowLayout.swift in Sources */,
 				20DC6568197BEA4F008DA659 /* LINTableViewCell.swift in Sources */,
-				207630B9195AC19800D23B2A /* UIFont-Extensions.swift in Sources */,
+				207630B9195AC19800D23B2A /* UIFont+Extensions.swift in Sources */,
 				20448A7F1954301A00AC639A /* AppDelegate.swift in Sources */,
 				2078D96A196C180C009BF095 /* LINPickNativeLanguageController.swift in Sources */,
 				2082DEEF1957123E009ADF45 /* LINLanguagePickingHeaderView.swift in Sources */,
@@ -535,6 +538,7 @@
 				92313488197E4DA0003BD927 /* LINResourceHelper.swift in Sources */,
 				20D484A61956D35D007B4E96 /* LINOnboardingController.swift in Sources */,
 				201323A619683F70004B884D /* LINLoadingView.swift in Sources */,
+				92313496197E5B08003BD927 /* LINMessage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
