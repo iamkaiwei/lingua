@@ -68,7 +68,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDataSo
     // MARK: Actions
     
     @IBAction func buttonSendTouched(sender: UIButton) {
-        if (inputTextView.text.length() > 0) {
+        if (inputTextView.text.utf16Count > 0) {
             let bubbleData = BubbleData(text: inputTextView.text, createAt: NSDate(), bubbleType: BubbleType.Mine)
             
             addBubbleViewCellWithBubbleData(bubbleData)
@@ -200,7 +200,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDataSo
     // MARK - TextView Delegate
     
     func textViewDidChange(textView: UITextView!) {
-        if  textView.text.length() > 0 {
+        if  textView.text.utf16Count > 0 {
             sendButton.hidden = false
             speakButton.hidden = true
         } else {
