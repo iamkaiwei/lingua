@@ -10,7 +10,7 @@ import UIKit
 
 class LINCountrySelectorController: LINViewController {
 
-    @IBOutlet var tableView: UITableView
+    @IBOutlet var tableView: UITableView!
 
     let countryNames = LINResourceHelper.countryNames()
     var countryNameHeaders = LINResourceHelper.countryNameHeaders()

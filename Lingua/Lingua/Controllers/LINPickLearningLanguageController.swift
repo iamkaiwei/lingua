@@ -15,7 +15,7 @@ class LINPickLearningLanguageController: LINViewController {
     var selectedSectionIndex: Int? = 1
     var selectedIndexPaths = Dictionary<Int, NSIndexPath>()
     
-    @IBOutlet var tableView: UITableView
+    @IBOutlet var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()

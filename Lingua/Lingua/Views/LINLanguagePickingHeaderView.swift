@@ -21,9 +21,9 @@ protocol LINLanguagePickingHeaderViewDelegate {
 
 class LINLanguagePickingHeaderView: UITableViewHeaderFooterView {
 
-    @IBOutlet var titleLabel: UILabel
-    @IBOutlet var bottomLine: UIView
-    @IBOutlet var accessoryImage: UIImageView
+    @IBOutlet var titleLabel: UILabel!
+    @IBOutlet var bottomLine: UIView!
+    @IBOutlet var accessoryImage: UIImageView!
     
     class func totalSection() -> Int { return 3 }
     class func heightForOpenHeader() -> CGFloat { return 50 }

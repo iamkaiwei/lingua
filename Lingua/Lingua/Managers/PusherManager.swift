@@ -51,9 +51,10 @@ class PusherManager : NSObject, PTPusherDelegate {
     func pusher(pusher: PTPusher, connection: PTPusherConnection, failedWithError error: NSError) {
         println("[pusher] Pusher Connection failed with error: \(error)");
         
-        if error.domain == kCFErrorDomainCFNetwork {
-            startReachabilityCheck()
-        }
+        // FIXME
+//        if error.domain == kCFErrorDomainCFNetwork {
+//            startReachabilityCheck()
+//        }
     }
     
     func pusher(pusher: PTPusher, connection: PTPusherConnection, didDisconnectWithError error: NSError, willAttemptReconnect: Bool) {

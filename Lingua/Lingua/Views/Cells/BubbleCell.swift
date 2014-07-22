@@ -43,13 +43,15 @@ class BubbleCell: UITableViewCell {
             bubbleImageView.image = UIImage(named: "Chat_bubble_sender").resizableImageWithCapInsets(UIEdgeInsetsMake(14, 15, 14, 15)) // Box_chat_left
         }
         
-        bubbleImageView.frame = CGRect(x: offsetX,
+        // FIXME
+        bubbleImageView.frame = CGRect(x: offsetX + 0,
                                        y: 5,
                                       width: bubbleSize.width + bubbleData.insets.left + bubbleData.insets.right,
                                       height: bubbleSize.height + bubbleData.insets.top + bubbleData.insets.bottom)
         
-        // Add time create 
-        offsetX = (type == BubbleType.SomeoneElse ? customView.frame.origin.x + customView.frame.size.width + 20 : customView.frame.origin.x - 60)
+        // FIXME
+        // Add time create
+       //  offsetX = (type == BubbleType.SomeoneElse ? (customView.frame.origin.x + customView.frame.size.width + 20) : (customView.frame.origin.x - 60))
         let createAtLabel = UILabel(frame: CGRect(x: offsetX,
                                                   y: customView.frame.origin.y + customView.frame.size.height/2 - 10,
                                                   width: 100, height: 20))

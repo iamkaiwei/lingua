@@ -10,7 +10,7 @@ import UIKit
 
 class LINViewController: UIViewController {
 
-    @IBOutlet var titleLabel: UILabel
+    @IBOutlet var titleLabel: UILabel?
 
     override func viewDidLoad() {
         super.viewDidLoad()

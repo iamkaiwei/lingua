@@ -11,14 +11,14 @@ import QuartzCore
 
 class LINChatController: UIViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate {
 
-    @IBOutlet var inputContainerView: UIView
-    @IBOutlet var inputTextView: UITextView
-    @IBOutlet var speakButton: UIButton
-    @IBOutlet var sendButton: UIButton
-    @IBOutlet var titleNavLabel: UILabel
-    @IBOutlet var tableView: UITableView
+    @IBOutlet var inputContainerView: UIView!
+    @IBOutlet var inputTextView: UITextView!
+    @IBOutlet var speakButton: UIButton!
+    @IBOutlet var sendButton: UIButton!
+    @IBOutlet var titleNavLabel: UILabel!
+    @IBOutlet var tableView: UITableView!
     
-    @IBOutlet var inputContainerViewBottomLayoutGuideConstraint: NSLayoutConstraint
+    @IBOutlet var inputContainerViewBottomLayoutGuideConstraint: NSLayoutConstraint!
     
     var bubblesDataArray = [BubbleData]()
 
@@ -68,13 +68,14 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDataSo
     // MARK: Actions
     
     @IBAction func buttonSendTouched(sender: UIButton) {
-        if (inputTextView.text.utf16count > 0) {
-            let bubbleData = BubbleData(text: inputTextView.text, createAt: NSDate(), bubbleType: BubbleType.Mine)
-            
-            addBubbleViewCellWithBubbleData(bubbleData)
-            
-            inputTextView.text = ""
-        }
+        // FIXME
+//        if (inputTextView.text.utf16count > 0) {
+//            let bubbleData = BubbleData(text: inputTextView.text, createAt: NSDate(), bubbleType: BubbleType.Mine)
+//            
+//            addBubbleViewCellWithBubbleData(bubbleData)
+//            
+//            inputTextView.text = ""
+//        }
     }
     
     @IBAction func backButtonTouched(sender: UIButton) {
@@ -200,12 +201,13 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDataSo
     // MARK - TextView Delegate
     
     func textViewDidChange(textView: UITextView!) {
-        if  textView.text.utf16count > 0 {
-            sendButton.hidden = false
-            speakButton.hidden = true
-        } else {
-            sendButton.hidden = true
-            speakButton.hidden = false
-        }
+        // FIXME
+//        if  textView.text.utf16count > 0 {
+//            sendButton.hidden = false
+//            speakButton.hidden = true
+//        } else {
+//            sendButton.hidden = true
+//            speakButton.hidden = false
+//        }
    }
 }

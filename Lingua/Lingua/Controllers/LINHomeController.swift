@@ -10,13 +10,13 @@ import UIKit
 
 class LINHomeController: LINViewController {
 
-    @IBOutlet var profileButton: UIButton
-    @IBOutlet var messageButton: UIButton
-    @IBOutlet var teachButton: UIButton
-    @IBOutlet var learnButton: UIButton
-    @IBOutlet var tipLabel: UILabel
-    @IBOutlet var authorLabel: UILabel
-    @IBOutlet var loadingView: LINLoadingView
+    @IBOutlet var profileButton: UIButton!
+    @IBOutlet var messageButton: UIButton!
+    @IBOutlet var teachButton: UIButton!
+    @IBOutlet var learnButton: UIButton!
+    @IBOutlet var tipLabel: UILabel!
+    @IBOutlet var authorLabel: UILabel!
+    @IBOutlet var loadingView: LINLoadingView!
     
     var timer: NSTimer?
     let (quotes, authors) = LINResourceHelper.quotes()
