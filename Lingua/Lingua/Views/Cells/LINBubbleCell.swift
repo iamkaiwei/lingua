@@ -8,10 +8,6 @@
 
 import Foundation
 
-enum BubbleType {
-    case Mine, SomeoneElse
-}
-
 let kBubbleMaxWidth = 233
 let kBubbleMaxHeight = 9999
 
@@ -19,7 +15,6 @@ class LINBubbleCell: UITableViewCell {
     var contentLabel: UILabel = UILabel()
     var bubbleImageView: UIImageView = UIImageView()
     var createAtLabel: UILabel = UILabel()
-    var bubbleType: BubbleType = BubbleType.Mine
 
     let textInsetsMine = UIEdgeInsetsMake(5, 10, 7, 17)
     let textInsetsSomeone = UIEdgeInsetsMake(5, 15, 7, 10)
@@ -46,20 +41,20 @@ class LINBubbleCell: UITableViewCell {
     
     func configureCellWithMessageData(messageData: LINMessage) {
         // Content label
-        let rect = LINBubbleCell.getboundingRectWithText(messageData.content, font: contentLabel.font)
+        let rect = LINBubbleCell.getboundingRectWithText(messageData.text, font: contentLabel.font)
         
-        let insets = (bubbleType == BubbleType.Mine ? textInsetsMine : textInsetsSomeone)
-        let offsetX = (bubbleType == BubbleType.SomeoneElse ? 5 : frame.size.width  - rect.size.width - insets.left - insets.right - 5)
+        let insets = (messageData.incoming == false ? textInsetsMine : textInsetsSomeone)
+        let offsetX = (messageData.incoming == true ? 5 : frame.size.width  - rect.size.width - insets.left - insets.right - 5)
         
-        contentLabel.frame = CGRect(x: offsetX + insets.left - (bubbleType == BubbleType.SomeoneElse ? 6 : 0),
+        contentLabel.frame = CGRect(x: offsetX + insets.left - (messageData.incoming == true ? 6 : 0),
                                     y: insets.top + 15,
                                 width: rect.size.width,
                                height: rect.size.height)
-        contentLabel.text = messageData.content
+        contentLabel.text = messageData.text
         
         // Bubble imageview
         let bubbleCapInsets = UIEdgeInsetsMake(20, 10, 10, 10)
-        if bubbleType == BubbleType.SomeoneElse {
+        if messageData.incoming {
             bubbleImageView.image = UIImage(named: "ChatBoxLeft").resizableImageWithCapInsets(bubbleCapInsets)
         } else {
             bubbleImageView.image = UIImage(named: "ChatBoxRight").resizableImageWithCapInsets(bubbleCapInsets)
@@ -72,8 +67,8 @@ class LINBubbleCell: UITableViewCell {
         
         // CreateAt label
         let contentFrame = contentLabel.frame
-        let offsetXCreateAtLabel = (bubbleType == BubbleType.SomeoneElse ? (contentFrame.origin.x + contentFrame.size.width + 20) :
-                                                                           (contentFrame.origin.x - 60))
+        let offsetXCreateAtLabel = (messageData.incoming == true ? (contentFrame.origin.x + contentFrame.size.width + 20) :
+                                                                                            (contentFrame.origin.x - 60))
         createAtLabel.frame = CGRect(x: offsetXCreateAtLabel,
                                      y: contentFrame.origin.y + contentFrame.size.height/2 - 10,
                                  width: 100,
@@ -82,7 +77,7 @@ class LINBubbleCell: UITableViewCell {
     }
     
     class func getHeighWithMessageData(messageData: LINMessage)-> CGFloat {
-        let rect = getboundingRectWithText(messageData.content, font: UIFont.appRegularFontWithSize(14))
+        let rect = getboundingRectWithText(messageData.text, font: UIFont.appRegularFontWithSize(14))
         return CGRectGetHeight(rect) + 20
     }
     

@@ -9,15 +9,13 @@
 import Foundation
 
 class LINMessage {
-    var messageID: String = ""
-    var senderUserID: Int = -1
-    var content: String = ""
-    var messageTypeID: Int = -1
-    var createAt: NSDate = NSDate()
-    var conversationID: Int = -1
+    let incoming: Bool
+    let text: String
+    let sendDate: NSDate
     
-    init(content: NSString, createAt: NSDate) {
-        self.content = content
-        self.createAt = createAt
+    init(incoming: Bool, text: String, sendDate: NSDate) {
+        self.incoming = incoming
+        self.text = text
+        self.sendDate = sendDate
     }
 }
