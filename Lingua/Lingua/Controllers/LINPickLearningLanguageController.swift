@@ -23,12 +23,6 @@ class LINPickLearningLanguageController: LINViewController {
         tableView.tableFooterView = UIView(frame: CGRectZero)
         tableView.registerClass(LINTableViewCell.self, forCellReuseIdentifier: "CellIdentifier")
     }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        tableView.reloadData()
-    }
-    
 }
 
 extension LINPickLearningLanguageController: UITableViewDataSource, UITableViewDelegate {
@@ -58,6 +52,7 @@ extension LINPickLearningLanguageController: UITableViewDataSource, UITableViewD
     
     func tableView(tableView: UITableView!, viewForHeaderInSection section: Int) -> UIView! {
         let header = LINLanguagePickingHeaderView(frame: CGRectZero)
+        header.accessoryViewType = section == 0 ? .Label : .Image
         header.titleLabel.text = subjects[section]
         header.index = section
         header.delegate = self
@@ -102,15 +97,7 @@ extension LINPickLearningLanguageController: UITableViewDataSource, UITableViewD
 
         let header = tableView.headerViewForSection(indexPath.section) as LINLanguagePickingHeaderView
         let cell = tableView.cellForRowAtIndexPath(indexPath)
-        if indexPath.section == 0 {
-            let label = UILabel()
-            label.font = UIFont.appLightFontWithSize(14)
-            label.text = cell.textLabel.text
-            label.sizeToFit()
-            header.accessoryView = label
-        } else {
-            header.accessoryView = UIImageView(image: cell.imageView.image)
-        }
+        header.updateAccessoryViewWith(cell.imageView.image)
     }
 }
 
