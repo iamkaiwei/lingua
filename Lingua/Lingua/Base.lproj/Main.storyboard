@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6185.11" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
+        <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6190.4"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="RobotoSlab-Light.ttf">
+            <string>RobotoSlab-Light</string>
             <string>RobotoSlab-Light</string>
             <string>RobotoSlab-Light</string>
         </mutableArray>
@@ -830,9 +832,52 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wVJ-xu-KmF">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Laura" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L1u-mm-Pot">
+                                        <rect key="frame" x="45" y="23" width="337" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="337" id="3Dn-S2-KYO"/>
+                                            <constraint firstAttribute="height" constant="30" id="Bpd-e7-2KU"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="RobotoSlab-Light" family="Roboto Slab" pointSize="21"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vtH-FK-rMy">
+                                        <rect key="frame" x="564" y="23" width="25" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="25" id="IW2-Mo-3f7"/>
+                                            <constraint firstAttribute="height" constant="30" id="gnY-4D-gzQ"/>
+                                        </constraints>
+                                        <state key="normal" image="Icn_like_normal">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="selected" image="Icn_like_select"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OgE-ol-2Jr">
+                                        <rect key="frame" x="513" y="20" width="26" height="36"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="26" id="7pe-9t-eXn"/>
+                                            <constraint firstAttribute="height" constant="36" id="hmM-rT-dr6"/>
+                                        </constraints>
+                                        <state key="normal" image="Icn_flag_normal">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="selected" image="Icn_flag_select"/>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.62644213299999996" blue="0.68167469110000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="OgE-ol-2Jr" secondAttribute="bottom" constant="8" id="7t9-Jv-16X"/>
+                                    <constraint firstItem="vtH-FK-rMy" firstAttribute="top" secondItem="wVJ-xu-KmF" secondAttribute="top" constant="23" id="Aak-uF-boD"/>
+                                    <constraint firstItem="vtH-FK-rMy" firstAttribute="leading" secondItem="OgE-ol-2Jr" secondAttribute="trailing" constant="25" id="MMR-UO-Tk2"/>
+                                    <constraint firstItem="OgE-ol-2Jr" firstAttribute="top" secondItem="wVJ-xu-KmF" secondAttribute="top" constant="20" id="Pvm-fP-oSw"/>
+                                    <constraint firstAttribute="trailing" secondItem="vtH-FK-rMy" secondAttribute="trailing" constant="11" id="Rv2-lf-Y8E"/>
+                                    <constraint firstAttribute="bottom" secondItem="L1u-mm-Pot" secondAttribute="bottom" constant="11" id="dcj-i3-3RH"/>
+                                    <constraint firstItem="L1u-mm-Pot" firstAttribute="top" secondItem="wVJ-xu-KmF" secondAttribute="top" constant="23" id="hY8-2R-AGf"/>
+                                    <constraint firstAttribute="bottom" secondItem="vtH-FK-rMy" secondAttribute="bottom" constant="11" id="kYn-xL-SZY"/>
                                     <constraint firstAttribute="height" constant="64" id="o8L-xf-VOa"/>
+                                    <constraint firstItem="L1u-mm-Pot" firstAttribute="leading" secondItem="wVJ-xu-KmF" secondAttribute="leading" constant="45" id="oMF-wD-SV5"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WkW-A1-JpN">
@@ -963,7 +1008,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uFp-bm-BFX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3461" y="1063"/>
+            <point key="canvasLocation" x="3465" y="1034"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="rHc-HB-iF1">
@@ -995,6 +1040,10 @@
         <image name="GrayDownArrow" width="14" height="8"/>
         <image name="Icn_add" width="21" height="21"/>
         <image name="Icn_emoticon" width="22" height="22"/>
+        <image name="Icn_flag_normal" width="26" height="24"/>
+        <image name="Icn_flag_select" width="26" height="24"/>
+        <image name="Icn_like_normal" width="26" height="24"/>
+        <image name="Icn_like_select" width="25" height="21"/>
         <image name="Icn_voice" width="19" height="26"/>
         <image name="LearnOff" width="107" height="94"/>
         <image name="LearnOn" width="107" height="94"/>
