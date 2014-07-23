@@ -14,7 +14,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             
     var window: UIWindow?
     var storyboard = UIStoryboard()
-    var centerNavController = UINavigationController()
     var drawerController = MMDrawerController()
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: NSDictionary?) -> Bool {
@@ -45,14 +44,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func showHomeScreenWithNavigationController(navigationController: UINavigationController?) {
         let leftDrawer = storyboard.instantiateViewControllerWithIdentifier("kLINMyProfileController") as LINMyProfileController
-        
         let center = storyboard.instantiateViewControllerWithIdentifier("kLINHomeController") as LINHomeController
-        centerNavController = UINavigationController(rootViewController: center)
-        centerNavController.navigationBarHidden = true
-        
         let rightDrawer = storyboard.instantiateViewControllerWithIdentifier("kLINFriendListController") as LINFriendListController
         
-        drawerController = MMDrawerController(centerViewController: centerNavController, leftDrawerViewController: leftDrawer, rightDrawerViewController: rightDrawer)
+        drawerController = MMDrawerController(centerViewController: center, leftDrawerViewController: leftDrawer, rightDrawerViewController: rightDrawer)
         drawerController.closeDrawerGestureModeMask = MMCloseDrawerGestureMode.PanningCenterView
         drawerController.openDrawerGestureModeMask = MMOpenDrawerGestureMode.PanningCenterView | MMOpenDrawerGestureMode.PanningNavigationBar
         
@@ -65,7 +60,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func showOnboardingScreen() {
         let navigationController = storyboard.instantiateViewControllerWithIdentifier("kRootNavigationController") as UINavigationController
-        
          window!.rootViewController = navigationController
     }
     

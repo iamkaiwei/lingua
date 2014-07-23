@@ -75,11 +75,8 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDataSo
     }
     
     @IBAction func backButtonTouched(sender: UIButton) {
-        if navigationController {
-            navigationController.popViewControllerAnimated(true)
-        } else {
-            dismissViewControllerAnimated(true, completion: nil)
-       }
+        inputTextView.resignFirstResponder()
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     func didTapOnTableView(sender: UITapGestureRecognizer) {

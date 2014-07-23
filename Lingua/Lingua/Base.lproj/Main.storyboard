@@ -688,6 +688,7 @@
                         <outlet property="teachButton" destination="nMA-eG-aqu" id="dgm-WQ-BED"/>
                         <outlet property="tipLabel" destination="HwL-6Q-08g" id="hJO-4q-ucA"/>
                         <outlet property="titleLabel" destination="SCu-fY-SXg" id="P0L-vd-Bgi"/>
+                        <segue destination="90d-9n-3fJ" kind="presentation" identifier="kLINChatControllerIdentifier" id="eLM-I3-Bqx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KHf-dP-92I" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -787,7 +788,7 @@
                                             <outlet property="dateLabel" destination="CCa-Gv-m22" id="X74-I9-5xj"/>
                                             <outlet property="nameLabel" destination="uCf-jK-8tc" id="yJw-Su-r2r"/>
                                             <outlet property="roleName" destination="vZE-UA-lmc" id="xXz-PF-Bkm"/>
-                                            <segue destination="90d-9n-3fJ" kind="show" identifier="kLINChatControllerIdentifier" id="0pO-Ni-HtM"/>
+                                            <segue destination="90d-9n-3fJ" kind="presentation" identifier="kLINChatControllerIdentifier" id="0pO-Ni-HtM"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1055,4 +1056,7 @@
         <image name="WhiteBackArrow" width="11" height="20"/>
         <image name="WhiteNextArrow" width="11" height="20"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="eLM-I3-Bqx"/>
+    </inferredMetricsTieBreakers>
 </document>
