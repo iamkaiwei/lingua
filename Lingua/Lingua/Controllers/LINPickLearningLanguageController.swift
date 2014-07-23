@@ -10,8 +10,8 @@ import UIKit
 
 class LINPickLearningLanguageController: LINViewController {
 
-    let subjects = ["Language", "Written", "Spoken"]
-    let dataArray = ["No proficiency", "Elementary proficiency", "Limited proficiency", "Professional proficiency", "Full professional proficiency"]
+    let subjects = ["Language", "Writing", "Speaking"]
+    let proficiencies = ["No proficiency", "Elementary proficiency", "Limited proficiency", "Professional proficiency", "Full professional proficiency"]
     var selectedSectionIndex: Int? = 1
     var selectedIndexPaths = Dictionary<Int, NSIndexPath>()
     
@@ -29,14 +29,14 @@ extension LINPickLearningLanguageController: UITableViewDataSource, UITableViewD
     
     func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
         if selectedSectionIndex == section && section != 0 {
-            return dataArray.count
+            return proficiencies.count
         }
         return 0
     }
     
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
         var cell = self.tableView.dequeueReusableCellWithIdentifier("CellIdentifier") as UITableViewCell
-        cell.textLabel.text = "\(dataArray[indexPath.row])"
+        cell.textLabel.text = "\(proficiencies[indexPath.row])"
         cell.imageView.image = indexPath.section == 0 ? nil : UIImage(named: "Proficiency\(indexPath.row)")
 
         if indexPath == selectedIndexPaths[indexPath.section] {
@@ -113,7 +113,7 @@ extension LINPickLearningLanguageController: LINLanguagePickingHeaderViewDelegat
         
         var oldIndexPaths = Array<NSIndexPath>()
         if selectedSectionIndex != nil {
-            for index in 0..<dataArray.count {
+            for index in 0..<proficiencies.count {
                 oldIndexPaths.append(NSIndexPath(forRow: index, inSection: selectedSectionIndex!))
             }
         }
@@ -128,7 +128,7 @@ extension LINPickLearningLanguageController: LINLanguagePickingHeaderViewDelegat
                 headerView.accessoryDirection = .Down
             }
             selectedSectionIndex = header.index
-            for index in 0..<dataArray.count {
+            for index in 0..<proficiencies.count {
                 newIndexPaths.append(NSIndexPath(forRow: index, inSection: selectedSectionIndex!))
             }
         }
