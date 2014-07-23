@@ -9,7 +9,7 @@
 import Foundation
 import QuartzCore
 
-class LINChatController: UIViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate {
+class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelegate {
     @IBOutlet weak var inputContainerView: UIView!
     @IBOutlet weak var inputTextView: UITextView!
     @IBOutlet weak var speakButton: UIButton!
@@ -19,7 +19,9 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDataSo
     @IBOutlet weak var inputContainerViewBottomLayoutGuideConstraint: NSLayoutConstraint!
     
     var messagesDataArray = [LINMessage]()
-
+    var dataSource: LINArrayDataSource?
+    let cellIdentifier = "kLINBubbleCell"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -27,6 +29,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDataSo
         configureTapGestureOnTableView()
         
         loadHistoryChatData()
+        setupTableView()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -63,6 +66,19 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDataSo
         tableView.addGestureRecognizer(tapGesture)
     }
     
+    func setupTableView() {
+        let configureClosure: TableViewCellConfigureClosure = { (bubbleCell: UITableViewCell, messageData: AnyObject) -> Void in
+                (bubbleCell as LINBubbleCell).configureCellWithMessageData(messageData as LINMessage)
+        }
+        
+        dataSource = LINArrayDataSource(items: messagesDataArray, cellIdentifier: cellIdentifier, configureClosure: configureClosure)
+        tableView.dataSource = dataSource
+        
+        tableView.registerClass(LINBubbleCell.self, forCellReuseIdentifier: cellIdentifier)
+        tableView.reloadData()
+        scrollBubbleTableViewToBottomAnimated(false)
+    }
+    
     // MARK: Actions
     
     @IBAction func buttonSendTouched(sender: UIButton) {
@@ -83,29 +99,8 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDataSo
         inputTextView.resignFirstResponder()
     }
     
-    // MARK: UITableView datasource
+    // MARK: UITableView delegate
     
-    func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
-        return messagesDataArray.count
-    }
-    
-    func numberOfSectionsInTableView(tableView: UITableView!) -> Int {
-        return 1
-    }
-    
-    func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
-        let cellIdentifier = "kLINBubbleCell"
-        var cell: LINBubbleCell? = self.tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as? LINBubbleCell
-        if cell == nil {
-            cell = LINBubbleCell()
-        }
-        
-        let messageData = messagesDataArray[indexPath.row]
-        cell!.configureCellWithMessageData(messageData)
-        
-        return cell
-    }
-
     func tableView(tableView: UITableView!, heightForRowAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
         let messageData = messagesDataArray[indexPath.row]
         return LINBubbleCell.getHeighWithMessageData(messageData)
@@ -114,7 +109,10 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDataSo
     // MARK: Functions 
     
     func addBubbleViewCellWithMessageData(messageData: LINMessage) {
+        // Update data source
         messagesDataArray.append(messageData)
+        dataSource!.items = messagesDataArray
+        tableView.dataSource = dataSource
         
         let indexPaths = [NSIndexPath(forRow: messagesDataArray.count - 1, inSection: 0)]
         
@@ -126,8 +124,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDataSo
     }
     
     func loadHistoryChatData() {
-        tableView.reloadData()
-        scrollBubbleTableViewToBottomAnimated(false)
+        messagesDataArray.append(LINMessage(incoming: false, text: "Hello", sendDate: NSDate()))
     }
     
     func scrollBubbleTableViewToBottomAnimated(animated: Bool) {

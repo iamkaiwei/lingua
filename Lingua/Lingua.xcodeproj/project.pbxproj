@@ -37,13 +37,14 @@
 		20DC6567197BEA4F008DA659 /* LINFriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DC6562197BEA4F008DA659 /* LINFriendCell.swift */; };
 		20DC6568197BEA4F008DA659 /* LINTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DC6563197BEA4F008DA659 /* LINTableViewCell.swift */; };
 		3539D820182145359C2B8DA9 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 81D3DA7628DD45F7938E71F3 /* libPods.a */; };
-		92313488197E4DA0003BD927 /* LINResourceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92313487197E4DA0003BD927 /* LINResourceHelper.swift */; };
+		9224D482197FB87C00BE9EE4 /* LINArrayDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9224D481197FB87C00BE9EE4 /* LINArrayDataSource.swift */; };
 		9231348E197E4E26003BD927 /* RobotoSlab-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9231348A197E4E26003BD927 /* RobotoSlab-Bold.ttf */; };
 		9231348F197E4E26003BD927 /* RobotoSlab-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9231348B197E4E26003BD927 /* RobotoSlab-Light.ttf */; };
 		92313490197E4E26003BD927 /* RobotoSlab-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9231348C197E4E26003BD927 /* RobotoSlab-Regular.ttf */; };
 		92313491197E4E26003BD927 /* RobotoSlab-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9231348D197E4E26003BD927 /* RobotoSlab-Thin.ttf */; };
 		92313494197E4EAA003BD927 /* Quotes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 92313493197E4EAA003BD927 /* Quotes.txt */; };
 		92313496197E5B08003BD927 /* LINMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92313495197E5B08003BD927 /* LINMessage.swift */; };
+		9236A69E197FD5E100210EBE /* LINResourceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9236A69D197FD5E100210EBE /* LINResourceHelper.swift */; };
 		925E002A19740C06001D75D4 /* LINChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925E002919740C06001D75D4 /* LINChatController.swift */; };
 		9267833E196561D800F19DB4 /* NSArray+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9267833D196561D800F19DB4 /* NSArray+Extensions.swift */; };
 		9268DFBB1969CEFC00C89603 /* LINUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9268DFBA1969CEFC00C89603 /* LINUser.swift */; };
@@ -110,13 +111,14 @@
 		20DC6562197BEA4F008DA659 /* LINFriendCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINFriendCell.swift; sourceTree = "<group>"; };
 		20DC6563197BEA4F008DA659 /* LINTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINTableViewCell.swift; sourceTree = "<group>"; };
 		81D3DA7628DD45F7938E71F3 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		92313487197E4DA0003BD927 /* LINResourceHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINResourceHelper.swift; sourceTree = "<group>"; };
+		9224D481197FB87C00BE9EE4 /* LINArrayDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINArrayDataSource.swift; sourceTree = "<group>"; };
 		9231348A197E4E26003BD927 /* RobotoSlab-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSlab-Bold.ttf"; sourceTree = "<group>"; };
 		9231348B197E4E26003BD927 /* RobotoSlab-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSlab-Light.ttf"; sourceTree = "<group>"; };
 		9231348C197E4E26003BD927 /* RobotoSlab-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSlab-Regular.ttf"; sourceTree = "<group>"; };
 		9231348D197E4E26003BD927 /* RobotoSlab-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSlab-Thin.ttf"; sourceTree = "<group>"; };
 		92313493197E4EAA003BD927 /* Quotes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Quotes.txt; sourceTree = "<group>"; };
 		92313495197E5B08003BD927 /* LINMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINMessage.swift; sourceTree = "<group>"; };
+		9236A69D197FD5E100210EBE /* LINResourceHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINResourceHelper.swift; sourceTree = "<group>"; };
 		925E002919740C06001D75D4 /* LINChatController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINChatController.swift; sourceTree = "<group>"; };
 		9267833919655D4500F19DB4 /* LINUserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINUserManager.swift; sourceTree = "<group>"; };
 		9267833D196561D800F19DB4 /* NSArray+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSArray+Extensions.swift"; sourceTree = "<group>"; };
@@ -182,7 +184,7 @@
 				20D484A41956D35D007B4E96 /* Controllers */,
 				92F3167E1962AB45002005B9 /* Managers */,
 				207630B7195AC17700D23B2A /* Extensions */,
-				92313486197E4D8E003BD927 /* Utils */,
+				9224D47F197FB81200BE9EE4 /* Classes */,
 				20D484A81956D36D007B4E96 /* Vendors */,
 				20D5BA3D196F31C100DD8158 /* Resources */,
 				20448A881954301A00AC639A /* Images.xcassets */,
@@ -307,12 +309,21 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		92313486197E4D8E003BD927 /* Utils */ = {
+		9224D47F197FB81200BE9EE4 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				92313487197E4DA0003BD927 /* LINResourceHelper.swift */,
+				9236A69C197FD5E100210EBE /* Utils */,
+				9224D480197FB81200BE9EE4 /* DataSource */,
 			);
-			path = Utils;
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		9224D480197FB81200BE9EE4 /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				9224D481197FB87C00BE9EE4 /* LINArrayDataSource.swift */,
+			);
+			path = DataSource;
 			sourceTree = "<group>";
 		};
 		92313489197E4E26003BD927 /* Fonts */ = {
@@ -332,6 +343,14 @@
 				92313493197E4EAA003BD927 /* Quotes.txt */,
 			);
 			path = Files;
+			sourceTree = "<group>";
+		};
+		9236A69C197FD5E100210EBE /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				9236A69D197FD5E100210EBE /* LINResourceHelper.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		9268DFB91969CEFC00C89603 /* Models */ = {
@@ -515,6 +534,7 @@
 				20DC6564197BEA4F008DA659 /* LINBubbleCell.swift in Sources */,
 				20BF3FA91957EAAA00963B1F /* LINMyProfileController.swift in Sources */,
 				20D484A21956D350007B4E96 /* LINLoginView.swift in Sources */,
+				9236A69E197FD5E100210EBE /* LINResourceHelper.swift in Sources */,
 				2065405E197D3B0B00E9F978 /* LINBadgeHeaderView.swift in Sources */,
 				20B27FB4196D3D7B003BFFB6 /* LINBadgeFlowLayout.swift in Sources */,
 				20DC6568197BEA4F008DA659 /* LINTableViewCell.swift in Sources */,
@@ -531,7 +551,7 @@
 				2043DFD7196550F8005905B9 /* LINViewController.swift in Sources */,
 				2078D969196C1769009BF095 /* LINUserManager.swift in Sources */,
 				9268DFBB1969CEFC00C89603 /* LINUser.swift in Sources */,
-				92313488197E4DA0003BD927 /* LINResourceHelper.swift in Sources */,
+				9224D482197FB87C00BE9EE4 /* LINArrayDataSource.swift in Sources */,
 				20D484A61956D35D007B4E96 /* LINOnboardingController.swift in Sources */,
 				201323A619683F70004B884D /* LINLoadingView.swift in Sources */,
 				92313496197E5B08003BD927 /* LINMessage.swift in Sources */,
