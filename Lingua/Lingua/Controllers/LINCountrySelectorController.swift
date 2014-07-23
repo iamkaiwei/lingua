@@ -8,12 +8,17 @@
 
 import UIKit
 
+protocol LINCountrySelectorControllerDelegate {
+    func controller(controller: LINCountrySelectorController, didSelectCountry country: String)
+}
+
 class LINCountrySelectorController: LINViewController {
 
     @IBOutlet weak var tableView: UITableView!
 
     let countryNames = LINResourceHelper.countryNames()
     var countryNameHeaders = LINResourceHelper.countryNameHeaders()
+    var delegate: LINCountrySelectorControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,6 +58,8 @@ extension LINCountrySelectorController: UITableViewDataSource, UITableViewDelega
     
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-
+        let cell = tableView.cellForRowAtIndexPath(indexPath)
+        delegate?.controller(self, didSelectCountry: cell.textLabel.text)
+        navigationController.popViewControllerAnimated(true)
     }
 }
