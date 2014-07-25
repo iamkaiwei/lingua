@@ -22,18 +22,7 @@ class LINUserManager {
         return currentUser.access_token
     }
     
-//    func loginWithFacebookOnSuccess(success: ((user: PFUser?) -> Void), failture: ((error: NSError?) -> Void)) {
-//        PFFacebookUtils.logInWithPermissions(NSArray.facebookPermissionArray(), {
-//            (user: PFUser!, error: NSError!) -> Void in
-//            if !user {
-//                failture(error: error)
-//            } else  {
-//                success(user: user);
-//            }
-//        })
-//    }
-    
-    func checkLogin() -> Bool {
+    func isLoggedIn() -> Bool {
         return false
     }
 }

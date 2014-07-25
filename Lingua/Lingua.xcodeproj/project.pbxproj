@@ -48,6 +48,7 @@
 		925E002A19740C06001D75D4 /* LINChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925E002919740C06001D75D4 /* LINChatController.swift */; };
 		9267833E196561D800F19DB4 /* NSArray+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9267833D196561D800F19DB4 /* NSArray+Extensions.swift */; };
 		9268DFBB1969CEFC00C89603 /* LINUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9268DFBA1969CEFC00C89603 /* LINUser.swift */; };
+		92C2A4AC1982146500ABF826 /* LINFacebookManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C2A4AB1982146500ABF826 /* LINFacebookManager.swift */; };
 		92F316801962AB75002005B9 /* LINPusherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F3167F1962AB75002005B9 /* LINPusherManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -124,6 +125,7 @@
 		9267833D196561D800F19DB4 /* NSArray+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSArray+Extensions.swift"; sourceTree = "<group>"; };
 		9268DFBA1969CEFC00C89603 /* LINUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINUser.swift; sourceTree = "<group>"; };
 		929F38AB196C7C0F009A7E6A /* libPods-libPusher.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-libPusher.a"; path = "Pods/build/Debug-iphoneos/libPods-libPusher.a"; sourceTree = "<group>"; };
+		92C2A4AB1982146500ABF826 /* LINFacebookManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINFacebookManager.swift; sourceTree = "<group>"; };
 		92F3167F1962AB75002005B9 /* LINPusherManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINPusherManager.swift; sourceTree = "<group>"; };
 		C8726A87F4DA410EA300A2B5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		E5B35F1B8D924BC3AAC02042 /* libPods-Lingua.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Lingua.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -367,6 +369,7 @@
 			children = (
 				92F3167F1962AB75002005B9 /* LINPusherManager.swift */,
 				9267833919655D4500F19DB4 /* LINUserManager.swift */,
+				92C2A4AB1982146500ABF826 /* LINFacebookManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -535,6 +538,7 @@
 				20BF3FA91957EAAA00963B1F /* LINMyProfileController.swift in Sources */,
 				20D484A21956D350007B4E96 /* LINLoginView.swift in Sources */,
 				9236A69E197FD5E100210EBE /* LINResourceHelper.swift in Sources */,
+				92C2A4AC1982146500ABF826 /* LINFacebookManager.swift in Sources */,
 				2065405E197D3B0B00E9F978 /* LINBadgeHeaderView.swift in Sources */,
 				20B27FB4196D3D7B003BFFB6 /* LINBadgeFlowLayout.swift in Sources */,
 				20DC6568197BEA4F008DA659 /* LINTableViewCell.swift in Sources */,

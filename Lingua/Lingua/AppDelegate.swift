@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window!.makeKeyAndVisible()
         
         storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if LINUserManager.sharedInstance.checkLogin() {
+        if LINUserManager.sharedInstance.isLoggedIn() {
             showHomeScreenWithNavigationController(nil)
         } else {
             showOnboardingScreen()
