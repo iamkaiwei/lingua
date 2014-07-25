@@ -18,7 +18,6 @@ protocol LINLoginViewDelegate {
 
 class LINLoginView: UIView {
     
-    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
     var delegate: LINLoginViewDelegate?
@@ -30,7 +29,6 @@ class LINLoginView: UIView {
     init(_ frame: CGRect) {
         super.init(frame: frame)
         addSubview(UINib(nibName: "LINLoginView", bundle: nil).instantiateWithOwner(self, options: nil)[0] as UIView)
-        titleLabel.font = UIFont.appBoldFontWithSize(25)
     }
     
     // MARK: Actions
