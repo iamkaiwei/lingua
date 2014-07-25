@@ -14,6 +14,5 @@
 #import <Pusher/Pusher.h>
 #import <Pusher/PTPusherChannel.h>
 #import "Reachability.h"
-#import <Parse/Parse.h>
 #import "REMenu.h"
 #import "SZTextView.h"

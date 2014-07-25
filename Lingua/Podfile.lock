@@ -17,8 +17,6 @@ PODS:
     - MMDrawerController/Core
   - MMDrawerController/Subclass (0.5.6):
     - MMDrawerController/Core
-  - Parse-iOS-SDK (1.2.19):
-    - Facebook-iOS-SDK (~> 3.7)
   - Reachability (3.1.1)
   - REMenu (1.8.5)
   - SocketRocket (0.3.1-beta2)
@@ -28,7 +26,6 @@ DEPENDENCIES:
   - google-plus-ios-sdk (~> 1.5.1)
   - libPusher (~> 1.5)
   - MMDrawerController (~> 0.5.6)
-  - Parse-iOS-SDK (~> 1.2.18)
   - Reachability (~> 3.1.1)
   - REMenu (~> 1.8.5)
 
@@ -37,7 +34,6 @@ SPEC CHECKSUMS:
   google-plus-ios-sdk: 98d76ce1f1edbfe8730628aafe017301a734042c
   libPusher: 583326327a72ab7cd0f38692f61f9061cf4be3d9
   MMDrawerController: 4bae84535ca7a5f4cb55a66a001e6035c3571677
-  Parse-iOS-SDK: 5e1f7e649a02f1cc19e73cc95bd43d7778848314
   Reachability: 8e9635e3cb4f98e7f825e51147f677ecc694d0e7
   REMenu: e1512b09121d3f8fd9bb533423ac467675eef95c
   SocketRocket: 79a68ae186063c65e1fe6f638b1ae2927aa5f304

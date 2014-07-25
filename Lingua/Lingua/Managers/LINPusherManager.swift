@@ -91,7 +91,7 @@ class PusherManager : NSObject, PTPusherDelegate {
     func pusher(pusher: PTPusher, willAuthorizeChannel channel: PTPusherChannel, withRequest request: NSMutableURLRequest) {
         println("[pusher-\(pusher.connection.socketID)] Authorizing channel access...");
         
-        request.setValue("Bearer \(PFUser.currentUser().sessionToken)", forHTTPHeaderField: "Authorization");
+//        request.setValue("Bearer \(PFUser.currentUser().sessionToken)", forHTTPHeaderField: "Authorization");
     }
     
     // MARK: Reachability

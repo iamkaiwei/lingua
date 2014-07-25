@@ -13,31 +13,27 @@ class LINUserManager {
     
     class var sharedInstance : LINUserManager {
         struct Static {
-            static let instance : LINUserManager = LINUserManager()
+            static let instance: LINUserManager = LINUserManager()
         }
         return Static.instance;
     }
 
     func getAccessToken() -> NSString {
-        return PFUser.currentUser().sessionToken
+        return currentUser.access_token
     }
     
-    func loginWithFacebookOnSuccess(success: ((user: PFUser?) -> Void), failture: ((error: NSError?) -> Void)) {
-        PFFacebookUtils.logInWithPermissions(NSArray.facebookPermissionArray(), {
-            (user: PFUser!, error: NSError!) -> Void in
-            if !user {
-                failture(error: error)
-            } else  {
-                success(user: user);
-            }
-        })
-    }
+//    func loginWithFacebookOnSuccess(success: ((user: PFUser?) -> Void), failture: ((error: NSError?) -> Void)) {
+//        PFFacebookUtils.logInWithPermissions(NSArray.facebookPermissionArray(), {
+//            (user: PFUser!, error: NSError!) -> Void in
+//            if !user {
+//                failture(error: error)
+//            } else  {
+//                success(user: user);
+//            }
+//        })
+//    }
     
-    // Check If User is cached and wheather user's account linked to facebook
     func checkLogin() -> Bool {
-        if PFFacebookUtils.isLinkedWithUser(PFUser.currentUser()) {
-             return true
-        }
         return false
     }
 }

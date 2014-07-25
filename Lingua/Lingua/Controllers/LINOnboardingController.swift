@@ -74,26 +74,26 @@ extension LINOnboardingController: LINLoginViewDelegate {
     }
     
     func loginWithFacebook(loginView: LINLoginView) {
-        LINUserManager.sharedInstance.loginWithFacebookOnSuccess(
-        { (user: PFUser?) -> Void in
-            println("User with facebook logged in!");
-            
-            loginView.stopActivityIndicatorView()
-            self.performSegueWithIdentifier("kPickLearningViewControllerSegue", sender: self)
-        },
-        { (error: NSError?) -> Void in
-            loginView.stopActivityIndicatorView()
-            
-            var alert = UIAlertView()
-            if (!error) {
-               alert = UIAlertView(title: "Facebook Login Failed", message: "Make sure you've allowed Lingua to use Facebook in iOS Settings > Privacy > Facebook.", delegate: nil, cancelButtonTitle: "OK")
-            } else {
-                alert = UIAlertView(title: "Facebook Login Failed", message: "The Internet connection appears to be offline.", delegate: nil, cancelButtonTitle: "OK")
-            }
-            alert.show()
-        })
-        
-        loginView.startActivityIndicatorView()
+//        LINUserManager.sharedInstance.loginWithFacebookOnSuccess(
+//        { (user: PFUser?) -> Void in
+//            println("User with facebook logged in!");
+//            
+//            loginView.stopActivityIndicatorView()
+//            self.performSegueWithIdentifier("kPickLearningViewControllerSegue", sender: self)
+//        },
+//        { (error: NSError?) -> Void in
+//            loginView.stopActivityIndicatorView()
+//            
+//            var alert = UIAlertView()
+//            if (!error) {
+//               alert = UIAlertView(title: "Facebook Login Failed", message: "Make sure you've allowed Lingua to use Facebook in iOS Settings > Privacy > Facebook.", delegate: nil, cancelButtonTitle: "OK")
+//            } else {
+//                alert = UIAlertView(title: "Facebook Login Failed", message: "The Internet connection appears to be offline.", delegate: nil, cancelButtonTitle: "OK")
+//            }
+//            alert.show()
+//        })
+//        
+//        loginView.startActivityIndicatorView()
     }
 }
 

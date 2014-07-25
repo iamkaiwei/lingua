@@ -17,12 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var drawerController = MMDrawerController()
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: NSDictionary?) -> Bool {
-        
-        Parse.setApplicationId("OMS2KayfQ1rDTjkWvAjdiF3GFkxTD9hoPR9SnLSR",clientKey: "JPXeT1Kelnsw66qLwQlrOAP69ybbLXhb5Bvh7YQ5")
-        PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
-        
-        PFFacebookUtils.initializeFacebook()
-        
         PusherManager.sharedInstance.connectToPusher()
         
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
@@ -79,7 +73,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        FBAppCall.handleDidBecomeActiveWithSession(PFFacebookUtils.session())
+//        FBAppCall.handleDidBecomeActiveWithSession(PFFacebookUtils.session())
     }
 
     func applicationWillTerminate(application: UIApplication) {
@@ -90,7 +84,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication!, openURL url: NSURL!, sourceApplication: String!, annotation: AnyObject!) -> Bool {
         if url.absoluteString.hasPrefix("fb") {
-            return FBAppCall.handleOpenURL(url, sourceApplication: sourceApplication, withSession: PFFacebookUtils.session())
+//            return FBAppCall.handleOpenURL(url, sourceApplication: sourceApplication, withSession: PFFacebookUtils.session())
         }
         
         return GPPURLHandler.handleURL(url, sourceApplication: sourceApplication, annotation: annotation) 
