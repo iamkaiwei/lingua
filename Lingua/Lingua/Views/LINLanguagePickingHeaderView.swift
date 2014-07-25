@@ -68,6 +68,13 @@ class LINLanguagePickingHeaderView: UITableViewHeaderFooterView {
         }
     }
     
+    private func commonInit() {
+        addSubview(UINib(nibName: "LINLanguagePickingHeaderView", bundle: nil).instantiateWithOwner(self, options: nil)[0] as UIView)
+        titleLabel.text = ""
+        titleLabel.font = UIFont.appRegularFontWithSize(17)
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: "didTapHeader"))
+    }
+    
     init(coder aDecoder: NSCoder!)
     {
         super.init(coder: aDecoder)
@@ -75,12 +82,14 @@ class LINLanguagePickingHeaderView: UITableViewHeaderFooterView {
     
     init(frame: CGRect) {
         super.init(frame: frame)
-        addSubview(UINib(nibName: "LINLanguagePickingHeaderView", bundle: nil).instantiateWithOwner(self, options: nil)[0] as UIView)
-        titleLabel.text = ""
-        titleLabel.font = UIFont.appRegularFontWithSize(17)
-        addGestureRecognizer(UITapGestureRecognizer(target: self, action: "didTapHeader"))
+        commonInit()
     }
 
+    init(reuseIdentifier: String!) {
+        super.init(reuseIdentifier: reuseIdentifier)
+        commonInit()
+    }
+    
     func updateAccessoryViewWith(data: AnyObject) {
         if (data is String && accessoryViewType == .Label) || (data is UIImage && accessoryViewType == .Image) {
             if data is String {
@@ -100,10 +109,5 @@ class LINLanguagePickingHeaderView: UITableViewHeaderFooterView {
     
     func didTapHeader() {
         delegate?.didTapHeader(self)
-        if accessoryDirection == .Down {
-            accessoryDirection = .Up
-        } else if accessoryDirection == .Up {
-            accessoryDirection = .Down
-        }
     }
 }

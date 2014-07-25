@@ -10,34 +10,45 @@ import UIKit
 
 class LINPickLearningLanguageController: LINViewController {
 
-    let subjects = ["Language", "Writing", "Speaking"]
-    let proficiencies = ["No proficiency", "Elementary proficiency", "Limited proficiency", "Professional proficiency", "Full professional proficiency"]
-    var selectedSectionIndex: Int? = 1
-    var selectedIndexPaths = Dictionary<Int, NSIndexPath>()
+    private let subjects = ["Language", "Writing", "Speaking"]
+    private let proficiencies = ["No proficiency", "Elementary proficiency", "Limited proficiency", "Professional proficiency", "Full professional proficiency"]
+    private let accessoryImages = [UIImage(named: "Proficiency0"), UIImage(named: "Proficiency1"), UIImage(named: "Proficiency3"), UIImage(named: "Proficiency4"), UIImage(named: "Proficiency4")]
+    private var selectedSectionIndex: Int?
+    private var selectedIndexPaths = [Int: NSIndexPath]()
     
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        prepareTableView()
+    }
+    
+    func prepareTableView() {
+        selectedSectionIndex = 1
         tableView.tableFooterView = UIView(frame: CGRectZero)
         tableView.registerClass(LINTableViewCell.self, forCellReuseIdentifier: "CellIdentifier")
+        tableView.registerClass(LINLanguagePickingHeaderView.self, forHeaderFooterViewReuseIdentifier: "HeaderIdentifier")
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if UIDevice.currentDevice().model == "iPhone Simulator" {
+            tableView.reloadData()
+        }
     }
 }
 
 extension LINPickLearningLanguageController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
-        if selectedSectionIndex == section && section != 0 {
-            return proficiencies.count
-        }
-        return 0
+        return (selectedSectionIndex == section) ? proficiencies.count : 0
     }
     
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
         var cell = self.tableView.dequeueReusableCellWithIdentifier("CellIdentifier") as UITableViewCell
-        cell.textLabel.text = "\(proficiencies[indexPath.row])"
-        cell.imageView.image = indexPath.section == 0 ? nil : UIImage(named: "Proficiency\(indexPath.row)")
+        cell.textLabel.text = proficiencies[indexPath.row]
+        cell.imageView.image = accessoryImages[indexPath.row]
 
         if indexPath == selectedIndexPaths[indexPath.section] {
             cell.accessoryView = UIImageView(image: UIImage(named: "Checked"))
@@ -51,8 +62,8 @@ extension LINPickLearningLanguageController: UITableViewDataSource, UITableViewD
     }
     
     func tableView(tableView: UITableView!, viewForHeaderInSection section: Int) -> UIView! {
-        let header = LINLanguagePickingHeaderView(frame: CGRectZero)
-        header.accessoryViewType = section == 0 ? .Label : .Image
+        let header = tableView.dequeueReusableHeaderFooterViewWithIdentifier("HeaderIdentifier") as LINLanguagePickingHeaderView
+        header.accessoryViewType = (section == 0) ? .Label : .Image
         header.titleLabel.text = subjects[section]
         header.index = section
         header.delegate = self
@@ -62,6 +73,7 @@ extension LINPickLearningLanguageController: UITableViewDataSource, UITableViewD
         if section == selectedSectionIndex {
             header.accessoryDirection = .Up
         }
+        
         return header
     }
     
@@ -95,6 +107,7 @@ extension LINPickLearningLanguageController: UITableViewDataSource, UITableViewD
             tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
         }
 
+        //Update header UI
         let header = tableView.headerViewForSection(indexPath.section) as LINLanguagePickingHeaderView
         let cell = tableView.cellForRowAtIndexPath(indexPath)
         header.updateAccessoryViewWith(cell.imageView.image)
@@ -107,30 +120,38 @@ extension LINPickLearningLanguageController: LINLanguagePickingHeaderViewDelegat
         if header.index == 0 {
             let viewController = storyboard.instantiateViewControllerWithIdentifier("kLINCountrySelectorController") as LINCountrySelectorController
             viewController.delegate = self
-            navigationController!.pushViewController(viewController, animated: true)
+            navigationController?.pushViewController(viewController, animated: true)
             return;
         }
         
-        var oldIndexPaths = Array<NSIndexPath>()
-        if selectedSectionIndex != nil {
+        var oldIndexPaths = [NSIndexPath]()
+        var newIndexPaths = [NSIndexPath]()
+        
+        if selectedSectionIndex == nil {
+            for index in 0..<proficiencies.count {
+                newIndexPaths.append(NSIndexPath(forRow: index, inSection: header.index))
+            }
+            selectedSectionIndex = header.index
+            header.accessoryDirection = .Up
+        }
+        else if selectedSectionIndex == header.index {
+            for index in 0..<proficiencies.count {
+                oldIndexPaths.append(NSIndexPath(forRow: index, inSection: header.index))
+            }
+            selectedSectionIndex = nil
+            header.accessoryDirection = .Down
+        }
+        else {
             for index in 0..<proficiencies.count {
                 oldIndexPaths.append(NSIndexPath(forRow: index, inSection: selectedSectionIndex!))
             }
-        }
-        
-        var newIndexPaths = Array<NSIndexPath>()
-        if selectedSectionIndex == header.index {
-            selectedSectionIndex = nil
-        }
-        else {
-            if selectedSectionIndex != nil {
-                let headerView = tableView.headerViewForSection(selectedSectionIndex!) as LINLanguagePickingHeaderView
-                headerView.accessoryDirection = .Down
-            }
-            selectedSectionIndex = header.index
             for index in 0..<proficiencies.count {
-                newIndexPaths.append(NSIndexPath(forRow: index, inSection: selectedSectionIndex!))
+                newIndexPaths.append(NSIndexPath(forRow: index, inSection: header.index))
             }
+            let previouslySelectedHeader = tableView.headerViewForSection(selectedSectionIndex!) as LINLanguagePickingHeaderView
+            previouslySelectedHeader.accessoryDirection = .Down
+            selectedSectionIndex = header.index
+            header.accessoryDirection = .Up
         }
 
         tableView.beginUpdates()
