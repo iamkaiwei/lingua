@@ -64,12 +64,12 @@ class LINLanguagePickingHeaderView: UITableViewHeaderFooterView {
                 accessoryView = UIImageView()
             default: return
             }
-            addSubview(accessoryView)
+            contentView.addSubview(accessoryView)
         }
     }
     
     private func commonInit() {
-        addSubview(UINib(nibName: "LINLanguagePickingHeaderView", bundle: nil).instantiateWithOwner(self, options: nil)[0] as UIView)
+        contentView.addSubview(UINib(nibName: "LINLanguagePickingHeaderView", bundle: nil).instantiateWithOwner(self, options: nil)[0] as UIView)
         titleLabel.text = ""
         titleLabel.font = UIFont.appRegularFontWithSize(17)
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: "didTapHeader"))

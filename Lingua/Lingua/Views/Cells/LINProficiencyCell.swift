@@ -22,7 +22,7 @@ class LINProficiencyCell: UITableViewCell {
         let origin = CGPointMake(CGRectGetWidth(self.frame) - CGRectGetWidth(accessory.frame) - 15, CGRectGetHeight(self.frame)/2 - CGRectGetHeight(accessory.frame)/2)
         accessory.frame = CGRect(origin: origin, size: accessory.frame.size)
         accessory.hidden = true
-        addSubview(accessory)
+        contentView.addSubview(accessory)
     }
     
     func setChecked(check: Bool, animated: Bool) {
