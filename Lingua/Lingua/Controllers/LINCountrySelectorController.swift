@@ -16,18 +16,28 @@ class LINCountrySelectorController: LINViewController {
 
     @IBOutlet weak var tableView: UITableView!
 
-    let countryNames = LINResourceHelper.countryNames()
-    var countryNameHeaders = LINResourceHelper.countryNameHeaders()
+    var countryNames = [String]()
+    var countryNameHeaders = [String]()
     var delegate: LINCountrySelectorControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
-        tableView.registerClass(LINCountryCell.self, forCellReuseIdentifier: "CellIdentifier")
-        tableView.sectionIndexColor = UIColor.appTealColor()
+        prepareTableView()
+        
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        LINResourceHelper.countryNamesAndHeaders {  self.countryNames = $0
+            self.countryNameHeaders = $1
+            self.tableView.reloadData() }
+    }
 
+    func prepareTableView() {
+        tableView.registerClass(LINCountryCell.self, forCellReuseIdentifier: "CellIdentifier")
+        tableView.sectionIndexColor = UIColor.appTealColor()
+        tableView.tableFooterView = UIView(frame: CGRectZero)
+    }
 }
 
 extension LINCountrySelectorController: UITableViewDataSource, UITableViewDelegate {

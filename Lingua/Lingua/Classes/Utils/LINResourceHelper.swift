@@ -14,8 +14,8 @@ class LINResourceHelper: NSObject {
         let path = NSBundle.mainBundle().pathForResource("Quotes", ofType: "txt")
         let fullText = String.stringWithContentsOfFile(path, encoding: NSUTF8StringEncoding, error: nil)!
         let fullArray = fullText.componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet()).filter{countElements($0) > 0} as [String]
-        var quotes = Array<String>()
-        var authors = Array<String>()
+        var quotes = [String]()
+        var authors = [String]()
         for var index = 0; index < fullArray.count; index = index + 2 {
             quotes.append(fullArray[index])
         }
@@ -25,49 +25,37 @@ class LINResourceHelper: NSObject {
         return (quotes, authors)
     }
     
-    class func countryNames() -> [String] {
+    class func countryNamesAndHeaders(completion:(names: [String], headers: [String]) -> Void) -> Void {
         struct Static {
-            static var instance: [String]?
+            static var instance: ([String], [String])?
         }
-        if let names = Static.instance {
-            return names
+        if Static.instance {
+            completion(Static.instance!)
         }
         
         var names = [String]()
         for code in NSLocale.ISOCountryCodes() as [String] {
             let identifier = NSLocale.localeIdentifierFromComponents([NSLocaleCountryCode: code])
             let name = NSLocale.currentLocale().displayNameForKey(NSLocaleIdentifier, value: identifier)
-            if name != nil {
-                names.append(name)
-            }
+            names.append(name)
         }
-        Static.instance = names.sorted{ (name1: String, name2: String) -> Bool in
-            switch name1.localizedCaseInsensitiveCompare(name2) {
+        names.sort{ n1, n2 in
+            switch n1.localizedCaseInsensitiveCompare(n2) {
             case .OrderedAscending: return true
             default: return false
             }
         }
-        return Static.instance!
-    }
-    
-    class func countryNameHeaders() -> [String] {
-        struct Static {
-            static var instance: [String]?
-        }
         
-        if let headers = Static.instance {
-            return headers
-        }
-        
-        var headers = [String]()
-        headers = [String]()
-        for name in countryNames() {
-            let header = "\(Array(name)[0])"
-            if !contains(headers, header) {
-                headers.append(header)
-            }
-        }
-        Static.instance = headers
-        return headers
+        var char: String?
+        var headers = names .map { "\(Array($0)[0])" }
+                            .filter { if char == nil { char = $0; return true }
+                                switch char!.localizedCaseInsensitiveCompare($0) {
+                                case .OrderedAscending: char = $0; return true
+                                default: return false
+                                }
+                            }
+                
+        Static.instance = (names, headers)
+        completion(Static.instance!)
     }
 }
