@@ -12,7 +12,7 @@ class LINPickLearningLanguageController: LINViewController {
 
     private let subjects = ["Language", "Writing", "Speaking"]
     private let proficiencies = ["No proficiency", "Elementary proficiency", "Limited proficiency", "Professional proficiency", "Full professional proficiency"]
-    private let accessoryImages = [UIImage(named: "Proficiency0"), UIImage(named: "Proficiency1"), UIImage(named: "Proficiency3"), UIImage(named: "Proficiency4"), UIImage(named: "Proficiency4")]
+    private let accessoryImages = [UIImage(named: "Proficiency0"), UIImage(named: "Proficiency1"), UIImage(named: "Proficiency2"), UIImage(named: "Proficiency3"), UIImage(named: "Proficiency4")]
     private var selectedSectionIndex: Int?
     private var selectedIndexPaths = [Int: NSIndexPath]()
     
@@ -26,7 +26,7 @@ class LINPickLearningLanguageController: LINViewController {
     func prepareTableView() {
         selectedSectionIndex = 1
         tableView.tableFooterView = UIView(frame: CGRectZero)
-        tableView.registerClass(LINTableViewCell.self, forCellReuseIdentifier: "CellIdentifier")
+        tableView.registerClass(LINProficiencyCell.self, forCellReuseIdentifier: "CellIdentifier")
         tableView.registerClass(LINLanguagePickingHeaderView.self, forHeaderFooterViewReuseIdentifier: "HeaderIdentifier")
     }
     
@@ -46,14 +46,9 @@ extension LINPickLearningLanguageController: UITableViewDataSource, UITableViewD
     }
     
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
-        var cell = self.tableView.dequeueReusableCellWithIdentifier("CellIdentifier") as UITableViewCell
+        var cell = self.tableView.dequeueReusableCellWithIdentifier("CellIdentifier") as LINProficiencyCell
         cell.textLabel.text = proficiencies[indexPath.row]
         cell.imageView.image = accessoryImages[indexPath.row]
-
-        if indexPath == selectedIndexPaths[indexPath.section] {
-            cell.accessoryView = UIImageView(image: UIImage(named: "Checked"))
-        }
-        cell.accessoryView = UIImageView(image: UIImage(named: "Checked")) //TODO: This line should be removed after the SDK work properly (for now it doesn't do anything..)
         return cell
     }
     
@@ -96,20 +91,25 @@ extension LINPickLearningLanguageController: UITableViewDataSource, UITableViewD
     }
     
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        let cell = tableView.cellForRowAtIndexPath(indexPath) as LINProficiencyCell
+        cell.setChecked(true, animated: true)
+        
         if let oldIndexPath = selectedIndexPaths[indexPath.section] {
-            if indexPath != oldIndexPath {
-                selectedIndexPaths[indexPath.section] = indexPath
-                tableView.reloadRowsAtIndexPaths([oldIndexPath, indexPath], withRowAnimation: .None)
+            if indexPath == oldIndexPath {
+                return
             }
-        } else {
+            else {
+                let previouslySelectedCell = tableView.cellForRowAtIndexPath(oldIndexPath) as LINProficiencyCell
+                previouslySelectedCell.setChecked(false, animated: false)
+                selectedIndexPaths[indexPath.section] = indexPath
+            }
+        }
+        else {
             selectedIndexPaths[indexPath.section] = indexPath
-            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
         }
 
         //Update header UI
         let header = tableView.headerViewForSection(indexPath.section) as LINLanguagePickingHeaderView
-        let cell = tableView.cellForRowAtIndexPath(indexPath)
         header.updateAccessoryViewWith(cell.imageView.image)
     }
 }
@@ -158,6 +158,14 @@ extension LINPickLearningLanguageController: LINLanguagePickingHeaderViewDelegat
         tableView.deleteRowsAtIndexPaths(oldIndexPaths, withRowAnimation: .None)
         tableView.insertRowsAtIndexPaths(newIndexPaths, withRowAnimation: .None)
         tableView.endUpdates()
+        
+        if selectedSectionIndex == nil {
+            return
+        }
+        else if let indexPath = selectedIndexPaths[selectedSectionIndex!] {
+            let cell = tableView.cellForRowAtIndexPath(indexPath) as LINProficiencyCell
+            cell.setChecked(true, animated: false)
+        }
     }
 }
 
