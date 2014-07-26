@@ -17,9 +17,6 @@ protocol LINLoginViewDelegate {
 }
 
 class LINLoginView: UIView {
-    
-    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
-    
     var delegate: LINLoginViewDelegate?
     
     init(coder aDecoder: NSCoder!) {
@@ -38,14 +35,5 @@ class LINLoginView: UIView {
     
     @IBAction func loginWithFacebook(sender: UIButton) {
         delegate?.loginView(self, option: .Facebook)
-    }
-    
-    // MARK: Indicator
-    func startActivityIndicatorView() {
-        activityIndicatorView.startAnimating()
-    }
-    
-    func stopActivityIndicatorView() {
-        activityIndicatorView.stopAnimating()
     }
 }

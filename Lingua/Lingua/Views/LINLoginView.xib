@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6185.11" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6190.4"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -10,11 +9,7 @@
         </mutableArray>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LINLoginView" customModule="Lingua" customModuleProvider="target">
-            <connections>
-                <outlet property="activityIndicatorView" destination="FoP-7r-bDh" id="PdO-Mc-92L"/>
-            </connections>
-        </placeholder>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LINLoginView" customModule="Lingua" customModuleProvider="target"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="LINLoginView" customModule="Lingua" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -38,10 +33,6 @@
                         <action selector="loginWithGoogle:" destination="-1" eventType="touchUpInside" id="3Hd-jM-X8Y"/>
                     </connections>
                 </button>
-                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="FoP-7r-bDh">
-                    <rect key="frame" x="142" y="130" width="37" height="37"/>
-                    <color key="color" cocoaTouchSystemColor="darkTextColor"/>
-                </activityIndicatorView>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start chatting today" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CUe-Mp-2mw">
                     <rect key="frame" x="22" y="170" width="276" height="33"/>
                     <fontDescription key="fontDescription" name="RobotoSlab-Bold" family="Roboto Slab" pointSize="25"/>
@@ -53,7 +44,6 @@
             <constraints>
                 <constraint firstAttribute="centerX" secondItem="tH3-v1-WHr" secondAttribute="centerX" id="0Vf-wM-NTc"/>
                 <constraint firstAttribute="bottom" secondItem="tH3-v1-WHr" secondAttribute="bottom" constant="220" id="5Ok-tH-BKG"/>
-                <constraint firstAttribute="centerX" secondItem="FoP-7r-bDh" secondAttribute="centerX" id="6rI-24-jpZ"/>
                 <constraint firstAttribute="trailing" secondItem="v9q-Xi-BgP" secondAttribute="trailing" constant="15" id="CRc-YK-xHE"/>
                 <constraint firstItem="tH3-v1-WHr" firstAttribute="top" secondItem="v9q-Xi-BgP" secondAttribute="bottom" constant="20" id="Co6-pw-oex"/>
                 <constraint firstItem="CUe-Mp-2mw" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="22" id="EPT-DV-IOu"/>
@@ -62,7 +52,6 @@
                 <constraint firstAttribute="centerX" secondItem="v9q-Xi-BgP" secondAttribute="centerX" id="eZ4-D7-Q3a"/>
                 <constraint firstItem="tH3-v1-WHr" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="hEt-DT-Ryx"/>
                 <constraint firstAttribute="trailing" secondItem="CUe-Mp-2mw" secondAttribute="trailing" constant="22" id="rGz-4L-w7P"/>
-                <constraint firstItem="CUe-Mp-2mw" firstAttribute="top" secondItem="FoP-7r-bDh" secondAttribute="bottom" constant="3" id="sNJ-rk-A0w"/>
                 <constraint firstItem="v9q-Xi-BgP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="z1L-cK-NDT"/>
                 <constraint firstAttribute="centerX" secondItem="CUe-Mp-2mw" secondAttribute="centerX" id="zEm-8M-igJ"/>
             </constraints>
