@@ -25,4 +25,10 @@ class LINUserManager {
     func isLoggedIn() -> Bool {
         return false
     }
+    
+    func loginWithFacebookToken(facebookToken: String?,
+                                success: (user: LINUser?) -> Void,
+                                failture: (error: NSError?) -> Void) {
+        // KTODO: Send facebook token to server -> Get User info
+    }
 }

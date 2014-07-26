@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LINOnboardingController: LINViewController {
+class LINOnboardingController: LINViewController, LINFacebookManagerDelegate {
     
     let kClientId = "749496516991-rn2ks5ka1jdbm7l040d0mhs4v0pja35j.apps.googleusercontent.com"
     let GPPSignInInstance = GPPSignIn.sharedInstance()
@@ -74,26 +74,25 @@ extension LINOnboardingController: LINLoginViewDelegate {
     }
     
     func loginWithFacebook(loginView: LINLoginView) {
-//        LINUserManager.sharedInstance.loginWithFacebookOnSuccess(
-//        { (user: PFUser?) -> Void in
-//            println("User with facebook logged in!");
-//            
-//            loginView.stopActivityIndicatorView()
-//            self.performSegueWithIdentifier("kPickLearningViewControllerSegue", sender: self)
-//        },
-//        { (error: NSError?) -> Void in
-//            loginView.stopActivityIndicatorView()
-//            
-//            var alert = UIAlertView()
-//            if (!error) {
-//               alert = UIAlertView(title: "Facebook Login Failed", message: "Make sure you've allowed Lingua to use Facebook in iOS Settings > Privacy > Facebook.", delegate: nil, cancelButtonTitle: "OK")
-//            } else {
-//                alert = UIAlertView(title: "Facebook Login Failed", message: "The Internet connection appears to be offline.", delegate: nil, cancelButtonTitle: "OK")
-//            }
-//            alert.show()
-//        })
-//        
-//        loginView.startActivityIndicatorView()
+        LINFacebookManager.sharedInstance.delegate = self
+        LINFacebookManager.sharedInstance.openSessionWithAllowLoginUI(true)
+    }
+    
+    
+    // MARK: LINFacebookManager Delegate
+    
+    func facebookLoginSuccessed(facebookManager: LINFacebookManager)  {
+        // KTODO: Add loading view
+        
+        LINUserManager.sharedInstance.loginWithFacebookToken(LINFacebookManager.sharedInstance.facebookToken, success: {
+           (user: LINUser?) -> Void in
+            /* KTODO:
+             - Show home screen
+             - Update device token to server */
+        }, failture: {
+            (error: NSError?) -> Void in
+            // KTODO: Show error
+        })
     }
 }
 
