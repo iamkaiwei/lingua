@@ -23,7 +23,7 @@ class LINCountrySelectorController: LINViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        tableView.registerClass(LINTableViewCell.self, forCellReuseIdentifier: "CellIdentifier")
+        tableView.registerClass(LINCountryCell.self, forCellReuseIdentifier: "CellIdentifier")
         tableView.sectionIndexColor = UIColor.appTealColor()
     }
     

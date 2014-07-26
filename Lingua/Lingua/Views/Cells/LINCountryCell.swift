@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LINTableViewCell: UITableViewCell {
+class LINCountryCell: UITableViewCell {
 
     init(style: UITableViewCellStyle, reuseIdentifier: String) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -16,14 +16,4 @@ class LINTableViewCell: UITableViewCell {
         selectedBackgroundView.backgroundColor = UIColor.appTealColor()
         textLabel.font = UIFont.appThinFontWithSize(14)
     }
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
-
 }
