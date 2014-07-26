@@ -23,6 +23,14 @@ class LINPickLearningLanguageController: LINViewController {
         prepareTableView()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        //Hacky way to avoid crash on simulator :(
+        if UIDevice.currentDevice().model == "iPhone Simulator" {
+            tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .None)
+        }
+    }
+    
     func prepareTableView() {
         selectedSectionIndex = 1
         tableView.tableFooterView = UIView(frame: CGRectZero)
@@ -163,11 +171,6 @@ extension LINPickLearningLanguageController: LINLanguagePickingHeaderViewDelegat
 
 extension LINPickLearningLanguageController: LINCountrySelectorControllerDelegate {
     func controller(controller: LINCountrySelectorController, didSelectCountry country: String) {
-        //Hacky way to avoid crash on simulator :(
-        if UIDevice.currentDevice().model == "iPhone Simulator" {
-            tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .None)
-        }
-
         //Update accessory view for header at section 0 i.e Language
         let header = tableView.headerViewForSection(0) as LINLanguagePickingHeaderView
         header.updateAccessoryViewWith(country)
