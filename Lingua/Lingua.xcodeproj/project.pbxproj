@@ -48,6 +48,7 @@
 		925E002A19740C06001D75D4 /* LINChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925E002919740C06001D75D4 /* LINChatController.swift */; };
 		9267833E196561D800F19DB4 /* NSArray+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9267833D196561D800F19DB4 /* NSArray+Extensions.swift */; };
 		9268B6BE1984E4B400D526AA /* LINArrayDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9268B6BD1984E4B400D526AA /* LINArrayDataSource.swift */; };
+		9268B6C01984E73300D526AA /* LINOauthClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9268B6BF1984E73300D526AA /* LINOauthClient.swift */; };
 		9268DFBB1969CEFC00C89603 /* LINUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9268DFBA1969CEFC00C89603 /* LINUser.swift */; };
 		92C2A4AC1982146500ABF826 /* LINFacebookManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C2A4AB1982146500ABF826 /* LINFacebookManager.swift */; };
 		92F316801962AB75002005B9 /* LINPusherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F3167F1962AB75002005B9 /* LINPusherManager.swift */; };
@@ -125,6 +126,7 @@
 		9267833919655D4500F19DB4 /* LINUserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINUserManager.swift; sourceTree = "<group>"; };
 		9267833D196561D800F19DB4 /* NSArray+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSArray+Extensions.swift"; sourceTree = "<group>"; };
 		9268B6BD1984E4B400D526AA /* LINArrayDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINArrayDataSource.swift; sourceTree = "<group>"; };
+		9268B6BF1984E73300D526AA /* LINOauthClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINOauthClient.swift; sourceTree = "<group>"; };
 		9268DFBA1969CEFC00C89603 /* LINUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINUser.swift; sourceTree = "<group>"; };
 		929F38AB196C7C0F009A7E6A /* libPods-libPusher.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-libPusher.a"; path = "Pods/build/Debug-iphoneos/libPods-libPusher.a"; sourceTree = "<group>"; };
 		92C2A4AB1982146500ABF826 /* LINFacebookManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINFacebookManager.swift; sourceTree = "<group>"; };
@@ -354,6 +356,7 @@
 		9268B6BB1984E49F00D526AA /* Clients */ = {
 			isa = PBXGroup;
 			children = (
+				9268B6BF1984E73300D526AA /* LINOauthClient.swift */,
 			);
 			path = Clients;
 			sourceTree = "<group>";
@@ -564,6 +567,7 @@
 				20BF3FAB1957ECA700963B1F /* LINFriendListController.swift in Sources */,
 				20DC6566197BEA4F008DA659 /* LINBadgeCell.swift in Sources */,
 				20473E201966D5C200EDF620 /* SZTextView.m in Sources */,
+				9268B6C01984E73300D526AA /* LINOauthClient.swift in Sources */,
 				20DC6567197BEA4F008DA659 /* LINFriendCell.swift in Sources */,
 				2043DFD7196550F8005905B9 /* LINViewController.swift in Sources */,
 				2078D969196C1769009BF095 /* LINUserManager.swift in Sources */,
