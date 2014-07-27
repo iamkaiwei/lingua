@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: NSDictionary?) -> Bool {
         
-        PusherManager.sharedInstance.connectToPusher()
+        LINPusherManager.sharedInstance.connectToPusher()
         
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         window!.makeKeyAndVisible()

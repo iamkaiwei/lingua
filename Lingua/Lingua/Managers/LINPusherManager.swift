@@ -15,12 +15,12 @@ let kPusherAPISecret = "a4b6be34cce67b8a8ec7"
 let kPuserAuthorizationURL = "http://pusher-chat-server.herokuapp.com/pusher/auth"
 
 
-class PusherManager : NSObject, PTPusherDelegate {
+class LINPusherManager : NSObject, PTPusherDelegate {
     var pusherClient : PTPusher = PTPusher()
     
-    class var sharedInstance : PusherManager {
+    class var sharedInstance : LINPusherManager {
         struct Static {
-            static let instance : PusherManager = PusherManager()
+            static let instance : LINPusherManager = LINPusherManager()
         }
         return Static.instance;
     }
