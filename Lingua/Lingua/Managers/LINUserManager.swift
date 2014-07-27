@@ -30,5 +30,11 @@ class LINUserManager {
                                 success: (user: LINUser?) -> Void,
                                 failture: (error: NSError?) -> Void) {
         // KTODO: Send facebook token to server -> Get User info
+        if facebookToken == nil {
+            failture(error: nil)
+            return
+        }
+                            
+        LINNetworkClient.sharedInstance.getServerTokenWithFacebookToken(facebookToken!)
     }
 }
