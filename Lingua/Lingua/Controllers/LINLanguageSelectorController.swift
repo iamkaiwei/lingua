@@ -8,17 +8,17 @@
 
 import UIKit
 
-protocol LINCountrySelectorControllerDelegate {
-    func controller(controller: LINCountrySelectorController, didSelectCountry country: String)
+protocol LINLanguageSelectorControllerDelegate {
+    func controller(controller: LINLanguageSelectorController, didSelectCountry country: String)
 }
 
-class LINCountrySelectorController: LINViewController {
+class LINLanguageSelectorController: LINViewController {
 
     @IBOutlet weak var tableView: UITableView!
 
     var countryNames = [String]()
     var countryNameHeaders = [String]()
-    var delegate: LINCountrySelectorControllerDelegate?
+    var delegate: LINLanguageSelectorControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +40,7 @@ class LINCountrySelectorController: LINViewController {
     }
 }
 
-extension LINCountrySelectorController: UITableViewDataSource, UITableViewDelegate {
+extension LINLanguageSelectorController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
         let char = countryNameHeaders[section]

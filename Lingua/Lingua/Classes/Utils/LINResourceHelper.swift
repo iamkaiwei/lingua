@@ -34,10 +34,11 @@ class LINResourceHelper: NSObject {
         }
         
         var names = [String]()
-        for code in NSLocale.ISOCountryCodes() as [String] {
-            let identifier = NSLocale.localeIdentifierFromComponents([NSLocaleCountryCode: code])
-            let name = NSLocale.currentLocale().displayNameForKey(NSLocaleIdentifier, value: identifier)
-            names.append(name)
+        for code in NSLocale.ISOLanguageCodes() as [String] {
+            let identifier = NSLocale.localeIdentifierFromComponents([NSLocaleLanguageCode: code])
+            if let name = NSLocale.currentLocale().displayNameForKey(NSLocaleIdentifier, value: identifier) {
+                names.append(name)
+            }
         }
         names.sort{ n1, n2 in
             switch n1.localizedCaseInsensitiveCompare(n2) {
