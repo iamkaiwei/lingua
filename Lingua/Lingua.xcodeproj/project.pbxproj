@@ -38,7 +38,6 @@
 		20DC6567197BEA4F008DA659 /* LINFriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DC6562197BEA4F008DA659 /* LINFriendCell.swift */; };
 		20DC6568197BEA4F008DA659 /* LINCountryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DC6563197BEA4F008DA659 /* LINCountryCell.swift */; };
 		3539D820182145359C2B8DA9 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 81D3DA7628DD45F7938E71F3 /* libPods.a */; };
-		9224D482197FB87C00BE9EE4 /* LINArrayDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9224D481197FB87C00BE9EE4 /* LINArrayDataSource.swift */; };
 		9231348E197E4E26003BD927 /* RobotoSlab-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9231348A197E4E26003BD927 /* RobotoSlab-Bold.ttf */; };
 		9231348F197E4E26003BD927 /* RobotoSlab-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9231348B197E4E26003BD927 /* RobotoSlab-Light.ttf */; };
 		92313490197E4E26003BD927 /* RobotoSlab-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9231348C197E4E26003BD927 /* RobotoSlab-Regular.ttf */; };
@@ -48,6 +47,7 @@
 		9236A69E197FD5E100210EBE /* LINResourceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9236A69D197FD5E100210EBE /* LINResourceHelper.swift */; };
 		925E002A19740C06001D75D4 /* LINChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925E002919740C06001D75D4 /* LINChatController.swift */; };
 		9267833E196561D800F19DB4 /* NSArray+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9267833D196561D800F19DB4 /* NSArray+Extensions.swift */; };
+		9268B6BE1984E4B400D526AA /* LINArrayDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9268B6BD1984E4B400D526AA /* LINArrayDataSource.swift */; };
 		9268DFBB1969CEFC00C89603 /* LINUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9268DFBA1969CEFC00C89603 /* LINUser.swift */; };
 		92C2A4AC1982146500ABF826 /* LINFacebookManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C2A4AB1982146500ABF826 /* LINFacebookManager.swift */; };
 		92F316801962AB75002005B9 /* LINPusherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F3167F1962AB75002005B9 /* LINPusherManager.swift */; };
@@ -114,7 +114,6 @@
 		20DC6562197BEA4F008DA659 /* LINFriendCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINFriendCell.swift; sourceTree = "<group>"; };
 		20DC6563197BEA4F008DA659 /* LINCountryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINCountryCell.swift; sourceTree = "<group>"; };
 		81D3DA7628DD45F7938E71F3 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		9224D481197FB87C00BE9EE4 /* LINArrayDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINArrayDataSource.swift; sourceTree = "<group>"; };
 		9231348A197E4E26003BD927 /* RobotoSlab-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSlab-Bold.ttf"; sourceTree = "<group>"; };
 		9231348B197E4E26003BD927 /* RobotoSlab-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSlab-Light.ttf"; sourceTree = "<group>"; };
 		9231348C197E4E26003BD927 /* RobotoSlab-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSlab-Regular.ttf"; sourceTree = "<group>"; };
@@ -125,6 +124,7 @@
 		925E002919740C06001D75D4 /* LINChatController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINChatController.swift; sourceTree = "<group>"; };
 		9267833919655D4500F19DB4 /* LINUserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINUserManager.swift; sourceTree = "<group>"; };
 		9267833D196561D800F19DB4 /* NSArray+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSArray+Extensions.swift"; sourceTree = "<group>"; };
+		9268B6BD1984E4B400D526AA /* LINArrayDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINArrayDataSource.swift; sourceTree = "<group>"; };
 		9268DFBA1969CEFC00C89603 /* LINUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINUser.swift; sourceTree = "<group>"; };
 		929F38AB196C7C0F009A7E6A /* libPods-libPusher.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-libPusher.a"; path = "Pods/build/Debug-iphoneos/libPods-libPusher.a"; sourceTree = "<group>"; };
 		92C2A4AB1982146500ABF826 /* LINFacebookManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINFacebookManager.swift; sourceTree = "<group>"; };
@@ -317,18 +317,11 @@
 		9224D47F197FB81200BE9EE4 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				9268B6BB1984E49F00D526AA /* Clients */,
 				9236A69C197FD5E100210EBE /* Utils */,
-				9224D480197FB81200BE9EE4 /* DataSource */,
+				9268B6BC1984E4B400D526AA /* DataSources */,
 			);
 			path = Classes;
-			sourceTree = "<group>";
-		};
-		9224D480197FB81200BE9EE4 /* DataSource */ = {
-			isa = PBXGroup;
-			children = (
-				9224D481197FB87C00BE9EE4 /* LINArrayDataSource.swift */,
-			);
-			path = DataSource;
 			sourceTree = "<group>";
 		};
 		92313489197E4E26003BD927 /* Fonts */ = {
@@ -356,6 +349,21 @@
 				9236A69D197FD5E100210EBE /* LINResourceHelper.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		9268B6BB1984E49F00D526AA /* Clients */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Clients;
+			sourceTree = "<group>";
+		};
+		9268B6BC1984E4B400D526AA /* DataSources */ = {
+			isa = PBXGroup;
+			children = (
+				9268B6BD1984E4B400D526AA /* LINArrayDataSource.swift */,
+			);
+			path = DataSources;
 			sourceTree = "<group>";
 		};
 		9268DFB91969CEFC00C89603 /* Models */ = {
@@ -537,6 +545,7 @@
 				2082DEF5195762E8009ADF45 /* LINHomeController.swift in Sources */,
 				20974985196FCCC00070E8C3 /* LINCountrySelectorController.swift in Sources */,
 				20BFCCEB1956E1C400A86C2E /* LINPickLearningLanguageController.swift in Sources */,
+				9268B6BE1984E4B400D526AA /* LINArrayDataSource.swift in Sources */,
 				20DC6564197BEA4F008DA659 /* LINBubbleCell.swift in Sources */,
 				20BF3FA91957EAAA00963B1F /* LINMyProfileController.swift in Sources */,
 				20D484A21956D350007B4E96 /* LINLoginView.swift in Sources */,
@@ -559,7 +568,6 @@
 				2043DFD7196550F8005905B9 /* LINViewController.swift in Sources */,
 				2078D969196C1769009BF095 /* LINUserManager.swift in Sources */,
 				9268DFBB1969CEFC00C89603 /* LINUser.swift in Sources */,
-				9224D482197FB87C00BE9EE4 /* LINArrayDataSource.swift in Sources */,
 				20D484A61956D35D007B4E96 /* LINOnboardingController.swift in Sources */,
 				201323A619683F70004B884D /* LINLoadingView.swift in Sources */,
 				92313496197E5B08003BD927 /* LINMessage.swift in Sources */,
