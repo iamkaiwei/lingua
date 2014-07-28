@@ -78,20 +78,18 @@ extension LINOnboardingController: LINLoginViewDelegate {
         LINFacebookManager.sharedInstance.openSessionWithAllowLoginUI(true)
     }
     
-    
     // MARK: LINFacebookManager Delegate
     
     func facebookLoginSuccessed(facebookManager: LINFacebookManager)  {
         // KTODO: Add loading view
         
-        LINUserManager.sharedInstance.loginWithFacebookToken(LINFacebookManager.sharedInstance.facebookToken, success: {
-           (user: LINUser?) -> Void in
-            /* KTODO:
-             - Show home screen
-             - Update device token to server */
-        }, failture: {
-            (error: NSError?) -> Void in
-            // KTODO: Show error
+        LINUserManager.sharedInstance.loginWithFacebookToken(LINFacebookManager.sharedInstance.facebookToken, completion: {
+            (success: Bool) -> Void in
+            if success {
+                self.performSegueWithIdentifier("kPickLearningViewControllerSegue", sender: self)
+            } else {
+                UIAlertView(title: "Login Failed", message: "Facebook login unsuccessful. Please try again!", delegate: nil, cancelButtonTitle: "OK").show()
+            }
         })
     }
 }

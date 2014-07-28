@@ -26,15 +26,15 @@ class LINUserManager {
         return false
     }
     
-    func loginWithFacebookToken(facebookToken: String?,
-                                success: (user: LINUser?) -> Void,
-                                failture: (error: NSError?) -> Void) {
-        // KTODO: Send facebook token to server -> Get User info
+    func loginWithFacebookToken(facebookToken: String?, completion: (success: Bool) -> Void){
         if facebookToken == nil {
-            failture(error: nil)
+            completion(success: false)
             return
         }
-                            
-        LINNetworkClient.sharedInstance.getServerTokenWithFacebookToken(facebookToken!)
+        
+        LINNetworkClient.sharedInstance.getServerTokenWithFacebookToken(facebookToken!, completion: {
+        (success: Bool) -> Void in
+            completion(success: success)
+        })
     }
 }
