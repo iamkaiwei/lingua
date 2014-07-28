@@ -81,13 +81,16 @@ extension LINOnboardingController: LINLoginViewDelegate {
     // MARK: LINFacebookManager Delegate
     
     func facebookLoginSuccessed(facebookManager: LINFacebookManager)  {
-        // KTODO: Add loading view
+        
+        SVProgressHUD.showWithStatus("Signing In ...")
         
         LINUserManager.sharedInstance.loginWithFacebookToken(LINFacebookManager.sharedInstance.facebookToken, completion: {
             (success: Bool) -> Void in
             if success {
+                SVProgressHUD.dismiss()
                 self.performSegueWithIdentifier("kPickLearningViewControllerSegue", sender: self)
             } else {
+                SVProgressHUD.dismiss()
                 UIAlertView(title: "Login Failed", message: "Facebook login unsuccessful. Please try again!", delegate: nil, cancelButtonTitle: "OK").show()
             }
         })
