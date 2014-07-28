@@ -51,6 +51,7 @@
 		9268B6C01984E73300D526AA /* LINNetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9268B6BF1984E73300D526AA /* LINNetworkClient.swift */; };
 		9268B6C21984EFFF00D526AA /* LINAccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9268B6C11984EFFF00D526AA /* LINAccessToken.swift */; };
 		9268DFBB1969CEFC00C89603 /* LINUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9268DFBA1969CEFC00C89603 /* LINUser.swift */; };
+		926B2859198647380089DDAA /* LINStorageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926B2858198647380089DDAA /* LINStorageHelper.swift */; };
 		92C2A4AC1982146500ABF826 /* LINFacebookManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C2A4AB1982146500ABF826 /* LINFacebookManager.swift */; };
 		92F316801962AB75002005B9 /* LINPusherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F3167F1962AB75002005B9 /* LINPusherManager.swift */; };
 /* End PBXBuildFile section */
@@ -130,6 +131,7 @@
 		9268B6BF1984E73300D526AA /* LINNetworkClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINNetworkClient.swift; sourceTree = "<group>"; };
 		9268B6C11984EFFF00D526AA /* LINAccessToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINAccessToken.swift; sourceTree = "<group>"; };
 		9268DFBA1969CEFC00C89603 /* LINUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINUser.swift; sourceTree = "<group>"; };
+		926B2858198647380089DDAA /* LINStorageHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINStorageHelper.swift; sourceTree = "<group>"; };
 		929F38AB196C7C0F009A7E6A /* libPods-libPusher.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-libPusher.a"; path = "Pods/build/Debug-iphoneos/libPods-libPusher.a"; sourceTree = "<group>"; };
 		92C2A4AB1982146500ABF826 /* LINFacebookManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINFacebookManager.swift; sourceTree = "<group>"; };
 		92F3167F1962AB75002005B9 /* LINPusherManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINPusherManager.swift; sourceTree = "<group>"; };
@@ -351,6 +353,7 @@
 			isa = PBXGroup;
 			children = (
 				9236A69D197FD5E100210EBE /* LINResourceHelper.swift */,
+				926B2858198647380089DDAA /* LINStorageHelper.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -553,6 +556,7 @@
 				20BFCCEB1956E1C400A86C2E /* LINPickLearningLanguageController.swift in Sources */,
 				9268B6BE1984E4B400D526AA /* LINArrayDataSource.swift in Sources */,
 				20DC6564197BEA4F008DA659 /* LINBubbleCell.swift in Sources */,
+				926B2859198647380089DDAA /* LINStorageHelper.swift in Sources */,
 				20BF3FA91957EAAA00963B1F /* LINMyProfileController.swift in Sources */,
 				20D484A21956D350007B4E96 /* LINLoginView.swift in Sources */,
 				9236A69E197FD5E100210EBE /* LINResourceHelper.swift in Sources */,

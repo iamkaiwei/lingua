@@ -10,9 +10,17 @@ import Foundation
 
 typealias CompletionClosure = (success: Bool, errorMessage: String) -> Void
 
+// Requests
+let kLINGetAccessTokenPath = "oauth/token"
+let kLINGetCurrentUserPath = "users/me"
+
+// Storage
+let kLINAccessTokenKey = "kLINAccessTokenKey"
+
 class LINNetworkClient: OVCHTTPSessionManager {
     
-    let kBaseURL = "http://linguatheapp.herokuapp.com/"
+    let kLINBaseURL = "http://linguatheapp.herokuapp.com/"
+    let kLINAPIPath = "api/v1/"
     
     class var sharedInstance: LINNetworkClient {
     struct Static {
@@ -22,7 +30,7 @@ class LINNetworkClient: OVCHTTPSessionManager {
     }
     
     init() {
-        super.init(baseURL: NSURL(string: kBaseURL))
+        super.init(baseURL: NSURL(string: kLINBaseURL))
     }
     
     init(baseURL url: NSURL!, sessionConfiguration configuration: NSURLSessionConfiguration!) {
@@ -33,24 +41,57 @@ class LINNetworkClient: OVCHTTPSessionManager {
         super.init(baseURL: url, managedObjectContext: context, sessionConfiguration: configuration)
     }
     
-    // MARK: Requests
+    // MARK: Shared
     
-    func getServerTokenWithFacebookToken(facebookToken: String) {
+    func setAuthorizedRequest() {
+        let accessToken = LINStorageHelper.objectForKey(kLINAccessTokenKey) as? LINAccessToken
+        let requestSerializer = self.requestSerializer
+        requestSerializer.setValue("Bearer \(accessToken?.accessToken)", forHTTPHeaderField: "Authorization")
+    }
+    
+    // MARK: Oauth token
+    
+    func getServerTokenWithFacebookToken(facebookToken: String,
+                                         completion: (success: Bool) -> Void) {
         let parameters = ["client_id": "lingua-ios",
                           "client_secret": "l1n9u4",
                           "grant_type": "password",
                           "facebook_token": facebookToken]
         
-        self.POST("oauth/token", parameters: parameters, { (response: AnyObject?, error: NSError?) -> Void in
-            let accessToken = (response as OVCResponse).result as LINAccessToken
-            
-            println("\(accessToken.accessToken)")
+        self.POST(kLINGetAccessTokenPath, parameters: parameters, { (response: AnyObject?, error: NSError?) -> Void in
+            if error != nil {
+                completion(success: false)
+            } else {
+                let serverToken = (response as OVCResponse).result as LINAccessToken
+                println("AccessToken: \(serverToken.accessToken)")
+                
+                if serverToken.accessToken.utf16Count > 0 {
+                    // Save access token
+                    LINStorageHelper.setObject(serverToken, forKey: kLINAccessTokenKey)
+                    completion(success: true)
+                } else {
+                    completion(success: false)
+                }
+            }
+        })
+    }
+    
+    // MARK: Users
+    
+    func getCurrentUser(success: (user: LINUser?) -> Void,
+                        failture: (error: NSError?) -> Void) {
+        setAuthorizedRequest()
+        
+        let path = kLINAPIPath + kLINGetCurrentUserPath
+        self.GET(path, parameters: nil, completion: { (response: AnyObject?, error: NSError?) -> Void in
         })
     }
     
     // MARK: OVCHTTPSessionManager
     
     override class func modelClassesByResourcePath() -> [NSObject : AnyObject]! {
-        return ["oauth/token".bridgeToObjectiveC() : LINAccessToken.self]
+        return [kLINGetAccessTokenPath.bridgeToObjectiveC() : LINAccessToken.self,
+                kLINGetCurrentUserPath.bridgeToObjectiveC() : LINUser.self
+        ]
     }
 }
