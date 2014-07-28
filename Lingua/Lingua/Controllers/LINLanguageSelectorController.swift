@@ -16,9 +16,10 @@ class LINLanguageSelectorController: LINViewController {
 
     @IBOutlet weak var tableView: UITableView!
 
-    var countryNames = [String]()
-    var countryNameHeaders = [String]()
+    private var countryNames = [String]()
+    private var countryNameHeaders = [String]()
     var delegate: LINLanguageSelectorControllerDelegate?
+    private var loadingView = LINLoadingView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,11 +27,19 @@ class LINLanguageSelectorController: LINViewController {
         
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        loadingView.showInView(self.view)
+    }
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        LINResourceHelper.countryNamesAndHeaders {  self.countryNames = $0
+        LINResourceHelper.countryNamesAndHeaders {
+            self.loadingView.hide()
+            self.countryNames = $0
             self.countryNameHeaders = $1
-            self.tableView.reloadData() }
+            self.tableView.reloadData()
+        }
     }
 
     func prepareTableView() {

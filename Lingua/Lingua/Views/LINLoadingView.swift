@@ -10,28 +10,48 @@ import UIKit
 
 class LINLoadingView: UIView {
 
-    var currentSnap = 0
-    var timer: NSTimer?
+    private var currentSnap = 0
+    private var timer: NSTimer {
+        return NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: "doScroll", userInfo: nil, repeats: true)
+    }
+    
+    private func commonInit() {
+        backgroundColor = UIColor.clearColor()
+        layer.cornerRadius = CGRectGetHeight(frame) / 2
+        clipsToBounds = true
+        hidden = true
+    }
     
     init(coder aDecoder: NSCoder!) {
         super.init(coder: aDecoder)
-        backgroundColor = UIColor.clearColor()
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: "moveAround", userInfo: nil, repeats: true)
-        layer.cornerRadius = CGRectGetHeight(frame) / 2
-        clipsToBounds = true
+        commonInit()
+        timer.fire()
     }
     
-    override var hidden: Bool {
-    didSet {
-        if hidden {
-            timer?.invalidate()
-        } else {
-            timer?.fire()
-        }
+    init(frame: CGRect) {
+        super.init(frame: frame)
+        commonInit()
     }
+
+    init() {
+        super.init(frame: CGRectMake(0, 0, 159, 11))
+        commonInit()
     }
     
-    func moveAround() {
+    func showInView(view: UIView) {
+        view.addSubview(self)
+        self.center = view.center
+        hidden = false
+        timer.fire()
+    }
+    
+    func hide() {
+        hidden = true
+        removeFromSuperview()
+        timer.invalidate()
+    }
+    
+    func doScroll() {
         currentSnap++;
         if currentSnap == 5 {
             self.currentSnap = 0;
