@@ -23,7 +23,11 @@ class LINUserManager {
     }
     
     func isLoggedIn() -> Bool {
-        return false
+        let serverToken = LINStorageHelper.objectForKey(kLINAccessTokenKey) as? LINAccessToken
+        if serverToken == nil {
+            return false
+        }
+        return serverToken!.isTokenValid() // KTODO: Calc exprire date
     }
     
     func loginWithFacebookToken(facebookToken: String?, completion: (success: Bool) -> Void){

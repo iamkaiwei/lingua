@@ -38,4 +38,8 @@ class LINAccessToken: MTLModel, MTLJSONSerializing {
                 "refreshToken": "refresh_token"
         ]
     }
+    
+    func isTokenValid() -> Bool {
+        return accessToken.utf16Count > 0 ? true : false
+    }
 }
