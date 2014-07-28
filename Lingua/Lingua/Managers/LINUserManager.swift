@@ -17,10 +17,6 @@ class LINUserManager {
         }
         return Static.instance;
     }
-
-    func getAccessToken() -> NSString {
-        return currentUser.access_token
-    }
     
     func isLoggedIn() -> Bool {
         let serverToken = LINStorageHelper.objectForKey(kLINAccessTokenKey) as? LINAccessToken

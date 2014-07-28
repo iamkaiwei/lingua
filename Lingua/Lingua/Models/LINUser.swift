@@ -8,6 +8,31 @@
 
 import Foundation
 
-class LINUser {
-    var access_token: String = ""
+class LINUser: MTLModel, MTLJSONSerializing {
+    var userID: String = ""
+    var firstName: String = ""
+    var lastName: String = ""
+    var email: String = ""
+    var gender: String = ""
+    var avatarURL = ""
+    var facebookID = ""
+    
+    init() {
+        super.init()
+    }
+    
+    init(dictionary dictionaryValue: [NSObject : AnyObject]!, error: NSErrorPointer)  {
+        super.init(dictionary: dictionaryValue, error: error)
+    }
+    
+    class func JSONKeyPathsByPropertyKey() -> [NSObject : AnyObject]! {
+        return ["userID": "_id",
+                "firstName": "firstName",
+                "lastName": "lastName",
+                "email": "email",
+                "gender": "gender",
+                "avatarURL": "avatar_url",
+                "facebookID": "facebook_id"
+        ]
+    }
 }

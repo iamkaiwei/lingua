@@ -16,6 +16,7 @@ let kLINGetCurrentUserPath = "users/me"
 
 // Storage
 let kLINAccessTokenKey = "kLINAccessTokenKey"
+let kLINCurrentUserKey = "kLINCurrentUserKey"
 
 class LINNetworkClient: OVCHTTPSessionManager {
     
@@ -84,6 +85,14 @@ class LINNetworkClient: OVCHTTPSessionManager {
         
         let path = kLINAPIPath + kLINGetCurrentUserPath
         self.GET(path, parameters: nil, completion: { (response: AnyObject?, error: NSError?) -> Void in
+            if error != nil {
+                failture(error: error!)
+            } else {
+                let user = (response as OVCResponse).result as LINUser
+                println("Current user: \(user.firstName)")
+                LINStorageHelper.setObject(user, forKey: kLINCurrentUserKey)
+                success(user: user)
+            }
         })
     }
     
