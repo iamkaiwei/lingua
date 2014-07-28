@@ -10,7 +10,7 @@ import UIKit
 
 class LINProficiencyCell: UITableViewCell {
 
-    let accessory = UIImageView(image: UIImage(named: "Checked"))
+    private let accessory = UIImageView(image: UIImage(named: "Checked"))
     
     init(style: UITableViewCellStyle, reuseIdentifier: String) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

@@ -15,8 +15,8 @@ protocol LINIntroductionViewDelegate {
 class LINIntroductionView: UIView {
 
     var delegate: LINIntroductionViewDelegate?
-    var introductionLabel: UILabel?
-    var bubbleImage: UIImageView?
+    private var introductionLabel: UILabel?
+    private var bubbleImage: UIImageView?
     var introduction: String = "" {
         didSet {
             introductionLabel!.text = introduction
@@ -44,7 +44,7 @@ class LINIntroductionView: UIView {
         }
     }
     
-    func commonInit() {
+    private func commonInit() {
         backgroundColor = UIColor.clearColor()
         bubbleImage = UIImageView(frame: bounds)
         bubbleImage!.image = UIImage(named: "ChatBoxLeft")

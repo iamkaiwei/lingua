@@ -17,8 +17,8 @@ class LINMyProfileController: LINViewController {
     @IBOutlet weak var introductionView: LINIntroductionView!
     @IBOutlet weak var collectionViewTopSpaceConstraint: NSLayoutConstraint!
     
-    var headerTitles = ["Teacher Badges", "Learner Badges", "\"Teach 5 more users to level up\""]
-    var headerColors = [UIColor.appTealColor(), UIColor.appRedColor(), UIColor.grayColor()]
+    private var headerTitles = ["Teacher Badges", "Learner Badges", "\"Teach 5 more users to level up\""]
+    private var headerColors = [UIColor.appTealColor(), UIColor.appRedColor(), UIColor.grayColor()]
     
     override func viewDidLoad() {
         super.viewDidLoad()

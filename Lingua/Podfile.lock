@@ -59,7 +59,7 @@ DEPENDENCIES:
   - google-plus-ios-sdk (~> 1.5.1)
   - libPusher (~> 1.5)
   - MMDrawerController (~> 0.5.6)
-  - Overcoat (~> 2.0)
+  - Overcoat (~> 2.0.2)
   - Reachability (~> 3.1.1)
   - REMenu (~> 1.8.5)
 

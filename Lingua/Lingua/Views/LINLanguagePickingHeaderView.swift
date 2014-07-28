@@ -107,7 +107,7 @@ class LINLanguagePickingHeaderView: UITableViewHeaderFooterView {
         }
     }
     
-    func didTapHeader() {
+    private func didTapHeader() {
         delegate?.didTapHeader(self)
     }
 }
