@@ -51,7 +51,7 @@ class LINLoadingView: UIView {
         timer.invalidate()
     }
     
-    private func doScroll() {
+    func doScroll() {
         currentSnap++;
         if currentSnap == 5 {
             self.currentSnap = 0;
