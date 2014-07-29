@@ -68,6 +68,7 @@ class LINNetworkClient: OVCHTTPSessionManager {
             } else {
                 let serverToken = (response as OVCResponse).result as? LINAccessToken
                 if serverToken != nil {
+                    println(serverToken)
                     println("Access token: \(serverToken!.accessToken)")
                     LINStorageHelper.setObject(serverToken!, forKey: kLINAccessTokenKey)
                     completion(success: true)
@@ -78,14 +79,50 @@ class LINNetworkClient: OVCHTTPSessionManager {
         })
     }
     
+    func refreshTokenWithRefreshToken(refreshToken: String,
+                                      completion: (success: Bool) -> Void ) {
+        let parameters = ["client_id": "lingua-ios",
+                          "client_secret": "l1n9u4",
+                          "grant_type": "password",
+                          "refresh_token": refreshToken]
+        
+        self.POST(kLINGetAccessTokenPath, parameters: parameters, { (response: AnyObject?, error: NSError?) -> Void in
+            if error != nil {
+                completion(success: false)
+            } else {
+                let serverToken = (response as OVCResponse).result as? LINAccessToken
+                if serverToken != nil {
+                    println("Access token: \(serverToken!.accessToken)")
+                    LINStorageHelper.setObject(serverToken!, forKey: kLINAccessTokenKey)
+                    completion(success: true)
+                } else {
+                    completion(success: false)
+                }
+            }
+        })
+    }
+    
+    func isValidToken(completion: (success: Bool) -> Void) {
+        setAuthorizedRequest()
+        
+        self.GET(kLINAPIPath + kLINGetCurrentUserPath, parameters: nil, completion: { (response: AnyObject?, error: NSError?) -> Void in
+            if error != nil {
+                println("Token is not valid.")
+                completion(success: false)
+            } else {
+                println("Token is valid.")
+                completion(success: true)
+            }
+        })
+    }
+    
     // MARK: Users
     
     func getCurrentUser(success: (user: LINUser?) -> Void,
                         failture: (error: NSError?) -> Void) {
         setAuthorizedRequest()
         
-        let path = kLINAPIPath + kLINGetCurrentUserPath
-        self.GET(path, parameters: nil, completion: { (response: AnyObject?, error: NSError?) -> Void in
+        self.GET(kLINAPIPath + kLINGetCurrentUserPath, parameters: nil, completion: { (response: AnyObject?, error: NSError?) -> Void in
             if error != nil {
                 failture(error: error!)
             } else {
