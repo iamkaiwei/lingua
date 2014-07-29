@@ -27,8 +27,8 @@ class LINUser: MTLModel, MTLJSONSerializing {
     
     class func JSONKeyPathsByPropertyKey() -> [NSObject : AnyObject]! {
         return ["userID": "_id",
-                "firstName": "firstName",
-                "lastName": "lastName",
+                "firstName": "firstname",
+                "lastName": "lastname",
                 "email": "email",
                 "gender": "gender",
                 "avatarURL": "avatar_url",

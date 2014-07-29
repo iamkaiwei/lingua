@@ -11,6 +11,8 @@ import Foundation
 typealias CompletionClosure = (success: Bool, errorMessage: String) -> Void
 
 // Requests
+let kLINBaseURL = "http://linguatheapp.herokuapp.com/"
+let kLINAPIPath = "api/v1/"
 let kLINGetAccessTokenPath = "oauth/token"
 let kLINGetCurrentUserPath = "users/me"
 
@@ -19,16 +21,14 @@ let kLINAccessTokenKey = "kLINAccessTokenKey"
 let kLINCurrentUserKey = "kLINCurrentUserKey"
 
 class LINNetworkClient: OVCHTTPSessionManager {
-    
-    let kLINBaseURL = "http://linguatheapp.herokuapp.com/"
-    let kLINAPIPath = "api/v1/"
-    
     class var sharedInstance: LINNetworkClient {
     struct Static {
         static let instance: LINNetworkClient = LINNetworkClient()
         }
         return Static.instance
     }
+    
+    // MARK: Initialization
     
     init() {
         super.init(baseURL: NSURL(string: kLINBaseURL))
@@ -46,8 +46,11 @@ class LINNetworkClient: OVCHTTPSessionManager {
     
     func setAuthorizedRequest() {
         let accessToken = LINStorageHelper.objectForKey(kLINAccessTokenKey) as? LINAccessToken
-        let requestSerializer = self.requestSerializer
-        requestSerializer.setValue("Bearer \(accessToken?.accessToken)", forHTTPHeaderField: "Authorization")
+        if accessToken != nil {
+            println("Bearer \(accessToken!.accessToken)")
+            let requestSerializer = self.requestSerializer
+            requestSerializer.setValue("Bearer \(accessToken!.accessToken)", forHTTPHeaderField: "Authorization")
+        }
     }
     
     // MARK: Oauth token
@@ -63,12 +66,10 @@ class LINNetworkClient: OVCHTTPSessionManager {
             if error != nil {
                 completion(success: false)
             } else {
-                let serverToken = (response as OVCResponse).result as LINAccessToken
-                println("AccessToken: \(serverToken.accessToken)")
-                
-                if serverToken.accessToken.utf16Count > 0 {
-                    // Save access token
-                    LINStorageHelper.setObject(serverToken, forKey: kLINAccessTokenKey)
+                let serverToken = (response as OVCResponse).result as? LINAccessToken
+                if serverToken != nil {
+                    println("Access token: \(serverToken!.accessToken)")
+                    LINStorageHelper.setObject(serverToken!, forKey: kLINAccessTokenKey)
                     completion(success: true)
                 } else {
                     completion(success: false)
@@ -88,10 +89,14 @@ class LINNetworkClient: OVCHTTPSessionManager {
             if error != nil {
                 failture(error: error!)
             } else {
-                let user = (response as OVCResponse).result as LINUser
-                println("Current user: \(user.firstName)")
-                LINStorageHelper.setObject(user, forKey: kLINCurrentUserKey)
-                success(user: user)
+                let user = (response as OVCResponse).result as? LINUser
+                if user != nil {
+                    println("Current user: \(user!.firstName)")
+                    LINStorageHelper.setObject(user!, forKey: kLINCurrentUserKey)
+                    success(user: user)
+                } else {
+                    failture(error: error!)
+                }
             }
         })
     }
@@ -100,7 +105,7 @@ class LINNetworkClient: OVCHTTPSessionManager {
     
     override class func modelClassesByResourcePath() -> [NSObject : AnyObject]! {
         return [kLINGetAccessTokenPath.bridgeToObjectiveC() : LINAccessToken.self,
-                kLINGetCurrentUserPath.bridgeToObjectiveC() : LINUser.self
+               (kLINAPIPath + kLINGetCurrentUserPath).bridgeToObjectiveC() : LINUser.self
         ]
     }
 }
