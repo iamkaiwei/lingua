@@ -37,9 +37,7 @@ class LINFacebookManager: NSObject {
     }
     
     func openSessionWithAllowLoginUI(allowLoginUI: Bool) {
-        let readPermissions = ["public_profile", "email", "user_birthday", "user_location"]
-        
-        FBSession.openActiveSessionWithReadPermissions(readPermissions,
+        FBSession.openActiveSessionWithReadPermissions(NSArray.facebookPermissionArray(),
                                                        allowLoginUI: allowLoginUI,
                                                        completionHandler: { (session, state, error) -> Void in
             self.sessionStateChanged(session, state: state, error: error)

@@ -10,6 +10,6 @@ import Foundation
 
 extension NSArray {
     class func facebookPermissionArray() -> NSArray {
-        return ["user_about_me", "email", "user_birthday", "user_location"]
+        return ["public_profile", "email", "user_birthday", "user_location"]
     }
 }
