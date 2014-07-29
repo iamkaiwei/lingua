@@ -14,4 +14,13 @@ class LINFriendCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var roleName: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
+    
+    func configureCellWithUserData(user: LINUser) {
+        nameLabel.text = user.firstName
+        
+        // set avatar
+        avatarImgView.sd_setImageWithURL(NSURL(fileURLWithPath: user.avatarURL))
+        avatarImgView.layer.cornerRadius = 20.0
+        avatarImgView.layer.masksToBounds = true
+    }
 }

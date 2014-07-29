@@ -284,8 +284,8 @@
 				2082DEF219575A55009ADF45 /* LINPickNativeLanguageController.swift */,
 				2082DEF4195762E8009ADF45 /* LINHomeController.swift */,
 				20BF3FA81957EAAA00963B1F /* LINMyProfileController.swift */,
-				20BF3FAA1957ECA700963B1F /* LINFriendListController.swift */,
 				20974984196FCCC00070E8C3 /* LINLanguageSelectorController.swift */,
+				20BF3FAA1957ECA700963B1F /* LINFriendListController.swift */,
 				925E002919740C06001D75D4 /* LINChatController.swift */,
 			);
 			path = Controllers;

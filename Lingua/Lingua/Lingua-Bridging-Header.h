@@ -19,3 +19,4 @@
 #import <Overcoat/Overcoat.h>
 #import <Mantle/Mantle.h>
 #import <SVProgressHUD/SVProgressHUD.h>
+#import "UIImageView+WebCache.h"
