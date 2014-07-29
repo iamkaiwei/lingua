@@ -15,6 +15,7 @@ let kLINBaseURL = "http://linguatheapp.herokuapp.com/"
 let kLINAPIPath = "api/v1/"
 let kLINGetAccessTokenPath = "oauth/token"
 let kLINGetCurrentUserPath = "users/me"
+let kLINGetAllUsersPath = "users"
 
 // Storage
 let kLINAccessTokenKey = "kLINAccessTokenKey"
@@ -132,7 +133,25 @@ class LINNetworkClient: OVCHTTPSessionManager {
                     LINStorageHelper.setObject(user!, forKey: kLINCurrentUserKey)
                     success(user: user)
                 } else {
-                    failture(error: error!)
+                    failture(error: nil)
+                }
+            }
+        })
+    }
+    
+    func getAllUsers(success: (arrUsers: [LINUser]?) -> Void,
+                    failture: (error: NSError?) -> Void) {
+        setAuthorizedRequest()
+                        
+        self.GET(kLINAPIPath + kLINGetAllUsersPath, parameters: nil, completion: { (response: AnyObject?, error: NSError?) -> Void in
+            if error != nil {
+                 failture(error: error!)
+            } else {
+                let arrUsers = (response as OVCResponse).result as? [LINUser]
+                if let tmp = arrUsers {
+                    success(arrUsers: tmp)
+                } else {
+                    failture(error: nil)
                 }
             }
         })
@@ -142,7 +161,8 @@ class LINNetworkClient: OVCHTTPSessionManager {
     
     override class func modelClassesByResourcePath() -> [NSObject : AnyObject]! {
         return [kLINGetAccessTokenPath.bridgeToObjectiveC() : LINAccessToken.self,
-               (kLINAPIPath + kLINGetCurrentUserPath).bridgeToObjectiveC() : LINUser.self
+               (kLINAPIPath + kLINGetCurrentUserPath).bridgeToObjectiveC() : LINUser.self,
+               (kLINAPIPath + kLINGetAllUsersPath).bridgeToObjectiveC() : LINUser.self
         ]
     }
 }
