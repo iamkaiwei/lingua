@@ -74,6 +74,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         dataSource = LINArrayDataSource(items: messagesDataArray, cellIdentifier: cellIdentifier, configureClosure: configureClosure)
         tableView.dataSource = dataSource
         
+        tableView.contentInset = UIEdgeInsetsMake(10, 0, 20, 0)
         tableView.registerClass(LINBubbleCell.self, forCellReuseIdentifier: cellIdentifier)
         tableView.reloadData()
         scrollBubbleTableViewToBottomAnimated(false)
