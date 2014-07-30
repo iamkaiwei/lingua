@@ -87,6 +87,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
             addBubbleViewCellWithMessageData(messageData)
             
             inputTextView.text = ""
+            textViewDidChange(inputTextView)
         }
     }
     
