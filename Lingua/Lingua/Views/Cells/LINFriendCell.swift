@@ -19,8 +19,9 @@ class LINFriendCell: UITableViewCell {
         nameLabel.text = user.firstName
         
         // set avatar
-        avatarImgView.sd_setImageWithURL(NSURL(fileURLWithPath: user.avatarURL))
-        avatarImgView.layer.cornerRadius = 20.0
+        avatarImgView.sd_setImageWithURL(NSURL(string: user.avatarURL),
+                                         placeholderImage: UIImage(named: "avatar_holder"))
+        avatarImgView.layer.cornerRadius = 24.0
         avatarImgView.layer.masksToBounds = true
     }
 }

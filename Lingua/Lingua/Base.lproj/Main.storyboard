@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6185.11" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6185.11" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
+        <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6190.4"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -737,29 +738,25 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ff0-BB-hPN" id="pIi-1v-Xud">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Avatar_1" translatesAutoresizingMaskIntoConstraints="NO" id="Gkq-RF-lFc">
-                                                    <rect key="frame" x="20" y="11" width="50" height="50"/>
-                                                </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20/6" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CCa-Gv-m22">
-                                                    <rect key="frame" x="513" y="12" width="72" height="19"/>
+                                                    <rect key="frame" x="545" y="7" width="40" height="19"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="72" id="cME-fV-jMb"/>
+                                                        <constraint firstAttribute="width" constant="40" id="cME-fV-jMb"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="RobotoSlab-Light" family="Roboto Slab" pointSize="13"/>
                                                     <color key="textColor" red="0.24878698587417603" green="0.61424487829208374" blue="0.68069750070571899" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kenny" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uCf-jK-8tc">
-                                                    <rect key="frame" x="77" y="13" width="250" height="23"/>
+                                                    <rect key="frame" x="77" y="5" width="53" height="23"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="23" id="HNb-HY-kHM"/>
-                                                        <constraint firstAttribute="width" constant="250" id="y6W-Fh-bOo"/>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="23" id="HNb-HY-kHM"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="RobotoSlab-Regular" family="Roboto Slab" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Teaching English" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vZE-UA-lmc">
-                                                    <rect key="frame" x="77" y="35" width="250" height="21"/>
+                                                    <rect key="frame" x="77" y="25" width="250" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="eCD-Mq-5Ku"/>
                                                         <constraint firstAttribute="width" constant="250" id="vSc-nf-8a6"/>
@@ -768,16 +765,23 @@
                                                     <color key="textColor" red="0.5999411940574646" green="0.60004258155822754" blue="0.59991961717605591" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Avatar_1" translatesAutoresizingMaskIntoConstraints="NO" id="Gkq-RF-lFc">
+                                                    <rect key="frame" x="20" y="11" width="50" height="50"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="50" id="8pI-o6-kUd"/>
+                                                        <constraint firstAttribute="height" constant="50" id="VDd-Ji-off"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="vZE-UA-lmc" secondAttribute="bottom" constant="13" id="4PQ-qg-khY"/>
+                                                <constraint firstAttribute="bottom" secondItem="vZE-UA-lmc" secondAttribute="bottom" constant="23" id="4PQ-qg-khY"/>
                                                 <constraint firstAttribute="trailing" secondItem="CCa-Gv-m22" secondAttribute="trailing" constant="15" id="5yG-JP-v8U"/>
-                                                <constraint firstItem="uCf-jK-8tc" firstAttribute="top" secondItem="pIi-1v-Xud" secondAttribute="top" constant="13" id="6ci-3Z-KmE"/>
-                                                <constraint firstItem="vZE-UA-lmc" firstAttribute="leading" secondItem="Gkq-RF-lFc" secondAttribute="trailing" constant="7" id="K01-5z-5mJ"/>
-                                                <constraint firstAttribute="bottom" secondItem="Gkq-RF-lFc" secondAttribute="bottom" constant="8" id="XRX-X6-sVL"/>
-                                                <constraint firstItem="Gkq-RF-lFc" firstAttribute="top" secondItem="pIi-1v-Xud" secondAttribute="top" constant="11" id="Zaq-Fd-YbH"/>
-                                                <constraint firstAttribute="bottom" secondItem="CCa-Gv-m22" secondAttribute="bottom" constant="38" id="gCM-UE-jUM"/>
-                                                <constraint firstItem="CCa-Gv-m22" firstAttribute="top" secondItem="pIi-1v-Xud" secondAttribute="top" constant="12" id="ikz-pM-V5e"/>
+                                                <constraint firstItem="uCf-jK-8tc" firstAttribute="top" secondItem="pIi-1v-Xud" secondAttribute="top" constant="5" id="6ci-3Z-KmE"/>
+                                                <constraint firstItem="vZE-UA-lmc" firstAttribute="leading" secondItem="Gkq-RF-lFc" secondAttribute="trailing" priority="250" constant="7" id="K01-5z-5mJ"/>
+                                                <constraint firstItem="Gkq-RF-lFc" firstAttribute="top" secondItem="pIi-1v-Xud" secondAttribute="top" priority="250" constant="11" id="Zaq-Fd-YbH"/>
+                                                <constraint firstItem="CCa-Gv-m22" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="uCf-jK-8tc" secondAttribute="trailing" constant="10" id="ffQ-HS-HU0"/>
+                                                <constraint firstAttribute="bottom" secondItem="CCa-Gv-m22" secondAttribute="bottom" constant="43" id="gCM-UE-jUM"/>
+                                                <constraint firstItem="CCa-Gv-m22" firstAttribute="top" secondItem="pIi-1v-Xud" secondAttribute="top" constant="7" id="ikz-pM-V5e"/>
                                                 <constraint firstItem="uCf-jK-8tc" firstAttribute="leading" secondItem="Gkq-RF-lFc" secondAttribute="trailing" constant="7" id="xty-Kk-b9m"/>
                                                 <constraint firstItem="Gkq-RF-lFc" firstAttribute="leading" secondItem="pIi-1v-Xud" secondAttribute="leading" constant="20" id="zIU-yO-igV"/>
                                             </constraints>
@@ -801,11 +805,11 @@
                         <constraints>
                             <constraint firstItem="b3y-Ol-tPW" firstAttribute="top" secondItem="hCt-Ff-3vd" secondAttribute="bottom" id="GaD-qj-BCr"/>
                             <constraint firstItem="hCt-Ff-3vd" firstAttribute="leading" secondItem="ag6-Dm-R2W" secondAttribute="leading" id="HCt-Gu-zUo"/>
-                            <constraint firstItem="MKv-qc-e6l" firstAttribute="top" secondItem="b3y-Ol-tPW" secondAttribute="bottom" id="NR3-xd-T14"/>
                             <constraint firstAttribute="trailing" secondItem="hCt-Ff-3vd" secondAttribute="trailing" id="QmZ-er-aGw"/>
                             <constraint firstAttribute="trailing" secondItem="b3y-Ol-tPW" secondAttribute="trailing" id="SqD-rN-bEq"/>
                             <constraint firstItem="hCt-Ff-3vd" firstAttribute="top" secondItem="ag6-Dm-R2W" secondAttribute="top" id="g9H-Xa-GN0"/>
                             <constraint firstItem="b3y-Ol-tPW" firstAttribute="top" secondItem="hCt-Ff-3vd" secondAttribute="bottom" id="gqG-lI-nEZ"/>
+                            <constraint firstItem="MKv-qc-e6l" firstAttribute="top" secondItem="b3y-Ol-tPW" secondAttribute="bottom" id="n1f-BF-uIg"/>
                             <constraint firstItem="b3y-Ol-tPW" firstAttribute="leading" secondItem="ag6-Dm-R2W" secondAttribute="leading" id="oIt-y0-TE9"/>
                         </constraints>
                     </view>
@@ -816,7 +820,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ey2-hD-VP2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2700" y="1071"/>
+            <point key="canvasLocation" x="2765" y="1072"/>
         </scene>
         <!--Chat Controller-->
         <scene sceneID="MCs-yX-gYb">
@@ -1056,6 +1060,6 @@
         <image name="WhiteNextArrow" width="11" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="eLM-I3-Bqx"/>
+        <segue reference="0pO-Ni-HtM"/>
     </inferredMetricsTieBreakers>
 </document>
