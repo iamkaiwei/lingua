@@ -27,6 +27,7 @@ class LINPickNativeLanguageController: LINViewController {
         arrowImageView.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
         subtitle1.font = UIFont.appRegularFontWithSize(17)
         subtitle2.font = UIFont.appThinFontWithSize(14)
+        subtitle2.text = NSLocale.currentLocale().displayNameForKey(NSLocaleLanguageCode, value: NSLocale.preferredLanguages()[0])
         saveButton.titleLabel.font = UIFont.appRegularFontWithSize(21)
         textView.tintColor = UIColor.appTealColor()
         textView.font = UIFont.appLightFontWithSize(14)
@@ -42,6 +43,7 @@ class LINPickNativeLanguageController: LINViewController {
 
     @IBAction func showCountryList(sender: UITapGestureRecognizer) {
         let viewController = storyboard.instantiateViewControllerWithIdentifier("kLINLanguagePickerController") as LINLanguagePickerController
+        viewController.delegate = self
         navigationController!.pushViewController(viewController, animated: true)
     }
 }
@@ -49,5 +51,11 @@ class LINPickNativeLanguageController: LINViewController {
 extension LINPickNativeLanguageController: NSLayoutManagerDelegate {
     func layoutManager(layoutManager: NSLayoutManager!, lineSpacingAfterGlyphAtIndex glyphIndex: Int, withProposedLineFragmentRect rect: CGRect) -> CGFloat {
         return 10
+    }
+}
+
+extension LINPickNativeLanguageController: LINLanguagePickerControllerDelegate {
+    func controller(controller: LINLanguagePickerController, didSelectCountry country: String) {
+        subtitle2.text = country
     }
 }

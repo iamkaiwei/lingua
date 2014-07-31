@@ -179,7 +179,7 @@
                                     <constraint firstAttribute="height" constant="60" id="zVW-qM-C8b"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z0S-aL-O8Y">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z0S-aL-O8Y">
                                 <rect key="frame" x="554" y="20" width="46" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Gj1-Ft-YSd"/>
@@ -225,7 +225,7 @@
         <!--Pick Native Language Controller-->
         <scene sceneID="Fyc-vL-KHm">
             <objects>
-                <viewController storyboardIdentifier="kLINPickNativeViewController" id="lJD-h9-4sb" customClass="LINPickNativeLanguageController" customModule="Lingua" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="kLINPickNativeLanguageController" id="lJD-h9-4sb" customClass="LINPickNativeLanguageController" customModule="Lingua" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ghl-JI-r7q"/>
                         <viewControllerLayoutGuide type="bottom" id="mWi-sL-IHl"/>
@@ -1019,7 +1019,7 @@
         <!--Navigation Controller-->
         <scene sceneID="rHc-HB-iF1">
             <objects>
-                <navigationController storyboardIdentifier="kRootNavigationController" autoresizesArchivedViewToFullSize="NO" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="8Zj-YW-TvC" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="kRootNavigationController" autoresizesArchivedViewToFullSize="NO" automaticallyAdjustsScrollViewInsets="NO" id="8Zj-YW-TvC" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="cg4-VN-Pi3">
