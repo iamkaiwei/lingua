@@ -118,7 +118,7 @@ extension LINPickLearningLanguageController: LINLanguagePickingHeaderViewDelegat
     
     func didTapHeader(header: LINLanguagePickingHeaderView) {
         if header.index == 0 {
-            let viewController = storyboard.instantiateViewControllerWithIdentifier("kLINLanguageSelectorController") as LINLanguageSelectorController
+            let viewController = storyboard.instantiateViewControllerWithIdentifier("kLINLanguagePickerController") as LINLanguagePickerController
             viewController.delegate = self
             navigationController?.pushViewController(viewController, animated: true)
             return;
@@ -169,8 +169,8 @@ extension LINPickLearningLanguageController: LINLanguagePickingHeaderViewDelegat
     }
 }
 
-extension LINPickLearningLanguageController: LINLanguageSelectorControllerDelegate {
-    func controller(controller: LINLanguageSelectorController, didSelectCountry country: String) {
+extension LINPickLearningLanguageController: LINLanguagePickerControllerDelegate {
+    func controller(controller: LINLanguagePickerController, didSelectCountry country: String) {
         //Update accessory view for header at section 0 i.e Language
         let header = tableView.headerViewForSection(0) as LINLanguagePickingHeaderView
         header.updateAccessoryViewWith(country)

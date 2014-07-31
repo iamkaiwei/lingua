@@ -8,17 +8,17 @@
 
 import UIKit
 
-protocol LINLanguageSelectorControllerDelegate {
-    func controller(controller: LINLanguageSelectorController, didSelectCountry country: String)
+protocol LINLanguagePickerControllerDelegate {
+    func controller(controller: LINLanguagePickerController, didSelectCountry country: String)
 }
 
-class LINLanguageSelectorController: LINViewController {
+class LINLanguagePickerController: LINViewController {
 
     @IBOutlet weak var tableView: UITableView!
 
-    private var countryNames = [String]()
-    private var countryNameHeaders = [String]()
-    var delegate: LINLanguageSelectorControllerDelegate?
+    private var languages = [[String]]()
+    private var headers = [String]()
+    var delegate: LINLanguagePickerControllerDelegate?
     private var loadingView = LINLoadingView()
     
     override func viewDidLoad() {
@@ -34,10 +34,10 @@ class LINLanguageSelectorController: LINViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        LINResourceHelper.countryNamesAndHeaders {
+        LINResourceHelper.languages {
+            self.languages = $0
+            self.headers = $1
             self.loadingView.hide()
-            self.countryNames = $0
-            self.countryNameHeaders = $1
             self.tableView.reloadData()
         }
     }
@@ -49,22 +49,20 @@ class LINLanguageSelectorController: LINViewController {
     }
 }
 
-extension LINLanguageSelectorController: UITableViewDataSource, UITableViewDelegate {
+extension LINLanguagePickerController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
-        let char = countryNameHeaders[section]
-        return countryNames.filter{ $0.hasPrefix(char) }.count
+        return languages[section].count
     }
     
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
         var cell = self.tableView.dequeueReusableCellWithIdentifier("CellIdentifier") as UITableViewCell
-        let char = countryNameHeaders[indexPath.section]
-        cell.textLabel.text = countryNames.filter{ $0.hasPrefix(char) }[indexPath.row]
+        cell.textLabel.text = languages[indexPath.section][indexPath.row]
         return cell
     }
     
     func sectionIndexTitlesForTableView(tableView: UITableView!) -> [AnyObject]! {
-        return countryNameHeaders
+        return headers
     }
     
     func tableView(tableView: UITableView!, sectionForSectionIndexTitle title: String!, atIndex index: Int) -> Int {
@@ -72,7 +70,7 @@ extension LINLanguageSelectorController: UITableViewDataSource, UITableViewDeleg
     }
     
     func numberOfSectionsInTableView(tableView: UITableView!) -> Int {
-        return countryNameHeaders.count
+        return headers.count
     }
     
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {

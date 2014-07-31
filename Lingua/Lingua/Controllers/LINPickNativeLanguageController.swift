@@ -41,7 +41,7 @@ class LINPickNativeLanguageController: LINViewController {
     }
 
     @IBAction func showCountryList(sender: UITapGestureRecognizer) {
-        let viewController = storyboard.instantiateViewControllerWithIdentifier("kLINLanguageSelectorController") as LINLanguageSelectorController
+        let viewController = storyboard.instantiateViewControllerWithIdentifier("kLINLanguagePickerController") as LINLanguagePickerController
         navigationController!.pushViewController(viewController, animated: true)
     }
 }

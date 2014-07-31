@@ -68,10 +68,10 @@
             </objects>
             <point key="canvasLocation" x="1071" y="331"/>
         </scene>
-        <!--Language Selector Controller-->
+        <!--Language Picker Controller-->
         <scene sceneID="RVL-PN-hD4">
             <objects>
-                <viewController storyboardIdentifier="kLINLanguageSelectorController" id="xF8-D2-gOF" customClass="LINLanguageSelectorController" customModule="Lingua" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="kLINLanguagePickerController" id="xF8-D2-gOF" customClass="LINLanguagePickerController" customModule="Lingua" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="uqX-Gx-f6M"/>
                         <viewControllerLayoutGuide type="bottom" id="ykN-Zy-naJ"/>
@@ -473,7 +473,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="A12-Rm-1Np">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CellIdentifier" id="A12-Rm-1Np">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">

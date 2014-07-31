@@ -25,38 +25,52 @@ class LINResourceHelper: NSObject {
         return (quotes, authors)
     }
     
-    class func countryNamesAndHeaders(completion:(names: [String], headers: [String]) -> Void) -> Void {
+    class func languages(completion:(languages: [[String]], headers: [String]) -> Void) {
         struct Static {
-            static var instance: ([String], [String])?
+            static var instance: ([[String]], [String])?
         }
         if Static.instance {
             completion(Static.instance!)
+            return
         }
         
-        var names = [String]()
+        var languages = [String]()
         for code in NSLocale.ISOLanguageCodes() as [String] {
             let identifier = NSLocale.localeIdentifierFromComponents([NSLocaleLanguageCode: code])
-            if let name = NSLocale.currentLocale().displayNameForKey(NSLocaleIdentifier, value: identifier) {
-                names.append(name)
+            if let language = NSLocale.currentLocale().displayNameForKey(NSLocaleIdentifier, value: identifier) {
+                languages.append(language)
             }
         }
-        names.sort{ n1, n2 in
-            switch n1.localizedCaseInsensitiveCompare(n2) {
+        
+        languages.sort{
+            switch $0.localizedCaseInsensitiveCompare($1) {
             case .OrderedAscending: return true
             default: return false
             }
         }
         
-        var char: String?
-        var headers = names .map { "\(Array($0)[0])" }
-                            .filter { if char == nil { char = $0; return true }
-                                switch char!.localizedCaseInsensitiveCompare($0) {
-                                case .OrderedAscending: char = $0; return true
-                                default: return false
-                                }
-                            }
-                
-        Static.instance = (names, headers)
+        //Defensive checking.
+        if languages.count < 1 {
+            return
+        }
+        
+        var headers = languages.map { "\(Array($0)[0])" }
+        var distinctHeaders = [headers[0]] //Initialize with first object from Headers
+        var structedArray: [[String]] = [[languages[0]]] //Initialize with first object from Languages
+        var structedArrayIndex = structedArray.count - 1
+        for var i = 1; i < headers.count; i++ {
+            if headers[i] == headers[i - 1] {
+                structedArray[structedArrayIndex].append(languages[i])
+            }
+            else {
+                distinctHeaders.append(headers[i])
+                var subArray = [languages[i]]
+                structedArray.append(subArray)
+                structedArrayIndex++
+            }
+        }
+        
+        Static.instance = (structedArray, distinctHeaders)
         completion(Static.instance!)
     }
 }

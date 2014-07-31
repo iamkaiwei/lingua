@@ -72,7 +72,7 @@ class LINLanguagePickingHeaderView: UITableViewHeaderFooterView {
         contentView.addSubview(UINib(nibName: "LINLanguagePickingHeaderView", bundle: nil).instantiateWithOwner(self, options: nil)[0] as UIView)
         titleLabel.text = ""
         titleLabel.font = UIFont.appRegularFontWithSize(17)
-        addGestureRecognizer(UITapGestureRecognizer(target: self, action: "didTapHeader"))
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tapHeader"))
     }
     
     init(coder aDecoder: NSCoder!)
@@ -107,7 +107,7 @@ class LINLanguagePickingHeaderView: UITableViewHeaderFooterView {
         }
     }
     
-    private func didTapHeader() {
+    func tapHeader() {
         delegate?.didTapHeader(self)
     }
 }
