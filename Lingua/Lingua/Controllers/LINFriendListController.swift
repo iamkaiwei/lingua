@@ -51,10 +51,13 @@ class LINFriendListController: UIViewController, UITableViewDataSource, UITableV
     
     func loadAllFriends() {
         LINNetworkClient.sharedInstance.getAllUsers( {(arrUsers: [LINUser]?) -> Void in
+            println("Load friends successfully.")
             self.arrFriends  = arrUsers!
             self.tableView.reloadData()
         }, failture: {(error: NSError?) -> Void in
-            println("Load all friends has some errors: \(error?.description)")
+            if let err = error {
+                println("Load all friends has some errors: \(err.description)")
+            }
         })
     }
 }
