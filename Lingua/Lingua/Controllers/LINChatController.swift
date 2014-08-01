@@ -9,7 +9,7 @@
 import Foundation
 import QuartzCore
 
-class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelegate {
+class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelegate, PTPusherPresenceChannelDelegate {
     @IBOutlet weak var inputContainerView: UIView!
     @IBOutlet weak var inputTextView: UITextView!
     @IBOutlet weak var speakButton: UIButton!
@@ -18,9 +18,11 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     
     @IBOutlet weak var inputContainerViewBottomLayoutGuideConstraint: NSLayoutConstraint!
     
-    var messagesDataArray = [LINMessage]()
-    var dataSource: LINArrayDataSource?
-    let cellIdentifier = "kLINBubbleCell"
+    private var messagesDataArray = [LINMessage]()
+    private var dataSource: LINArrayDataSource?
+    private let cellIdentifier = "kLINBubbleCell"
+    
+    private var currentChannel = PTPusherPresenceChannel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +55,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     
     // MARK: Configuration
     
-    func configureInputContainerView () {
+    private func configureInputContainerView () {
         inputContainerView.layer.borderColor = UIColor(red: 153.0/255, green: 153.0/255, blue: 153.0/255, alpha: 1.0).CGColor
         inputContainerView.layer.borderWidth = 0.5
         
@@ -61,12 +63,12 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         inputTextView.layer.cornerRadius = 10.0
     }
     
-    func configureTapGestureOnTableView() {
+    private func configureTapGestureOnTableView() {
         let tapGesture = UITapGestureRecognizer(target: self, action: "didTapOnTableView:")
         tableView.addGestureRecognizer(tapGesture)
     }
     
-    func setupTableView() {
+    private func setupTableView() {
         let configureClosure: TableViewCellConfigureClosure = { (bubbleCell: UITableViewCell, messageData: AnyObject) -> Void in
                 (bubbleCell as LINBubbleCell).configureCellWithMessageData(messageData as LINMessage)
         }
@@ -110,7 +112,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     
     // MARK: Functions 
     
-    func addBubbleViewCellWithMessageData(messageData: LINMessage) {
+    private func addBubbleViewCellWithMessageData(messageData: LINMessage) {
         // Update data source
         messagesDataArray.append(messageData)
         dataSource!.items = messagesDataArray
@@ -125,17 +127,39 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         scrollBubbleTableViewToBottomAnimated(true)
     }
     
-    func loadHistoryChatData() {
+    private func loadHistoryChatData() {
         messagesDataArray.append(LINMessage(incoming: false, text: "Hello", sendDate: NSDate()))
+        
+        subcribeToPresenceChannel()
     }
     
-    func scrollBubbleTableViewToBottomAnimated(animated: Bool) {
+    private func scrollBubbleTableViewToBottomAnimated(animated: Bool) {
         let lastRowIdx = messagesDataArray.count - 1
         if lastRowIdx >= 0 {
             tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: lastRowIdx, inSection: 0), atScrollPosition: UITableViewScrollPosition.Bottom, animated: animated)
         }
     }
 
+    private func subcribeToPresenceChannel() {
+        currentChannel = LINPusherManager.sharedInstance.pusherClient.subscribeToPresenceChannelNamed("kiet-tuan", delegate: self)
+    }
+    
+    
+    // MARKL: Presence channel events
+    
+    func presenceChannelDidSubscribe(channel: PTPusherPresenceChannel!) {
+        println("[pusher] Channel members: \(channel.members)")
+    }
+    
+    func presenceChannel(channel: PTPusherPresenceChannel!, memberAdded member: PTPusherChannelMember!) {
+        println("[pusher] Member joined channel: \(member)")
+    }
+    
+    func presenceChannel(channel: PTPusherPresenceChannel!, memberRemoved member: PTPusherChannelMember!) {
+        println("[pusher] Member left channel: \(member)")
+    }
+    
+    
     // MARK: Keyboard Events Notifications
 
     func handleKeyboardWillShowNotification(notification: NSNotification) {
