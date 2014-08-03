@@ -9,7 +9,7 @@
 import Foundation
 import QuartzCore
 
-class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelegate, PTPusherPresenceChannelDelegate {
+class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelegate {
     @IBOutlet weak var inputContainerView: UIView!
     @IBOutlet weak var inputTextView: UITextView!
     @IBOutlet weak var speakButton: UIButton!
@@ -23,6 +23,8 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     private let cellIdentifier = "kLINBubbleCell"
     
     private var currentChannel = PTPusherPresenceChannel()
+    private var currentUser = LINUser()
+    var userChat = LINUser()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -128,8 +130,6 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     }
     
     private func loadHistoryChatData() {
-        messagesDataArray.append(LINMessage(incoming: false, text: "Hello", sendDate: NSDate()))
-        
         subcribeToPresenceChannel()
     }
     
@@ -141,24 +141,9 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     }
 
     private func subcribeToPresenceChannel() {
-        currentChannel = LINPusherManager.sharedInstance.pusherClient.subscribeToPresenceChannelNamed("kiet-tuan", delegate: self)
+        let channelName = LINPusherManager.sharedInstance.generateUniqueChannelNameFromUserId(currentUser.userID, toUserId: userChat.userID)
+        currentChannel = LINPusherManager.sharedInstance.subscribeToPresenceChannelNamed(channelName)
     }
-    
-    
-    // MARKL: Presence channel events
-    
-    func presenceChannelDidSubscribe(channel: PTPusherPresenceChannel!) {
-        println("[pusher] Channel members: \(channel.members)")
-    }
-    
-    func presenceChannel(channel: PTPusherPresenceChannel!, memberAdded member: PTPusherChannelMember!) {
-        println("[pusher] Member joined channel: \(member)")
-    }
-    
-    func presenceChannel(channel: PTPusherPresenceChannel!, memberRemoved member: PTPusherChannelMember!) {
-        println("[pusher] Member left channel: \(member)")
-    }
-    
     
     // MARK: Keyboard Events Notifications
 
