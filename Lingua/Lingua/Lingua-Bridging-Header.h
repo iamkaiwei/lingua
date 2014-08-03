@@ -21,3 +21,4 @@
 #import <SVProgressHUD/SVProgressHUD.h>
 #import "UIImageView+WebCache.h"
 #import "AFNetworkActivityIndicatorManager.h"
+#import <Pusher/PTPusherEventDispatcher.h>

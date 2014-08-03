@@ -9,6 +9,8 @@
 import Foundation
 import QuartzCore
 
+let kPusherEventNameNewMessage = "client-chat";
+
 class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelegate {
     @IBOutlet weak var inputContainerView: UIView!
     @IBOutlet weak var inputTextView: UITextView!
@@ -144,13 +146,18 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         }
     }
 
-    private func subcribeToPresenceChannel() {
+     func subcribeToPresenceChannel() {
         let channelName = LINPusherManager.sharedInstance.generateUniqueChannelNameFromUserId(currentUser.userID, toUserId: userChat.userID)
         println("Presence channel name: \(channelName)")
-        
         currentChannel = LINPusherManager.sharedInstance.subscribeToPresenceChannelNamed(channelName)
         
-        // KTODO: Bind to event to receive data
+        // Bind to event to receive data
+        currentChannel.bindToEventNamed(kPusherEventNameNewMessage, handleWithBlock: { channelEvent in
+            println("Channel event data: \(channelEvent.data)")
+            let content = (channelEvent.data as NSDictionary)["Text"] as String
+            let messageData = LINMessage(incoming: true, text: content, sendDate: NSDate())
+            self.addBubbleViewCellWithMessageData(messageData)
+        })
     }
     
     // MARK: Keyboard Events Notifications
