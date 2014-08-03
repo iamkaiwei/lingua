@@ -24,6 +24,16 @@ class LINFriendListController: UIViewController, UITableViewDataSource, UITableV
         // Dispose of any resources that can be recreated.
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
+        if segue.identifier == "kLINChatControllerIdentifier" {
+            let indexPath: NSIndexPath = tableView.indexPathForSelectedRow()
+            let user = arrFriends[indexPath.row]
+            
+            let chatController = segue.destinationViewController as LINChatController
+            chatController.userChat = user
+        }
+    }
+    
     // MARK: UITableView Datasource
     
     func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {

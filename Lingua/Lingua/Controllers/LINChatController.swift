@@ -32,6 +32,10 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         configureInputContainerView()
         configureTapGestureOnTableView()
         
+        if let tmpuser = LINUserManager.sharedInstance.currentUser {
+            currentUser = tmpuser
+        }
+        
         loadHistoryChatData()
         setupTableView()
     }
@@ -142,7 +146,11 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
 
     private func subcribeToPresenceChannel() {
         let channelName = LINPusherManager.sharedInstance.generateUniqueChannelNameFromUserId(currentUser.userID, toUserId: userChat.userID)
+        println("Presence channel name: \(channelName)")
+        
         currentChannel = LINPusherManager.sharedInstance.subscribeToPresenceChannelNamed(channelName)
+        
+        // KTODO: Bind to event to receive data
     }
     
     // MARK: Keyboard Events Notifications
