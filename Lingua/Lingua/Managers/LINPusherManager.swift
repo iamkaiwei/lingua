@@ -44,7 +44,7 @@ class LINPusherManager : NSObject, PTPusherDelegate, PTPusherPresenceChannelDele
     
     func generateUniqueChannelNameFromUserId(fromUserId: String, toUserId: String) -> String {
         var channelName = ""
-        if userId_A.compare(toUserId, options: NSStringCompareOptions.CaseInsensitiveSearch) == NSComparisonResult.OrderedAscending {
+        if fromUserId.compare(toUserId, options: NSStringCompareOptions.CaseInsensitiveSearch) == NSComparisonResult.OrderedAscending {
             channelName = "\(fromUserId)-\(toUserId)"
         } else {
             channelName = "\(toUserId)-\(fromUserId)"

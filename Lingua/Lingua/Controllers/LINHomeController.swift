@@ -64,7 +64,5 @@ class LINHomeController: LINViewController {
         }
         teachButton.selected = !teachButton.selected
         learnButton.selected = !learnButton.selected
-        
-        performSegueWithIdentifier("kLINChatControllerIdentifier", sender: self)
     }
 }
