@@ -94,6 +94,12 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     
     @IBAction func buttonSendTouched(sender: UIButton) {
         if (inputTextView.text.utf16Count > 0) {
+            // KTODO: Push notificaiton
+            
+            // Trigger a client event
+            currentChannel.triggerEventNamed(kPusherEventNameNewMessage, data: ["UserId": userChat.userID,
+                                                                                "Text": inputTextView.text])
+            
             let messageData = LINMessage(incoming: false, text: inputTextView.text, sendDate: NSDate())
             addBubbleViewCellWithMessageData(messageData)
             
