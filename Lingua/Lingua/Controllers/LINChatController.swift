@@ -97,8 +97,9 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
             // KTODO: Push notificaiton
             
             // Trigger a client event
-            currentChannel.triggerEventNamed(kPusherEventNameNewMessage, data: ["UserId": userChat.userID,
-                                                                                "Text": inputTextView.text])
+            currentChannel.triggerEventNamed(kPusherEventNameNewMessage, data: [kMessageUserIdKey: userChat.userID,
+                                                                                kMessageTextKey: inputTextView.text,
+                                                                                kMessageSendDateKey: NSDateFormatter.stringWithDefautFormatFromDate(NSDate())])
             
             let messageData = LINMessage(incoming: false, text: inputTextView.text, sendDate: NSDate())
             addBubbleViewCellWithMessageData(messageData)
@@ -160,8 +161,14 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         // Bind to event to receive data
         currentChannel.bindToEventNamed(kPusherEventNameNewMessage, handleWithBlock: { channelEvent in
             println("Channel event data: \(channelEvent.data)")
-            let content = (channelEvent.data as NSDictionary)["Text"] as String
-            let messageData = LINMessage(incoming: true, text: content, sendDate: NSDate())
+            
+            let data = (channelEvent.data as NSDictionary)
+            let userId = data[kMessageUserIdKey] as String
+            let text = data[kMessageTextKey] as String
+            let tmpDate = data[kMessageSendDateKey] as String
+            let sendDate = NSDateFormatter.dateWithDefaultFormatFromString(tmpDate)
+            
+            let messageData = LINMessage(incoming: true, text: text, sendDate: sendDate)
             self.addBubbleViewCellWithMessageData(messageData)
         })
     }
