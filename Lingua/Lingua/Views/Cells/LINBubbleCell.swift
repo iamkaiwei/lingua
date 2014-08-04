@@ -73,7 +73,7 @@ class LINBubbleCell: UITableViewCell {
                                      y: contentFrame.origin.y + contentFrame.size.height/2 - 10,
                                  width: 100,
                                 height: 20)
-        createAtLabel.text = "10:56 pm"
+        createAtLabel.text = NSDateFormatter.hourStringFromDate(messageData.sendDate)
     }
     
     class func getHeighWithMessageData(messageData: LINMessage)-> CGFloat {
