@@ -71,10 +71,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
-        let token = NSString(data: deviceToken, encoding: NSUTF8StringEncoding)
+        let characterSet = NSCharacterSet(charactersInString: "<>")
+        let token = (deviceToken.description as NSString).stringByTrimmingCharactersInSet(characterSet)
+                                                         .stringByReplacingOccurrencesOfString(" ", withString: "") as String
         println("Device token: \(token)")
         
         LINStorageHelper.setStringValue(token, forkey: kDeviceToken)
+    }
+    
+    func application(application: UIApplication!, didFailToRegisterForRemoteNotificationsWithError error: NSError! ) {
+        println("Fail to register remote notification: \(error.localizedDescription)")
     }
     
     func applicationWillResignActive(application: UIApplication) {
