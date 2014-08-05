@@ -35,4 +35,21 @@ class LINStorageHelper {
         NSUserDefaults.standardUserDefaults().setObject(data, forKey: key)
         NSUserDefaults.standardUserDefaults().synchronize()
     }
+    
+    class func setStringValue(value: String, forkey key: String) {
+        if key.utf16Count == 0 {
+            return
+        }
+        
+        NSUserDefaults.standardUserDefaults().setObject(value, forKey: key)
+        NSUserDefaults.standardUserDefaults().synchronize()
+    }
+    
+    class func getStringValueForKey(key: String) -> String? {
+        if key.utf16Count == 0 {
+            return nil
+        }
+        
+        return NSUserDefaults.standardUserDefaults().objectForKey(key) as? String
+    }
 }

@@ -9,6 +9,9 @@
 
 import Foundation
 
+let kDeviceToken = "DeviceToken"
+
+// Message
 let kMessageUserIdKey = "UserId"
 let kMessageTextKey = "Text"
 let kMessageSendDateKey = "SendDate"

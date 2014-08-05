@@ -22,6 +22,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
        
         LINPusherManager.sharedInstance.connectToPusher()
         
+        application.registerForRemoteNotificationTypes(.Alert | .Badge | .Sound)
+        
+        // NOTE: This code will work in future betas, please don't remove it
+//        if application.respondsToSelector(Selector("registerUserNotificationSettings:")) {
+//            application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: .Alert | .Badge | .Sound, categories: nil))
+//            application.registerForRemoteNotifications()
+//        } else {
+//            application.registerForRemoteNotificationTypes(.Alert | .Badge | .Sound)
+//        }
+        
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         window!.makeKeyAndVisible()
         
@@ -58,6 +68,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func showOnboardingScreen() {
         let navigationController = storyboard.instantiateViewControllerWithIdentifier("kRootNavigationController") as UINavigationController
          window!.rootViewController = navigationController
+    }
+    
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        let token = NSString(data: deviceToken, encoding: NSUTF8StringEncoding)
+        println("Device token: \(token)")
+        
+        LINStorageHelper.setStringValue(token, forkey: kDeviceToken)
     }
     
     func applicationWillResignActive(application: UIApplication) {
