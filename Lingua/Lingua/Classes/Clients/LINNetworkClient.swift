@@ -161,6 +161,13 @@ class LINNetworkClient: OVCHTTPSessionManager {
         })
     }
 
+    func sendNotification(userId: String, text: String, sendDate: String) {
+        let parameters = ["user_id": userId,
+                          "message": text,
+                          "time_created": sendDate]
+        
+        self.POST(kLINAPIPath + kLINSendNotification, parameters: parameters, completion: nil)
+    }
     
     func updateDeviceTokenWithUserId(userId: String, deviceToken: String) {
         setAuthorizedRequest()
