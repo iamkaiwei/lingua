@@ -31,16 +31,20 @@ class LINNetworkClient: OVCHTTPSessionManager {
     
     // MARK: Initialization
     
-    init() {
+    override init() {
         super.init(baseURL: NSURL(string: kLINBaseURL))
     }
     
-    init(baseURL url: NSURL!, sessionConfiguration configuration: NSURLSessionConfiguration!) {
+    override init(baseURL url: NSURL!, sessionConfiguration configuration: NSURLSessionConfiguration!) {
         super.init(baseURL: url, sessionConfiguration: configuration)
     }
     
-    init(baseURL url: NSURL!, managedObjectContext context: NSManagedObjectContext!, sessionConfiguration configuration: NSURLSessionConfiguration!)  {
+    override init(baseURL url: NSURL!, managedObjectContext context: NSManagedObjectContext!, sessionConfiguration configuration: NSURLSessionConfiguration!)  {
         super.init(baseURL: url, managedObjectContext: context, sessionConfiguration: configuration)
+    }
+    
+    required init(coder aDecoder: NSCoder!) {
+        super.init(coder: aDecoder)
     }
     
     // MARK: Shared
@@ -160,9 +164,9 @@ class LINNetworkClient: OVCHTTPSessionManager {
     // MARK: OVCHTTPSessionManager
     
     override class func modelClassesByResourcePath() -> [NSObject : AnyObject]! {
-        return [kLINGetAccessTokenPath.bridgeToObjectiveC() : LINAccessToken.self,
-               (kLINAPIPath + kLINGetCurrentUserPath).bridgeToObjectiveC() : LINUser.self,
-               (kLINAPIPath + kLINGetAllUsersPath).bridgeToObjectiveC() : LINUser.self
+        return [kLINGetAccessTokenPath : LINAccessToken.self,
+               (kLINAPIPath + kLINGetCurrentUserPath) : LINUser.self,
+               (kLINAPIPath + kLINGetAllUsersPath) : LINUser.self
         ]
     }
 }

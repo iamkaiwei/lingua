@@ -48,20 +48,20 @@ class LINIntroductionView: UIView {
         backgroundColor = UIColor.clearColor()
         bubbleImage = UIImageView(frame: bounds)
         bubbleImage!.image = UIImage(named: "ChatBoxLeft")
-        addSubview(bubbleImage)
+        addSubview(bubbleImage!)
         
         introductionLabel = UILabel()
         introductionLabel!.font = UIFont.appRegularFontWithSize(13)
         introductionLabel!.numberOfLines = 0
-        addSubview(introductionLabel)
+        addSubview(introductionLabel!)
     }
     
-    init(frame: CGRect) {
+    override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
     }
     
-    init(coder aDecoder: NSCoder!) {
+    required init(coder aDecoder: NSCoder!) {
         super.init(coder: aDecoder)
         commonInit()
     }

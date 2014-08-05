@@ -22,18 +22,18 @@ class LINLoadingView: UIView {
         hidden = true
     }
     
-    init(coder aDecoder: NSCoder!) {
+    required init(coder aDecoder: NSCoder!) {
         super.init(coder: aDecoder)
         commonInit()
         timer.fire()
     }
     
-    init(frame: CGRect) {
+    override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
     }
 
-    init() {
+    override init() {
         super.init(frame: CGRectMake(0, 0, 159, 11))
         commonInit()
     }

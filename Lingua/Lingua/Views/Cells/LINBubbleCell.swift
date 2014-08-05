@@ -19,7 +19,7 @@ class LINBubbleCell: UITableViewCell {
     let textInsetsMine = UIEdgeInsetsMake(5, 10, 7, 17)
     let textInsetsSomeone = UIEdgeInsetsMake(5, 15, 7, 10)
     
-    init(style: UITableViewCellStyle, reuseIdentifier: String!) {
+    override init(style: UITableViewCellStyle, reuseIdentifier: String!) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
         selectionStyle = .None
@@ -37,6 +37,10 @@ class LINBubbleCell: UITableViewCell {
         createAtLabel.font = UIFont.appRegularFontWithSize(10)
         createAtLabel.textColor =  UIColor(red: 153/255.0, green: 153/255.0, blue: 153/255.0, alpha: 1.0)
         addSubview(createAtLabel)
+    }
+    
+    required init(coder aDecoder: NSCoder!) {
+        super.init(coder: aDecoder)
     }
     
     func configureCellWithMessageData(messageData: LINMessage) {

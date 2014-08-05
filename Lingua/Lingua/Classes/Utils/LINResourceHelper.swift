@@ -27,10 +27,12 @@ class LINResourceHelper: NSObject {
     
     class func languages(completion:(languages: [[String]], headers: [String]) -> Void) {
         struct Static {
-            static var instance: ([[String]], [String])?
+            static var languages: ([[String]])?
+            static var headers: ([String])?
         }
-        if Static.instance {
-            completion(Static.instance!)
+        
+        if Static.languages != nil && Static.headers != nil {
+            completion(languages: Static.languages!, headers: Static.headers!)
             return
         }
         
@@ -70,7 +72,8 @@ class LINResourceHelper: NSObject {
             }
         }
         
-        Static.instance = (structedArray, distinctHeaders)
-        completion(Static.instance!)
+        Static.languages = structedArray
+        Static.headers = distinctHeaders
+        completion(languages: structedArray, headers: distinctHeaders)
     }
 }

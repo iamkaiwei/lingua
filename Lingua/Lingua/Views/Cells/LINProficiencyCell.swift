@@ -9,10 +9,9 @@
 import UIKit
 
 class LINProficiencyCell: UITableViewCell {
-
     private let accessory = UIImageView(image: UIImage(named: "Checked"))
     
-    init(style: UITableViewCellStyle, reuseIdentifier: String) {
+    override init(style: UITableViewCellStyle, reuseIdentifier: String) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         selectedBackgroundView = UIView(frame: frame)
         selectedBackgroundView.backgroundColor = UIColor.appTealColor()
@@ -23,6 +22,10 @@ class LINProficiencyCell: UITableViewCell {
         accessory.frame = CGRect(origin: origin, size: accessory.frame.size)
         accessory.hidden = true
         contentView.addSubview(accessory)
+    }
+    
+    required init(coder aDecoder: NSCoder!) {
+        super.init(coder: aDecoder)
     }
     
     func setChecked(check: Bool, animated: Bool) {

@@ -65,7 +65,7 @@ class LINFriendListController: UIViewController, UITableViewDataSource, UITableV
             
             var currentUser = LINUserManager.sharedInstance.currentUser
             self.arrFriends  = arrUsers!
-            if currentUser {
+            if currentUser != nil {
                 for i in 0..<self.arrFriends.count {
                     let user = self.arrFriends[i]
                     if user.userID == currentUser!.userID {

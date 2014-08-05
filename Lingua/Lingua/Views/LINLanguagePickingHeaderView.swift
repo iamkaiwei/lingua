@@ -64,7 +64,7 @@ class LINLanguagePickingHeaderView: UITableViewHeaderFooterView {
                 accessoryView = UIImageView()
             default: return
             }
-            contentView.addSubview(accessoryView)
+            contentView.addSubview(accessoryView!)
         }
     }
     
@@ -75,17 +75,16 @@ class LINLanguagePickingHeaderView: UITableViewHeaderFooterView {
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tapHeader"))
     }
     
-    init(coder aDecoder: NSCoder!)
-    {
+    required init(coder aDecoder: NSCoder!) {
         super.init(coder: aDecoder)
     }
     
-    init(frame: CGRect) {
+    override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
     }
 
-    init(reuseIdentifier: String!) {
+    override init(reuseIdentifier: String!) {
         super.init(reuseIdentifier: reuseIdentifier)
         commonInit()
     }

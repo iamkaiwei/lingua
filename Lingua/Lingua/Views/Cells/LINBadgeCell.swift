@@ -12,7 +12,7 @@ class LINBadgeCell: UICollectionViewCell {
 
     var imageView = UIImageView()
     
-    init(frame: CGRect) {
+    override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = UIColor.clearColor()
         imageView.image = UIImage(named: "TeachingBadge")
@@ -21,6 +21,9 @@ class LINBadgeCell: UICollectionViewCell {
     }
     
     override func drawRect(rect: CGRect) {
-        
+    }
+    
+    required init(coder aDecoder: NSCoder!) {
+        super.init(coder: aDecoder)
     }
 }

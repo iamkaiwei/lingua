@@ -25,7 +25,7 @@ class LINPusherManager : NSObject, PTPusherDelegate, PTPusherPresenceChannelDele
         return Static.instance;
     }
 
-    init() {
+    override init() {
         super.init()
         
         pusherClient = PTPusher.pusherWithKey(kPusherAPIKey, delegate: self, encrypted: true) as PTPusher
@@ -92,7 +92,7 @@ class LINPusherManager : NSObject, PTPusherDelegate, PTPusherPresenceChannelDele
         if (willAttemptReconnect) {
             println("[pusher-\(pusher.connection.socketID)] Client will attempt to reconnect automatically")
         } else {
-            if error.domain != String(PTPusherErrorDomain) {
+            if error.domain != String(format: PTPusherErrorDomain) {
                 startReachabilityCheck()
             }
         }
@@ -133,7 +133,7 @@ class LINPusherManager : NSObject, PTPusherDelegate, PTPusherPresenceChannelDele
             println("Waiting for reachability");
 
             reachability.reachableBlock = { (reachability : Reachability?) -> Void in
-                if reachability?.isReachable() {
+                if reachability?.isReachable() != nil {
                     println("Internet is now reachable")
                     
                     reachability?.stopNotifier()

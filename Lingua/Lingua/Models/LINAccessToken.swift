@@ -14,12 +14,16 @@ class LINAccessToken: MTLModel, MTLJSONSerializing {
     var expiresIn: Int = -1
     var refreshToken: String = ""
     
-    init() {
+    override init() {
         super.init()
     }
     
-    init(dictionary dictionaryValue: [NSObject : AnyObject]!, error: NSErrorPointer)  {
+    override init(dictionary dictionaryValue: [NSObject : AnyObject]!, error: NSErrorPointer)  {
         super.init(dictionary: dictionaryValue, error: error)
+    }
+    
+    required init(coder aDecoder: NSCoder!) {
+        super.init(coder: aDecoder)
     }
     
     init(tokenType: String, accessToken: String, expiresIn: Int, refreshToken: String) {

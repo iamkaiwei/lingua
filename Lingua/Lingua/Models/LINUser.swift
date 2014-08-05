@@ -17,11 +17,15 @@ class LINUser: MTLModel, MTLJSONSerializing {
     var avatarURL = ""
     var facebookID = ""
     
-    init() {
+    override init() {
         super.init()
     }
     
-    init(dictionary dictionaryValue: [NSObject : AnyObject]!, error: NSErrorPointer)  {
+    required init(coder aDecoder: NSCoder!) {
+        super.init(coder: aDecoder)
+    }
+    
+    override init(dictionary dictionaryValue: [NSObject : AnyObject]!, error: NSErrorPointer)  {
         super.init(dictionary: dictionaryValue, error: error)
     }
     
