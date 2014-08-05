@@ -14,8 +14,9 @@ class LINUser: MTLModel, MTLJSONSerializing {
     var lastName: String = ""
     var email: String = ""
     var gender: String = ""
-    var avatarURL = ""
-    var facebookID = ""
+    var avatarURL: String = ""
+    var facebookID: String = ""
+    var deviceToken: String = ""
     
     override init() {
         super.init()
@@ -36,7 +37,8 @@ class LINUser: MTLModel, MTLJSONSerializing {
                 "email": "email",
                 "gender": "gender",
                 "avatarURL": "avatar_url",
-                "facebookID": "facebook_id"
+                "facebookID": "facebook_id",
+                "deviceToken": "device_token"
         ]
     }
 }

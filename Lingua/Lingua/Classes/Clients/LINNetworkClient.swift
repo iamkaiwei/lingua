@@ -15,7 +15,8 @@ let kLINBaseURL = "http://linguatheapp.herokuapp.com/"
 let kLINAPIPath = "api/v1/"
 let kLINGetAccessTokenPath = "oauth/token"
 let kLINGetCurrentUserPath = "users/me"
-let kLINGetAllUsersPath = "users"
+let kLINUsersPath = "users"
+let kLINSendNotification = "users/send_notification"
 
 // Storage
 let kLINAccessTokenKey = "kLINAccessTokenKey"
@@ -134,7 +135,6 @@ class LINNetworkClient: OVCHTTPSessionManager {
                 let user = (response as OVCResponse).result as? LINUser
                 if user != nil {
                     println("Current user: \(user!.firstName)")
-                    LINStorageHelper.setObject(user!, forKey: kLINCurrentUserKey)
                     success(user: user)
                 } else {
                     failture(error: nil)
@@ -147,7 +147,7 @@ class LINNetworkClient: OVCHTTPSessionManager {
                     failture: (error: NSError?) -> Void) {
         setAuthorizedRequest()
                         
-        self.GET(kLINAPIPath + kLINGetAllUsersPath, parameters: nil, completion: { (response: AnyObject?, error: NSError?) -> Void in
+        self.GET(kLINAPIPath + kLINUsersPath, parameters: nil, completion: { (response: AnyObject?, error: NSError?) -> Void in
             if error != nil {
                  failture(error: error!)
             } else {
@@ -160,13 +160,30 @@ class LINNetworkClient: OVCHTTPSessionManager {
             }
         })
     }
+
+    
+    func updateDeviceTokenWithUserId(userId: String, deviceToken: String) {
+        setAuthorizedRequest()
+        
+        let parameters = ["user_id": userId,
+                          "device_token": deviceToken]
+        let path = kLINAPIPath + kLINUsersPath + "/" + userId
+                                        
+        self.PUT(path, parameters: parameters, { (response: AnyObject?, error: NSError?) -> Void in
+            if error != nil {
+                println("Update device token has some errors: \(error!.description)")
+            } else {
+                println("Update device token successfully.")
+            }
+        })
+    }
     
     // MARK: OVCHTTPSessionManager
     
     override class func modelClassesByResourcePath() -> [NSObject : AnyObject]! {
         return [kLINGetAccessTokenPath : LINAccessToken.self,
                (kLINAPIPath + kLINGetCurrentUserPath) : LINUser.self,
-               (kLINAPIPath + kLINGetAllUsersPath) : LINUser.self
+               (kLINAPIPath + kLINUsersPath) : LINUser.self
         ]
     }
 }

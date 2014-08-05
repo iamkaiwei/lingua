@@ -37,7 +37,7 @@
 		20DC6566197BEA4F008DA659 /* LINBadgeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DC6561197BEA4F008DA659 /* LINBadgeCell.swift */; };
 		20DC6567197BEA4F008DA659 /* LINFriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DC6562197BEA4F008DA659 /* LINFriendCell.swift */; };
 		20DC6568197BEA4F008DA659 /* LINCountryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DC6563197BEA4F008DA659 /* LINCountryCell.swift */; };
-		3539D820182145359C2B8DA9 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 81D3DA7628DD45F7938E71F3 /* libPods.a */; };
+		3539D820182145359C2B8DA9 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 81D3DA7628DD45F7938E71F3 /* libPods.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		9231348E197E4E26003BD927 /* RobotoSlab-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9231348A197E4E26003BD927 /* RobotoSlab-Bold.ttf */; };
 		9231348F197E4E26003BD927 /* RobotoSlab-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9231348B197E4E26003BD927 /* RobotoSlab-Light.ttf */; };
 		92313490197E4E26003BD927 /* RobotoSlab-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9231348C197E4E26003BD927 /* RobotoSlab-Regular.ttf */; };
@@ -738,6 +738,7 @@
 				PROVISIONING_PROFILE = "4535D51B-AB52-4984-BD7D-E819FBB00B52";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Lingua/Lingua-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -756,6 +757,7 @@
 				PROVISIONING_PROFILE = "4535D51B-AB52-4984-BD7D-E819FBB00B52";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Lingua/Lingua-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

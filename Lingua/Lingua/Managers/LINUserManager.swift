@@ -45,6 +45,17 @@ class LINUserManager {
                 LINNetworkClient.sharedInstance.getCurrentUser( { (user: LINUser?) -> Void in
                         if let tmpUser = user {
                             self.currentUser = tmpUser
+                            
+                            // Check device token
+                            if tmpUser.deviceToken.utf16Count == 0 {
+                                let deviceToken = LINStorageHelper.getStringValueForKey(kDeviceToken)
+                                if let tmpToken = deviceToken {
+                                    self.currentUser!.deviceToken = tmpToken
+                                    LINNetworkClient.sharedInstance.updateDeviceTokenWithUserId(self.currentUser!.userID, deviceToken: tmpToken)
+                                }
+                            }
+                            
+                            LINStorageHelper.setObject(self.currentUser!, forKey: kLINCurrentUserKey)
                         }
                     }
                     , failture: {(error: NSError?) -> Void in
