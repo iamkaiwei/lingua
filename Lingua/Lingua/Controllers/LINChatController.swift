@@ -94,18 +94,29 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     
     @IBAction func buttonSendTouched(sender: UIButton) {
         if (inputTextView.text.utf16Count > 0) {
-            // KTODO: Push notificaiton
+            let sendDate = NSDateFormatter.stringWithDefautFormatFromDate(NSDate())
             
-            // Trigger a client event
-            currentChannel.triggerEventNamed(kPusherEventNameNewMessage, data: [kMessageUserIdKey: userChat.userID,
-                                                                                kMessageTextKey: inputTextView.text,
-                                                                                kMessageSendDateKey: NSDateFormatter.stringWithDefautFormatFromDate(NSDate())])
+            if currentChannel.members.count <= 1 {
+                LINNetworkClient.sharedInstance.sendNotificationWithUserId(userChat.userID,
+                                                                           text: inputTextView.text,
+                                                                           sendDate: sendDate)
+            } else {
+                // Trigger a client event
+                currentChannel.triggerEventNamed(kPusherEventNameNewMessage,
+                                                 data: [kMessageUserIdKey: userChat.userID,
+                                                       kMessageTextKey: inputTextView.text,
+                                                       kMessageSendDateKey: sendDate])
+            }
             
             let messageData = LINMessage(incoming: false, text: inputTextView.text, sendDate: NSDate())
             addBubbleViewCellWithMessageData(messageData)
             
+            // KTODO: Save chat history
+            
             inputTextView.text = ""
             textViewDidChange(inputTextView)
+            
+            println("pusher] Count channel members: \(self.currentChannel.members.count)");
         }
     }
     
