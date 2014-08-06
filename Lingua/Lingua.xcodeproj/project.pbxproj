@@ -52,6 +52,8 @@
 		9268B6C21984EFFF00D526AA /* LINAccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9268B6C11984EFFF00D526AA /* LINAccessToken.swift */; };
 		9268DFBB1969CEFC00C89603 /* LINUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9268DFBA1969CEFC00C89603 /* LINUser.swift */; };
 		926B2859198647380089DDAA /* LINStorageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926B2858198647380089DDAA /* LINStorageHelper.swift */; };
+		9284A1DE1991EB3F0012E0FA /* LINChannelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9284A1DD1991EB3F0012E0FA /* LINChannelManager.swift */; };
+		9284A1E01991EBA10012E0FA /* LINChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9284A1DF1991EBA10012E0FA /* LINChannel.swift */; };
 		92C2A4AC1982146500ABF826 /* LINFacebookManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C2A4AB1982146500ABF826 /* LINFacebookManager.swift */; };
 		92CA2A4C198F9DA800367DB2 /* LINConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92CA2A4B198F9DA800367DB2 /* LINConstants.swift */; };
 		92CA2A4E198FA05D00367DB2 /* NSDateFormatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92CA2A4D198FA05D00367DB2 /* NSDateFormatter+Extensions.swift */; };
@@ -134,6 +136,8 @@
 		9268B6C11984EFFF00D526AA /* LINAccessToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINAccessToken.swift; sourceTree = "<group>"; };
 		9268DFBA1969CEFC00C89603 /* LINUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINUser.swift; sourceTree = "<group>"; };
 		926B2858198647380089DDAA /* LINStorageHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINStorageHelper.swift; sourceTree = "<group>"; };
+		9284A1DD1991EB3F0012E0FA /* LINChannelManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINChannelManager.swift; sourceTree = "<group>"; };
+		9284A1DF1991EBA10012E0FA /* LINChannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINChannel.swift; sourceTree = "<group>"; };
 		929F38AB196C7C0F009A7E6A /* libPods-libPusher.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-libPusher.a"; path = "Pods/build/Debug-iphoneos/libPods-libPusher.a"; sourceTree = "<group>"; };
 		92C2A4AB1982146500ABF826 /* LINFacebookManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINFacebookManager.swift; sourceTree = "<group>"; };
 		92CA2A4B198F9DA800367DB2 /* LINConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINConstants.swift; sourceTree = "<group>"; };
@@ -386,6 +390,7 @@
 				9268DFBA1969CEFC00C89603 /* LINUser.swift */,
 				92313495197E5B08003BD927 /* LINMessage.swift */,
 				9268B6C11984EFFF00D526AA /* LINAccessToken.swift */,
+				9284A1DF1991EBA10012E0FA /* LINChannel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -404,6 +409,7 @@
 				92F3167F1962AB75002005B9 /* LINPusherManager.swift */,
 				9267833919655D4500F19DB4 /* LINUserManager.swift */,
 				92C2A4AB1982146500ABF826 /* LINFacebookManager.swift */,
+				9284A1DD1991EB3F0012E0FA /* LINChannelManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -471,6 +477,7 @@
 				TargetAttributes = {
 					20448A781954301A00AC639A = {
 						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = 3HQ4QKMBWB;
 					};
 					20448A8D1954301A00AC639A = {
 						CreatedOnToolsVersion = 6.0;
@@ -567,6 +574,7 @@
 				925E002A19740C06001D75D4 /* LINChatController.swift in Sources */,
 				92CA2A4E198FA05D00367DB2 /* NSDateFormatter+Extensions.swift in Sources */,
 				2082DEF5195762E8009ADF45 /* LINHomeController.swift in Sources */,
+				9284A1DE1991EB3F0012E0FA /* LINChannelManager.swift in Sources */,
 				92CA2A4C198F9DA800367DB2 /* LINConstants.swift in Sources */,
 				20974985196FCCC00070E8C3 /* LINLanguagePickerController.swift in Sources */,
 				20BFCCEB1956E1C400A86C2E /* LINPickLearningLanguageController.swift in Sources */,
@@ -583,6 +591,7 @@
 				207630B9195AC19800D23B2A /* UIFont+Extensions.swift in Sources */,
 				20448A7F1954301A00AC639A /* AppDelegate.swift in Sources */,
 				2078D96A196C180C009BF095 /* LINPickNativeLanguageController.swift in Sources */,
+				9284A1E01991EBA10012E0FA /* LINChannel.swift in Sources */,
 				20C84ED61982683500259F81 /* LINProficiencyCell.swift in Sources */,
 				2082DEEF1957123E009ADF45 /* LINLanguagePickingHeaderView.swift in Sources */,
 				20448A821954301A00AC639A /* Lingua.xcdatamodeld in Sources */,
@@ -752,7 +761,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Kiet Nguyen (CG3J4YZ53P)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEFINES_MODULE = NO;
 				INFOPLIST_FILE = Lingua/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;

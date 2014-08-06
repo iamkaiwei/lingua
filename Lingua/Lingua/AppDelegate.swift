@@ -15,6 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var storyboard = UIStoryboard()
     var drawerController = MMDrawerController()
+    var isChatScreenVisible = false
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: NSDictionary?) -> Bool {
         
@@ -96,8 +97,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
         let alert = (userInfo["aps"] as NSDictionary)["alert"] as? String
+        let userId = (userInfo as NSDictionary)["user_id"] as? String
         
-        UIAlertView(title: "Lingua", message: alert!, delegate: nil, cancelButtonTitle: "OK")
+        print("New messsage comming in userInfo data: \(userInfo)")
+        
+        if let tmpId = userId {
+            if let tmpuser = LINUserManager.sharedInstance.currentUser {
+                let channelName = LINPusherManager.sharedInstance.generateUniqueChannelNameFromUserId(tmpuser.userID, toUserId: tmpId)
+                println("Presence channel name: \(channelName)")
+                
+                var currentChannel = LINPusherManager.sharedInstance.subscribeToPresenceChannelNamed(channelName)
+                
+                // Check channel exist or not
+                let channel = LINChannelManager.sharedInstance.getChannelByName(channelName)
+                if channel == nil {
+                    let newChannel = LINChannel(channel: currentChannel, name: channelName)
+                    LINChannelManager.sharedInstance.addNewChannel(newChannel)
+                } else {
+                    channel!.channel.removeAllBindings()
+                    channel!.channel = currentChannel
+                    LINChannelManager.sharedInstance.updateWithChannel(channel!)
+                }
+                
+                // Bind to event to receive data
+                currentChannel.bindToEventNamed(kPusherEventNameNewMessage, handleWithBlock: { channelEvent in
+                    println("Channel event data: \(channelEvent.data)")
+                    
+                    let data = (channelEvent.data as NSDictionary)
+                    let userId = data[kMessageUserIdKey] as String
+                    let text = data[kMessageTextKey] as String
+                    let tmpDate = data[kMessageSendDateKey] as String
+                    let sendDate = NSDateFormatter.dateWithDefaultFormatFromString(tmpDate)
+                    
+                    // KTODO: Show banner to notify to user
+                    UIAlertView(title: "Lingua", message: text, delegate: nil, cancelButtonTitle: "OK").show()
+                })
+            }
+        }
     }
     
     func applicationWillResignActive(application: UIApplication) {
