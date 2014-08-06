@@ -45,6 +45,7 @@
 		92313494197E4EAA003BD927 /* Quotes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 92313493197E4EAA003BD927 /* Quotes.txt */; };
 		92313496197E5B08003BD927 /* LINMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92313495197E5B08003BD927 /* LINMessage.swift */; };
 		9236A69E197FD5E100210EBE /* LINResourceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9236A69D197FD5E100210EBE /* LINResourceHelper.swift */; };
+		9247D62419926B590011FC85 /* PTPusherEvent+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9247D62319926B590011FC85 /* PTPusherEvent+Extensions.swift */; };
 		925E002A19740C06001D75D4 /* LINChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925E002919740C06001D75D4 /* LINChatController.swift */; };
 		9267833E196561D800F19DB4 /* NSArray+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9267833D196561D800F19DB4 /* NSArray+Extensions.swift */; };
 		9268B6BE1984E4B400D526AA /* LINArrayDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9268B6BD1984E4B400D526AA /* LINArrayDataSource.swift */; };
@@ -128,6 +129,7 @@
 		92313493197E4EAA003BD927 /* Quotes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Quotes.txt; sourceTree = "<group>"; };
 		92313495197E5B08003BD927 /* LINMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINMessage.swift; sourceTree = "<group>"; };
 		9236A69D197FD5E100210EBE /* LINResourceHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINResourceHelper.swift; sourceTree = "<group>"; };
+		9247D62319926B590011FC85 /* PTPusherEvent+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PTPusherEvent+Extensions.swift"; sourceTree = "<group>"; };
 		925E002919740C06001D75D4 /* LINChatController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINChatController.swift; sourceTree = "<group>"; };
 		9267833919655D4500F19DB4 /* LINUserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINUserManager.swift; sourceTree = "<group>"; };
 		9267833D196561D800F19DB4 /* NSArray+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSArray+Extensions.swift"; sourceTree = "<group>"; };
@@ -266,6 +268,7 @@
 				9267833D196561D800F19DB4 /* NSArray+Extensions.swift */,
 				20B27FB3196D3D7B003BFFB6 /* LINBadgeFlowLayout.swift */,
 				92CA2A4D198FA05D00367DB2 /* NSDateFormatter+Extensions.swift */,
+				9247D62319926B590011FC85 /* PTPusherEvent+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -593,6 +596,7 @@
 				2078D96A196C180C009BF095 /* LINPickNativeLanguageController.swift in Sources */,
 				9284A1E01991EBA10012E0FA /* LINChannel.swift in Sources */,
 				20C84ED61982683500259F81 /* LINProficiencyCell.swift in Sources */,
+				9247D62419926B590011FC85 /* PTPusherEvent+Extensions.swift in Sources */,
 				2082DEEF1957123E009ADF45 /* LINLanguagePickingHeaderView.swift in Sources */,
 				20448A821954301A00AC639A /* Lingua.xcdatamodeld in Sources */,
 				92F316801962AB75002005B9 /* LINPusherManager.swift in Sources */,
@@ -686,7 +690,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				METAL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "0B9E02D0-1552-40AE-8AE3-C59DA322ACC7";
@@ -725,7 +729,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				METAL_ENABLE_DEBUG_INFO = NO;
 				PROVISIONING_PROFILE = "0B9E02D0-1552-40AE-8AE3-C59DA322ACC7";
 				SDKROOT = iphoneos;
@@ -744,7 +748,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Kiet Nguyen (CG3J4YZ53P)";
 				DEFINES_MODULE = NO;
 				INFOPLIST_FILE = Lingua/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -764,7 +768,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEFINES_MODULE = NO;
 				INFOPLIST_FILE = Lingua/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -9,12 +9,12 @@
 
 import Foundation
 
-let kDeviceToken = "DeviceToken"
+let kDeviceTokenKey = "device_token"
 
 // Message
-let kMessageUserIdKey = "UserId"
-let kMessageTextKey = "Text"
-let kMessageSendDateKey = "SendDate"
+let kUserIdKey = "user_id"
+let kMessageTextKey = "text"
+let kMessageSendDateKey = "send_date"
 
 // Notifications
 let kNotificationAppBecomActive = "kNotificationAppBecomActive"

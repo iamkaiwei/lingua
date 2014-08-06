@@ -164,7 +164,7 @@ class LINNetworkClient: OVCHTTPSessionManager {
     func sendNotificationWithUserId(userId: String, text: String, sendDate: String) {
         setAuthorizedRequest()
         
-        let parameters = ["user_id": userId,
+        let parameters = [kUserIdKey: userId,
                           "message": text,
                           "time_created": sendDate]
         
@@ -174,8 +174,8 @@ class LINNetworkClient: OVCHTTPSessionManager {
     func updateDeviceTokenWithUserId(userId: String, deviceToken: String) {
         setAuthorizedRequest()
         
-        let parameters = ["user_id": userId,
-                          "device_token": deviceToken]
+        let parameters = [kUserIdKey: userId,
+                          kDeviceTokenKey: deviceToken]
         let path = kLINAPIPath + kLINUsersPath + "/" + userId
                                         
         self.PUT(path, parameters: parameters, { (response: AnyObject?, error: NSError?) -> Void in
