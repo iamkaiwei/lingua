@@ -22,3 +22,4 @@
 #import "UIImageView+WebCache.h"
 #import "AFNetworkActivityIndicatorManager.h"
 #import <Pusher/PTPusherEventDispatcher.h>
+#import <Parse/Parse.h>

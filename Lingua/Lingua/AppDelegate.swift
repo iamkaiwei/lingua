@@ -18,7 +18,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: NSDictionary?) -> Bool {
         
-        AFNetworkActivityIndicatorManager.sharedManager().enabled = true;
+        // Register to use Parse Server
+        Parse.setApplicationId("OMS2KayfQ1rDTjkWvAjdiF3GFkxTD9hoPR9SnLSR", clientKey: "JPXeT1Kelnsw66qLwQlrOAP69ybbLXhb5Bvh7YQ5")
+        
+        // Track statistics around application opens
+        PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
+        
+        AFNetworkActivityIndicatorManager.sharedManager().enabled = true
        
         LINPusherManager.sharedInstance.connectToPusher()
         
@@ -77,10 +83,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         println("Device token: \(token)")
         
         LINStorageHelper.setStringValue(token, forkey: kDeviceToken)
+        
+        // Store the deviceToken in the current installation and save it to Parse.
+        let currentInstallation = PFInstallation.currentInstallation()
+        currentInstallation.setDeviceTokenFromData(deviceToken)
+        currentInstallation.saveInBackground()
     }
     
     func application(application: UIApplication!, didFailToRegisterForRemoteNotificationsWithError error: NSError! ) {
         println("Fail to register remote notification: \(error.localizedDescription)")
+    }
+    
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        let alert = (userInfo["aps"] as NSDictionary)["alert"] as? String
+        
+        UIAlertView(title: "Lingua", message: alert!, delegate: nil, cancelButtonTitle: "OK")
     }
     
     func applicationWillResignActive(application: UIApplication) {

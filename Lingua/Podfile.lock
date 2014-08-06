@@ -20,7 +20,7 @@ PODS:
   - AFNetworking/UIKit (2.3.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - Bolts (1.1.0)
+  - Bolts (1.1.1)
   - Facebook-iOS-SDK (3.16.0):
     - Bolts
   - google-plus-ios-sdk (1.5.1)
@@ -50,6 +50,8 @@ PODS:
     - Mantle (~> 1.3)
   - Overcoat/NSURLSession (2.0.2):
     - Overcoat/Core
+  - Parse-iOS-SDK (1.2.19):
+    - Facebook-iOS-SDK (~> 3.7)
   - Reachability (3.1.1)
   - REMenu (1.8.5)
   - SDWebImage (3.7.1):
@@ -64,6 +66,7 @@ DEPENDENCIES:
   - libPusher (~> 1.5)
   - MMDrawerController (~> 0.5.6)
   - Overcoat (~> 2.0.2)
+  - Parse-iOS-SDK (~> 1.2.19)
   - Reachability (~> 3.1.1)
   - REMenu (~> 1.8.5)
   - SDWebImage (~> 3.7.1)
@@ -76,13 +79,14 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AFNetworking: 6d7b76aa5d04c8c37daad3eef4b7e3f2a7620da3
-  Bolts: 91c2af8eae1d44e1dd75946a5b0ae04a43ea43e4
+  Bolts: 0ca796081c3e7c139bd86d6903c27f1b83036a5d
   Facebook-iOS-SDK: 56046bfc288be00c593e884bd2dc7639627f65f2
   google-plus-ios-sdk: 98d76ce1f1edbfe8730628aafe017301a734042c
   libPusher: 583326327a72ab7cd0f38692f61f9061cf4be3d9
   Mantle: c67a7e45e14196ed42b2a7cbb98ff6a9920e6b92
   MMDrawerController: 4bae84535ca7a5f4cb55a66a001e6035c3571677
   Overcoat: a9504cd1f0389641526ba1784592503c012c4b5f
+  Parse-iOS-SDK: 5e1f7e649a02f1cc19e73cc95bd43d7778848314
   Reachability: 8e9635e3cb4f98e7f825e51147f677ecc694d0e7
   REMenu: e1512b09121d3f8fd9bb533423ac467675eef95c
   SDWebImage: 116e88633b5b416ea0ca4b334a4ac59cf72dd38d
