@@ -38,8 +38,22 @@ class LINPusherManager : NSObject, PTPusherDelegate, PTPusherPresenceChannelDele
         pusherClient.connect()
     }
     
-    func subscribeToPresenceChannelNamed(name: String) -> PTPusherPresenceChannel {
-        return pusherClient.subscribeToPresenceChannelNamed(name, delegate: self)
+    func subcribeToChannelFromUserId(fromUserId: String, toUserId: String) -> PTPusherPresenceChannel {
+        let channelName = generateUniqueChannelNameFromUserId(fromUserId, toUserId: toUserId)
+        var currentChannel = pusherClient.subscribeToPresenceChannelNamed(channelName, delegate: self)
+        
+        // Check channel exist or not
+        let channel = LINChannelManager.getChannelByName(channelName)
+        if channel == nil {
+            let newChannel = LINChannel(channel: currentChannel, name: channelName)
+            LINChannelManager.addNewChannel(newChannel)
+        } else {
+            channel!.channel.removeAllBindings()
+            channel!.channel = currentChannel
+            LINChannelManager.updateWithChannel(channel!)
+        }
+        
+        return currentChannel
     }
     
     func generateUniqueChannelNameFromUserId(fromUserId: String, toUserId: String) -> String {

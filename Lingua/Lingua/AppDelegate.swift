@@ -83,7 +83,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                          .stringByReplacingOccurrencesOfString(" ", withString: "") as String
         println("Device token: \(token)")
         
-        LINStorageHelper.setStringValue(token, forkey: kDeviceToken)
+        LINStorageHelper.setStringValue(token, forkey: kDeviceTokenKey)
         
         // Store the deviceToken in the current installation and save it to Parse.
         let currentInstallation = PFInstallation.currentInstallation()
@@ -97,40 +97,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
         let alert = (userInfo["aps"] as NSDictionary)["alert"] as? String
-        let userId = (userInfo as NSDictionary)["user_id"] as? String
+        let userId = (userInfo as NSDictionary)[kUserIdKey] as? String
         
         print("New messsage comming in userInfo data: \(userInfo)")
         
         if let tmpId = userId {
             if let tmpuser = LINUserManager.sharedInstance.currentUser {
-                let channelName = LINPusherManager.sharedInstance.generateUniqueChannelNameFromUserId(tmpuser.userID, toUserId: tmpId)
-                println("Presence channel name: \(channelName)")
-                
-                var currentChannel = LINPusherManager.sharedInstance.subscribeToPresenceChannelNamed(channelName)
-                
-                // Check channel exist or not
-                let channel = LINChannelManager.sharedInstance.getChannelByName(channelName)
-                if channel == nil {
-                    let newChannel = LINChannel(channel: currentChannel, name: channelName)
-                    LINChannelManager.sharedInstance.addNewChannel(newChannel)
-                } else {
-                    channel!.channel.removeAllBindings()
-                    channel!.channel = currentChannel
-                    LINChannelManager.sharedInstance.updateWithChannel(channel!)
-                }
+                var currentChannel = LINPusherManager.sharedInstance.subcribeToChannelFromUserId(tmpuser.userID, toUserId: tmpId)
                 
                 // Bind to event to receive data
                 currentChannel.bindToEventNamed(kPusherEventNameNewMessage, handleWithBlock: { channelEvent in
                     println("Channel event data: \(channelEvent.data)")
                     
-                    let data = (channelEvent.data as NSDictionary)
-                    let userId = data[kMessageUserIdKey] as String
-                    let text = data[kMessageTextKey] as String
-                    let tmpDate = data[kMessageSendDateKey] as String
-                    let sendDate = NSDateFormatter.dateWithDefaultFormatFromString(tmpDate)
+                    let replyData = channelEvent.getReplyData()
                     
                     // KTODO: Show banner to notify to user
-                    UIAlertView(title: "Lingua", message: text, delegate: nil, cancelButtonTitle: "OK").show()
+                    UIAlertView(title: "Lingua", message: replyData.text, delegate: nil, cancelButtonTitle: "OK").show()
                 })
             }
         }
@@ -147,7 +129,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-        LINChannelManager.sharedInstance.unsubscribeAllChannels()
+        LINChannelManager.unsubscribeAllChannels()
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
