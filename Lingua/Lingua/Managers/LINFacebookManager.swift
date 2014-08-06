@@ -23,8 +23,8 @@ class LINFacebookManager: NSObject {
     }
     
     class var sharedInstance: LINFacebookManager {
-    struct Static {
-        static let instance: LINFacebookManager = LINFacebookManager()
+        struct Static {
+           static let instance: LINFacebookManager = LINFacebookManager()
         }
         return Static.instance
     }
