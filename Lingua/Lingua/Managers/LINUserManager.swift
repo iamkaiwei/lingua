@@ -55,6 +55,13 @@ class LINUserManager {
                                 }
                             }
                             
+                            // Save user_id to parse
+                            let currentInstallation = PFInstallation.currentInstallation()
+                            if currentInstallation != nil {
+                                currentInstallation.setObject(self.currentUser!.userID, forKey: "user_id")
+                                currentInstallation.saveInBackground()
+                            }
+                            
                             LINStorageHelper.setObject(self.currentUser!, forKey: kLINCurrentUserKey)
                         }
                     }
