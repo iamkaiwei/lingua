@@ -15,3 +15,6 @@ let kDeviceToken = "DeviceToken"
 let kMessageUserIdKey = "UserId"
 let kMessageTextKey = "Text"
 let kMessageSendDateKey = "SendDate"
+
+// Notifications
+let kNotificationAppBecomActive = "kNotificationAppBecomActive"

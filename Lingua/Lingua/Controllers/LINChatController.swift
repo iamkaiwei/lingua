@@ -38,6 +38,8 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
             currentUser = tmpuser
         }
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadHistoryChatData", name: kNotificationAppBecomActive, object: nil)
+        
         loadHistoryChatData()
         setupTableView()
         
@@ -48,20 +50,15 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         super.viewWillAppear(animated)
         
         let notificationCenter = NSNotificationCenter.defaultCenter()
-        
-        notificationCenter.addObserver(self, selector: "handleKeyboardWillShowNotification:",
-            name: UIKeyboardWillShowNotification, object: nil)
-        notificationCenter.addObserver(self, selector: "handleKeyboardWillHideNotification:",
-            name: UIKeyboardWillHideNotification, object: nil)
+    
+        notificationCenter.addObserver(self, selector: "handleKeyboardWillShowNotification:", name: UIKeyboardWillShowNotification, object: nil)
+        notificationCenter.addObserver(self, selector: "handleKeyboardWillHideNotification:", name: UIKeyboardWillHideNotification, object: nil)
     }
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
         
-        let notificationCenter = NSNotificationCenter.defaultCenter()
-        notificationCenter.removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
-        notificationCenter.removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
-        
+        NSNotificationCenter.defaultCenter().removeObserver(self)
         AppDelegate.sharedDelegate().isChatScreenVisible = false
     }
     
@@ -177,7 +174,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         scrollBubbleTableViewToBottomAnimated(true)
     }
     
-    private func loadHistoryChatData() {
+    func loadHistoryChatData() {
         subcribeToPresenceChannel()
     }
     
