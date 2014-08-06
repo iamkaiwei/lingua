@@ -40,6 +40,8 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         
         loadHistoryChatData()
         setupTableView()
+        
+        AppDelegate.sharedDelegate().isChatScreenVisible = true
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -59,6 +61,8 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         let notificationCenter = NSNotificationCenter.defaultCenter()
         notificationCenter.removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
         notificationCenter.removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+        
+        AppDelegate.sharedDelegate().isChatScreenVisible = false
     }
     
     // MARK: Configuration
@@ -97,9 +101,8 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
             let sendDate = NSDateFormatter.stringWithDefautFormatFromDate(NSDate())
             
             if currentChannel.members.count <= 1 {
-                LINNetworkClient.sharedInstance.sendNotificationWithUserId(userChat.userID,
-                                                                           text: inputTextView.text,
-                                                                           sendDate: sendDate)
+                // Send push notification
+                pushNotificationWithMessage(inputTextView.text, sendDate: sendDate)
             } else {
                 // Trigger a client event
                 currentChannel.triggerEventNamed(kPusherEventNameNewMessage,
@@ -138,6 +141,27 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     
     // MARK: Functions 
     
+    
+    private func pushNotificationWithMessage(text: String, sendDate: String) {
+        // Create our Installation query
+        let pushQuery = PFInstallation.query()
+        pushQuery.whereKey("user_id", equalTo: userChat.userID)
+        
+        let alertTitle = currentUser.firstName + ": " + text
+        
+        let push = PFPush()
+        push.setData(["aps": ["alert": alertTitle, "sound": "defaut"], "user_id": currentUser.userID, "send_date": sendDate])
+        push.setQuery(pushQuery)
+        
+        push.sendPushInBackgroundWithBlock({ (success, error) in
+            if success {
+                println("[parse] push notification successfully.")
+            } else {
+                println("[parse] push notification has some errors: \(error!.description)")
+            }
+        })
+    }
+    
     private func addBubbleViewCellWithMessageData(messageData: LINMessage) {
         // Update data source
         messagesDataArray.append(messageData)
@@ -167,8 +191,20 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
      func subcribeToPresenceChannel() {
         let channelName = LINPusherManager.sharedInstance.generateUniqueChannelNameFromUserId(currentUser.userID, toUserId: userChat.userID)
         println("Presence channel name: \(channelName)")
+        
         currentChannel = LINPusherManager.sharedInstance.subscribeToPresenceChannelNamed(channelName)
         
+        // Check channel exist or not
+        let channel = LINChannelManager.sharedInstance.getChannelByName(channelName)
+        if channel == nil {
+            let newChannel = LINChannel(channel: currentChannel, name: channelName)
+            LINChannelManager.sharedInstance.addNewChannel(newChannel)
+        } else {
+            channel!.channel.removeAllBindings()
+            channel!.channel = currentChannel
+            LINChannelManager.sharedInstance.updateWithChannel(channel!)
+        }
+
         // Bind to event to receive data
         currentChannel.bindToEventNamed(kPusherEventNameNewMessage, handleWithBlock: { channelEvent in
             println("Channel event data: \(channelEvent.data)")
@@ -181,6 +217,11 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
             
             let messageData = LINMessage(incoming: true, text: text, sendDate: sendDate)
             self.addBubbleViewCellWithMessageData(messageData)
+            
+            // KTODO: If User is not in chat screen ---> Show banner to notify to user
+            if !AppDelegate.sharedDelegate().isChatScreenVisible {
+                UIAlertView(title: "Lingua", message: text, delegate: nil, cancelButtonTitle: "OK").show()
+            }
         })
     }
     
