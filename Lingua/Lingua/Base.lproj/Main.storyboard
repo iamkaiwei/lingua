@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6205" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6205" systemVersion="14A314h" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6198"/>
     </dependencies>
@@ -601,21 +601,6 @@
                                     <constraint firstAttribute="trailing" secondItem="axt-Yo-jC8" secondAttribute="trailing" id="xja-xx-xoZ"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nMA-eG-aqu">
-                                <rect key="frame" x="190" y="200" width="100" height="100"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="4vy-5e-VUJ"/>
-                                    <constraint firstAttribute="height" constant="100" id="gmW-zH-ZTi"/>
-                                </constraints>
-                                <state key="normal" image="TeachOff">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="selected" image="TeachOn"/>
-                                <connections>
-                                    <action selector="toggleOption:" destination="3VM-pF-Dsv" eventType="touchUpInside" id="KZw-ve-Myf"/>
-                                </connections>
-                            </button>
                             <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Author" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4co-B1-bWX">
                                 <rect key="frame" x="360" y="390" width="200" height="20"/>
                                 <constraints>
@@ -626,21 +611,6 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TZe-Je-U9B">
-                                <rect key="frame" x="310" y="200" width="100" height="100"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="LxL-iF-d0O"/>
-                                    <constraint firstAttribute="height" constant="100" id="vRf-De-NLo"/>
-                                </constraints>
-                                <state key="normal" image="LearnOff">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="selected" image="LearnOn"/>
-                                <connections>
-                                    <action selector="toggleOption:" destination="3VM-pF-Dsv" eventType="touchUpInside" id="vfa-Sg-RJO"/>
-                                </connections>
-                            </button>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tDJ-zx-nk4" customClass="LINLoadingView" customModule="Lingua" customModuleProvider="target">
                                 <rect key="frame" x="221" y="445" width="159" height="11"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -649,7 +619,14 @@
                                     <constraint firstAttribute="height" constant="11" id="qlK-ov-dtY"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to choose teach or learn" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="560" translatesAutoresizingMaskIntoConstraints="NO" id="HwL-6Q-08g">
+                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TeachOn" highlightedImage="TeachOff" translatesAutoresizingMaskIntoConstraints="NO" id="rKr-Xd-Ayv">
+                                <rect key="frame" x="225" y="155" width="150" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="7Ly-gq-f8A"/>
+                                    <constraint firstAttribute="width" constant="150" id="RXa-dj-FWQ"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to start" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="560" translatesAutoresizingMaskIntoConstraints="NO" id="HwL-6Q-08g">
                                 <rect key="frame" x="20" y="310" width="560" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="ApK-Ty-sQy"/>
@@ -661,18 +638,16 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="TZe-Je-U9B" secondAttribute="centerX" constant="-60" id="3Kn-U9-iz3"/>
+                            <constraint firstAttribute="centerX" secondItem="rKr-Xd-Ayv" secondAttribute="centerX" id="2cu-eE-fqj"/>
                             <constraint firstAttribute="trailing" secondItem="HwL-6Q-08g" secondAttribute="trailing" constant="20" id="4ye-iD-Z6I"/>
-                            <constraint firstAttribute="centerX" secondItem="nMA-eG-aqu" secondAttribute="centerX" constant="60" id="6KX-bl-3Kn"/>
                             <constraint firstAttribute="centerY" secondItem="tDJ-zx-nk4" secondAttribute="centerY" constant="-150" id="80R-Do-B7j"/>
                             <constraint firstAttribute="centerX" secondItem="HwL-6Q-08g" secondAttribute="centerX" id="CUx-vo-gHX"/>
                             <constraint firstItem="HwL-6Q-08g" firstAttribute="leading" secondItem="oA8-CE-8uh" secondAttribute="leading" constant="20" id="NqO-mw-9Fa"/>
                             <constraint firstAttribute="centerY" secondItem="4co-B1-bWX" secondAttribute="centerY" constant="-100" id="Nyi-aE-U4x"/>
-                            <constraint firstAttribute="centerY" secondItem="TZe-Je-U9B" secondAttribute="centerY" constant="50" id="W9d-1O-Mi0"/>
                             <constraint firstAttribute="trailing" secondItem="ITY-nd-jX3" secondAttribute="trailing" id="XiW-tT-QMy"/>
                             <constraint firstAttribute="centerY" secondItem="HwL-6Q-08g" secondAttribute="centerY" constant="-50" id="aAf-Qa-8JD"/>
-                            <constraint firstAttribute="centerY" secondItem="nMA-eG-aqu" secondAttribute="centerY" constant="50" id="gQP-uM-8Ib"/>
                             <constraint firstAttribute="centerX" secondItem="tDJ-zx-nk4" secondAttribute="centerX" id="iRl-5E-g7d"/>
+                            <constraint firstAttribute="centerY" secondItem="rKr-Xd-Ayv" secondAttribute="centerY" constant="70" id="oGH-V4-X5i"/>
                             <constraint firstItem="ITY-nd-jX3" firstAttribute="top" secondItem="oA8-CE-8uh" secondAttribute="top" id="qbE-cB-4Wi"/>
                             <constraint firstItem="ITY-nd-jX3" firstAttribute="leading" secondItem="oA8-CE-8uh" secondAttribute="leading" id="r8u-nt-byw"/>
                             <constraint firstAttribute="trailing" secondItem="4co-B1-bWX" secondAttribute="trailing" constant="40" id="vFE-E0-4lM"/>
@@ -680,11 +655,10 @@
                     </view>
                     <connections>
                         <outlet property="authorLabel" destination="4co-B1-bWX" id="9GP-Wh-ZTp"/>
-                        <outlet property="learnButton" destination="TZe-Je-U9B" id="UiA-Cb-iN9"/>
                         <outlet property="loadingView" destination="tDJ-zx-nk4" id="xwK-pp-a4l"/>
                         <outlet property="messageButton" destination="axt-Yo-jC8" id="P4w-qW-duF"/>
                         <outlet property="profileButton" destination="dqF-TG-jop" id="iKg-Hx-R7A"/>
-                        <outlet property="teachButton" destination="nMA-eG-aqu" id="dgm-WQ-BED"/>
+                        <outlet property="teachButton" destination="rKr-Xd-Ayv" id="QLR-6g-nu8"/>
                         <outlet property="tipLabel" destination="HwL-6Q-08g" id="hJO-4q-ucA"/>
                         <outlet property="titleLabel" destination="SCu-fY-SXg" id="P0L-vd-Bgi"/>
                         <segue destination="90d-9n-3fJ" kind="presentation" identifier="kLINChatControllerIdentifier" id="eLM-I3-Bqx"/>
@@ -746,7 +720,7 @@
                                                     <color key="textColor" red="0.24878698587417603" green="0.61424487829208374" blue="0.68069750070571899" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kenny" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uCf-jK-8tc">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Kenny" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uCf-jK-8tc">
                                                     <rect key="frame" x="77" y="5" width="53" height="23"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="23" id="HNb-HY-kHM"/>
@@ -1051,8 +1025,6 @@
         <image name="Icn_like_normal" width="26" height="24"/>
         <image name="Icn_like_select" width="25" height="21"/>
         <image name="Icn_voice" width="19" height="26"/>
-        <image name="LearnOff" width="107" height="94"/>
-        <image name="LearnOn" width="107" height="94"/>
         <image name="MessageIcon" width="22" height="21"/>
         <image name="Proficiency3" width="24" height="16"/>
         <image name="ProfileIcon" width="22" height="21"/>
@@ -1062,6 +1034,6 @@
         <image name="WhiteNextArrow" width="11" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="0pO-Ni-HtM"/>
+        <segue reference="eLM-I3-Bqx"/>
     </inferredMetricsTieBreakers>
 </document>

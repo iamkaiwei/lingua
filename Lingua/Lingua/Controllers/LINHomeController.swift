@@ -12,8 +12,7 @@ class LINHomeController: LINViewController {
 
     @IBOutlet weak var profileButton: UIButton!
     @IBOutlet weak var messageButton: UIButton!
-    @IBOutlet weak var teachButton: UIButton!
-    @IBOutlet weak var learnButton: UIButton!
+    @IBOutlet weak var teachButton: UIImageView!
     @IBOutlet weak var tipLabel: UILabel!
     @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var loadingView: LINLoadingView!
@@ -25,22 +24,25 @@ class LINHomeController: LINViewController {
         super.viewDidLoad()
 
         tipLabel.textColor = UIColor.grayColor()
-        tipLabel.font = UIFont.appLightFontWithSize(14)
+        tipLabel.font = UIFont.appBoldFontWithSize(20)
         authorLabel.textColor = UIColor.grayColor()
         authorLabel.font = UIFont.appLightFontWithSize(14)
-        timer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "changeTip", userInfo: nil, repeats: true)
-        showTip()
+        teachButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "startMatching"))
     }
 
     func showTip() {
         loadingView.hidden = false
         authorLabel.hidden = false
-        timer?.fire()
+        tipLabel.font = UIFont.appLightFontWithSize(14)
+        changeTip()
+        timer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "changeTip", userInfo: nil, repeats: true)
     }
     
     func hideTip() {
         loadingView.hidden = true
         authorLabel.hidden = true
+        tipLabel.font = UIFont.appBoldFontWithSize(20)
+        tipLabel.text = "Tap to start"
         timer?.invalidate()
     }
     
@@ -58,11 +60,12 @@ class LINHomeController: LINViewController {
         }
     }
     
-    @IBAction func toggleOption(sender: UIButton) {
-        if sender.selected {
-            return
-        }
-        teachButton.selected = !teachButton.selected
-        learnButton.selected = !learnButton.selected
+    func startMatching() {
+        showTip()
+        LINNetworkClient.sharedInstance.matchUser({ (arrUsers: [LINUser]?) -> Void in
+            println("Load friends successfully.")
+            //TODO: add logic here later when API is ready
+            self.hideTip()
+            }, failture: { println($0); self.hideTip() })
     }
 }

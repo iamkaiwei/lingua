@@ -17,6 +17,7 @@ let kLINGetAccessTokenPath = "oauth/token"
 let kLINGetCurrentUserPath = "users/me"
 let kLINUsersPath = "users"
 let kLINSendNotification = "users/send_notification"
+let kLINMatchUser = "users/match"
 
 // Storage
 let kLINAccessTokenKey = "kLINAccessTokenKey"
@@ -184,6 +185,24 @@ class LINNetworkClient: OVCHTTPSessionManager {
             } else {
                 println("Update device token successfully.")
             }
+        })
+    }
+    
+    func matchUser(success: (arrUsers: [LINUser]?) -> Void, failture: (error: NSError?) -> Void) {
+        setAuthorizedRequest()
+        
+        self.GET(kLINAPIPath + kLINMatchUser, parameters: nil, completion: { (response: AnyObject?, error: NSError?) -> Void in
+            if error != nil {
+                failture(error: error)
+                return
+            }
+            
+            if let arrUsers = (response as OVCResponse).result as? [LINUser] {
+                success(arrUsers: arrUsers)
+                return
+            }
+            
+            failture(error: nil)
         })
     }
     
