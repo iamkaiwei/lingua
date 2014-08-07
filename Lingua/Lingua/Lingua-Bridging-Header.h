@@ -23,3 +23,4 @@
 #import "AFNetworkActivityIndicatorManager.h"
 #import <Pusher/PTPusherEventDispatcher.h>
 #import <Parse/Parse.h>
+#import "HexColor.h"

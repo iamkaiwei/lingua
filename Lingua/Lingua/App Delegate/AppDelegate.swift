@@ -66,7 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         drawerController.openDrawerGestureModeMask = MMOpenDrawerGestureMode.PanningCenterView | MMOpenDrawerGestureMode.PanningNavigationBar
         
         if navigationController != nil {
-            navigationController?.pushViewController(drawerController, animated: true)
+            navigationController!.pushViewController(drawerController, animated: true)
         } else {
             window!.rootViewController = drawerController
         }
@@ -112,7 +112,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     let replyData = channelEvent.getReplyData()
                     
                     // KTODO: Show banner to notify to user
-                    UIAlertView(title: "Lingua", message: replyData.text, delegate: nil, cancelButtonTitle: "OK").show()
                 })
             }
         }

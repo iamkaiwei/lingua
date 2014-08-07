@@ -24,6 +24,7 @@ PODS:
   - Facebook-iOS-SDK (3.16.0):
     - Bolts
   - google-plus-ios-sdk (1.5.1)
+  - HexColors (2.2.1)
   - libPusher (1.5):
     - libPusher/Core
   - libPusher/Core (1.5):
@@ -63,6 +64,7 @@ PODS:
 DEPENDENCIES:
   - Facebook-iOS-SDK (from `https://github.com/pgaspar/facebook-ios-sdk.git`, branch `beta4`)
   - google-plus-ios-sdk (~> 1.5.1)
+  - HexColors (~> 2.2.1)
   - libPusher (~> 1.5)
   - MMDrawerController (~> 0.5.6)
   - Overcoat (~> 2.0.2)
@@ -82,6 +84,7 @@ SPEC CHECKSUMS:
   Bolts: 0ca796081c3e7c139bd86d6903c27f1b83036a5d
   Facebook-iOS-SDK: 56046bfc288be00c593e884bd2dc7639627f65f2
   google-plus-ios-sdk: 98d76ce1f1edbfe8730628aafe017301a734042c
+  HexColors: 01384d2bbe8dc4ffa43c3b4135db6e976952d153
   libPusher: 583326327a72ab7cd0f38692f61f9061cf4be3d9
   Mantle: c67a7e45e14196ed42b2a7cbb98ff6a9920e6b92
   MMDrawerController: 4bae84535ca7a5f4cb55a66a001e6035c3571677
