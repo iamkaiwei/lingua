@@ -72,6 +72,7 @@
                 <constraint firstItem="xX4-b2-LKg" firstAttribute="leading" secondItem="xV0-Wt-WGz" secondAttribute="trailing" constant="7" id="oPd-BX-EUz"/>
                 <constraint firstAttribute="bottom" secondItem="keT-gX-lBb" secondAttribute="bottom" constant="26" id="wg1-gZ-wMH"/>
                 <constraint firstItem="xV0-Wt-WGz" firstAttribute="top" secondItem="QJY-gB-JCV" secondAttribute="top" constant="8" id="yDj-yO-VSR"/>
+                <constraint firstItem="keT-gX-lBb" firstAttribute="leading" secondItem="xX4-b2-LKg" secondAttribute="trailing" constant="8" id="zVX-W2-467"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
@@ -81,7 +82,7 @@
                 <outlet property="nameLabel" destination="ciP-Uo-Yb5" id="oyy-Y9-dje"/>
                 <outlet property="textLabel" destination="xX4-b2-LKg" id="1OL-XI-t5j"/>
             </connections>
-            <point key="canvasLocation" x="960" y="219"/>
+            <point key="canvasLocation" x="957" y="247"/>
         </view>
     </objects>
     <resources>

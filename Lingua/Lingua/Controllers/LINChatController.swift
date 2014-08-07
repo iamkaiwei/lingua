@@ -103,7 +103,8 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
             } else {
                 // Trigger a client event
                 currentChannel.triggerEventNamed(kPusherEventNameNewMessage,
-                                                 data: [kUserIdKey: userChat.userID,
+                                                 data: [kUserIdKey: currentUser.userID,
+                                                        kFirstName: currentUser.firstName,
                                                         kMessageTextKey: inputTextView.text,
                                                         kMessageSendDateKey: sendDate])
             }
@@ -118,6 +119,8 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
             
             println("pusher] Count channel members: \(self.currentChannel.members.count)");
         }
+        
+        LINMessageHelper.showNotificationWithName("Kiet", text: "Where are you", avatarURL: "")
     }
     
     @IBAction func backButtonTouched(sender: UIButton) {
@@ -147,7 +150,10 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         let alertTitle = currentUser.firstName + ": " + text
         
         let push = PFPush()
-        push.setData(["aps": ["alert": alertTitle, "sound": "defaut"], kUserIdKey: currentUser.userID, kMessageSendDateKey: sendDate])
+        push.setData(["aps": ["alert": alertTitle, "sound": "defaut"],
+                     kUserIdKey: currentUser.userID,
+                     kFirstName: currentUser.firstName,
+                     kMessageSendDateKey: sendDate])
         push.setQuery(pushQuery)
         
         push.sendPushInBackgroundWithBlock({ (success, error) in
@@ -197,9 +203,9 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
             let messageData = LINMessage(incoming: true, text: replyData.text, sendDate: replyData.sendDate)
             self.addBubbleViewCellWithMessageData(messageData)
             
-            // KTODO: If User is not in chat screen ---> Show banner to notify to user
+            // If User is not in chat screen ---> Show banner to notify to user
             if !AppDelegate.sharedDelegate().isChatScreenVisible {
-                UIAlertView(title: "Lingua", message: replyData.text, delegate: nil, cancelButtonTitle: "OK").show()
+                LINMessageHelper.showNotificationWithName(replyData.firstName, text: replyData.text, avatarURL: "")
             }
         })
     }

@@ -9,12 +9,8 @@
 import Foundation
 
 class LINMessageHelper {
-    class func showNotificationInViewController(viewController: UIViewController,
-                                                name: String,
-                                                text: String,
-                                                avatarURL: String) {
-        let messageView =  NSBundle.mainBundle().loadNibNamed("LINMessageView", owner: viewController, options: nil)[0] as LINMessageView
-        
+    class func showNotificationWithName(name: String, text: String, avatarURL: String){
+        let messageView =  NSBundle.mainBundle().loadNibNamed("LINMessageView", owner: nil, options: nil)[0] as LINMessageView
         messageView.configureWithName(name, text: text, avatarURL: avatarURL)
         messageView.showNotification()
     }

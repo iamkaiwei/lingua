@@ -98,6 +98,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
         let alert = (userInfo["aps"] as NSDictionary)["alert"] as? String
         let userId = (userInfo as NSDictionary)[kUserIdKey] as? String
+        let firstName = (userInfo as NSDictionary)[kFirstName] as? String
         
         print("New messsage comming in userInfo data: \(userInfo)")
         
@@ -112,12 +113,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     let replyData = channelEvent.getReplyData()
                     
                     // KTODO: Show banner to notify to user
+                    LINMessageHelper.showNotificationWithName(replyData.firstName, text: replyData.text, avatarURL: "")
                 })
             }
         }
         
         // KTODO: Show banner to notify to user
-        UIAlertView(title: "Lingua", message: alert, delegate: nil, cancelButtonTitle: "OK").show()
+        UIAlertView(title: firstName, message: alert, delegate: nil, cancelButtonTitle: "OK").show()
     }
     
     func applicationWillResignActive(application: UIApplication) {
