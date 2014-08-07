@@ -17,6 +17,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     @IBOutlet weak var speakButton: UIButton!
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var nameLabel: UILabel!
     
     @IBOutlet weak var inputContainerViewBottomLayoutGuideConstraint: NSLayoutConstraint!
     
@@ -37,6 +38,8 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         if let tmpuser = LINUserManager.sharedInstance.currentUser {
             currentUser = tmpuser
         }
+        
+        nameLabel.text = userChat.firstName
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadHistoryChatData", name: kNotificationAppBecomActive, object: nil)
         

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6205" systemVersion="14A314h" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6205" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6198"/>
     </dependencies>
@@ -720,7 +720,7 @@
                                                     <color key="textColor" red="0.24878698587417603" green="0.61424487829208374" blue="0.68069750070571899" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Kenny" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uCf-jK-8tc">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kenny" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uCf-jK-8tc">
                                                     <rect key="frame" x="77" y="5" width="53" height="23"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="23" id="HNb-HY-kHM"/>
@@ -811,10 +811,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Laura" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L1u-mm-Pot">
-                                        <rect key="frame" x="45" y="23" width="337" height="30"/>
+                                        <rect key="frame" x="45" y="23" width="432" height="30"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="337" id="3Dn-S2-KYO"/>
                                             <constraint firstAttribute="height" constant="30" id="Bpd-e7-2KU"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="432" id="wGn-Yv-Vxa"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="RobotoSlab-Light" family="Roboto Slab" pointSize="21"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -851,6 +851,7 @@
                                     <constraint firstItem="OgE-ol-2Jr" firstAttribute="top" secondItem="wVJ-xu-KmF" secondAttribute="top" constant="20" id="Pvm-fP-oSw"/>
                                     <constraint firstAttribute="trailing" secondItem="vtH-FK-rMy" secondAttribute="trailing" constant="11" id="Rv2-lf-Y8E"/>
                                     <constraint firstAttribute="bottom" secondItem="L1u-mm-Pot" secondAttribute="bottom" constant="11" id="dcj-i3-3RH"/>
+                                    <constraint firstItem="OgE-ol-2Jr" firstAttribute="leading" secondItem="L1u-mm-Pot" secondAttribute="trailing" constant="36" id="gcT-OW-CEH"/>
                                     <constraint firstItem="L1u-mm-Pot" firstAttribute="top" secondItem="wVJ-xu-KmF" secondAttribute="top" constant="23" id="hY8-2R-AGf"/>
                                     <constraint firstAttribute="bottom" secondItem="vtH-FK-rMy" secondAttribute="bottom" constant="11" id="kYn-xL-SZY"/>
                                     <constraint firstAttribute="height" constant="64" id="o8L-xf-VOa"/>
@@ -981,6 +982,7 @@
                         <outlet property="inputContainerView" destination="79N-R5-BYb" id="Acv-O5-8nv"/>
                         <outlet property="inputContainerViewBottomLayoutGuideConstraint" destination="FsH-Oe-Ha7" id="GPl-8L-ACl"/>
                         <outlet property="inputTextView" destination="Y9g-eK-znw" id="P87-WZ-16y"/>
+                        <outlet property="nameLabel" destination="L1u-mm-Pot" id="4AX-Aq-48b"/>
                         <outlet property="sendButton" destination="fc0-XD-CwJ" id="rKg-OV-Oj5"/>
                         <outlet property="speakButton" destination="kNQ-GM-kg3" id="TAB-gc-Fab"/>
                         <outlet property="tableView" destination="wR0-OC-umP" id="HC5-Bc-fXE"/>
@@ -1034,6 +1036,6 @@
         <image name="WhiteNextArrow" width="11" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="eLM-I3-Bqx"/>
+        <segue reference="0pO-Ni-HtM"/>
     </inferredMetricsTieBreakers>
 </document>
