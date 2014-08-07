@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LINFriendListController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class LINFriendListController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate {
     @IBOutlet weak var tableView: UITableView!
     var arrFriends = [LINUser]()
     
@@ -31,6 +31,7 @@ class LINFriendListController: UIViewController, UITableViewDataSource, UITableV
             
             let chatController = segue.destinationViewController as LINChatController
             chatController.userChat = user
+            chatController.transitioningDelegate = self
         }
     }
     
@@ -81,6 +82,15 @@ class LINFriendListController: UIViewController, UITableViewDataSource, UITableV
                 println("Load all friends has some errors: \(err.description)")
             }
         })
+    }
+    
+    // MARK: UIViewControllerTransitioningDelegate
+    func animationControllerForPresentedController(presented: UIViewController!, presentingController presenting: UIViewController!, sourceController source: UIViewController!) -> UIViewControllerAnimatedTransitioning! {
+        return LINPopPresentAnimationController()
+    }
+    
+    func animationControllerForDismissedController(dismissed: UIViewController!) -> UIViewControllerAnimatedTransitioning! {
+        return LINShrinkDismissAnimationController()
     }
 }
 
