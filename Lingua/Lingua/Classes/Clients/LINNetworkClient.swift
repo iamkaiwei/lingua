@@ -211,7 +211,8 @@ class LINNetworkClient: OVCHTTPSessionManager {
     override class func modelClassesByResourcePath() -> [NSObject : AnyObject]! {
         return [kLINGetAccessTokenPath : LINAccessToken.self,
                (kLINAPIPath + kLINGetCurrentUserPath) : LINUser.self,
-               (kLINAPIPath + kLINUsersPath) : LINUser.self
+               (kLINAPIPath + kLINUsersPath) : LINUser.self,
+               (kLINAPIPath + kLINMatchUser): LINUser.self
         ]
     }
 }
