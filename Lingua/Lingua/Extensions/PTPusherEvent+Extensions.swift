@@ -9,14 +9,15 @@
 import Foundation
 
 extension PTPusherEvent {
-    func getReplyData() -> (userId: String, firstName: String, text: String, sendDate: NSDate) {
+    func getReplyData() -> (userId: String, firstName: String, avatarURL: String, text: String, sendDate: NSDate) {
         let data = (self.data as NSDictionary)
         let userId = data[kUserIdKey] as String
         let firstName = data[kFirstName] as String
+        let avatarURL = data[kAvatarURL] as String
         let text = data[kMessageTextKey] as String
         let tmpDate = data[kMessageSendDateKey] as String
         let sendDate = NSDateFormatter.dateWithDefaultFormatFromString(tmpDate)
         
-        return (userId, firstName, text, sendDate)
+        return (userId, firstName, avatarURL, text, sendDate)
     }
 }

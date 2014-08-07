@@ -99,6 +99,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let alert = (userInfo["aps"] as NSDictionary)["alert"] as? String
         let userId = (userInfo as NSDictionary)[kUserIdKey] as? String
         let firstName = (userInfo as NSDictionary)[kFirstName] as? String
+        let avatarURL = (userInfo as NSDictionary)[kAvatarURL] as? String
         
         print("New messsage comming in userInfo data: \(userInfo)")
         
@@ -112,14 +113,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     
                     let replyData = channelEvent.getReplyData()
                     
-                    // KTODO: Show banner to notify to user
-                    LINMessageHelper.showNotificationWithName(replyData.firstName, text: replyData.text, avatarURL: "")
+                    // Show banner to notify to user
+                    LINMessageHelper.showNotificationWithName(replyData.firstName, text: replyData.text, avatarURL: replyData.avatarURL)
                 })
             }
         }
         
-        // KTODO: Show banner to notify to user
-        UIAlertView(title: firstName, message: alert, delegate: nil, cancelButtonTitle: "OK").show()
+        // Show banner to notify to user
+        let text = (alert! as NSString).stringByReplacingOccurrencesOfString(firstName! + ":", withString: "") as String
+        LINMessageHelper.showNotificationWithName(firstName!, text: text, avatarURL: avatarURL!)
     }
     
     func applicationWillResignActive(application: UIApplication) {

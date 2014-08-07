@@ -13,7 +13,8 @@ let kDeviceTokenKey = "device_token"
 
 // User
 let kUserIdKey = "user_id"
-let kFirstName = "firstname"
+let kFirstName = "first_name"
+let kAvatarURL = "avatar_url"
 
 // Message
 let kMessageTextKey = "text"

@@ -105,6 +105,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
                 currentChannel.triggerEventNamed(kPusherEventNameNewMessage,
                                                  data: [kUserIdKey: currentUser.userID,
                                                         kFirstName: currentUser.firstName,
+                                                        kAvatarURL: currentUser.avatarURL,
                                                         kMessageTextKey: inputTextView.text,
                                                         kMessageSendDateKey: sendDate])
             }
@@ -119,8 +120,6 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
             
             println("pusher] Count channel members: \(self.currentChannel.members.count)");
         }
-        
-        LINMessageHelper.showNotificationWithName("Kiet", text: "Where are you", avatarURL: "")
     }
     
     @IBAction func backButtonTouched(sender: UIButton) {
@@ -141,7 +140,6 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     
     // MARK: Functions 
     
-    
     private func pushNotificationWithMessage(text: String, sendDate: String) {
         // Create our Installation query
         let pushQuery = PFInstallation.query()
@@ -153,6 +151,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         push.setData(["aps": ["alert": alertTitle, "sound": "defaut"],
                      kUserIdKey: currentUser.userID,
                      kFirstName: currentUser.firstName,
+                     kAvatarURL: currentUser.avatarURL,
                      kMessageSendDateKey: sendDate])
         push.setQuery(pushQuery)
         
@@ -205,7 +204,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
             
             // If User is not in chat screen ---> Show banner to notify to user
             if !AppDelegate.sharedDelegate().isChatScreenVisible {
-                LINMessageHelper.showNotificationWithName(replyData.firstName, text: replyData.text, avatarURL: "")
+                LINMessageHelper.showNotificationWithName(replyData.firstName, text: replyData.text, avatarURL: replyData.avatarURL)
             }
         })
     }
