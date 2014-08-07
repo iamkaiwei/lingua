@@ -21,7 +21,6 @@ class LINFriendCell: UITableViewCell {
         // set avatar
         avatarImgView.sd_setImageWithURL(NSURL(string: user.avatarURL),
                                          placeholderImage: UIImage(named: "avatar_holder"))
-        avatarImgView.layer.cornerRadius = 24.0
-        avatarImgView.layer.masksToBounds = true
+        avatarImgView.addRoundedCorner()
     }
 }

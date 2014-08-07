@@ -58,5 +58,6 @@ class LINMessageView: UIView {
         textLabel.text = text
         avatarImageView.sd_setImageWithURL(NSURL(string: avatarURL),
                                            placeholderImage: UIImage(named: "avatar_holder"))
+        avatarImageView.addRoundedCorner()
     }
 }
