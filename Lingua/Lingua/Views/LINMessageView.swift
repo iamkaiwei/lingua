@@ -20,6 +20,8 @@ class LINMessageView: UIView {
     }
     
     func hideNotification() {
+        UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: UIStatusBarAnimation.Fade)
+        
         timer?.invalidate()
         timer = nil
         
@@ -27,17 +29,15 @@ class LINMessageView: UIView {
             var frame = self.frame
             frame.origin.y -= self.frame.size.height
             self.frame = frame
-            }, completion: { finished in
-                self.window?.windowLevel = UIWindowLevelNormal
-                self.removeFromSuperview()
+        }, completion: { finished in
+            self.removeFromSuperview()
         })
     }
     
     func showNotification() {
         let window = AppDelegate.sharedDelegate().window
-        window!.windowLevel = UIWindowLevelAlert
         window!.addSubview(self)
-
+        
         var frame = self.frame
         frame.origin.y -= self.frame.size.height
         self.frame = frame
@@ -46,6 +46,7 @@ class LINMessageView: UIView {
             var frame = self.frame
             frame.origin.y = 0
             self.frame = frame
+            UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: UIStatusBarAnimation.Fade)
         }, completion: { finished in
         })
         
