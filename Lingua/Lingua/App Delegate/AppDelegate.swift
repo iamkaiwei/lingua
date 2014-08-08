@@ -32,19 +32,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.registerForRemoteNotificationTypes(.Alert | .Badge | .Sound)
         
         // NOTE: This code will work in future betas, please don't remove it
-//        if application.respondsToSelector(Selector("registerUserNotificationSettings:")) {
-//            application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: .Alert | .Badge | .Sound, categories: nil))
-//            application.registerForRemoteNotifications()
-//        } else {
-//            application.registerForRemoteNotificationTypes(.Alert | .Badge | .Sound)
-//        }
+        /*if application.respondsToSelector(Selector("registerUserNotificationSettings:")) {
+            application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: .Alert | .Badge | .Sound, categories: nil))
+            application.registerForRemoteNotifications()
+        } else {
+            application.registerForRemoteNotificationTypes(.Alert | .Badge | .Sound)
+        }*/
         
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         window!.makeKeyAndVisible()
         
+        let userInfo = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? NSDictionary
+       
         storyboard = UIStoryboard(name: "Main", bundle: nil)
         if LINUserManager.sharedInstance.isLoggedIn() {
             showHomeScreenWithNavigationController(nil)
+            if userInfo != nil {
+                // App launched via push notification
+                LINNotificationHelper.handlePushNotificationWithUserInfo(userInfo!, applicationState: application.applicationState)
+            }
         } else {
             showOnboardingScreen()
         }
@@ -96,41 +102,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
-        let alert = (userInfo["aps"] as NSDictionary)["alert"] as? String
-        let userId = (userInfo as NSDictionary)[kUserIdKey] as? String
-        let firstName = (userInfo as NSDictionary)[kFirstName] as? String
-        let avatarURL = (userInfo as NSDictionary)[kAvatarURL] as? String
-        
-        print("New messsage comming in userInfo data: \(userInfo)")
-        
-        if let tmpId = userId {
-            if let tmpuser = LINUserManager.sharedInstance.currentUser {
-                var currentChannel = LINPusherManager.sharedInstance.subcribeToChannelFromUserId(tmpuser.userId, toUserId: tmpId)
-                
-                // Bind to event to receive data
-                currentChannel.bindToEventNamed(kPusherEventNameNewMessage, handleWithBlock: { channelEvent in
-                    println("Channel event data: \(channelEvent.data)")
-                    
-                    let replyData = channelEvent.getReplyData()
-                    
-                    // Show banner to notify to user
-                    LINMessageHelper.showNotificationWithName(replyData.firstName, text: replyData.text, avatarURL: replyData.avatarURL)
-                })
-            }
-        }
-        
-        // Only show banner when app is active
-        let appState = application.applicationState
-        if appState == .Active {
-            let text = (alert! as NSString).stringByReplacingOccurrencesOfString(firstName! + ":", withString: "") as String
-            LINMessageHelper.showNotificationWithName(firstName!, text: text, avatarURL: avatarURL!)
-        } else if appState == .Background || appState == .Inactive {
-            // Show chat screen
-            let chatController = storyboard.instantiateViewControllerWithIdentifier("kLINChatController") as LINChatController
-            let user = LINUser(userId: userId!, firstName: firstName!)
-            chatController.userChat = user
-            drawerController.presentViewController(chatController, animated: true, completion: nil)
-        }
+        LINNotificationHelper.handlePushNotificationWithUserInfo(userInfo, applicationState: application.applicationState)
     }
     
     func applicationWillResignActive(application: UIApplication) {
