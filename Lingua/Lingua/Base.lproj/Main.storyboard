@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6205" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6205" systemVersion="14A314h" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6198"/>
@@ -625,11 +625,11 @@
                                     <constraint firstAttribute="height" constant="11" id="qlK-ov-dtY"/>
                                 </constraints>
                             </view>
-                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TeachOn" highlightedImage="TeachOff" translatesAutoresizingMaskIntoConstraints="NO" id="rKr-Xd-Ayv">
-                                <rect key="frame" x="225" y="155" width="150" height="150"/>
+                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TeachOnBig" translatesAutoresizingMaskIntoConstraints="NO" id="rKr-Xd-Ayv">
+                                <rect key="frame" x="253" y="183" width="94" height="115"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="150" id="7Ly-gq-f8A"/>
-                                    <constraint firstAttribute="width" constant="150" id="RXa-dj-FWQ"/>
+                                    <constraint firstAttribute="height" constant="115" id="7Ly-gq-f8A"/>
+                                    <constraint firstAttribute="width" constant="94" id="RXa-dj-FWQ"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to start" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="560" translatesAutoresizingMaskIntoConstraints="NO" id="HwL-6Q-08g">
@@ -653,7 +653,7 @@
                             <constraint firstAttribute="trailing" secondItem="ITY-nd-jX3" secondAttribute="trailing" id="XiW-tT-QMy"/>
                             <constraint firstAttribute="centerY" secondItem="HwL-6Q-08g" secondAttribute="centerY" constant="-50" id="aAf-Qa-8JD"/>
                             <constraint firstAttribute="centerX" secondItem="tDJ-zx-nk4" secondAttribute="centerX" id="iRl-5E-g7d"/>
-                            <constraint firstAttribute="centerY" secondItem="rKr-Xd-Ayv" secondAttribute="centerY" constant="70" id="oGH-V4-X5i"/>
+                            <constraint firstAttribute="centerY" secondItem="rKr-Xd-Ayv" secondAttribute="centerY" constant="60" id="oGH-V4-X5i"/>
                             <constraint firstItem="ITY-nd-jX3" firstAttribute="top" secondItem="oA8-CE-8uh" secondAttribute="top" id="qbE-cB-4Wi"/>
                             <constraint firstItem="ITY-nd-jX3" firstAttribute="leading" secondItem="oA8-CE-8uh" secondAttribute="leading" id="r8u-nt-byw"/>
                             <constraint firstAttribute="trailing" secondItem="4co-B1-bWX" secondAttribute="trailing" constant="40" id="vFE-E0-4lM"/>
@@ -1036,8 +1036,7 @@
         <image name="MessageIcon" width="22" height="21"/>
         <image name="Proficiency3" width="24" height="16"/>
         <image name="ProfileIcon" width="22" height="21"/>
-        <image name="TeachOff" width="76" height="96"/>
-        <image name="TeachOn" width="76" height="96"/>
+        <image name="TeachOnBig" width="94" height="115"/>
         <image name="WhiteBackArrow" width="11" height="20"/>
         <image name="WhiteNextArrow" width="11" height="20"/>
     </resources>
