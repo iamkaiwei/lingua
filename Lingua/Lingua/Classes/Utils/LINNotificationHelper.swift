@@ -38,11 +38,17 @@ class LINNotificationHelper {
             let text = (alert! as NSString).stringByReplacingOccurrencesOfString(firstName! + ":", withString: "") as String
             LINMessageHelper.showNotificationWithName(firstName!, text: text, avatarURL: avatarURL!)
         } else if applicationState == .Background || applicationState == .Inactive {
+            
+            let centerViewController = AppDelegate.sharedDelegate().drawerController.centerViewController
+            if centerViewController.presentViewController != nil {
+                centerViewController.dismissViewControllerAnimated(false, completion: nil)
+            }
+            
             // Show chat screen
             let chatController = AppDelegate.sharedDelegate().storyboard.instantiateViewControllerWithIdentifier("kLINChatController") as LINChatController
             let user = LINUser(userId: userId!, firstName: firstName!)
             chatController.userChat = user
-            AppDelegate.sharedDelegate().drawerController.presentViewController(chatController, animated: true, completion: nil)
+            centerViewController.presentViewController(chatController, animated: true, completion: nil)
         }
     }
 }
