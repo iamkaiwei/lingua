@@ -61,11 +61,18 @@ class LINHomeController: LINViewController {
     }
     
     func startMatching() {
+        if !loadingView.hidden {
+            return
+        }
+        
         showTip()
         LINNetworkClient.sharedInstance.matchUser({ (arrUsers: [LINUser]?) -> Void in
             println("Load friends successfully.")
             //TODO: add logic here later when API is ready
             self.hideTip()
-            }, failture: { println($0); self.hideTip() })
+        }, failture: {
+            println($0)
+            self.hideTip()
+        })
     }
 }
