@@ -119,9 +119,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
-        // Show banner to notify to user
-        let text = (alert! as NSString).stringByReplacingOccurrencesOfString(firstName! + ":", withString: "") as String
-        LINMessageHelper.showNotificationWithName(firstName!, text: text, avatarURL: avatarURL!)
+        // Only show banner when app is active
+        if application.applicationState == UIApplicationState.Active {
+            let text = (alert! as NSString).stringByReplacingOccurrencesOfString(firstName! + ":", withString: "") as String
+            LINMessageHelper.showNotificationWithName(firstName!, text: text, avatarURL: avatarURL!)
+        }
     }
     
     func applicationWillResignActive(application: UIApplication) {
