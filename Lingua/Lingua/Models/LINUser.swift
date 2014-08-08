@@ -9,7 +9,7 @@
 import Foundation
 
 class LINUser: MTLModel, MTLJSONSerializing {
-    var userID: String = ""
+    var userId: String = ""
     var firstName: String = ""
     var lastName: String = ""
     var email: String = ""
@@ -22,6 +22,12 @@ class LINUser: MTLModel, MTLJSONSerializing {
         super.init()
     }
     
+    init(userId: String, firstName: String) {
+        super.init()
+        self.userId = userId
+        self.firstName = firstName
+    }
+    
     required init(coder aDecoder: NSCoder!) {
         super.init(coder: aDecoder)
     }
@@ -31,7 +37,7 @@ class LINUser: MTLModel, MTLJSONSerializing {
     }
     
     class func JSONKeyPathsByPropertyKey() -> [NSObject : AnyObject]! {
-        return ["userID": "_id",
+        return ["userId": "_id",
                 "firstName": "firstname",
                 "lastName": "lastname",
                 "email": "email",

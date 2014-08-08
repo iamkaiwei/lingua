@@ -69,7 +69,7 @@ class LINFriendListController: UIViewController, UITableViewDataSource, UITableV
             if currentUser != nil {
                 for i in 0..<self.arrFriends.count {
                     let user = self.arrFriends[i]
-                    if user.userID == currentUser!.userID {
+                    if user.userId == currentUser!.userId {
                         self.arrFriends.removeAtIndex(i)
                         break
                     }

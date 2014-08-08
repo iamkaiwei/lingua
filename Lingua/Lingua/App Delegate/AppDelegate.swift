@@ -105,7 +105,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if let tmpId = userId {
             if let tmpuser = LINUserManager.sharedInstance.currentUser {
-                var currentChannel = LINPusherManager.sharedInstance.subcribeToChannelFromUserId(tmpuser.userID, toUserId: tmpId)
+                var currentChannel = LINPusherManager.sharedInstance.subcribeToChannelFromUserId(tmpuser.userId, toUserId: tmpId)
                 
                 // Bind to event to receive data
                 currentChannel.bindToEventNamed(kPusherEventNameNewMessage, handleWithBlock: { channelEvent in
@@ -120,9 +120,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         // Only show banner when app is active
-        if application.applicationState == UIApplicationState.Active {
+        let appState = application.applicationState
+        if appState == .Active {
             let text = (alert! as NSString).stringByReplacingOccurrencesOfString(firstName! + ":", withString: "") as String
             LINMessageHelper.showNotificationWithName(firstName!, text: text, avatarURL: avatarURL!)
+        } else if appState == .Background || appState == .Inactive {
+            // Show chat screen
+            let chatController = storyboard.instantiateViewControllerWithIdentifier("kLINChatController") as LINChatController
+            let user = LINUser(userId: userId!, firstName: firstName!)
+            chatController.userChat = user
+            drawerController.presentViewController(chatController, animated: true, completion: nil)
         }
     }
     

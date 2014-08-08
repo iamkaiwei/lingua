@@ -51,14 +51,14 @@ class LINUserManager {
                                 let deviceToken = LINStorageHelper.getStringValueForKey(kDeviceTokenKey)
                                 if let tmpToken = deviceToken {
                                     self.currentUser!.deviceToken = tmpToken
-                                    LINNetworkClient.sharedInstance.updateDeviceTokenWithUserId(self.currentUser!.userID, deviceToken: tmpToken)
+                                    LINNetworkClient.sharedInstance.updateDeviceTokenWithUserId(self.currentUser!.userId, deviceToken: tmpToken)
                                 }
                             }
                             
                             // Save user_id to parse
                             let currentInstallation = PFInstallation.currentInstallation()
                             if currentInstallation != nil {
-                                currentInstallation.setObject(self.currentUser!.userID, forKey: kUserIdKey)
+                                currentInstallation.setObject(self.currentUser!.userId, forKey: kUserIdKey)
                                 currentInstallation.saveInBackground()
                             }
                             

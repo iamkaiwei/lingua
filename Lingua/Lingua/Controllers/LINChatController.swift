@@ -106,7 +106,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
             } else {
                 // Trigger a client event
                 currentChannel.triggerEventNamed(kPusherEventNameNewMessage,
-                                                 data: [kUserIdKey: currentUser.userID,
+                                                 data: [kUserIdKey: currentUser.userId,
                                                         kFirstName: currentUser.firstName,
                                                         kAvatarURL: currentUser.avatarURL,
                                                         kMessageTextKey: inputTextView.text,
@@ -146,13 +146,13 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     private func pushNotificationWithMessage(text: String, sendDate: String) {
         // Create our Installation query
         let pushQuery = PFInstallation.query()
-        pushQuery.whereKey(kUserIdKey, equalTo: userChat.userID)
+        pushQuery.whereKey(kUserIdKey, equalTo: userChat.userId)
         
         let alertTitle = currentUser.firstName + ": " + text
         
         let push = PFPush()
         push.setData(["aps": ["alert": alertTitle, "sound": "defaut"],
-                     kUserIdKey: currentUser.userID,
+                     kUserIdKey: currentUser.userId,
                      kFirstName: currentUser.firstName,
                      kAvatarURL: currentUser.avatarURL,
                      kMessageSendDateKey: sendDate])
@@ -194,7 +194,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     }
 
     func subcribeToPresenceChannel() {
-        currentChannel = LINPusherManager.sharedInstance.subcribeToChannelFromUserId(currentUser.userID, toUserId: userChat.userID)
+        currentChannel = LINPusherManager.sharedInstance.subcribeToChannelFromUserId(currentUser.userId, toUserId: userChat.userId)
         
         // Bind to event to receive data
         currentChannel.bindToEventNamed(kPusherEventNameNewMessage, handleWithBlock: { channelEvent in
