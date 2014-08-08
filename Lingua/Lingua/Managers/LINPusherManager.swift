@@ -92,22 +92,26 @@ class LINPusherManager : NSObject, PTPusherDelegate, PTPusherPresenceChannelDele
         println("[pusher-\(connection.socketID)] Pusher client connected")
     }
     
-    func pusher(pusher: PTPusher, connection: PTPusherConnection, failedWithError error: NSError) {
-        println("[pusher] Pusher Connection failed with error: \(error)")
-        
-        if (error.domain as NSString) == kCFErrorDomainCFNetwork {
-            startReachabilityCheck()
+    func pusher(pusher: PTPusher, connection: PTPusherConnection, failedWithError error: NSError?) {
+        if let tmp = error {
+            println("[pusher] Pusher Connection failed with error: \(tmp.description)")
+            
+            if (tmp.domain as NSString) == kCFErrorDomainCFNetwork {
+                startReachabilityCheck()
+            }
         }
     }
     
-    func pusher(pusher: PTPusher, connection: PTPusherConnection, didDisconnectWithError error: NSError, willAttemptReconnect: Bool) {
-        println("[pusher-\(pusher.connection.socketID)] Pusher Connection disconnected with error: \(error)")
+    func pusher(pusher: PTPusher, connection: PTPusherConnection, didDisconnectWithError error: NSError?, willAttemptReconnect: Bool) {
+        println("[pusher-\(pusher.connection.socketID)] Pusher Connection disconnected with error: \(error?.description)")
         
         if (willAttemptReconnect) {
             println("[pusher-\(pusher.connection.socketID)] Client will attempt to reconnect automatically")
         } else {
-            if error.domain != String(format: PTPusherErrorDomain) {
-                startReachabilityCheck()
+            if let tmp = error {
+                if tmp.domain != String(format: PTPusherErrorDomain) {
+                    startReachabilityCheck()
+                }
             }
         }
     }
@@ -123,11 +127,10 @@ class LINPusherManager : NSObject, PTPusherDelegate, PTPusherPresenceChannelDele
         println("[pusher-\(pusher.connection.socketID)] Subscribed to channel \(channel)")
     }
     
-    func pusher(pusher: PTPusher, didFailToSubscribeToChannel channel: PTPusherChannel, withError error: NSError) {
-        println("[pusher-\(pusher.connection.socketID)] Authorization failed for channel \(channel)")
+    func pusher(pusher: PTPusher, didFailToSubscribeToChannel channel: PTPusherChannel, withError error: NSError?) {
+        println("[pusher-\(pusher.connection.socketID)] Authorization failed for channel \(channel) with error: \(error?.description)")
         
-        let alert : UIAlertView = UIAlertView(title: "Authorization Failed", message: "Client with socket ID \(pusher.connection.socketID) could not be authorized to join channel \(channel.name)", delegate: nil, cancelButtonTitle: "OK")
-        alert.show()
+        UIAlertView(title: "Authorization Failed", message: "Client could not be authorized to join channel \(channel.name)", delegate: nil, cancelButtonTitle: "OK").show()
     }
     
     func pusher(pusher: PTPusher, willAuthorizeChannel channel: PTPusherChannel, withRequest request: NSMutableURLRequest) {
