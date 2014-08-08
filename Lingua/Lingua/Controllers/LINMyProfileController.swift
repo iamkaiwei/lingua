@@ -83,6 +83,13 @@ extension LINMyProfileController: LINIntroductionViewDelegate {
     
     func introductionView(introductionView: LINIntroductionView, didChangeToHeight height: CGFloat) {
         let padding: CGFloat = 20
+        
+        if UIDevice.currentDevice().model != "iPhone Simulator" {
+            let frame = CGRectMake(0, CGRectGetMaxY(introductionView.frame) + padding, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - CGRectGetMaxY(introductionView.frame) + padding)
+            collectionView.frame = frame
+            return
+        }
+        
         collectionViewTopSpaceConstraint.constant = height + padding
     }
 }
