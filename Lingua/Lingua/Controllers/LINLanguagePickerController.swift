@@ -16,7 +16,7 @@ class LINLanguagePickerController: LINViewController {
 
     @IBOutlet weak var tableView: UITableView!
 
-    private var languages = [[String]]()
+    private var languages = [[LINLanguage]]()
     private var headers = [String]()
     var delegate: LINLanguagePickerControllerDelegate?
     private var loadingView = LINLoadingView()
@@ -24,22 +24,13 @@ class LINLanguagePickerController: LINViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareTableView()
-        
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
         loadingView.showInView(self.view)
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        LINResourceHelper.languages {
+        LINLanguage.getLanguages({
             self.languages = $0
             self.headers = $1
             self.loadingView.hide()
             self.tableView.reloadData()
-        }
+            }, failture: { println($0)})
     }
 
     func prepareTableView() {
@@ -57,7 +48,8 @@ extension LINLanguagePickerController: UITableViewDataSource, UITableViewDelegat
     
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
         var cell = self.tableView.dequeueReusableCellWithIdentifier("CellIdentifier") as UITableViewCell
-        cell.textLabel.text = languages[indexPath.section][indexPath.row]
+        let language = languages[indexPath.section][indexPath.row]
+        cell.textLabel.text = language.languageName
         return cell
     }
     

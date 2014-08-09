@@ -239,7 +239,8 @@ class LINNetworkClient: OVCHTTPSessionManager {
                (kLINAPIPath + kLINGetCurrentUserPath) : LINUser.self,
                (kLINAPIPath + kLINUsersPath) : LINUser.self,
                (kLINAPIPath + kLINMatchUser): LINUser.self,
-               (kLINAPIPath + kLINConversationsPath): LINConversation.self
+               (kLINAPIPath + kLINConversationsPath): LINConversation.self,
+               (kLINAPIPath + kLINLanguagePath): LINLanguage.self
         ]
     }
 }
