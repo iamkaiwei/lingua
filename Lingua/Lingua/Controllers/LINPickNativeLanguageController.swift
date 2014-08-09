@@ -42,9 +42,15 @@ class LINPickNativeLanguageController: LINViewController {
             return
         }
         
+        SVProgressHUD.showWithStatus("Updating..")
         LINNetworkClient.sharedInstance.updateCurrentUser({ _ in
             self.showHome()
-            }, failture: { println($0)})
+            SVProgressHUD.dismiss()
+            },
+        failture: {
+            println($0)
+            SVProgressHUD.dismiss()
+        })
     }
     
     func showHome() {
