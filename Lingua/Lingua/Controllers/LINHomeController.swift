@@ -67,7 +67,6 @@ class LINHomeController: LINViewController {
         
         showTip()
         LINNetworkClient.sharedInstance.matchUser({ (arrUsers: [LINUser]?) -> Void in
-            println("Load friends successfully.")
             //TODO: add logic here later when API is ready
             self.hideTip()
         }, failture: {

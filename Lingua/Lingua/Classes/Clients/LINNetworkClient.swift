@@ -198,6 +198,7 @@ class LINNetworkClient: OVCHTTPSessionManager {
             }
             
             if let arrUsers = (response as OVCResponse).result as? [LINUser] {
+                println("Match users: \(arrUsers)")
                 success(arrUsers: arrUsers)
                 return
             }
