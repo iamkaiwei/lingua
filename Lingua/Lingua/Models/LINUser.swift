@@ -17,6 +17,8 @@ class LINUser: MTLModel, MTLJSONSerializing {
     var avatarURL: String = ""
     var facebookID: String = ""
     var deviceToken: String = ""
+    var nativeLanguage: LINLanguage?
+    var learningLanguage: LINLanguage?
     
     override init() {
         super.init()
@@ -44,7 +46,9 @@ class LINUser: MTLModel, MTLJSONSerializing {
                 "gender": "gender",
                 "avatarURL": "avatar_url",
                 "facebookID": "facebook_id",
-                "deviceToken": "device_token"
+                "deviceToken": "device_token",
+                "nativeLanguage": "native_language_id",
+                "learningLanguage": "learn_language_id"
         ]
     }
 }

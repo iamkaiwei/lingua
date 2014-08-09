@@ -145,6 +145,31 @@ class LINNetworkClient: OVCHTTPSessionManager {
         })
     }
     
+    func updateCurrentUser(success: () -> Void,
+                           failture: (error: NSError?) -> Void) {
+        setAuthorizedRequest()
+            
+        var parameters = [String: AnyObject]()
+        var path = kLINAPIPath + kLINUsersPath
+        if let currentUser = LINUserManager.sharedInstance.currentUser {
+            path += "/\(currentUser.userId)"
+            parameters = ["learn_language_id": currentUser.learningLanguage!.languageID,
+                          "native_language_id": currentUser.nativeLanguage!.languageID]
+        }
+        else {
+            return
+        }
+        
+        self.PUT(path, parameters: parameters, completion: { (response: AnyObject?, error: NSError?) -> Void in
+            if error != nil {
+                failture(error: error)
+                return
+            }
+            println(response?.result)
+            success()
+        })
+    }
+    
     func getAllUsers(success: (arrUsers: [LINUser]?) -> Void,
                     failture: (error: NSError?) -> Void) {
         setAuthorizedRequest()

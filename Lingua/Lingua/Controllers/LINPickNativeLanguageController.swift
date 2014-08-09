@@ -27,7 +27,6 @@ class LINPickNativeLanguageController: LINViewController {
         arrowImageView.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
         subtitle1.font = UIFont.appRegularFontWithSize(17)
         subtitle2.font = UIFont.appThinFontWithSize(14)
-        subtitle2.text = NSLocale.currentLocale().displayNameForKey(NSLocaleLanguageCode, value: NSLocale.preferredLanguages()[0])
         saveButton.titleLabel.font = UIFont.appRegularFontWithSize(21)
         textView.tintColor = UIColor.appTealColor()
         textView.font = UIFont.appLightFontWithSize(14)
@@ -38,9 +37,20 @@ class LINPickNativeLanguageController: LINViewController {
     }
     
     @IBAction func saveUserInfo(sender: UIButton) {
+        if LINUserManager.sharedInstance.currentUser?.nativeLanguage == nil {
+            UIAlertView(title: nil, message: "You have to choose a native language.", delegate: nil, cancelButtonTitle: "Okay").show()
+            return
+        }
+        
+        LINNetworkClient.sharedInstance.updateCurrentUser({ _ in
+            self.showHome()
+            }, failture: { println($0)})
+    }
+    
+    func showHome() {
         AppDelegate.sharedDelegate().showHomeScreenWithNavigationController(navigationController)
     }
-
+    
     @IBAction func showCountryList(sender: UITapGestureRecognizer) {
         let viewController = storyboard.instantiateViewControllerWithIdentifier("kLINLanguagePickerController") as LINLanguagePickerController
         viewController.delegate = self
@@ -55,7 +65,8 @@ extension LINPickNativeLanguageController: NSLayoutManagerDelegate {
 }
 
 extension LINPickNativeLanguageController: LINLanguagePickerControllerDelegate {
-    func controller(controller: LINLanguagePickerController, didSelectCountry country: String) {
-        subtitle2.text = country
+    func controller(controller: LINLanguagePickerController, didSelectLanguage language: LINLanguage) {
+        LINUserManager.sharedInstance.currentUser?.nativeLanguage = language
+        subtitle2.text = language.languageName
     }
 }

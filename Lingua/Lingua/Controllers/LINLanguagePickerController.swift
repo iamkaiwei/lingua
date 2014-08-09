@@ -9,7 +9,7 @@
 import UIKit
 
 protocol LINLanguagePickerControllerDelegate {
-    func controller(controller: LINLanguagePickerController, didSelectCountry country: String)
+    func controller(controller: LINLanguagePickerController, didSelectLanguage language: LINLanguage)
 }
 
 class LINLanguagePickerController: LINViewController {
@@ -68,7 +68,7 @@ extension LINLanguagePickerController: UITableViewDataSource, UITableViewDelegat
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         let cell = tableView.cellForRowAtIndexPath(indexPath)
-        delegate?.controller(self, didSelectCountry: cell.textLabel.text)
+        delegate?.controller(self, didSelectLanguage: languages[indexPath.section][indexPath.row])
         navigationController.popViewControllerAnimated(true)
     }
 }

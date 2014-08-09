@@ -29,6 +29,14 @@ class LINPickLearningLanguageController: LINViewController {
         tableView.registerClass(LINProficiencyCell.self, forCellReuseIdentifier: "CellIdentifier")
         tableView.registerClass(LINLanguagePickingHeaderView.self, forHeaderFooterViewReuseIdentifier: "HeaderIdentifier")
     }
+    
+    @IBAction func next(sender: UIButton) {
+        if LINUserManager.sharedInstance.currentUser?.learningLanguage == nil {
+            UIAlertView(title: nil, message: "You have to choose a learning language.", delegate: nil, cancelButtonTitle: "Okay").show()
+            return
+        }
+        performSegueWithIdentifier("kPickNativeViewControllerSegue", sender: self)
+    }
 }
 
 extension LINPickLearningLanguageController: UITableViewDataSource, UITableViewDelegate {
@@ -162,9 +170,10 @@ extension LINPickLearningLanguageController: LINLanguagePickingHeaderViewDelegat
 }
 
 extension LINPickLearningLanguageController: LINLanguagePickerControllerDelegate {
-    func controller(controller: LINLanguagePickerController, didSelectCountry country: String) {
+    func controller(controller: LINLanguagePickerController, didSelectLanguage language: LINLanguage) {
         //Update accessory view for header at section 0 i.e Language
         let header = tableView.headerViewForSection(0) as LINLanguagePickingHeaderView
-        header.updateAccessoryViewWith(country)
+        LINUserManager.sharedInstance.currentUser?.learningLanguage = language
+        header.updateAccessoryViewWith(language.languageName)
     }
 }
