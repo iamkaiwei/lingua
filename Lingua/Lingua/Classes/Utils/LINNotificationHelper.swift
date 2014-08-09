@@ -24,13 +24,13 @@ class LINNotificationHelper {
                     currentChannel.bindToEventNamed(kPusherEventNameNewMessage, handleWithBlock: { channelEvent in
                         println("Channel event data: \(channelEvent.data)")
                         let replyData = channelEvent.getReplyData()
-                        LINMessageHelper.showNotificationWithName(replyData.firstName, text: replyData.text, avatarURL: replyData.avatarURL)
+                        LINMessageHelper.showNotificationWitUserId(replyData.userId, name: replyData.firstName, text: replyData.text, avatarURL: replyData.avatarURL)
                     })
                 }
+                
+                let text = (alert! as NSString).stringByReplacingOccurrencesOfString(firstName! + ":", withString: "") as String
+                LINMessageHelper.showNotificationWitUserId(tmpId, name: firstName!, text: text, avatarURL: avatarURL!)
             }
-            
-            let text = (alert! as NSString).stringByReplacingOccurrencesOfString(firstName! + ":", withString: "") as String
-            LINMessageHelper.showNotificationWithName(firstName!, text: text, avatarURL: avatarURL!)
         } else if applicationState == .Background || applicationState == .Inactive {
             let centerViewController = AppDelegate.sharedDelegate().drawerController.centerViewController
             if centerViewController.presentViewController != nil {

@@ -13,6 +13,7 @@ class LINMessageView: UIView {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var textLabel: UILabel!
     
+    private var userId: String?
     private var timer: NSTimer?
     
     @IBAction func closeButtonTouched(sender: UIButton) {
@@ -53,7 +54,8 @@ class LINMessageView: UIView {
         timer = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: Selector("hideNotification"), userInfo: nil, repeats: false)
     }
     
-    func configureWithName(name: String, text: String, avatarURL: String) {
+    func configureWithUserId(userId: String, name: String, text: String, avatarURL: String) {
+        self.userId = userId
         nameLabel.text = name
         textLabel.text = text
         avatarImageView.sd_setImageWithURL(NSURL(string: avatarURL),
