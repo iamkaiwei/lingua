@@ -28,6 +28,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     private var currentChannel = PTPusherPresenceChannel()
     private var currentUser = LINUser()
     var userChat = LINUser()
+    private var isChatScreenVisible: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +47,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         loadHistoryChatData()
         setupTableView()
         
-        AppDelegate.sharedDelegate().isChatScreenVisible = true
+        isChatScreenVisible = true
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -62,7 +63,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         super.viewDidDisappear(animated)
         
         NSNotificationCenter.defaultCenter().removeObserver(self)
-        AppDelegate.sharedDelegate().isChatScreenVisible = false
+        isChatScreenVisible = false
     }
     
     // MARK: Configuration
@@ -206,7 +207,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
             self.addBubbleViewCellWithMessageData(messageData)
             
             // If User is not in chat screen ---> Show banner to notify to user
-            if !AppDelegate.sharedDelegate().isChatScreenVisible {
+            if !self.isChatScreenVisible {
                 LINMessageHelper.showNotificationWitUserId(replyData.userId, name: replyData.firstName, text: replyData.text, avatarURL: replyData.avatarURL)
             }
         })
