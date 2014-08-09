@@ -61,5 +61,14 @@ class LINMessageView: UIView {
         avatarImageView.sd_setImageWithURL(NSURL(string: avatarURL),
                                            placeholderImage: UIImage(named: "avatar_holder"))
         avatarImageView.addRoundedCorner()
+        
+        // Add gesture
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("openChatScreenWithGesture:"))
+        addGestureRecognizer(gestureRecognizer)
+    }
+    
+    func openChatScreenWithGesture(recognizer: UITapGestureRecognizer) {
+        hideNotification()
+        LINNotificationHelper.openChatScreenWithUserId(userId!, name: nameLabel.text)
     }
 }
