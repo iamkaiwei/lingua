@@ -18,6 +18,7 @@ let kLINGetCurrentUserPath = "users/me"
 let kLINUsersPath = "users"
 let kLINSendNotification = "users/send_notification"
 let kLINMatchUser = "users/match"
+let kLINConversationsPath = "conversations"
 
 // Storage
 let kLINAccessTokenKey = "kLINAccessTokenKey"
@@ -207,13 +208,38 @@ class LINNetworkClient: OVCHTTPSessionManager {
         })
     }
     
+    // MARK: Conversations
+    
+    func createNewConversationWithTeacherId(teacherId: String,
+                                            learnerId: String,
+                                            completion: (conversation: LINConversation?, error: NSError?) -> Void){
+        setAuthorizedRequest()
+        
+        let parameters = ["teacher_id": teacherId,
+                          "learner_id": learnerId]
+        
+        self.POST(kLINAPIPath + kLINConversationsPath, parameters: parameters, { (response: AnyObject?, error: NSError?) -> Void in
+            if error != nil {
+                println("Create new conversation has some errors: \(error!.description)")
+                completion(conversation: nil, error: error)
+                return
+            }
+            
+            if let tmpConversation = (response as OVCResponse).result as? LINConversation {
+                println("Current conversation: \(tmpConversation)")
+                completion(conversation: tmpConversation, error: nil)
+            }
+        })
+    }
+    
     // MARK: OVCHTTPSessionManager
     
     override class func modelClassesByResourcePath() -> [NSObject : AnyObject]! {
         return [kLINGetAccessTokenPath : LINAccessToken.self,
                (kLINAPIPath + kLINGetCurrentUserPath) : LINUser.self,
                (kLINAPIPath + kLINUsersPath) : LINUser.self,
-               (kLINAPIPath + kLINMatchUser): LINUser.self
+               (kLINAPIPath + kLINMatchUser): LINUser.self,
+               (kLINAPIPath + kLINConversationsPath): LINConversation.self
         ]
     }
 }

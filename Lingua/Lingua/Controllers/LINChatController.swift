@@ -29,6 +29,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     private var currentUser = LINUser()
     var userChat = LINUser()
     private var isChatScreenVisible: Bool = false
+    private var conversation: LINConversation?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -184,6 +185,15 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     }
     
     func loadHistoryChatData() {
+        
+        // Create new conversation
+        LINNetworkClient.sharedInstance.createNewConversationWithTeacherId(currentUser.userId, learnerId: userChat.userId) {
+           (conversation, error) -> Void in
+            if let tmpConversation = conversation {
+                self.conversation = tmpConversation
+            }
+         }
+        
         subcribeToPresenceChannel()
     }
     
