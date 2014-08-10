@@ -81,7 +81,7 @@
                 <outlet property="nameLabel" destination="ciP-Uo-Yb5" id="oyy-Y9-dje"/>
                 <outlet property="textLabel" destination="xX4-b2-LKg" id="1OL-XI-t5j"/>
             </connections>
-            <point key="canvasLocation" x="1028" y="276"/>
+            <point key="canvasLocation" x="1347" y="346"/>
         </view>
     </objects>
     <resources>

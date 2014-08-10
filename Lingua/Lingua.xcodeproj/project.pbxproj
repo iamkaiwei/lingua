@@ -41,6 +41,9 @@
 		20F5835A1993456B00DE77A6 /* LINShrinkDismissAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F583591993456B00DE77A6 /* LINShrinkDismissAnimationController.swift */; };
 		3539D820182145359C2B8DA9 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 81D3DA7628DD45F7938E71F3 /* libPods.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		92052F3F199522A900EA773B /* LINNotificationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92052F3E199522A900EA773B /* LINNotificationHelper.swift */; };
+		9222F8C019972AE6005420EC /* LINEmoticonsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9222F8BF19972AE6005420EC /* LINEmoticonsView.xib */; };
+		9222F8C219972EA6005420EC /* LINEmoticonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9222F8C119972EA6005420EC /* LINEmoticonsView.swift */; };
+		9222F8C41997782D005420EC /* LINEmoticonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9222F8C31997782D005420EC /* LINEmoticonCell.swift */; };
 		92257FC51993DC2E0000B37C /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92257FC41993DC2E0000B37C /* UIImageView+Extensions.swift */; };
 		9231348E197E4E26003BD927 /* RobotoSlab-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9231348A197E4E26003BD927 /* RobotoSlab-Bold.ttf */; };
 		9231348F197E4E26003BD927 /* RobotoSlab-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9231348B197E4E26003BD927 /* RobotoSlab-Light.ttf */; };
@@ -134,6 +137,9 @@
 		20F583591993456B00DE77A6 /* LINShrinkDismissAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINShrinkDismissAnimationController.swift; sourceTree = "<group>"; };
 		81D3DA7628DD45F7938E71F3 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		92052F3E199522A900EA773B /* LINNotificationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINNotificationHelper.swift; sourceTree = "<group>"; };
+		9222F8BF19972AE6005420EC /* LINEmoticonsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LINEmoticonsView.xib; sourceTree = "<group>"; };
+		9222F8C119972EA6005420EC /* LINEmoticonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINEmoticonsView.swift; sourceTree = "<group>"; };
+		9222F8C31997782D005420EC /* LINEmoticonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINEmoticonCell.swift; sourceTree = "<group>"; };
 		92257FC41993DC2E0000B37C /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
 		9231348A197E4E26003BD927 /* RobotoSlab-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSlab-Bold.ttf"; sourceTree = "<group>"; };
 		9231348B197E4E26003BD927 /* RobotoSlab-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSlab-Light.ttf"; sourceTree = "<group>"; };
@@ -305,6 +311,8 @@
 				20C7BB43197C491300E4D9FE /* LINIntroductionView.swift */,
 				92F0BF3D19933DC600608803 /* LINMessageView.xib */,
 				92F0BF3F1993417400608803 /* LINMessageView.swift */,
+				9222F8BF19972AE6005420EC /* LINEmoticonsView.xib */,
+				9222F8C119972EA6005420EC /* LINEmoticonsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -350,6 +358,7 @@
 				20DC6562197BEA4F008DA659 /* LINFriendCell.swift */,
 				20DC6563197BEA4F008DA659 /* LINCountryCell.swift */,
 				20C84ED41982683500259F81 /* LINProficiencyCell.swift */,
+				9222F8C31997782D005420EC /* LINEmoticonCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -552,6 +561,7 @@
 				92313491197E4E26003BD927 /* RobotoSlab-Thin.ttf in Resources */,
 				9231348F197E4E26003BD927 /* RobotoSlab-Light.ttf in Resources */,
 				20448A871954301A00AC639A /* Main.storyboard in Resources */,
+				9222F8C019972AE6005420EC /* LINEmoticonsView.xib in Resources */,
 				9231348E197E4E26003BD927 /* RobotoSlab-Bold.ttf in Resources */,
 				20448A891954301A00AC639A /* Images.xcassets in Resources */,
 				2082DEF11957127F009ADF45 /* LINLanguagePickingHeaderView.xib in Resources */,
@@ -644,9 +654,11 @@
 				92F316801962AB75002005B9 /* LINPusherManager.swift in Sources */,
 				20BF3FAB1957ECA700963B1F /* LINFriendListController.swift in Sources */,
 				20DC6566197BEA4F008DA659 /* LINBadgeCell.swift in Sources */,
+				9222F8C41997782D005420EC /* LINEmoticonCell.swift in Sources */,
 				20473E201966D5C200EDF620 /* SZTextView.m in Sources */,
 				20F5835819931E6D00DE77A6 /* LINPopPresentAnimationController.swift in Sources */,
 				9268B6C01984E73300D526AA /* LINNetworkClient.swift in Sources */,
+				9222F8C219972EA6005420EC /* LINEmoticonsView.swift in Sources */,
 				20DC6567197BEA4F008DA659 /* LINFriendCell.swift in Sources */,
 				2043DFD7196550F8005905B9 /* LINViewController.swift in Sources */,
 				2078D969196C1769009BF095 /* LINUserManager.swift in Sources */,

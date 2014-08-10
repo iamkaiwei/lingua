@@ -18,6 +18,11 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var collectionView: UICollectionView!
+    
+    private var emoticonsView: LINEmoticonsView!
+    
     
     @IBOutlet weak var inputContainerViewBottomLayoutGuideConstraint: NSLayoutConstraint!
     
@@ -28,8 +33,11 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     private var currentChannel = PTPusherPresenceChannel()
     private var currentUser = LINUser()
     var userChat = LINUser()
+    
     private var isChatScreenVisible: Bool = false
     private var conversation: LINConversation?
+    private var addButtonClicked: Bool = false
+    private var shouldChangeInputTextViewFrame: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +57,10 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         setupTableView()
         
         isChatScreenVisible = true
+        
+        // Emoticon view
+        emoticonsView = NSBundle.mainBundle().loadNibNamed("LINEmoticonsView", owner: self, options: nil)[0] as LINEmoticonsView
+        collectionView.registerClass(LINEmoticonCell.self, forCellWithReuseIdentifier: "EmoticonCellIdentifier")
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -134,7 +146,34 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     }
     
     func didTapOnTableView(sender: UITapGestureRecognizer) {
+        if !emoticonsView.isHidden {
+            hideEmoticonsView()
+        }
+        
+        shouldChangeInputTextViewFrame = true
         inputTextView.resignFirstResponder()
+    }
+    
+    @IBAction func buttonAddTouched(sender: UIButton) {
+        if !addButtonClicked {
+            if shouldChangeInputTextViewFrame {
+                changeInputFrame()
+            }
+            
+            // Show emoticons view
+            showEmoticonsView()
+        } else {
+            // Hide emotions view
+            hideEmoticonsView()
+        }
+    }
+    
+    @IBAction func imagesButtonTouched(sender: UIButton) {
+        println("Choose photo from albums")
+    }
+    
+    @IBAction func photosButtonTouched(sender: UIButton) {
+        println("Take a new photo")
     }
     
     // MARK: UITableView delegate
@@ -224,15 +263,40 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         })
     }
     
+    func showEmoticonsView() {
+        addButtonClicked = true
+        addButton.setImage(UIImage(named: "icn_cancel_blue"), forState: UIControlState.Normal)
+        
+        shouldChangeInputTextViewFrame = false
+        inputTextView.resignFirstResponder()
+        emoticonsView.showInViewController(self)
+    }
+    
+    func hideEmoticonsView() {
+        addButtonClicked = false
+        addButton.setImage(UIImage(named: "Icn_add"), forState: UIControlState.Normal)
+
+        inputTextView.becomeFirstResponder()
+        emoticonsView.hide()
+    }
+    
     // MARK: Keyboard Events Notifications
 
     func handleKeyboardWillShowNotification(notification: NSNotification) {
-        keyboardWillChangeFrameWithNotification(notification, showKeyboard: true)
-        scrollBubbleTableViewToBottomAnimated(true)
+        if !emoticonsView.isHidden {
+            hideEmoticonsView()
+        }
+        
+        if shouldChangeInputTextViewFrame {
+            keyboardWillChangeFrameWithNotification(notification, showKeyboard: true)
+            scrollBubbleTableViewToBottomAnimated(true)
+        }
     }
     
     func handleKeyboardWillHideNotification(notification: NSNotification) {
-        keyboardWillChangeFrameWithNotification(notification, showKeyboard: false)
+        if shouldChangeInputTextViewFrame {
+           keyboardWillChangeFrameWithNotification(notification, showKeyboard: false)
+        }
     }
     
     func keyboardWillChangeFrameWithNotification(notfication: NSNotification, showKeyboard: Bool) {
@@ -276,6 +340,25 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         })
     }
     
+    func changeInputFrame() {
+        shouldChangeInputTextViewFrame = false
+        
+        self.inputContainerViewBottomLayoutGuideConstraint.constant = emoticonsView.frame.size.height
+        let kbSize = emoticonsView.frame.size
+        
+        UIView.animateWithDuration(0.3, animations: {
+            var inputContainerFrame = self.inputContainerView.frame
+            var tableFrame = self.tableView.frame
+            
+            inputContainerFrame.origin.y -= kbSize.height
+            tableFrame.size.height -= kbSize.height
+
+            self.inputContainerView.frame = inputContainerFrame
+            self.tableView.frame = tableFrame
+        })
+    }
+    
+    
     // MARK - TextView Delegate
     
     func textViewDidChange(textView: UITextView!) {
@@ -288,3 +371,29 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         }
    }
 }
+
+extension LINChatController: UICollectionViewDataSource, UICollectionViewDelegate {
+   
+    // MARK: UICollectionViewDataSource
+    
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView!) -> Int {
+        return 1
+    }
+    
+    func collectionView(collectionView: UICollectionView!, numberOfItemsInSection section: Int) -> Int {
+        return 31
+    }
+    
+    func collectionView(collectionView: UICollectionView!, cellForItemAtIndexPath indexPath: NSIndexPath!) -> UICollectionViewCell! {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("EmoticonCellIdentifier", forIndexPath: indexPath) as LINEmoticonCell
+        cell.imageView.image = UIImage(named: "emoticon_\(indexPath.row + 1)")
+        return cell
+    }
+    
+    // MARK: UICollectionViewDelegate
+    
+    func collectionView(collectionView: UICollectionView!, didSelectItemAtIndexPath indexPath: NSIndexPath!) {
+        println("Emotion \(indexPath.row) is selected.")
+    }
+}
+

@@ -541,7 +541,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IuS-Lr-xIX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2929" y="-350"/>
+            <point key="canvasLocation" x="2946" y="-345"/>
         </scene>
         <!--Home Controller-->
         <scene sceneID="kts-2t-Dwm">
@@ -897,6 +897,9 @@
                                         <state key="normal" image="Icn_add">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="buttonAddTouched:" destination="90d-9n-3fJ" eventType="touchUpInside" id="wNn-EI-Noc"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kNQ-GM-kg3" userLabel="Speak">
                                         <rect key="frame" x="556" y="8" width="30" height="30"/>
@@ -916,7 +919,7 @@
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="27" id="y8h-MK-b7y"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="RobotoSlab-Regular" family="Roboto Slab" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardType="alphabet"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" keyboardType="alphabet"/>
                                         <connections>
                                             <outlet property="delegate" destination="90d-9n-3fJ" id="aHy-xl-EBZ"/>
                                         </connections>
@@ -973,6 +976,7 @@
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <connections>
+                        <outlet property="addButton" destination="Mpn-9b-L9K" id="ndG-Uo-24Q"/>
                         <outlet property="inputContainerView" destination="79N-R5-BYb" id="Acv-O5-8nv"/>
                         <outlet property="inputContainerViewBottomLayoutGuideConstraint" destination="FsH-Oe-Ha7" id="GPl-8L-ACl"/>
                         <outlet property="inputTextView" destination="Y9g-eK-znw" id="P87-WZ-16y"/>
