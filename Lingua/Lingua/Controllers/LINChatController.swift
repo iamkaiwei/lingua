@@ -70,8 +70,9 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     // MARK: Configuration
     
     private func configureInputContainerView () {
-        inputContainerView.layer.borderColor = UIColor(red: 153.0/255, green: 153.0/255, blue: 153.0/255, alpha: 1.0).CGColor
-        inputContainerView.layer.borderWidth = 0.5
+        let backgroundView = UIImageView(image: UIImage(named: "bg_chat"))
+        inputContainerView.addSubview(backgroundView)
+        inputContainerView.sendSubviewToBack(backgroundView)
         
         inputTextView.clipsToBounds = true
         inputTextView.layer.cornerRadius = 10.0
