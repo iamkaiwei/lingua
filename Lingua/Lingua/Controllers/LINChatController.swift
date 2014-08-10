@@ -169,11 +169,25 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     }
     
     @IBAction func imagesButtonTouched(sender: UIButton) {
-        println("Choose photo from albums")
+        showPickerControllerWithSourceType(.PhotoLibrary)
     }
     
     @IBAction func photosButtonTouched(sender: UIButton) {
-        println("Take a new photo")
+        showPickerControllerWithSourceType(.Camera)
+    }
+    
+    private func showPickerControllerWithSourceType(sourceType: UIImagePickerControllerSourceType) {
+        if !UIImagePickerController.isSourceTypeAvailable(.Camera) &&  sourceType == .Camera {
+            UIAlertView(title: "Error", message: "Device has no camera.", delegate: self, cancelButtonTitle: "OK").show()
+            return
+        }
+        
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = true
+        picker.sourceType = sourceType
+        
+        presentViewController(picker, animated: true, completion: nil)
     }
     
     // MARK: UITableView delegate
@@ -372,6 +386,23 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
    }
 }
 
+extension LINChatController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(picker: UIImagePickerController!, didFinishPickingMediaWithInfo info: NSDictionary!) {
+        let chooseImage = info[UIImagePickerControllerEditedImage] as UIImage
+        
+        hidePhotosScreenWithPickerViewController(picker)
+    }
+
+    func imagePickerControllerDidCancel(picker: UIImagePickerController!) {
+        hidePhotosScreenWithPickerViewController(picker)
+    }
+    
+    private func hidePhotosScreenWithPickerViewController(picker: UIImagePickerController) {
+        picker.dismissViewControllerAnimated(true, completion: nil)
+        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: false)
+    }
+}
+
 extension LINChatController: UICollectionViewDataSource, UICollectionViewDelegate {
    
     // MARK: UICollectionViewDataSource
@@ -396,4 +427,5 @@ extension LINChatController: UICollectionViewDataSource, UICollectionViewDelegat
         println("Emotion \(indexPath.row) is selected.")
     }
 }
+
 
