@@ -19,7 +19,6 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var addButton: UIButton!
-    @IBOutlet weak var collectionView: UICollectionView!
     
     private var emoticonsView: LINEmoticonsView!
     
@@ -60,7 +59,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         
         // Emoticon view
         emoticonsView = NSBundle.mainBundle().loadNibNamed("LINEmoticonsView", owner: self, options: nil)[0] as LINEmoticonsView
-        collectionView.registerClass(LINEmoticonCell.self, forCellWithReuseIdentifier: "EmoticonCellIdentifier")
+        emoticonsView.delegate = self
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -166,28 +165,6 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
             // Hide emotions view
             hideEmoticonsView()
         }
-    }
-    
-    @IBAction func imagesButtonTouched(sender: UIButton) {
-        showPickerControllerWithSourceType(.PhotoLibrary)
-    }
-    
-    @IBAction func photosButtonTouched(sender: UIButton) {
-        showPickerControllerWithSourceType(.Camera)
-    }
-    
-    private func showPickerControllerWithSourceType(sourceType: UIImagePickerControllerSourceType) {
-        if !UIImagePickerController.isSourceTypeAvailable(.Camera) &&  sourceType == .Camera {
-            UIAlertView(title: "Error", message: "Device has no camera.", delegate: self, cancelButtonTitle: "OK").show()
-            return
-        }
-        
-        let picker = UIImagePickerController()
-        picker.delegate = self
-        picker.allowsEditing = true
-        picker.sourceType = sourceType
-        
-        presentViewController(picker, animated: true, completion: nil)
     }
     
     // MARK: UITableView delegate
@@ -386,46 +363,8 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
    }
 }
 
-extension LINChatController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(picker: UIImagePickerController!, didFinishPickingMediaWithInfo info: NSDictionary!) {
-        let chooseImage = info[UIImagePickerControllerEditedImage] as UIImage
-        
-        hidePhotosScreenWithPickerViewController(picker)
-    }
-
-    func imagePickerControllerDidCancel(picker: UIImagePickerController!) {
-        hidePhotosScreenWithPickerViewController(picker)
-    }
-    
-    private func hidePhotosScreenWithPickerViewController(picker: UIImagePickerController) {
-        picker.dismissViewControllerAnimated(true, completion: nil)
-        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: false)
+extension LINChatController: LINEmoticonsViewDelegate {
+    func emoticonsView(emoticonsView: LINEmoticonsView, startPickingMediaWithPickerViewController picker: UIImagePickerController) {
+        presentViewController(picker, animated: true, completion: nil)
     }
 }
-
-extension LINChatController: UICollectionViewDataSource, UICollectionViewDelegate {
-   
-    // MARK: UICollectionViewDataSource
-    
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView!) -> Int {
-        return 1
-    }
-    
-    func collectionView(collectionView: UICollectionView!, numberOfItemsInSection section: Int) -> Int {
-        return 31
-    }
-    
-    func collectionView(collectionView: UICollectionView!, cellForItemAtIndexPath indexPath: NSIndexPath!) -> UICollectionViewCell! {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("EmoticonCellIdentifier", forIndexPath: indexPath) as LINEmoticonCell
-        cell.imageView.image = UIImage(named: "emoticon_\(indexPath.row + 1)")
-        return cell
-    }
-    
-    // MARK: UICollectionViewDelegate
-    
-    func collectionView(collectionView: UICollectionView!, didSelectItemAtIndexPath indexPath: NSIndexPath!) {
-        println("Emotion \(indexPath.row) is selected.")
-    }
-}
-
-

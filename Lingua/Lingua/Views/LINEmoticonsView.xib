@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6205" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6205" systemVersion="14A299l" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6198"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -11,11 +10,7 @@
         </mutableArray>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LINChatController" customModule="Lingua" customModuleProvider="target">
-            <connections>
-                <outlet property="collectionView" destination="dIL-s6-IaF" id="paF-su-lxR"/>
-            </connections>
-        </placeholder>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="Hm2-Zv-cQU" customClass="LINEmoticonsView" customModule="Lingua" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="216"/>
@@ -34,7 +29,7 @@
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
-                                <action selector="imagesButtonTouched:" destination="-1" eventType="touchUpInside" id="yMz-bT-1wN"/>
+                                <action selector="imagesButtonTouched:" destination="Hm2-Zv-cQU" eventType="touchUpInside" id="Bei-B5-EO8"/>
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Images" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v11-xP-M9D">
@@ -67,7 +62,7 @@
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
-                                <action selector="photosButtonTouched:" destination="-1" eventType="touchUpInside" id="30U-fD-aWe"/>
+                                <action selector="photosButtonTouched:" destination="Hm2-Zv-cQU" eventType="touchUpInside" id="NFg-Q8-Xyl"/>
                             </connections>
                         </button>
                     </subviews>
@@ -100,10 +95,6 @@
                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     </collectionViewFlowLayout>
-                    <connections>
-                        <outlet property="dataSource" destination="-1" id="L1M-sU-11h"/>
-                        <outlet property="delegate" destination="-1" id="3gM-be-kXN"/>
-                    </connections>
                 </collectionView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -120,7 +111,10 @@
             <nil key="simulatedStatusBarMetrics"/>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="1810" y="575"/>
+            <connections>
+                <outlet property="collectionView" destination="dIL-s6-IaF" id="Hjm-9x-K3y"/>
+            </connections>
+            <point key="canvasLocation" x="1777" y="261"/>
         </view>
     </objects>
     <resources>

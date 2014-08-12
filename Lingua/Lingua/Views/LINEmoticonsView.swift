@@ -8,11 +8,48 @@
 
 import Foundation
 
+protocol LINEmoticonsViewDelegate {
+    func emoticonsView(emoticonsView: LINEmoticonsView, startPickingMediaWithPickerViewController picker: UIImagePickerController)
+}
+
 class LINEmoticonsView: UIView {
-    var isHidden: Bool = true
+    @IBOutlet weak var collectionView: UICollectionView!
     
+    var isHidden: Bool = true
+    var delegate: LINEmoticonsViewDelegate? {
+        didSet {
+            collectionView.delegate = self
+            collectionView.dataSource = self
+            collectionView.registerClass(LINEmoticonCell.self, forCellWithReuseIdentifier: "EmoticonCellIdentifier")
+        }
+    }
+    
+    // MARK: Actions
+    
+    @IBAction func imagesButtonTouched(sender: UIButton) {
+        showPickerControllerWithSourceType(.PhotoLibrary)
+    }
+    
+    @IBAction func photosButtonTouched(sender: UIButton) {
+        showPickerControllerWithSourceType(.Camera)
+    }
+
     // MARK: Functions
     
+    private func showPickerControllerWithSourceType(sourceType: UIImagePickerControllerSourceType) {
+        if !UIImagePickerController.isSourceTypeAvailable(.Camera) &&  sourceType == .Camera {
+            UIAlertView(title: "Error", message: "Device has no camera.", delegate: self, cancelButtonTitle: "OK").show()
+            return
+        }
+        
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = true
+        picker.sourceType = sourceType
+        
+        delegate?.emoticonsView(self, startPickingMediaWithPickerViewController: picker)
+    }
+
     func showInViewController(viewController: UIViewController) {
         viewController.view.addSubview(self)
         
@@ -40,5 +77,53 @@ class LINEmoticonsView: UIView {
         })
         
         isHidden = true
+    }
+}
+
+extension LINEmoticonsView: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(picker: UIImagePickerController!, didFinishPickingMediaWithInfo info: NSDictionary!) {
+        let chooseImage = info[UIImagePickerControllerEditedImage] as UIImage
+        
+        // KTODO: Upload photo to server
+//        LINNetworkClient.sharedInstance.uploadImage(chooseImage, completion: { (imageURL, error) -> Void in
+//            if imageURL != nil {
+//            }
+//        })
+        
+        hidePhotosScreenWithPickerViewController(picker)
+    }
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController!) {
+        hidePhotosScreenWithPickerViewController(picker)
+    }
+    
+    private func hidePhotosScreenWithPickerViewController(picker: UIImagePickerController) {
+        picker.dismissViewControllerAnimated(true, completion: nil)
+        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: false)
+    }
+}
+
+extension LINEmoticonsView: UICollectionViewDataSource, UICollectionViewDelegate {
+    
+    // MARK: UICollectionViewDataSource
+    
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView!) -> Int {
+        return 1
+    }
+    
+    func collectionView(collectionView: UICollectionView!, numberOfItemsInSection section: Int) -> Int {
+        return 31
+    }
+    
+    func collectionView(collectionView: UICollectionView!, cellForItemAtIndexPath indexPath: NSIndexPath!) -> UICollectionViewCell! {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("EmoticonCellIdentifier", forIndexPath: indexPath) as LINEmoticonCell
+        cell.imageView.image = UIImage(named: "emoticon_\(indexPath.row + 1)")
+        return cell
+    }
+    
+    // MARK: UICollectionViewDelegate
+    
+    func collectionView(collectionView: UICollectionView!, didSelectItemAtIndexPath indexPath: NSIndexPath!) {
+        println("Emotion \(indexPath.row) is selected.")
     }
 }
