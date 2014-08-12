@@ -30,10 +30,9 @@ class LINLanguage: MTLModel, MTLJSONSerializing {
     }
 }
 
-let kLINLanguagePath = "languages"
 extension LINLanguage {
     class func getLanguages(success: (languages: [[LINLanguage]], headers: [String]) -> Void, failture: (error: NSError?) -> Void) {
-        LINNetworkClient.sharedInstance.GET(kLINAPIPath + kLINLanguagePath, parameters: nil, completion: { (response: AnyObject?, error: NSError?) -> Void in
+        LINNetworkClient.sharedInstance.GET(kLINLanguagePath, parameters: nil, completion: { (response: AnyObject?, error: NSError?) -> Void in
             if error != nil {
                 failture(error: error)
                 return

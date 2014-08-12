@@ -12,13 +12,13 @@ typealias CompletionClosure = (success: Bool, errorMessage: String) -> Void
 
 // Requests
 let kLINBaseURL = "http://linguatheapp.herokuapp.com/"
-let kLINAPIPath = "api/v1/"
 let kLINGetAccessTokenPath = "oauth/token"
-let kLINGetCurrentUserPath = "users/me"
-let kLINUsersPath = "users"
-let kLINSendNotification = "users/send_notification"
-let kLINMatchUser = "users/match"
-let kLINConversationsPath = "conversations"
+let kLINGetCurrentUserPath = "api/v1/users/me"
+let kLINUsersPath = "api/v1/users"
+let kLINSendNotification = "api/v1/users/send_notification"
+let kLINMatchUser = "api/v1/users/match"
+let kLINConversationsPath = "api/v1/conversations"
+let kLINLanguagePath = "api/v1/languages"
 
 // Storage
 let kLINAccessTokenKey = "kLINAccessTokenKey"
@@ -113,7 +113,7 @@ class LINNetworkClient: OVCHTTPSessionManager {
     func isValidToken(completion: (success: Bool) -> Void) {
         setAuthorizedRequest()
         
-        self.GET(kLINAPIPath + kLINGetCurrentUserPath, parameters: nil, completion: { (response: AnyObject?, error: NSError?) -> Void in
+        self.GET(kLINGetCurrentUserPath, parameters: nil, completion: { (response: AnyObject?, error: NSError?) -> Void in
             if error != nil {
                 println("Token is not valid.")
                 completion(success: false)
@@ -130,7 +130,7 @@ class LINNetworkClient: OVCHTTPSessionManager {
                         failture: (error: NSError?) -> Void) {
         setAuthorizedRequest()
         
-        self.GET(kLINAPIPath + kLINGetCurrentUserPath, parameters: nil, completion: { (response: AnyObject?, error: NSError?) -> Void in
+        self.GET(kLINGetCurrentUserPath, parameters: nil, completion: { (response: AnyObject?, error: NSError?) -> Void in
             if error != nil {
                 failture(error: error!)
             } else {
@@ -150,9 +150,9 @@ class LINNetworkClient: OVCHTTPSessionManager {
         setAuthorizedRequest()
             
         var parameters = [String: AnyObject]()
-        var path = kLINAPIPath + kLINUsersPath
+        var path = kLINUsersPath
         if let currentUser = LINUserManager.sharedInstance.currentUser {
-            path += "/\(currentUser.userId)"
+            path = "\(path)/\(currentUser.userId)"
             parameters = ["learn_language_id": currentUser.learningLanguage!.languageID,
                           "native_language_id": currentUser.nativeLanguage!.languageID]
         }
@@ -174,7 +174,7 @@ class LINNetworkClient: OVCHTTPSessionManager {
                     failture: (error: NSError?) -> Void) {
         setAuthorizedRequest()
                         
-        self.GET(kLINAPIPath + kLINUsersPath, parameters: nil, completion: { (response: AnyObject?, error: NSError?) -> Void in
+        self.GET(kLINUsersPath, parameters: nil, completion: { (response: AnyObject?, error: NSError?) -> Void in
             if error != nil {
                  failture(error: error!)
             } else {
@@ -195,7 +195,7 @@ class LINNetworkClient: OVCHTTPSessionManager {
                           "message": text,
                           "time_created": sendDate]
         
-        self.POST(kLINAPIPath + kLINSendNotification, parameters: parameters, completion: nil)
+        self.POST(kLINSendNotification, parameters: parameters, completion: nil)
     }
     
     func updateDeviceTokenWithUserId(userId: String, deviceToken: String) {
@@ -203,7 +203,7 @@ class LINNetworkClient: OVCHTTPSessionManager {
         
         let parameters = [kUserIdKey: userId,
                           kDeviceTokenKey: deviceToken]
-        let path = kLINAPIPath + kLINUsersPath + "/" + userId
+        let path = "\(kLINUsersPath)/\(userId)"
                                         
         self.PUT(path, parameters: parameters, { (response: AnyObject?, error: NSError?) -> Void in
             if error != nil {
@@ -217,7 +217,7 @@ class LINNetworkClient: OVCHTTPSessionManager {
     func matchUser(success: (arrUsers: [LINUser]?) -> Void, failture: (error: NSError?) -> Void) {
         setAuthorizedRequest()
         
-        self.GET(kLINAPIPath + kLINMatchUser, parameters: nil, completion: { (response: AnyObject?, error: NSError?) -> Void in
+        self.GET(kLINMatchUser, parameters: nil, completion: { (response: AnyObject?, error: NSError?) -> Void in
             if error != nil {
                 failture(error: error)
                 return
@@ -243,7 +243,7 @@ class LINNetworkClient: OVCHTTPSessionManager {
         let parameters = ["teacher_id": teacherId,
                           "learner_id": learnerId]
         
-        self.POST(kLINAPIPath + kLINConversationsPath, parameters: parameters, { (response: AnyObject?, error: NSError?) -> Void in
+        self.POST(kLINConversationsPath, parameters: parameters, { (response: AnyObject?, error: NSError?) -> Void in
             if error != nil {
                 println("Create new conversation has some errors: \(error!.description)")
                 completion(conversation: nil, error: error)
@@ -261,11 +261,11 @@ class LINNetworkClient: OVCHTTPSessionManager {
     
     override class func modelClassesByResourcePath() -> [NSObject : AnyObject]! {
         return [kLINGetAccessTokenPath : LINAccessToken.self,
-               (kLINAPIPath + kLINGetCurrentUserPath) : LINUser.self,
-               (kLINAPIPath + kLINUsersPath) : LINUser.self,
-               (kLINAPIPath + kLINMatchUser): LINUser.self,
-               (kLINAPIPath + kLINConversationsPath): LINConversation.self,
-               (kLINAPIPath + kLINLanguagePath): LINLanguage.self
+            kLINGetCurrentUserPath : LINUser.self,
+            kLINUsersPath : LINUser.self,
+            kLINMatchUser : LINUser.self,
+            kLINConversationsPath : LINConversation.self,
+            kLINLanguagePath : LINLanguage.self
         ]
     }
 }
