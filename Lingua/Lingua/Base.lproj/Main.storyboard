@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6205" systemVersion="14A299l" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6198"/>
         <capability name="Constraints with attributes relative to the layout margin" minToolsVersion="6.0"/>
     </dependencies>
@@ -470,8 +469,23 @@
                                     <constraint firstAttribute="bottom" secondItem="GkW-2K-K2c" secondAttribute="bottom" constant="4" id="zC1-Zo-QFe"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rVA-m0-ECS" customClass="LINIntroductionView" customModule="Lingua" customModuleProvider="target">
+                                <rect key="frame" x="11" y="114" width="579" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="sSd-7R-taj"/>
+                                </constraints>
+                            </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Avatar3" translatesAutoresizingMaskIntoConstraints="NO" id="2fg-61-Uef">
+                                <rect key="frame" x="8" y="68" width="54" height="54"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="54" id="ffe-8h-6kt"/>
+                                    <constraint firstAttribute="width" constant="54" id="jSO-lV-ZFg"/>
+                                </constraints>
+                            </imageView>
                             <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="480" placeholderIntrinsicHeight="375" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Lve-37-m1q">
-                                <rect key="frame" x="0.0" y="105" width="600" height="495"/>
+                                <rect key="frame" x="0.0" y="109" width="600" height="491"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="aMU-4C-F1n" customClass="LINBadgeFlowLayout" customModule="Lingua" customModuleProvider="target">
                                     <size key="itemSize" width="50" height="50"/>
@@ -495,30 +509,15 @@
                                     <outlet property="delegate" destination="GTX-yj-Z2v" id="mPF-2N-vdw"/>
                                 </connections>
                             </collectionView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Avatar3" translatesAutoresizingMaskIntoConstraints="NO" id="2fg-61-Uef">
-                                <rect key="frame" x="8" y="68" width="54" height="54"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="54" id="ffe-8h-6kt"/>
-                                    <constraint firstAttribute="width" constant="54" id="jSO-lV-ZFg"/>
-                                </constraints>
-                            </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rVA-m0-ECS" customClass="LINIntroductionView" customModule="Lingua" customModuleProvider="target">
-                                <rect key="frame" x="65" y="105" width="525" height="50"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="sSd-7R-taj"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.89263556990000004" green="0.89263556990000004" blue="0.89557674629999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Lve-37-m1q" secondAttribute="trailing" id="48A-Xi-eaE"/>
-                            <constraint firstItem="rVA-m0-ECS" firstAttribute="top" secondItem="9rv-wF-JJh" secondAttribute="bottom" constant="-4" id="CSS-XL-JdF"/>
-                            <constraint firstItem="Lve-37-m1q" firstAttribute="top" secondItem="9rv-wF-JJh" secondAttribute="bottom" constant="-4" id="EI2-Ye-1QO"/>
+                            <constraint firstItem="rVA-m0-ECS" firstAttribute="top" secondItem="9rv-wF-JJh" secondAttribute="bottom" constant="5" id="CSS-XL-JdF"/>
+                            <constraint firstItem="rVA-m0-ECS" firstAttribute="leading" secondItem="cFZ-NH-MMc" secondAttribute="leadingMargin" constant="-5" id="DZX-Yf-oek"/>
+                            <constraint firstItem="Lve-37-m1q" firstAttribute="top" secondItem="9rv-wF-JJh" secondAttribute="bottom" id="EI2-Ye-1QO"/>
                             <constraint firstAttribute="trailing" secondItem="t0j-I2-22J" secondAttribute="trailing" id="GN0-Y1-SbB"/>
                             <constraint firstItem="2fg-61-Uef" firstAttribute="leading" secondItem="cFZ-NH-MMc" secondAttribute="leading" constant="8" id="QLk-mD-aat"/>
-                            <constraint firstItem="rVA-m0-ECS" firstAttribute="leading" secondItem="2fg-61-Uef" secondAttribute="trailing" constant="3" id="TET-Oc-IRV"/>
                             <constraint firstItem="9rv-wF-JJh" firstAttribute="leading" secondItem="cFZ-NH-MMc" secondAttribute="leading" id="X7R-VT-4At"/>
                             <constraint firstAttribute="trailing" secondItem="rVA-m0-ECS" secondAttribute="trailing" constant="10" id="XaW-Ja-4PJ"/>
                             <constraint firstItem="t0j-I2-22J" firstAttribute="top" secondItem="cFZ-NH-MMc" secondAttribute="top" id="ZL3-Va-wMO"/>

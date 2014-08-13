@@ -17,8 +17,8 @@ class LINMyProfileController: LINViewController {
     @IBOutlet weak var introductionView: LINIntroductionView!
     @IBOutlet weak var collectionViewTopSpaceConstraint: NSLayoutConstraint!
     
-    private var headerTitles = ["Teacher Badges", "Learner Badges", "\"Teach 5 more users to level up\""]
-    private var headerColors = [UIColor.appTealColor(), UIColor.appRedColor(), UIColor.grayColor()]
+    private var headerTitles = ["\"Teach 5 more users to level up\"", "Teacher Badges", "Learner Badges"]
+    private var headerColors = [UIColor.grayColor(), UIColor.appTealColor(), UIColor.appRedColor()]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,12 +28,14 @@ class LINMyProfileController: LINViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         nameLabel.font = UIFont.appRegularFontWithSize(17)
+        nameLabel.text = LINUserManager.sharedInstance.currentUser?.firstName
         avatarImageView.layer.cornerRadius = CGRectGetWidth(avatarImageView.frame)/2
         avatarImageView.layer.borderWidth = 2
         avatarImageView.layer.borderColor = UIColor.whiteColor().CGColor
         introductionView.delegate = self;
-        introductionView.introduction = "This is a very long intro duction This is a very long introduct This is a very long introduct"
-        
+        if let introduction = LINUserManager.sharedInstance.currentUser?.introduction {
+            introductionView.introduction = introduction
+        }
         collectionView.registerClass(LINBadgeCell.self, forCellWithReuseIdentifier: "BadgeCellIdentifier")
         collectionView.registerClass(LINBadgeHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "BadgeHeaderIdentifier")
     }
@@ -55,7 +57,7 @@ extension LINMyProfileController: UICollectionViewDataSource {
     }
     
     func collectionView(collectionView: UICollectionView!, numberOfItemsInSection section: Int) -> Int {
-        if section == 2{
+        if section == 0{
             return 0
         }
         return 10
@@ -64,9 +66,9 @@ extension LINMyProfileController: UICollectionViewDataSource {
     func collectionView(collectionView: UICollectionView!, cellForItemAtIndexPath indexPath: NSIndexPath!) -> UICollectionViewCell! {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("BadgeCellIdentifier", forIndexPath: indexPath) as LINBadgeCell
         if indexPath.section == 1 {
-            cell.imageView.image = UIImage(named: "LearningBadge")
-        } else {
             cell.imageView.image = UIImage(named: "TeachingBadge")
+        } else {
+            cell.imageView.image = UIImage(named: "LearningBadge")
         }
         return cell
     }

@@ -55,7 +55,12 @@ class LINBadgeFlowLayout: UICollectionViewFlowLayout {
                 }
             }
             
-            section.frame = CGRectMake(0, sectionStartingY, fixedWidth, rowStartingY + itemSize.height + sectionInset.bottom - sectionStartingY)
+            if collectionView.numberOfItemsInSection(sectionIndex) > 0 {
+                section.frame = CGRectMake(0, sectionStartingY, fixedWidth, rowStartingY + itemSize.height + sectionInset.bottom - sectionStartingY)
+            }
+            else {
+                section.frame = CGRectMake(0, sectionStartingY, fixedWidth, headerReferenceSize.height * 1.5)
+            }
             sectionStartingY = CGRectGetMaxY(section.frame)
         }
         contentSize = CGSizeMake(fixedWidth, sectionStartingY)
