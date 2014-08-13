@@ -51,4 +51,13 @@ class LINUser: MTLModel, MTLJSONSerializing {
                 "learningLanguage": "learn_language_id"
         ]
     }
+    
+    class func nativeLanguageJSONTransformer()-> NSValueTransformer {
+        return NSValueTransformer.mtl_JSONDictionaryTransformerWithModelClass(LINLanguage.self)
+    }
+    
+    class func learningLanguageJSONTransformer()-> NSValueTransformer{
+        return NSValueTransformer.mtl_JSONDictionaryTransformerWithModelClass(LINLanguage.self)
+    }
+    
 }

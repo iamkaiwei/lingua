@@ -23,6 +23,7 @@ let kLINLanguagePath = "api/v1/languages"
 // Storage
 let kLINAccessTokenKey = "kLINAccessTokenKey"
 let kLINCurrentUserKey = "kLINCurrentUserKey"
+let kLINLastOnlineKey  = "kLINLastOnlineKey"
 
 class LINNetworkClient: OVCHTTPSessionManager {
     class var sharedInstance: LINNetworkClient {
@@ -257,6 +258,22 @@ class LINNetworkClient: OVCHTTPSessionManager {
         })
     }
     
+    func getAllConversation(success:(conversationsArray:[LINConversation]? , error:NSError?)->Void,
+                                     failure:(error:NSError?)->Void){
+        setAuthorizedRequest()
+        self.GET(kLINConversationsPath, parameters: nil, completion: { (response: AnyObject?, error: NSError?) -> Void in
+            if error != nil {
+                failure(error: error)
+                return
+            }
+            println(response)
+            if let tmpConversationArray = (response as OVCResponse).result as? [LINConversation]{
+                println("All conversation \(tmpConversationArray)")
+                success(conversationsArray: tmpConversationArray, error: nil)
+            }
+        })
+    }
+    
     // MARK: OVCHTTPSessionManager
     
     override class func modelClassesByResourcePath() -> [NSObject : AnyObject]! {
@@ -264,8 +281,8 @@ class LINNetworkClient: OVCHTTPSessionManager {
             kLINGetCurrentUserPath : LINUser.self,
             kLINUsersPath : LINUser.self,
             kLINMatchUser : LINUser.self,
-            kLINConversationsPath : LINConversation.self,
-            kLINLanguagePath : LINLanguage.self
+            kLINLanguagePath : LINLanguage.self,
+            kLINConversationsPath:LINConversation.self,
         ]
     }
 }

@@ -41,4 +41,16 @@ extension NSDateFormatter {
         let result = dateFormatter.stringFromDate(date)
         return result.lowercaseString
     }
+    
+    class func iSODateFormatter() -> NSDateFormatter {
+        struct Static {
+            static var iSODateFormatter:NSDateFormatter? = nil
+        }
+        if Static.iSODateFormatter == nil {
+            Static.iSODateFormatter = NSDateFormatter()
+            Static.iSODateFormatter?.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        }
+        return Static.iSODateFormatter!
+    }
+    
 }

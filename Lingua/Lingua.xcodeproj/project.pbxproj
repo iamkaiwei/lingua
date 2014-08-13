@@ -71,6 +71,7 @@
 		92F0BF401993417400608803 /* LINMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F0BF3F1993417400608803 /* LINMessageView.swift */; };
 		92F0BF421993449E00608803 /* LINMessageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F0BF411993449E00608803 /* LINMessageHelper.swift */; };
 		92F316801962AB75002005B9 /* LINPusherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F3167F1962AB75002005B9 /* LINPusherManager.swift */; };
+		973CD716199B2AD600F01EB3 /* LINConversationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973CD715199B2AD600F01EB3 /* LINConversationCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -169,6 +170,7 @@
 		92F0BF3F1993417400608803 /* LINMessageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINMessageView.swift; sourceTree = "<group>"; };
 		92F0BF411993449E00608803 /* LINMessageHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINMessageHelper.swift; sourceTree = "<group>"; };
 		92F3167F1962AB75002005B9 /* LINPusherManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINPusherManager.swift; sourceTree = "<group>"; };
+		973CD715199B2AD600F01EB3 /* LINConversationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINConversationCell.swift; sourceTree = "<group>"; };
 		C8726A87F4DA410EA300A2B5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		E5B35F1B8D924BC3AAC02042 /* libPods-Lingua.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Lingua.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -359,6 +361,7 @@
 				20DC6563197BEA4F008DA659 /* LINCountryCell.swift */,
 				20C84ED41982683500259F81 /* LINProficiencyCell.swift */,
 				9222F8C31997782D005420EC /* LINEmoticonCell.swift */,
+				973CD715199B2AD600F01EB3 /* LINConversationCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -651,6 +654,7 @@
 				9247D62419926B590011FC85 /* PTPusherEvent+Extensions.swift in Sources */,
 				2082DEEF1957123E009ADF45 /* LINLanguagePickingHeaderView.swift in Sources */,
 				20448A821954301A00AC639A /* Lingua.xcdatamodeld in Sources */,
+				973CD716199B2AD600F01EB3 /* LINConversationCell.swift in Sources */,
 				92F316801962AB75002005B9 /* LINPusherManager.swift in Sources */,
 				20BF3FAB1957ECA700963B1F /* LINFriendListController.swift in Sources */,
 				20DC6566197BEA4F008DA659 /* LINBadgeCell.swift in Sources */,

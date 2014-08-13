@@ -52,4 +52,18 @@ class LINStorageHelper {
         
         return NSUserDefaults.standardUserDefaults().objectForKey(key) as? String
     }
+    
+    class func getLastOnlineTimeStamp()->NSDate?{
+        let lastOnlineDate = NSUserDefaults.standardUserDefaults().objectForKey(kLINLastOnlineKey) as? NSDate
+        if lastOnlineDate != nil{
+            return lastOnlineDate
+        }
+        return nil
+    }
+    
+    class func updateLastOnlineTimeStamp(){
+        NSUserDefaults.standardUserDefaults().setObject(NSDate(), forKey: kLINLastOnlineKey)
+        NSUserDefaults.standardUserDefaults().synchronize()
+    }
+    
 }
