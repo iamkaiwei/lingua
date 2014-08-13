@@ -36,6 +36,12 @@ class LINUser: MTLModel, MTLJSONSerializing {
     
     override init(dictionary dictionaryValue: [NSObject : AnyObject]!, error: NSErrorPointer)  {
         super.init(dictionary: dictionaryValue, error: error)
+        if let dict = dictionaryValue["nativeLanguage"] as? NSDictionary {
+            nativeLanguage = LINLanguage.fromDictionary(dict)
+        }
+        if let dict = dictionaryValue["learningLanguage"] as? NSDictionary {
+            learningLanguage = LINLanguage.fromDictionary(dict)
+        }
     }
     
     class func JSONKeyPathsByPropertyKey() -> [NSObject : AnyObject]! {

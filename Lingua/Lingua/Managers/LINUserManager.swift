@@ -38,12 +38,11 @@ class LINUserManager {
         
         LINNetworkClient.sharedInstance.getServerTokenWithFacebookToken(facebookToken!, completion: {
         (success: Bool) -> Void in
-            completion(success: success)
-            
             // Request user profile
             if success {
                 LINNetworkClient.sharedInstance.getCurrentUser( { (user: LINUser?) -> Void in
                         if let tmpUser = user {
+                            LINStorageHelper.setObject(tmpUser, forKey: kLINCurrentUserKey)
                             self.currentUser = tmpUser
                             
                             // Check device token
@@ -61,13 +60,16 @@ class LINUserManager {
                                 currentInstallation.setObject(self.currentUser!.userId, forKey: kUserIdKey)
                                 currentInstallation.saveInBackground()
                             }
-                            
-                            LINStorageHelper.setObject(self.currentUser!, forKey: kLINCurrentUserKey)
+                            completion(success: success)
                         }
                     }
                     , failture: {(error: NSError?) -> Void in
+                        completion(success: false)
                         println("Get current user has some errors: \(error?.description)")
                     })
+            }
+            else {
+                completion(success: false)
             }
         })
     }
