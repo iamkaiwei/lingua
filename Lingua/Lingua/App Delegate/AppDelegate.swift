@@ -45,7 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let userInfo = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? NSDictionary
        
         storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if LINUserManager.sharedInstance.isLoggedIn() {
+        if LINUserManager.sharedInstance.isLoggedIn() && LINUserManager.sharedInstance.currentUser?.learningLanguage != nil {
             showHomeScreenWithNavigationController(nil)
             if userInfo != nil {
                 // App launched via push notification

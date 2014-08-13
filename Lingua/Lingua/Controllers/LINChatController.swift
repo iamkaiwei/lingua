@@ -216,15 +216,6 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     }
     
     func loadHistoryChatData() {
-        
-        // Create new conversation
-        LINNetworkClient.sharedInstance.createNewConversationWithTeacherId(currentUser.userId, learnerId: userChat.userId) {
-           (conversation, error) -> Void in
-            if let tmpConversation = conversation {
-                self.conversation = tmpConversation
-            }
-         }
-        
         subcribeToPresenceChannel()
     }
     
