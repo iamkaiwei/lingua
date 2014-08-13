@@ -12,8 +12,8 @@ let kTextMessageMaxWidth = 233
 let kTextMessageMaxHeight = 9999
 let kPhotoMessageMaxWidth = 200
 
-enum MessageType {
-    case Text, Photo, Voice
+enum MessageType: Int {
+    case Text = 1, Photo, Voice
 }
 
 class LINBubbleCell: UITableViewCell {
@@ -92,6 +92,24 @@ class LINBubbleCell: UITableViewCell {
     }
     
     private func configureWithPhotoMessage(messageData: LINMessage) {
+        if messageData.photo == nil {
+            println("Downloading photo message.")
+            // Add photo to cell by image URL
+            photoImgView.sd_setImageWithURL(NSURL(string: messageData.text)) {
+              (image, error, cacheType, imageURL) in
+                if let tmpImage = image {
+                    println("Finish downloading photo message.")
+                    messageData.photo = tmpImage
+                    self.addPhotoToBubbleCellWithMessageData(messageData)
+                }
+            }
+        } else {
+            // Add photo to cell by image
+            self.addPhotoToBubbleCellWithMessageData(messageData)
+        }
+    }
+    
+    private func addPhotoToBubbleCellWithMessageData(messageData: LINMessage) {
         var imageSize = messageData.photo!.size
         if Int(imageSize.width) > kPhotoMessageMaxWidth {
             imageSize.height /= CGFloat(Int(imageSize.width) / kPhotoMessageMaxWidth)
@@ -106,16 +124,16 @@ class LINBubbleCell: UITableViewCell {
         let offsetX = (messageData.incoming == true ? 5 : frame.size.width  - imageSize.width - insets.left - insets.right - 5)
         
         photoImgView.frame = CGRect(x: offsetX + insets.left,
-                                    y: insets.top + 10,
-                                    width: imageSize.width,
-                                    height: imageSize.height)
+            y: insets.top + 10,
+            width: imageSize.width,
+            height: imageSize.height)
         addSubview(photoImgView)
         
         // Bubble imageview
         bubbleImageView.frame = CGRect(x: offsetX + 0,
-                                       y: 0,
-                                   width: imageSize.width + insets.left + insets.right,
-                                  height: imageSize.height + insets.top + insets.bottom + (messageData.incoming == true ? 10: 0))
+            y: 0,
+            width: imageSize.width + insets.left + insets.right,
+            height: imageSize.height + insets.top + insets.bottom + (messageData.incoming == true ? 10: 0))
         
         calcTimeFrameWithContentFrame(bubbleImageView.frame, messageData: messageData)
     }
@@ -148,8 +166,12 @@ class LINBubbleCell: UITableViewCell {
                 let rect = getboundingRectWithText(messageData.text, font: UIFont.appRegularFontWithSize(14))
                 height =  CGRectGetHeight(rect) + 20
             case .Photo:
-                let imageSize = messageData.photo!.size
-                height = imageSize.height / (CGFloat(Int(imageSize.width) / kPhotoMessageMaxWidth)) + 30
+                if let tmpPhoto = messageData.photo {
+                    let imageSize = tmpPhoto.size
+                    height = imageSize.height / (CGFloat(Int(imageSize.width) / kPhotoMessageMaxWidth)) + 30
+                } else {
+                    height = 200 // KFIX: Hard code height for cell
+                }
             default:
                break
         }
