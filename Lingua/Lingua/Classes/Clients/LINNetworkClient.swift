@@ -19,6 +19,7 @@ let kLINSendNotification = "api/v1/users/send_notification"
 let kLINMatchUser = "api/v1/users/match"
 let kLINConversationsPath = "api/v1/conversations"
 let kLINLanguagePath = "api/v1/languages"
+let kLINUploadPath = "api/v1/upload"
 
 // Storage
 let kLINAccessTokenKey = "kLINAccessTokenKey"
@@ -277,15 +278,39 @@ class LINNetworkClient: OVCHTTPSessionManager {
         })
     }
     
+    // MARK: Photos, Voices
+    
+    func uploadImage(image: UIImage,
+                     completion: (imageURL: String?, error: NSError?) -> Void) {
+        let imageData = UIImageJPEGRepresentation(image, 0.8) as NSData
+        let fileName = "\(NSDate().timeIntervalSince1970)" + ".jpg"
+                       
+        self.POST(kLINUploadPath, parameters: nil, constructingBodyWithBlock: { (formData) -> Void in
+            formData.appendPartWithFileData(imageData, name: "image", fileName: fileName, mimeType: "image/jpeg")
+        }) { (response, error) -> Void in
+                if error != nil {
+                    println("Upload image has some errors: \(error!.description)")
+                    completion(imageURL: nil, error: error!)
+                    return
+                }
+                
+                if let tmpImage = (response as OVCResponse).result as? LINPhoto {
+                    println("Image URL: \(tmpImage.imageURL)")
+                    completion(imageURL: tmpImage.imageURL, error: nil)
+                }
+        }
+    }
+    
     // MARK: OVCHTTPSessionManager
     
     override class func modelClassesByResourcePath() -> [NSObject : AnyObject]! {
-        return [kLINGetAccessTokenPath : LINAccessToken.self,
-            kLINGetCurrentUserPath : LINUser.self,
-            kLINUsersPath : LINUser.self,
-            kLINMatchUser : LINUser.self,
-            kLINLanguagePath : LINLanguage.self,
-            kLINConversationsPath:LINConversation.self,
+        return [kLINGetAccessTokenPath: LINAccessToken.self,
+                kLINGetCurrentUserPath: LINUser.self,
+                kLINUsersPath: LINUser.self,
+                kLINMatchUser: LINUser.self,
+                kLINLanguagePath: LINLanguage.self,
+                kLINConversationsPath: LINConversation.self,
+                kLINUploadPath: LINPhoto.self
         ]
     }
 }

@@ -86,13 +86,11 @@ extension LINEmoticonsView: UIImagePickerControllerDelegate, UINavigationControl
         let chooseImage = info[UIImagePickerControllerEditedImage] as UIImage
         delegate?.emoticonsView(self, replyWithPhoto: chooseImage)
         
-        // KTODO: 
         // Upload photo to server
-        // Send photo link to chat user
-//        LINNetworkClient.sharedInstance.uploadImage(chooseImage, completion: { (imageURL, error) -> Void in
-//            if imageURL != nil {
-//            }
-//        })
+        LINNetworkClient.sharedInstance.uploadImage(chooseImage, completion: { (imageURL, error) -> Void in
+            if imageURL != nil {
+            }
+        })
         
         hidePhotosScreenWithPickerViewController(picker)
     }
