@@ -32,9 +32,26 @@ class LINPickLearningLanguageController: LINViewController {
     
     @IBAction func next(sender: UIButton) {
         if LINUserManager.sharedInstance.currentUser?.learningLanguage == nil {
-            UIAlertView(title: nil, message: "You have to choose a learning language.", delegate: nil, cancelButtonTitle: "Okay").show()
+            UIAlertView(title: nil, message: "Please choose a learning language.", delegate: nil, cancelButtonTitle: "Okay").show()
             return
         }
+        
+        if let indexPath = selectedIndexPaths[1] {
+            LINUserManager.sharedInstance.currentUser?.speakingProficiency = LINProficiency.fromProficiency(indexPath.row)
+        }
+        else {
+            UIAlertView(title: nil, message: "Please choose a speaking proficiency.", delegate: nil, cancelButtonTitle: "Okay").show()
+            return
+        }
+        
+        if let indexPath = selectedIndexPaths[2] {
+            LINUserManager.sharedInstance.currentUser?.writingProficiency = LINProficiency.fromProficiency(indexPath.row)
+        }
+        else {
+            UIAlertView(title: nil, message: "Please choose a writing proficiency.", delegate: nil, cancelButtonTitle: "Okay").show()
+            return
+        }
+        
         performSegueWithIdentifier("kPickNativeViewControllerSegue", sender: self)
     }
 }

@@ -38,7 +38,15 @@ class LINPickNativeLanguageController: LINViewController {
     
     @IBAction func saveUserInfo(sender: UIButton) {
         if LINUserManager.sharedInstance.currentUser?.nativeLanguage == nil {
-            UIAlertView(title: nil, message: "You have to choose a native language.", delegate: nil, cancelButtonTitle: "Okay").show()
+            UIAlertView(title: nil, message: "Please choose a native language.", delegate: nil, cancelButtonTitle: "Okay").show()
+            return
+        }
+        
+        if textView.text.utf16Count > 0 {
+            LINUserManager.sharedInstance.currentUser?.introduction = textView.text
+        }
+        else {
+            UIAlertView(title: nil, message: "Please write something about yourself.", delegate: nil, cancelButtonTitle: "Okay").show()
             return
         }
         

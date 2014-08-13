@@ -15,6 +15,7 @@
 		20448A891954301A00AC639A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20448A881954301A00AC639A /* Images.xcassets */; };
 		20448A951954301A00AC639A /* LinguaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20448A941954301A00AC639A /* LinguaTests.swift */; };
 		20473E201966D5C200EDF620 /* SZTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 20473E1F1966D5C200EDF620 /* SZTextView.m */; };
+		2062686F199B5A7500E8D09E /* LINProficiency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2062686E199B5A7500E8D09E /* LINProficiency.swift */; };
 		2065405E197D3B0B00E9F978 /* LINBadgeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2065405D197D3B0B00E9F978 /* LINBadgeHeaderView.swift */; };
 		207630B9195AC19800D23B2A /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207630B8195AC19800D23B2A /* UIFont+Extensions.swift */; };
 		2078D969196C1769009BF095 /* LINUserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9267833919655D4500F19DB4 /* LINUserManager.swift */; };
@@ -112,6 +113,7 @@
 		20448A941954301A00AC639A /* LinguaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinguaTests.swift; sourceTree = "<group>"; };
 		20473E1E1966D5C200EDF620 /* SZTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZTextView.h; sourceTree = "<group>"; };
 		20473E1F1966D5C200EDF620 /* SZTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZTextView.m; sourceTree = "<group>"; };
+		2062686E199B5A7500E8D09E /* LINProficiency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINProficiency.swift; sourceTree = "<group>"; };
 		2065405D197D3B0B00E9F978 /* LINBadgeHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINBadgeHeaderView.swift; sourceTree = "<group>"; };
 		207630B8195AC19800D23B2A /* UIFont+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
 		2082DEEE1957123E009ADF45 /* LINLanguagePickingHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINLanguagePickingHeaderView.swift; sourceTree = "<group>"; };
@@ -441,6 +443,7 @@
 				9284A1DF1991EBA10012E0FA /* LINChannel.swift */,
 				92894CAE1996156D00824A3B /* LINConversation.swift */,
 				20BF6A3C19948EF300C384BC /* LINLanguage.swift */,
+				2062686E199B5A7500E8D09E /* LINProficiency.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -649,6 +652,7 @@
 				20BF6A3D19948EF300C384BC /* LINLanguage.swift in Sources */,
 				2078D96A196C180C009BF095 /* LINPickNativeLanguageController.swift in Sources */,
 				9284A1E01991EBA10012E0FA /* LINChannel.swift in Sources */,
+				2062686F199B5A7500E8D09E /* LINProficiency.swift in Sources */,
 				20F5835A1993456B00DE77A6 /* LINShrinkDismissAnimationController.swift in Sources */,
 				20C84ED61982683500259F81 /* LINProficiencyCell.swift in Sources */,
 				9247D62419926B590011FC85 /* PTPusherEvent+Extensions.swift in Sources */,

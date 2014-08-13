@@ -17,8 +17,11 @@ class LINUser: MTLModel, MTLJSONSerializing {
     var avatarURL: String = ""
     var facebookID: String = ""
     var deviceToken: String = ""
+    var introduction: String = ""
     var nativeLanguage: LINLanguage?
     var learningLanguage: LINLanguage?
+    var speakingProficiency: LINProficiency?
+    var writingProficiency: LINProficiency?
     
     override init() {
         super.init()
@@ -42,6 +45,12 @@ class LINUser: MTLModel, MTLJSONSerializing {
         if let dict = dictionaryValue["learningLanguage"] as? NSDictionary {
             learningLanguage = LINLanguage.fromDictionary(dict)
         }
+        if let dict = dictionaryValue["speakingProficiency"] as? NSDictionary {
+            speakingProficiency = LINProficiency.fromDictionary(dict)
+        }
+        if let dict = dictionaryValue["writingProficiency"] as? NSDictionary {
+            writingProficiency = LINProficiency.fromDictionary(dict)
+        }
     }
     
     class func JSONKeyPathsByPropertyKey() -> [NSObject : AnyObject]! {
@@ -53,8 +62,11 @@ class LINUser: MTLModel, MTLJSONSerializing {
                 "avatarURL": "avatar_url",
                 "facebookID": "facebook_id",
                 "deviceToken": "device_token",
+                "introduction": "introduction",
                 "nativeLanguage": "native_language_id",
-                "learningLanguage": "learn_language_id"
+                "learningLanguage": "learn_language_id",
+                "speakingProficiency": "spoken_proficiency_id",
+                "writingProficiency": "written_proficiency_id"
         ]
     }
     
