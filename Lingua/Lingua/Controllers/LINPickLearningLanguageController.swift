@@ -175,5 +175,6 @@ extension LINPickLearningLanguageController: LINLanguagePickerControllerDelegate
         let header = tableView.headerViewForSection(0) as LINLanguagePickingHeaderView
         LINUserManager.sharedInstance.currentUser?.learningLanguage = language
         header.updateAccessoryViewWith(language.languageName)
+        navigationController.popToViewController(self, animated: true)
     }
 }

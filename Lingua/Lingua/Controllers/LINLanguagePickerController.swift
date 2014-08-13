@@ -67,8 +67,6 @@ extension LINLanguagePickerController: UITableViewDataSource, UITableViewDelegat
     
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        let cell = tableView.cellForRowAtIndexPath(indexPath)
         delegate?.controller(self, didSelectLanguage: languages[indexPath.section][indexPath.row])
-        navigationController.popViewControllerAnimated(true)
     }
 }

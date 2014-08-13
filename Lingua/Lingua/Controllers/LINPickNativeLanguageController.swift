@@ -72,7 +72,13 @@ extension LINPickNativeLanguageController: NSLayoutManagerDelegate {
 
 extension LINPickNativeLanguageController: LINLanguagePickerControllerDelegate {
     func controller(controller: LINLanguagePickerController, didSelectLanguage language: LINLanguage) {
+        if LINUserManager.sharedInstance.currentUser?.learningLanguage == language {
+            UIAlertView(title: nil, message: "Native language must be different from learning language.", delegate: nil, cancelButtonTitle: "Okay").show()
+            return
+        }
+        
         LINUserManager.sharedInstance.currentUser?.nativeLanguage = language
         subtitle2.text = language.languageName
+        navigationController.popToViewController(self, animated: true)
     }
 }

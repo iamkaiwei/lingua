@@ -8,6 +8,11 @@
 
 import Foundation
 
+func == (left: LINLanguage, right: LINLanguage) -> Bool {
+    if left.languageID == -1 { return false }
+    return left.languageID == right.languageID
+}
+
 class LINLanguage: MTLModel, MTLJSONSerializing {
     var languageID: Int = -1
     var languageName: String = ""
