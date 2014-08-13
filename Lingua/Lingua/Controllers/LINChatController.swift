@@ -22,7 +22,6 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     
     private var emoticonsView: LINEmoticonsView!
     
-    
     @IBOutlet weak var inputContainerViewBottomLayoutGuideConstraint: NSLayoutConstraint!
     
     private var messagesDataArray = [LINMessage]()
@@ -30,11 +29,17 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     private let cellIdentifier = "kLINBubbleCell"
     
     private var currentChannel = PTPusherPresenceChannel()
+    
+    var conversation: LINConversation = LINConversation() {
+        didSet {
+            userChat = conversation.getChatUser()
+        }
+    }
+    
     private var currentUser = LINUser()
     var userChat = LINUser()
     
     private var isChatScreenVisible: Bool = false
-    private var conversation: LINConversation?
     private var addButtonClicked: Bool = false
     private var shouldChangeInputTextViewFrame: Bool = true
     

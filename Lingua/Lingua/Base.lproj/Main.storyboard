@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6205" systemVersion="14A314h" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6205" systemVersion="14A299l" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6198"/>
@@ -771,6 +771,7 @@
                                             <outlet property="dateLabel" destination="CCa-Gv-m22" id="X74-I9-5xj"/>
                                             <outlet property="nameLabel" destination="uCf-jK-8tc" id="yJw-Su-r2r"/>
                                             <outlet property="roleName" destination="vZE-UA-lmc" id="xXz-PF-Bkm"/>
+                                            <segue destination="90d-9n-3fJ" kind="presentation" identifier="kLINChatControllerIdentifier" id="1of-Ig-ulf"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1031,4 +1032,7 @@
         <image name="WhiteBackArrow" width="11" height="20"/>
         <image name="WhiteNextArrow" width="11" height="20"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="1of-Ig-ulf"/>
+    </inferredMetricsTieBreakers>
 </document>

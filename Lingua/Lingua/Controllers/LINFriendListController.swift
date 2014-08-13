@@ -30,9 +30,8 @@ class LINFriendListController: UIViewController, UITableViewDataSource, UITableV
         if segue.identifier == "kLINChatControllerIdentifier" {
             let indexPath: NSIndexPath = tableView.indexPathForSelectedRow()
             let chatController = segue.destinationViewController as LINChatController
-    
-            let user = arrFriends[indexPath.row]
-            chatController.userChat = user
+            
+            chatController.conversation = self.conversationList[indexPath.row]
             chatController.transitioningDelegate = self
         }
     }
@@ -56,11 +55,7 @@ class LINFriendListController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
-        //Temporary disable
-        //performSegueWithIdentifier("kLINChatControllerIdentifier", sender: self)
-        var conversation:LINConversation = self.conversationList[indexPath.row]
-        var alertView:UIAlertView = UIAlertView(title: nil, message: "Open conversation \(conversation.conversationId)", delegate: nil, cancelButtonTitle: "OK")
-        alertView.show()
+        performSegueWithIdentifier("kLINChatControllerIdentifier", sender: self)
     }
     
     // MARK: Helpers

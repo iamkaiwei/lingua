@@ -25,6 +25,15 @@ class LINConversation: MTLModel, MTLJSONSerializing {
         ]
     }
     
+    func getChatUser() -> LINUser {
+        var currentUserId = LINUserManager.sharedInstance.currentUser?.userId
+        if currentUserId == self.teacher?.userId {
+            return learner!
+        } else {
+            return teacher!
+        }
+    }
+    
     func getOpponentDetail()->(firstName:String , role:String , avatar:NSString){
         var currentUserId = LINUserManager.sharedInstance.currentUser?.userId
         if currentUserId == self.teacher?.userId {
