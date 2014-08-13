@@ -97,6 +97,34 @@
 			remoteGlobalIDString = 20448A781954301A00AC639A;
 			remoteInfo = Lingua;
 		};
+		920A4DA1199B70DE00374A58 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 20448A711954301A00AC639A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 20448A781954301A00AC639A;
+			remoteInfo = Lingua;
+		};
+		920A4DA3199B72BD00374A58 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 20448A711954301A00AC639A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 20448A781954301A00AC639A;
+			remoteInfo = Lingua;
+		};
+		920A4DA5199B739E00374A58 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 20448A711954301A00AC639A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 20448A781954301A00AC639A;
+			remoteInfo = Lingua;
+		};
+		920A4DA7199B73ED00374A58 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 20448A711954301A00AC639A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 20448A781954301A00AC639A;
+			remoteInfo = Lingua;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -513,6 +541,10 @@
 				20448A901954301A00AC639A /* PBXTargetDependency */,
 				20B27FAE196D366A003BFFB6 /* PBXTargetDependency */,
 				20B27FB0196D366B003BFFB6 /* PBXTargetDependency */,
+				920A4DA2199B70DE00374A58 /* PBXTargetDependency */,
+				920A4DA4199B72BD00374A58 /* PBXTargetDependency */,
+				920A4DA6199B739E00374A58 /* PBXTargetDependency */,
+				920A4DA8199B73ED00374A58 /* PBXTargetDependency */,
 			);
 			name = LinguaTests;
 			productName = LinguaTests;
@@ -705,6 +737,26 @@
 			target = 20448A781954301A00AC639A /* Lingua */;
 			targetProxy = 20B27FAF196D366B003BFFB6 /* PBXContainerItemProxy */;
 		};
+		920A4DA2199B70DE00374A58 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 20448A781954301A00AC639A /* Lingua */;
+			targetProxy = 920A4DA1199B70DE00374A58 /* PBXContainerItemProxy */;
+		};
+		920A4DA4199B72BD00374A58 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 20448A781954301A00AC639A /* Lingua */;
+			targetProxy = 920A4DA3199B72BD00374A58 /* PBXContainerItemProxy */;
+		};
+		920A4DA6199B739E00374A58 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 20448A781954301A00AC639A /* Lingua */;
+			targetProxy = 920A4DA5199B739E00374A58 /* PBXContainerItemProxy */;
+		};
+		920A4DA8199B73ED00374A58 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 20448A781954301A00AC639A /* Lingua */;
+			targetProxy = 920A4DA7199B73ED00374A58 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -829,7 +881,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Kiet Nguyen (CG3J4YZ53P)";
 				DEFINES_MODULE = NO;
 				INFOPLIST_FILE = Lingua/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
@@ -846,7 +898,7 @@
 		20448A9C1954301A00AC639A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Lingua.app/Lingua";
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -859,14 +911,14 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				METAL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Lingua.app/Lingua";
 			};
 			name = Debug;
 		};
 		20448A9D1954301A00AC639A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Lingua.app/Lingua";
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -875,7 +927,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				METAL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Lingua.app/Lingua";
 			};
 			name = Release;
 		};

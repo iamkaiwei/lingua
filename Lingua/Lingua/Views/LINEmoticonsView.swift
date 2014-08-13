@@ -10,6 +10,7 @@ import Foundation
 
 protocol LINEmoticonsViewDelegate {
     func emoticonsView(emoticonsView: LINEmoticonsView, startPickingMediaWithPickerViewController picker: UIImagePickerController)
+    func emoticonsView(emoticonsView: LINEmoticonsView, replyWithPhoto photo: UIImage)
 }
 
 class LINEmoticonsView: UIView {
@@ -83,8 +84,11 @@ class LINEmoticonsView: UIView {
 extension LINEmoticonsView: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(picker: UIImagePickerController!, didFinishPickingMediaWithInfo info: NSDictionary!) {
         let chooseImage = info[UIImagePickerControllerEditedImage] as UIImage
+        delegate?.emoticonsView(self, replyWithPhoto: chooseImage)
         
-        // KTODO: Upload photo to server
+        // KTODO: 
+        // Upload photo to server
+        // Send photo link to chat user
 //        LINNetworkClient.sharedInstance.uploadImage(chooseImage, completion: { (imageURL, error) -> Void in
 //            if imageURL != nil {
 //            }

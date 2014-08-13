@@ -127,7 +127,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
                                                         kMessageSendDateKey: sendDate])
             }
             
-            let messageData = LINMessage(incoming: false, text: inputTextView.text, sendDate: NSDate())
+            let messageData = LINMessage(incoming: false, text: inputTextView.text, sendDate: NSDate(), photo: nil, type: .Text)
             addBubbleViewCellWithMessageData(messageData)
             
             // KTODO: Save chat history
@@ -235,7 +235,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
             
             let replyData = channelEvent.getReplyData()
             
-            let messageData = LINMessage(incoming: true, text: replyData.text, sendDate: replyData.sendDate)
+            let messageData = LINMessage(incoming: true, text: replyData.text, sendDate: replyData.sendDate, photo: nil, type: .Text)
             self.addBubbleViewCellWithMessageData(messageData)
             
             // If User is not in chat screen ---> Show banner to notify to user
@@ -357,5 +357,10 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
 extension LINChatController: LINEmoticonsViewDelegate {
     func emoticonsView(emoticonsView: LINEmoticonsView, startPickingMediaWithPickerViewController picker: UIImagePickerController) {
         presentViewController(picker, animated: true, completion: nil)
+    }
+    
+    func emoticonsView(emoticonsView: LINEmoticonsView, replyWithPhoto photo: UIImage) {
+        let messageData = LINMessage(incoming: false, text: "", sendDate: NSDate(), photo: photo, type: .Photo)
+        addBubbleViewCellWithMessageData(messageData)
     }
 }

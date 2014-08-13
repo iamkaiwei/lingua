@@ -12,10 +12,14 @@ class LINMessage {
     let incoming: Bool
     let text: String
     let sendDate: NSDate
+    let photo: UIImage?
+    let type: MessageType
     
-    init(incoming: Bool, text: String, sendDate: NSDate) {
+    init(incoming: Bool, text: String, sendDate: NSDate, photo: UIImage?, type: MessageType) {
         self.incoming = incoming
         self.text = text
         self.sendDate = sendDate
+        self.photo = photo
+        self.type = type
     }
 }
