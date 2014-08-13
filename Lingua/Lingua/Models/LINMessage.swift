@@ -10,9 +10,9 @@ import Foundation
 
 class LINMessage {
     let incoming: Bool
-    let text: String
+    var text: String
     let sendDate: NSDate
-    let photo: UIImage?
+    var photo: UIImage?
     let type: MessageType
     
     init(incoming: Bool, text: String, sendDate: NSDate, photo: UIImage?, type: MessageType) {

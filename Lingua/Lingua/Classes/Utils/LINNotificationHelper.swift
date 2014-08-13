@@ -24,6 +24,7 @@ class LINNotificationHelper {
                     currentChannel.bindToEventNamed(kPusherEventNameNewMessage, handleWithBlock: { channelEvent in
                         println("Channel event data: \(channelEvent.data)")
                         let replyData = channelEvent.getReplyData()
+                        // KTODO: Add message type
                         LINMessageHelper.showNotificationWitUserId(replyData.userId, name: replyData.firstName, text: replyData.text, avatarURL: replyData.avatarURL)
                     })
                 }

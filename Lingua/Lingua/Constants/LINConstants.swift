@@ -19,6 +19,7 @@ let kAvatarURL = "avatar_url"
 // Message
 let kMessageTextKey = "text"
 let kMessageSendDateKey = "send_date"
+let kMessageTypeKey = "message_type"
 
 // Notifications
 let kNotificationAppBecomActive = "kNotificationAppBecomActive"

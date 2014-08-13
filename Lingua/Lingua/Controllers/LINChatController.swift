@@ -117,31 +117,42 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     
     @IBAction func buttonSendTouched(sender: UIButton) {
         if (inputTextView.text.utf16Count > 0) {
-            let sendDate = NSDateFormatter.stringWithDefautFormatFromDate(NSDate())
-            
-            if currentChannel.members.count <= 1 {
-                // Send push notification
-                pushNotificationWithMessage(inputTextView.text, sendDate: sendDate)
-            } else {
-                // Trigger a client event
-                currentChannel.triggerEventNamed(kPusherEventNameNewMessage,
-                                                 data: [kUserIdKey: currentUser.userId,
-                                                        kFirstName: currentUser.firstName,
-                                                        kAvatarURL: currentUser.avatarURL,
-                                                        kMessageTextKey: inputTextView.text,
-                                                        kMessageSendDateKey: sendDate])
-            }
-            
-            let messageData = LINMessage(incoming: false, text: inputTextView.text, sendDate: NSDate(), photo: nil, type: .Text)
-            addBubbleViewCellWithMessageData(messageData)
-            
-            // KTODO: Save chat history
-            
-            inputTextView.text = ""
-            textViewDidChange(inputTextView)
-            
-            println("pusher] Count channel members: \(self.currentChannel.members.count)");
+            replyWithText(inputTextView.text, type: .Text)
         }
+    }
+    
+    func replyWithText(text: String, type: MessageType) {
+        let sendDate = NSDateFormatter.stringWithDefautFormatFromDate(NSDate())
+        
+        if currentChannel.members.count <= 1 {
+            // Send push notification
+            pushNotificationWithMessage(text, sendDate: sendDate)
+        } else {
+            // Trigger a client event
+            currentChannel.triggerEventNamed(kPusherEventNameNewMessage,
+                data: [kUserIdKey: currentUser.userId,
+                       kFirstName: currentUser.firstName,
+                       kAvatarURL: currentUser.avatarURL,
+                       kMessageTextKey: text,
+                       kMessageSendDateKey: sendDate,
+                       kMessageTypeKey: type.toRaw()
+                ])
+        }
+        
+        
+        if type == MessageType.Photo {
+           // KTODO: Update photo message
+        } else {
+            let messageData = LINMessage(incoming: false, text: text, sendDate: NSDate(), photo: nil, type: type)
+            addBubbleViewCellWithMessageData(messageData)
+        }
+        
+        // KTODO: Save chat history
+        
+        inputTextView.text = ""
+        textViewDidChange(inputTextView)
+        
+        println("pusher] Count channel members: \(self.currentChannel.members.count)");
     }
     
     @IBAction func backButtonTouched(sender: UIButton) {
@@ -240,7 +251,8 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
             
             let replyData = channelEvent.getReplyData()
             
-            let messageData = LINMessage(incoming: true, text: replyData.text, sendDate: replyData.sendDate, photo: nil, type: .Text)
+            let type = MessageType.fromRaw(replyData.type)
+            let messageData = LINMessage(incoming: true, text: replyData.text, sendDate: replyData.sendDate, photo: nil, type: type!)
             self.addBubbleViewCellWithMessageData(messageData)
             
             // If User is not in chat screen ---> Show banner to notify to user
@@ -367,5 +379,9 @@ extension LINChatController: LINEmoticonsViewDelegate {
     func emoticonsView(emoticonsView: LINEmoticonsView, replyWithPhoto photo: UIImage) {
         let messageData = LINMessage(incoming: false, text: "", sendDate: NSDate(), photo: photo, type: .Photo)
         addBubbleViewCellWithMessageData(messageData)
+    }
+    
+    func emoticonsView(emoticonsView: LINEmoticonsView, replyWithImageURL imageURL: String) {
+        replyWithText(imageURL, type: .Photo)
     }
 }
