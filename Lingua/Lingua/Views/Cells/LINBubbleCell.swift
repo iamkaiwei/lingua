@@ -11,6 +11,7 @@ import Foundation
 let kTextMessageMaxWidth = 233
 let kTextMessageMaxHeight = 9999
 let kPhotoMessageMaxWidth = 200
+let kPhotoMessageMaxHeight = 200
 
 enum MessageType: Int {
     case Text = 1, Photo, Voice
@@ -57,10 +58,8 @@ class LINBubbleCell: UITableViewCell {
         switch(messageData.type) {
             case .Text:
                 configureWithTextMessage(messageData)
-                break
             case .Photo:
                 configureWithPhotoMessage(messageData)
-                break
             default:
                 break
         }
@@ -79,8 +78,8 @@ class LINBubbleCell: UITableViewCell {
                                     y: insets.top + 15,
                                 width: rect.size.width,
                                height: rect.size.height)
-        addSubview(contentLabel)
         contentLabel.text = messageData.text
+        addSubview(contentLabel)
         
         // Bubble imageview
         bubbleImageView.frame = CGRect(x: offsetX,
@@ -115,6 +114,8 @@ class LINBubbleCell: UITableViewCell {
             imageSize.height /= CGFloat(Int(imageSize.width) / kPhotoMessageMaxWidth)
             imageSize.width = CGFloat(kPhotoMessageMaxWidth)
         }
+        
+        println("Photo size: width: \(imageSize.width) height: \(imageSize.height)")
         
         photoImgView.image = messageData.photo!
         photoImgView.layer.cornerRadius = 5.0
@@ -170,7 +171,7 @@ class LINBubbleCell: UITableViewCell {
                     let imageSize = tmpPhoto.size
                     height = imageSize.height / (CGFloat(Int(imageSize.width) / kPhotoMessageMaxWidth)) + 30
                 } else {
-                    height = 200 // KFIX: Hard code height for cell
+                    height = CGFloat(kPhotoMessageMaxHeight)
                 }
             default:
                break
