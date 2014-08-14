@@ -1,17 +1,14 @@
 {
   "images" : [
     {
-      "idiom" : "universal"
-    },
-    {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "Loading.png"
+      "filename" : "loading_elip_00048.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "Loading@2x.png"
+      "filename" : "loading_elip_00048@2x.png"
     }
   ],
   "info" : {

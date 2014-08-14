@@ -12,44 +12,53 @@ class LINHomeController: LINViewController {
 
     @IBOutlet weak var profileButton: UIButton!
     @IBOutlet weak var messageButton: UIButton!
+    @IBOutlet weak var loadingImageView: UIImageView!
     @IBOutlet weak var teachButton: UIImageView!
     @IBOutlet weak var tipLabel: UILabel!
     @IBOutlet weak var authorLabel: UILabel!
-    @IBOutlet weak var loadingView: LINLoadingView!
     
     var timer: NSTimer?
+    var animationImages = [UIImage]()
+    var selectedIndexQuote: UInt32 = 0
     let (quotes, authors) = LINResourceHelper.quotes()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        tipLabel.textColor = UIColor.grayColor()
-        tipLabel.font = UIFont.appBoldFontWithSize(20)
-        authorLabel.textColor = UIColor.grayColor()
-        authorLabel.font = UIFont.appLightFontWithSize(14)
+        
+        for i in 0...49 {
+            animationImages.append(UIImage(named: "loading_elip_\(i)"))
+        }
+        selectedIndexQuote = arc4random_uniform(UInt32(quotes.count))
+        tipLabel.text = self.quotes[Int(selectedIndexQuote)]
+        authorLabel.text = self.authors[Int(selectedIndexQuote)]
+        loadingImageView.animationImages = animationImages
         teachButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "startMatching"))
-    }
-
-    func showTip() {
-        loadingView.hidden = false
-        authorLabel.hidden = false
-        tipLabel.font = UIFont.appLightFontWithSize(14)
-        changeTip()
-        timer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "changeTip", userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "changeQuote", userInfo: nil, repeats: true)
     }
     
-    func hideTip() {
-        loadingView.hidden = true
-        authorLabel.hidden = true
-        tipLabel.font = UIFont.appBoldFontWithSize(20)
-        tipLabel.text = "Tap to start"
-        timer?.invalidate()
-    }
-    
-    func changeTip() {
-        let index = arc4random_uniform(UInt32(quotes.count))
-        tipLabel.text = quotes[Int(index)]
-        authorLabel.text = authors[Int(index)]
+    func changeQuote() {
+        var index = arc4random_uniform(UInt32(quotes.count))
+        
+        //To avoid repeated quotes in a row.
+        if index == selectedIndexQuote {
+            if index + 1 >= UInt32(quotes.count) {
+                index = 0
+            }
+        }
+        selectedIndexQuote = index
+        
+        UIView.animateWithDuration(1, animations: {
+            self.tipLabel.alpha = 0
+            self.authorLabel.alpha = 0
+            }, completion: { _ in
+                self.tipLabel.text = self.quotes[Int(index)]
+                self.authorLabel.text = self.authors[Int(index)]
+                UIView.animateWithDuration(1, animations: {
+                    self.tipLabel.alpha = 1
+                    self.authorLabel.alpha = 1
+                })
+            }
+        )
     }
     
     @IBAction func openDrawer(sender: UIButton) {
@@ -61,17 +70,14 @@ class LINHomeController: LINViewController {
     }
     
     func startMatching() {
-        if !loadingView.hidden {
-            return
-        }
+        if loadingImageView.isAnimating() { return }
         
-        showTip()
+        loadingImageView.startAnimating()
         LINNetworkClient.sharedInstance.matchUser({ (arrUsers: [LINUser]?) -> Void in
             //TODO: add logic here later when API is ready
-            self.hideTip()
-        }, failture: {
-            println($0)
-            self.hideTip()
+            self.loadingImageView.stopAnimating()
+        }, failture: { _ in
+            self.loadingImageView.stopAnimating()
         })
     }
 }

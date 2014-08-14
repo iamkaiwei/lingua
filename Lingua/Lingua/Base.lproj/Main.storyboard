@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6205" systemVersion="14A299l" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6205" systemVersion="14A314h" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
+        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6198"/>
         <capability name="Constraints with attributes relative to the layout margin" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="RobotoSlab-Light.ttf">
+            <string>RobotoSlab-Light</string>
+            <string>RobotoSlab-Light</string>
+            <string>RobotoSlab-Light</string>
             <string>RobotoSlab-Light</string>
             <string>RobotoSlab-Light</string>
             <string>RobotoSlab-Light</string>
@@ -608,38 +612,47 @@
                                     <constraint firstAttribute="trailing" secondItem="axt-Yo-jC8" secondAttribute="trailing" id="xja-xx-xoZ"/>
                                 </constraints>
                             </view>
-                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Author" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4co-B1-bWX">
-                                <rect key="frame" x="360" y="390" width="200" height="20"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loading_elip_0" translatesAutoresizingMaskIntoConstraints="NO" id="yXx-fn-s5M">
+                                <rect key="frame" x="225" y="175" width="150" height="150"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="SRh-n6-GTQ"/>
-                                    <constraint firstAttribute="height" constant="20" id="lvs-Vb-eVH"/>
+                                    <constraint firstAttribute="height" constant="150" id="BMy-hZ-tiu"/>
+                                    <constraint firstAttribute="width" constant="150" id="JA8-5Q-aFr"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tDJ-zx-nk4" customClass="LINLoadingView" customModule="Lingua" customModuleProvider="target">
-                                <rect key="frame" x="221" y="445" width="159" height="11"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="159" id="eq0-vK-9YE"/>
-                                    <constraint firstAttribute="height" constant="11" id="qlK-ov-dtY"/>
-                                </constraints>
-                            </view>
-                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TeachOnBig" translatesAutoresizingMaskIntoConstraints="NO" id="rKr-Xd-Ayv">
-                                <rect key="frame" x="253" y="183" width="94" height="115"/>
+                            </imageView>
+                            <imageView contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TeachOn" translatesAutoresizingMaskIntoConstraints="NO" id="rKr-Xd-Ayv">
+                                <rect key="frame" x="253" y="193" width="94" height="115"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="115" id="7Ly-gq-f8A"/>
                                     <constraint firstAttribute="width" constant="94" id="RXa-dj-FWQ"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to start" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="560" translatesAutoresizingMaskIntoConstraints="NO" id="HwL-6Q-08g">
-                                <rect key="frame" x="20" y="310" width="560" height="80"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="tap to teach" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q8k-rQ-lzE">
+                                <rect key="frame" x="245" y="308" width="110" height="35"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="80" id="ApK-Ty-sQy"/>
+                                    <constraint firstAttribute="width" constant="110" id="Ern-48-jX1"/>
+                                    <constraint firstAttribute="height" constant="35" id="LyN-Ac-WIx"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" name="RobotoSlab-Light" family="Roboto Slab" pointSize="13"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quotes" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="560" translatesAutoresizingMaskIntoConstraints="NO" id="HwL-6Q-08g">
+                                <rect key="frame" x="20" y="355" width="560" height="70"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="ApK-Ty-sQy"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="RobotoSlab-Light" family="Roboto Slab" pointSize="13"/>
+                                <color key="textColor" red="0.054901960780000002" green="0.46116727940000002" blue="0.59408318010000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Author" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4co-B1-bWX">
+                                <rect key="frame" x="360" y="430" width="200" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="SRh-n6-GTQ"/>
+                                    <constraint firstAttribute="height" constant="20" id="lvs-Vb-eVH"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="RobotoSlab-Light" family="Roboto Slab" pointSize="9"/>
+                                <color key="textColor" red="0.054901960780000002" green="0.46116727940000002" blue="0.59408318010000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -647,22 +660,24 @@
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="rKr-Xd-Ayv" secondAttribute="centerX" id="2cu-eE-fqj"/>
                             <constraint firstAttribute="trailing" secondItem="HwL-6Q-08g" secondAttribute="trailing" constant="20" id="4ye-iD-Z6I"/>
-                            <constraint firstAttribute="centerY" secondItem="tDJ-zx-nk4" secondAttribute="centerY" constant="-150" id="80R-Do-B7j"/>
                             <constraint firstAttribute="centerX" secondItem="HwL-6Q-08g" secondAttribute="centerX" id="CUx-vo-gHX"/>
+                            <constraint firstAttribute="centerY" secondItem="Q8k-rQ-lzE" secondAttribute="centerY" constant="-25" id="Cci-In-gDH"/>
                             <constraint firstItem="HwL-6Q-08g" firstAttribute="leading" secondItem="oA8-CE-8uh" secondAttribute="leading" constant="20" id="NqO-mw-9Fa"/>
-                            <constraint firstAttribute="centerY" secondItem="4co-B1-bWX" secondAttribute="centerY" constant="-100" id="Nyi-aE-U4x"/>
+                            <constraint firstAttribute="centerY" secondItem="4co-B1-bWX" secondAttribute="centerY" constant="-140" id="Nyi-aE-U4x"/>
                             <constraint firstAttribute="trailing" secondItem="ITY-nd-jX3" secondAttribute="trailing" id="XiW-tT-QMy"/>
-                            <constraint firstAttribute="centerY" secondItem="HwL-6Q-08g" secondAttribute="centerY" constant="-50" id="aAf-Qa-8JD"/>
-                            <constraint firstAttribute="centerX" secondItem="tDJ-zx-nk4" secondAttribute="centerX" id="iRl-5E-g7d"/>
-                            <constraint firstAttribute="centerY" secondItem="rKr-Xd-Ayv" secondAttribute="centerY" constant="60" id="oGH-V4-X5i"/>
+                            <constraint firstAttribute="centerX" secondItem="yXx-fn-s5M" secondAttribute="centerX" id="YB7-oc-ISQ"/>
+                            <constraint firstAttribute="centerX" secondItem="Q8k-rQ-lzE" secondAttribute="centerX" id="ZY0-zC-Hhz"/>
+                            <constraint firstAttribute="centerY" secondItem="HwL-6Q-08g" secondAttribute="centerY" constant="-90" id="aAf-Qa-8JD"/>
+                            <constraint firstAttribute="centerY" secondItem="rKr-Xd-Ayv" secondAttribute="centerY" constant="50" id="oGH-V4-X5i"/>
                             <constraint firstItem="ITY-nd-jX3" firstAttribute="top" secondItem="oA8-CE-8uh" secondAttribute="top" id="qbE-cB-4Wi"/>
                             <constraint firstItem="ITY-nd-jX3" firstAttribute="leading" secondItem="oA8-CE-8uh" secondAttribute="leading" id="r8u-nt-byw"/>
                             <constraint firstAttribute="trailing" secondItem="4co-B1-bWX" secondAttribute="trailing" constant="40" id="vFE-E0-4lM"/>
+                            <constraint firstAttribute="centerY" secondItem="yXx-fn-s5M" secondAttribute="centerY" constant="50" id="vep-mM-Lrx"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="authorLabel" destination="4co-B1-bWX" id="9GP-Wh-ZTp"/>
-                        <outlet property="loadingView" destination="tDJ-zx-nk4" id="xwK-pp-a4l"/>
+                        <outlet property="loadingImageView" destination="yXx-fn-s5M" id="BeE-fC-uFw"/>
                         <outlet property="messageButton" destination="axt-Yo-jC8" id="P4w-qW-duF"/>
                         <outlet property="profileButton" destination="dqF-TG-jop" id="iKg-Hx-R7A"/>
                         <outlet property="teachButton" destination="rKr-Xd-Ayv" id="QLR-6g-nu8"/>
@@ -1095,11 +1110,12 @@
         <image name="MessageIcon" width="22" height="21"/>
         <image name="Proficiency3" width="24" height="16"/>
         <image name="ProfileIcon" width="22" height="21"/>
-        <image name="TeachOnBig" width="94" height="115"/>
+        <image name="TeachOn" width="78" height="96"/>
         <image name="WhiteBackArrow" width="11" height="20"/>
         <image name="WhiteNextArrow" width="11" height="20"/>
+        <image name="loading_elip_0" width="150" height="150"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="1of-Ig-ulf"/>
+        <segue reference="eLM-I3-Bqx"/>
     </inferredMetricsTieBreakers>
 </document>
