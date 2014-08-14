@@ -114,7 +114,7 @@ class LINBubbleCell: UITableViewCell {
                     println("Finish downloading photo message.")
                     messageData.photo = tmpImage
                     self.addPhotoToBubbleCellWithMessageData(messageData)
-                    
+    
                     // Save photo to camera roll
                     UIImageWriteToSavedPhotosAlbum(tmpImage, nil, nil, nil)
                 }
@@ -154,6 +154,9 @@ class LINBubbleCell: UITableViewCell {
             height: imageSize.height + insets.top + insets.bottom + (messageData.incoming == true ? 10: 0))
         
         calcTimeFrameWithContentFrame(bubbleImageView.frame, messageData: messageData)
+        
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("openPhotoPreviewWithGesture:"))
+        photoImgView.addGestureRecognizer(gestureRecognizer)
     }
     
     private func calcTimeFrameWithContentFrame(contentFrame: CGRect, messageData: LINMessage) {
@@ -195,6 +198,11 @@ class LINBubbleCell: UITableViewCell {
         }
         
         return height
+    }
+    
+    func openPhotoPreviewWithGesture(recognizer: UITapGestureRecognizer) {
+        let photoPreviewController = AppDelegate.sharedDelegate().storyboard.instantiateViewControllerWithIdentifier("kLINPhotoPreviewController") as LINPhotoPreviewController
+        AppDelegate.sharedDelegate().drawerController.presentViewController(photoPreviewController, animated: true, completion: nil)
     }
     
     // MARK: Utils

@@ -42,6 +42,7 @@
 		20F5835A1993456B00DE77A6 /* LINShrinkDismissAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F583591993456B00DE77A6 /* LINShrinkDismissAnimationController.swift */; };
 		3539D820182145359C2B8DA9 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 81D3DA7628DD45F7938E71F3 /* libPods.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		92052F3F199522A900EA773B /* LINNotificationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92052F3E199522A900EA773B /* LINNotificationHelper.swift */; };
+		920A9C09199CAA3900940693 /* LINPhotoPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 920A9C08199CAA3900940693 /* LINPhotoPreviewController.swift */; };
 		9222F8C019972AE6005420EC /* LINEmoticonsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9222F8BF19972AE6005420EC /* LINEmoticonsView.xib */; };
 		9222F8C219972EA6005420EC /* LINEmoticonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9222F8C119972EA6005420EC /* LINEmoticonsView.swift */; };
 		9222F8C41997782D005420EC /* LINEmoticonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9222F8C31997782D005420EC /* LINEmoticonCell.swift */; };
@@ -169,6 +170,7 @@
 		20F583591993456B00DE77A6 /* LINShrinkDismissAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINShrinkDismissAnimationController.swift; sourceTree = "<group>"; };
 		81D3DA7628DD45F7938E71F3 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		92052F3E199522A900EA773B /* LINNotificationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINNotificationHelper.swift; sourceTree = "<group>"; };
+		920A9C08199CAA3900940693 /* LINPhotoPreviewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINPhotoPreviewController.swift; sourceTree = "<group>"; };
 		9222F8BF19972AE6005420EC /* LINEmoticonsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LINEmoticonsView.xib; sourceTree = "<group>"; };
 		9222F8C119972EA6005420EC /* LINEmoticonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINEmoticonsView.swift; sourceTree = "<group>"; };
 		9222F8C31997782D005420EC /* LINEmoticonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINEmoticonCell.swift; sourceTree = "<group>"; };
@@ -363,6 +365,7 @@
 				20974984196FCCC00070E8C3 /* LINLanguagePickerController.swift */,
 				20BF3FAA1957ECA700963B1F /* LINFriendListController.swift */,
 				925E002919740C06001D75D4 /* LINChatController.swift */,
+				920A9C08199CAA3900940693 /* LINPhotoPreviewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -661,6 +664,7 @@
 				9267833E196561D800F19DB4 /* NSArray+Extensions.swift in Sources */,
 				201F2B3D195AF1E100E0C17A /* UIColor+Extensions.swift in Sources */,
 				20C7BB44197C491300E4D9FE /* LINIntroductionView.swift in Sources */,
+				920A9C09199CAA3900940693 /* LINPhotoPreviewController.swift in Sources */,
 				925E002A19740C06001D75D4 /* LINChatController.swift in Sources */,
 				92CA2A4E198FA05D00367DB2 /* NSDateFormatter+Extensions.swift in Sources */,
 				92052F3F199522A900EA773B /* LINNotificationHelper.swift in Sources */,
