@@ -24,13 +24,13 @@ class LINNotificationHelper {
                     currentChannel.bindToEventNamed(kPusherEventNameNewMessage, handleWithBlock: { channelEvent in
                         println("Channel event data: \(channelEvent.data)")
                         let replyData = channelEvent.getReplyData()
-                        // KTODO: Add message type
-                        LINMessageHelper.showNotificationWitUserId(replyData.userId, name: replyData.firstName, text: replyData.text, avatarURL: replyData.avatarURL)
+                        LINMessageHelper.showNotificationWitUserId(replyData.userId, name: replyData.firstName, text: replyData.text, avatarURL: replyData.avatarURL, type: replyData.type)
                     })
                 }
                 
                 let text = (alert! as NSString).stringByReplacingOccurrencesOfString(firstName! + ":", withString: "") as String
-                LINMessageHelper.showNotificationWitUserId(tmpId, name: firstName!, text: text, avatarURL: avatarURL!)
+                // KFIX: Update push notification
+                // LINMessageHelper.showNotificationWitUserId(tmpId, name: firstName!, text: text, avatarURL: avatarURL!)
             }
         } else if applicationState == .Background || applicationState == .Inactive {
             openChatScreenWithUserId(userId!, name: firstName!)

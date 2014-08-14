@@ -257,7 +257,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
             
             // If User is not in chat screen ---> Show banner to notify to user
             if !self.isChatScreenVisible {
-                LINMessageHelper.showNotificationWitUserId(replyData.userId, name: replyData.firstName, text: replyData.text, avatarURL: replyData.avatarURL)
+                LINMessageHelper.showNotificationWitUserId(replyData.userId, name: replyData.firstName, text: replyData.text, avatarURL: replyData.avatarURL, type: replyData.type)
             }
         })
     }

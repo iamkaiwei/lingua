@@ -54,10 +54,22 @@ class LINMessageView: UIView {
         timer = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: Selector("hideNotification"), userInfo: nil, repeats: false)
     }
     
-    func configureWithUserId(userId: String, name: String, text: String, avatarURL: String) {
+    func configureWithUserId(userId: String, name: String, text: String, avatarURL: String, type: Int) {
         self.userId = userId
         nameLabel.text = name
-        textLabel.text = text
+        
+        let messageType = MessageType.fromRaw(type)
+        switch(messageType!) {
+            case .Text:
+                textLabel.text = text
+            case .Photo:
+                textLabel.text = "Sent you a photo"
+            // KTODO: Update message for voice message
+            // case .Voice
+            default:
+                break
+        }
+        
         avatarImageView.sd_setImageWithURL(NSURL(string: avatarURL),
                                            placeholderImage: UIImage(named: "avatar_holder"))
         avatarImageView.addRoundedCorner()
