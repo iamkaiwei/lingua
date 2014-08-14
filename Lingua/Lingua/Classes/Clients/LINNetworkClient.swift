@@ -270,7 +270,6 @@ class LINNetworkClient: OVCHTTPSessionManager {
                 failure(error: error)
                 return
             }
-            println(response)
             if let tmpConversationArray = (response as OVCResponse).result as? [LINConversation]{
                 println("All conversation \(tmpConversationArray)")
                 success(conversationsArray: tmpConversationArray, error: nil)

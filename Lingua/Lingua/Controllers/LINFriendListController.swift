@@ -89,10 +89,6 @@ class LINFriendListController: UIViewController, UITableViewDataSource, UITableV
         LINNetworkClient.sharedInstance.getAllConversation({ (conversationsArray, error) -> Void in
             if conversationsArray != nil {
                 self.conversationList = conversationsArray!
-                for i in 0..<self.conversationList.count {
-                    let conversation = self.conversationList[i]
-                    println(conversation.conversationId)
-                }
                 self.tableView.reloadData()
             }
             }, failure: { (error:NSError?) -> Void in

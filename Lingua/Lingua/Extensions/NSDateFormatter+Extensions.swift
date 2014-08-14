@@ -53,4 +53,41 @@ extension NSDateFormatter {
         return Static.iSODateFormatter!
     }
     
+    class func conversationDateFormatter() -> NSDateFormatter {
+        struct Static {
+            static var conversationDateFormatter:NSDateFormatter? = nil
+        }
+        if Static.conversationDateFormatter == nil {
+            Static.conversationDateFormatter = NSDateFormatter()
+            Static.conversationDateFormatter?.dateFormat = "EEEE"
+        }
+        return Static.conversationDateFormatter!
+    }
+    
+    class func getConversationTimeStringFromDate(date:NSDate) -> String {
+        if date != nil{
+            var calendar:NSCalendar = NSCalendar.currentCalendar()
+            var dateComponents:NSDateComponents = calendar.components(NSCalendarUnit.CalendarUnitYear|NSCalendarUnit.CalendarUnitMonth|NSCalendarUnit.CalendarUnitDay , fromDate: date)
+            
+            var currentDate = NSDate()
+            var differentInDays:Int = calendar.ordinalityOfUnit(NSCalendarUnit.CalendarUnitDay, inUnit: NSCalendarUnit.CalendarUnitEra, forDate: date) - calendar.ordinalityOfUnit(NSCalendarUnit.CalendarUnitDay, inUnit: NSCalendarUnit.CalendarUnitEra, forDate: currentDate)
+    
+            var dayString:String = ""
+            
+            if differentInDays  == 0{
+                dayString = self.hourStringFromDate(date)
+            }
+            else if differentInDays == -1 {
+                dayString = "Yesterday"
+            }else if differentInDays < -1 && differentInDays >= -6 {
+                dayString = NSDateFormatter.conversationDateFormatter().stringFromDate(date)
+            }
+            else
+            {
+                dayString = "\(dateComponents.day)/\(dateComponents.month)/\(dateComponents.year)"
+            }
+            return dayString
+        }
+        return ""
+    }
 }

@@ -23,6 +23,15 @@ class LINConversationCell: UITableViewCell {
             placeholderImage: UIImage(named: "avatar_holder"))
         avatarImgView.addRoundedCorner()
         
+        // set conversation date
+        var conversationDate : NSDate? = nil
+        
+        if let tempDate = NSDateFormatter.iSODateFormatter().dateFromString(conversation.lastestUpdate) {
+            conversationDate = tempDate as NSDate
+        }
+        
+        dateLabel.text = NSDateFormatter.getConversationTimeStringFromDate(conversationDate!)
+        
         //check if conversation has new message
         var lastOnline:NSDate? = LINStorageHelper.getLastOnlineTimeStamp()
         if lastOnline == nil {
@@ -31,12 +40,6 @@ class LINConversationCell: UITableViewCell {
         }
         else
         {
-            var conversationDate : NSDate? = nil
-
-            if let tempDate = NSDateFormatter.iSODateFormatter().dateFromString(conversation.lastestUpdate) {
-                conversationDate = tempDate as NSDate
-            }
-            
             if lastOnline?.compare(conversationDate) == NSComparisonResult.OrderedAscending {
                 self.backgroundColor = UIColor.lightGrayColor()
             }
