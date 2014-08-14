@@ -15,6 +15,20 @@ let kPhotoMessageMaxHeight = 200
 
 enum MessageType: Int {
     case Text = 1, Photo, Voice
+    func getSubtitleWithText(text: String) -> String {
+        var result = ""
+        switch self {
+            case .Text:
+                result = text
+            case .Photo:
+                result = "Sent you a photo"
+            case .Voice:
+                result = "Sent you a voice message"
+            default:
+                break
+        }
+        return result
+    }
 }
 
 class LINBubbleCell: UITableViewCell {

@@ -59,16 +59,7 @@ class LINMessageView: UIView {
         nameLabel.text = name
         
         let messageType = MessageType.fromRaw(type)
-        switch(messageType!) {
-            case .Text:
-                textLabel.text = text
-            case .Photo:
-                textLabel.text = "Sent you a photo"
-            // KTODO: Update message for voice message
-            // case .Voice
-            default:
-                break
-        }
+        textLabel.text = messageType?.getSubtitleWithText(text)
         
         avatarImageView.sd_setImageWithURL(NSURL(string: avatarURL),
                                            placeholderImage: UIImage(named: "avatar_holder"))

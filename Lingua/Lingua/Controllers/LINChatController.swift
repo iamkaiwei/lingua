@@ -126,7 +126,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         
         if currentChannel.members.count <= 1 {
             // Send push notification
-            pushNotificationWithMessage(text, sendDate: sendDate)
+            pushNotificationWithMessage(text, sendDate: sendDate, type: type)
         } else {
             // Trigger a client event
             currentChannel.triggerEventNamed(kPusherEventNameNewMessage,
@@ -192,19 +192,21 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     
     // MARK: Functions 
     
-    private func pushNotificationWithMessage(text: String, sendDate: String) {
+    private func pushNotificationWithMessage(text: String, sendDate: String, type: MessageType) {
         // Create our Installation query
         let pushQuery = PFInstallation.query()
         pushQuery.whereKey(kUserIdKey, equalTo: userChat.userId)
         
-        let alertTitle = currentUser.firstName + ": " + text
+        var content = type.getSubtitleWithText(text)
+        let alertTitle = currentUser.firstName + ": " + content
         
         let push = PFPush()
         push.setData(["aps": ["alert": alertTitle, "sound": "defaut"],
                      kUserIdKey: currentUser.userId,
                      kFirstName: currentUser.firstName,
                      kAvatarURL: currentUser.avatarURL,
-                     kMessageSendDateKey: sendDate])
+                     kMessageSendDateKey: sendDate,
+                     kMessageTypeKey: type.toRaw()])
         push.setQuery(pushQuery)
         
         push.sendPushInBackgroundWithBlock({ (success, error) in

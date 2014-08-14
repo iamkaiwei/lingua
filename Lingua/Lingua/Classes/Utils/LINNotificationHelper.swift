@@ -14,6 +14,7 @@ class LINNotificationHelper {
         let userId = (userInfo as NSDictionary)[kUserIdKey] as? String
         let firstName = (userInfo as NSDictionary)[kFirstName] as? String
         let avatarURL = (userInfo as NSDictionary)[kAvatarURL] as? String
+        let type = (userInfo as NSDictionary)[kMessageTypeKey] as? Int
         
         // Only show banner when app is active
         if applicationState == .Active {
@@ -29,8 +30,7 @@ class LINNotificationHelper {
                 }
                 
                 let text = (alert! as NSString).stringByReplacingOccurrencesOfString(firstName! + ":", withString: "") as String
-                // KFIX: Update push notification
-                // LINMessageHelper.showNotificationWitUserId(tmpId, name: firstName!, text: text, avatarURL: avatarURL!)
+                LINMessageHelper.showNotificationWitUserId(tmpId, name: firstName!, text: text, avatarURL: avatarURL!, type: type!)
             }
         } else if applicationState == .Background || applicationState == .Inactive {
             openChatScreenWithUserId(userId!, name: firstName!)
