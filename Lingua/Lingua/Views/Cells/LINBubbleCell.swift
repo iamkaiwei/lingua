@@ -114,6 +114,9 @@ class LINBubbleCell: UITableViewCell {
                     println("Finish downloading photo message.")
                     messageData.photo = tmpImage
                     self.addPhotoToBubbleCellWithMessageData(messageData)
+                    
+                    // Save photo to camera roll
+                    UIImageWriteToSavedPhotosAlbum(tmpImage, nil, nil, nil)
                 }
             }
         } else {
