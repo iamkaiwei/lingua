@@ -38,6 +38,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     
     private var currentUser = LINUser()
     var userChat = LINUser()
+    private var repliesArray = [AnyObject]()
     
     private var isChatScreenVisible: Bool = false
     private var addButtonClicked: Bool = false
@@ -76,11 +77,15 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         notificationCenter.addObserver(self, selector: "handleKeyboardWillHideNotification:", name: UIKeyboardWillHideNotification, object: nil)
     }
     
-    override func viewDidDisappear(animated: Bool) {
-        super.viewDidDisappear(animated)
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
         
         NSNotificationCenter.defaultCenter().removeObserver(self)
         isChatScreenVisible = false
+        
+        if repliesArray.count > 0 {
+            postMessagesToServer()
+        }
     }
     
     // MARK: Configuration
@@ -122,7 +127,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     }
     
     func replyWithText(text: String, type: MessageType) {
-        let sendDate = NSDateFormatter.stringWithDefautFormatFromDate(NSDate())
+        let sendDate = NSDateFormatter.conversationDateFormatter().stringFromDate(NSDate())
         
         if currentChannel.members.count <= 1 {
             // Send push notification
@@ -139,12 +144,20 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
                 ])
         }
         
-        
         if type == MessageType.Photo {
            // KTODO: Update photo message
         } else {
             let messageData = LINMessage(incoming: false, text: text, sendDate: NSDate(), photo: nil, type: type)
             addBubbleViewCellWithMessageData(messageData)
+            
+            repliesArray.append(["sender_id": currentUser.userId,
+                                 "message_type_id": type.toRaw(),
+                                 "content": text,
+                                 "created_at": sendDate])
+            
+            if repliesArray.count == 20 {
+                postMessagesToServer()
+            }
         }
         
         // KTODO: Save chat history
@@ -216,6 +229,19 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
                 println("[parse] push notification has some errors: \(error!.description)")
             }
         })
+    }
+    
+    private func postMessagesToServer() {
+        // KTODO: Check status of internet connection
+        // If no internet --> return
+        
+       /* LINNetworkClient.sharedInstance.creatBulkWithConversationId(conversation.conversationId,
+                                                                    messagesArray: repliesArray) {
+            (success) -> Void in
+                if success {
+                    self.repliesArray.removeAll(keepCapacity: false)
+                }
+        } */
     }
     
     private func addBubbleViewCellWithMessageData(messageData: LINMessage) {
@@ -381,6 +407,8 @@ extension LINChatController: LINEmoticonsViewDelegate {
     func emoticonsView(emoticonsView: LINEmoticonsView, replyWithPhoto photo: UIImage) {
         let messageData = LINMessage(incoming: false, text: "", sendDate: NSDate(), photo: photo, type: .Photo)
         addBubbleViewCellWithMessageData(messageData)
+        
+        repliesArray.append(messageData)
     }
     
     func emoticonsView(emoticonsView: LINEmoticonsView, replyWithImageURL imageURL: String) {

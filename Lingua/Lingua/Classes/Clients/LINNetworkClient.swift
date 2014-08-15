@@ -279,6 +279,26 @@ class LINNetworkClient: OVCHTTPSessionManager {
         })
     }
     
+    func creatBulkWithConversationId(conversationId: String,
+                                     messagesArray: [AnyObject],
+                                     success: (success: Bool) -> Void ) {
+       setAuthorizedRequest()
+        
+       let path = kLINConversationsPath + "/" + "\(conversationId)/messages"
+          
+       /* self.POST(path, parameters: nil, constructingBodyWithBlock: { (formData) -> Void in
+        
+        }) { (response, error) -> Void in
+            if error != nil {
+                println("Create a bulk of messages has some errors: \(error!.description)")
+                return
+            }
+            
+            println("Create a bulk with response: \(response)")
+            // KTODO: Parse response to model
+        } */
+    }
+    
     // MARK: Photos, Voices
     
     func uploadImage(image: UIImage,
