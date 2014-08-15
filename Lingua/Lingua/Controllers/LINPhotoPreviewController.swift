@@ -10,11 +10,12 @@ import UIKit
 
 class LINPhotoPreviewController: UIViewController {
     @IBOutlet weak var photoImgView: UIImageView!
+    var photo: UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = UIColor.blackColor()
+        photoImgView.image = photo
     }
 
     @IBAction func closeButtonTouched(sender: UIButton) {

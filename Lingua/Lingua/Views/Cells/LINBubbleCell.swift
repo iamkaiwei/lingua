@@ -48,6 +48,9 @@ class LINBubbleCell: UITableViewCell {
         selectionStyle = .None
         backgroundColor = UIColor.clearColor()
         
+        // Enable touch event to photo imageview
+        photoImgView.userInteractionEnabled = true
+        
         // Bubble imageview
         addSubview(bubbleImageView)
         
@@ -201,8 +204,12 @@ class LINBubbleCell: UITableViewCell {
     }
     
     func openPhotoPreviewWithGesture(recognizer: UITapGestureRecognizer) {
-        let photoPreviewController = AppDelegate.sharedDelegate().storyboard.instantiateViewControllerWithIdentifier("kLINPhotoPreviewController") as LINPhotoPreviewController
-        AppDelegate.sharedDelegate().drawerController.presentViewController(photoPreviewController, animated: true, completion: nil)
+        let appDelegate = AppDelegate.sharedDelegate()
+        let photoPreviewController = appDelegate.storyboard.instantiateViewControllerWithIdentifier("kLINPhotoPreviewController") as LINPhotoPreviewController
+        photoPreviewController.photo = photoImgView.image
+        
+        let chatController = appDelegate.drawerController.presentedViewController as LINChatController
+        chatController.presentViewController(photoPreviewController, animated: true, completion: nil)
     }
     
     // MARK: Utils
