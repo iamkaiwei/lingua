@@ -17,7 +17,6 @@ class LINFriendListController: UIViewController, UITableViewDataSource, UITableV
         super.viewDidLoad()
         tableView.rowHeight = 70
         
-        //loadAllFriends()
         loadAllConversation()
     }
     
@@ -50,7 +49,7 @@ class LINFriendListController: UIViewController, UITableViewDataSource, UITableV
         let cell = self.tableView.dequeueReusableCellWithIdentifier("kConversationCellIdentifier") as LINConversationCell
     
         let conversation = conversationList[indexPath.row]
-        cell.configureCellWithUserData(conversation)
+        cell.configureWithConversation(conversation)
         return cell
     }
     
@@ -60,32 +59,7 @@ class LINFriendListController: UIViewController, UITableViewDataSource, UITableV
     
     // MARK: Helpers
     
-    func loadAllFriends() {
-        LINNetworkClient.sharedInstance.getAllUsers( {(arrUsers: [LINUser]?) -> Void in
-            println("Load friends successfully.")
-            
-            var currentUser = LINUserManager.sharedInstance.currentUser
-            self.arrFriends  = arrUsers!
-            if currentUser != nil {
-                for i in 0..<self.arrFriends.count {
-                    let user = self.arrFriends[i]
-                    if user.userId == currentUser!.userId {
-                        self.arrFriends.removeAtIndex(i)
-                        break
-                    }
-                }
-            }
-            
-            self.tableView.reloadData()
-        }, failture: {(error: NSError?) -> Void in
-            if let err = error {
-                println("Load all friends has some errors: \(err.description)")
-            }
-        })
-    }
-    
-    func loadAllConversation(){
-        
+    func loadAllConversation() {
         LINNetworkClient.sharedInstance.getAllConversation({ (conversationsArray, error) -> Void in
             if conversationsArray != nil {
                 self.conversationList = conversationsArray!

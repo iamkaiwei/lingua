@@ -14,7 +14,7 @@ class LINConversationCell: UITableViewCell {
     @IBOutlet weak var roleName: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     
-    func configureCellWithUserData(conversation:LINConversation) {
+    func configureWithConversation(conversation:LINConversation) {
         var opponentDetail = conversation.getOpponentDetail()
         nameLabel.text = opponentDetail.firstName
         roleName.text = opponentDetail.role

@@ -36,7 +36,6 @@
 		20D484A61956D35D007B4E96 /* LINOnboardingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D484A51956D35D007B4E96 /* LINOnboardingController.swift */; };
 		20DC6564197BEA4F008DA659 /* LINBubbleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DC655F197BEA4F008DA659 /* LINBubbleCell.swift */; };
 		20DC6566197BEA4F008DA659 /* LINBadgeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DC6561197BEA4F008DA659 /* LINBadgeCell.swift */; };
-		20DC6567197BEA4F008DA659 /* LINFriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DC6562197BEA4F008DA659 /* LINFriendCell.swift */; };
 		20DC6568197BEA4F008DA659 /* LINCountryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DC6563197BEA4F008DA659 /* LINCountryCell.swift */; };
 		20F5835819931E6D00DE77A6 /* LINPopPresentAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F5835719931E6D00DE77A6 /* LINPopPresentAnimationController.swift */; };
 		20F5835A1993456B00DE77A6 /* LINShrinkDismissAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F583591993456B00DE77A6 /* LINShrinkDismissAnimationController.swift */; };
@@ -164,7 +163,6 @@
 		20D484A51956D35D007B4E96 /* LINOnboardingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINOnboardingController.swift; sourceTree = "<group>"; };
 		20DC655F197BEA4F008DA659 /* LINBubbleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINBubbleCell.swift; sourceTree = "<group>"; };
 		20DC6561197BEA4F008DA659 /* LINBadgeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINBadgeCell.swift; sourceTree = "<group>"; };
-		20DC6562197BEA4F008DA659 /* LINFriendCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINFriendCell.swift; sourceTree = "<group>"; };
 		20DC6563197BEA4F008DA659 /* LINCountryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINCountryCell.swift; sourceTree = "<group>"; };
 		20F5835719931E6D00DE77A6 /* LINPopPresentAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINPopPresentAnimationController.swift; sourceTree = "<group>"; };
 		20F583591993456B00DE77A6 /* LINShrinkDismissAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINShrinkDismissAnimationController.swift; sourceTree = "<group>"; };
@@ -392,7 +390,6 @@
 			children = (
 				20DC655F197BEA4F008DA659 /* LINBubbleCell.swift */,
 				20DC6561197BEA4F008DA659 /* LINBadgeCell.swift */,
-				20DC6562197BEA4F008DA659 /* LINFriendCell.swift */,
 				20DC6563197BEA4F008DA659 /* LINCountryCell.swift */,
 				20C84ED41982683500259F81 /* LINProficiencyCell.swift */,
 				9222F8C31997782D005420EC /* LINEmoticonCell.swift */,
@@ -707,7 +704,6 @@
 				929824EC199B7BB300C56819 /* LINPhoto.swift in Sources */,
 				9268B6C01984E73300D526AA /* LINNetworkClient.swift in Sources */,
 				9222F8C219972EA6005420EC /* LINEmoticonsView.swift in Sources */,
-				20DC6567197BEA4F008DA659 /* LINFriendCell.swift in Sources */,
 				2043DFD7196550F8005905B9 /* LINViewController.swift in Sources */,
 				2078D969196C1769009BF095 /* LINUserManager.swift in Sources */,
 				9268DFBB1969CEFC00C89603 /* LINUser.swift in Sources */,
