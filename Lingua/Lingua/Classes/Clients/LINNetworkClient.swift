@@ -219,7 +219,7 @@ class LINNetworkClient: OVCHTTPSessionManager {
         })
     }
     
-    func matchUser(success: (arrUsers: [LINUser]?) -> Void, failture: (error: NSError?) -> Void) {
+    func matchUser(success: (arrUsers: [LINUser]) -> Void, failture: (error: NSError?) -> Void) {
         setAuthorizedRequest()
         
         self.GET(kLINMatchUser, parameters: nil, completion: { (response: AnyObject?, error: NSError?) -> Void in
@@ -227,9 +227,8 @@ class LINNetworkClient: OVCHTTPSessionManager {
                 failture(error: error)
                 return
             }
-            
+            println("Match users: \(response)")
             if let arrUsers = (response as OVCResponse).result as? [LINUser] {
-                println("Match users: \(arrUsers)")
                 success(arrUsers: arrUsers)
                 return
             }
@@ -242,22 +241,24 @@ class LINNetworkClient: OVCHTTPSessionManager {
     
     func createNewConversationWithTeacherId(teacherId: String,
                                             learnerId: String,
-                                            completion: (conversation: LINConversation?, error: NSError?) -> Void){
+                                              success: (conversation: LINConversation) -> Void,
+                                              failure: (error: NSError?) -> Void) {
         setAuthorizedRequest()
         
         let parameters = ["teacher_id": teacherId,
                           "learner_id": learnerId]
         
         self.POST(kLINConversationsPath, parameters: parameters, { (response: AnyObject?, error: NSError?) -> Void in
+            
             if error != nil {
                 println("Create new conversation has some errors: \(error!.description)")
-                completion(conversation: nil, error: error)
+                failure(error: error)
                 return
             }
             
             if let tmpConversation = (response as OVCResponse).result as? LINConversation {
                 println("Current conversation: \(tmpConversation)")
-                completion(conversation: tmpConversation, error: nil)
+                success(conversation: tmpConversation)
             }
         })
     }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LINHomeController: LINViewController {
+class LINHomeController: LINViewController, UIViewControllerTransitioningDelegate {
 
     @IBOutlet weak var profileButton: UIButton!
     @IBOutlet weak var messageButton: UIButton!
@@ -73,11 +73,38 @@ class LINHomeController: LINViewController {
         if loadingImageView.isAnimating() { return }
         
         loadingImageView.startAnimating()
-        LINNetworkClient.sharedInstance.matchUser({ (arrUsers: [LINUser]?) -> Void in
-            //TODO: add logic here later when API is ready
+        LINNetworkClient.sharedInstance.matchUser({ (arrUsers: [LINUser]) -> Void in
             self.loadingImageView.stopAnimating()
+            if arrUsers.count <= 0 {
+                return
+            }
+            
+            let aUser = arrUsers[0] as LINUser
+            LINNetworkClient.sharedInstance.createNewConversationWithTeacherId(aUser.userId,
+                learnerId: LINUserManager.sharedInstance.currentUser!.userId,
+                success: {
+//                    self.startChatViewController($0)
+                },
+                failure: { println($0) } )
+            
         }, failture: { _ in
             self.loadingImageView.stopAnimating()
         })
+    }
+    
+    func startChatViewController(conversation: LINConversation) {
+        let chatVC = storyboard.instantiateViewControllerWithIdentifier("kLINChatController") as LINChatController
+        chatVC.conversation = conversation
+        chatVC.transitioningDelegate = self
+        presentViewController(chatVC, animated: true, completion: nil)
+    }
+    
+    // MARK: UIViewControllerTransitioningDelegate
+    func animationControllerForPresentedController(presented: UIViewController!, presentingController presenting: UIViewController!, sourceController source: UIViewController!) -> UIViewControllerAnimatedTransitioning! {
+        return LINPopPresentAnimationController()
+    }
+    
+    func animationControllerForDismissedController(dismissed: UIViewController!) -> UIViewControllerAnimatedTransitioning! {
+        return LINShrinkDismissAnimationController()
     }
 }
