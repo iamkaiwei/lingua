@@ -83,7 +83,7 @@ class LINHomeController: LINViewController, UIViewControllerTransitioningDelegat
             LINNetworkClient.sharedInstance.createNewConversationWithTeacherId(aUser.userId,
                 learnerId: LINUserManager.sharedInstance.currentUser!.userId,
                 success: {
-//                    self.startChatViewController($0)
+                    self.startChatViewController($0)
                 },
                 failure: { println($0) } )
             
