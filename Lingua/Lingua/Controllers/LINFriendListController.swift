@@ -60,16 +60,12 @@ class LINFriendListController: UIViewController, UITableViewDataSource, UITableV
     // MARK: Helpers
     
     func loadAllConversation() {
-        LINNetworkClient.sharedInstance.getAllConversation({ (conversationsArray, error) -> Void in
+         LINNetworkClient.sharedInstance.getAllConversations { (conversationsArray, error) -> Void in
             if conversationsArray != nil {
                 self.conversationList = conversationsArray!
                 self.tableView.reloadData()
             }
-            }, failure: { (error:NSError?) -> Void in
-            if let err = error {
-                println("Loading conversation erorr : \(error?.description)")
-            }
-        })
+        }
     }
     
     // MARK: UIViewControllerTransitioningDelegate

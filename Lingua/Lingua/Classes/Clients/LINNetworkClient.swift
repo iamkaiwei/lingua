@@ -249,7 +249,6 @@ class LINNetworkClient: OVCHTTPSessionManager {
                           "learner_id": learnerId]
         
         self.POST(kLINConversationsPath, parameters: parameters, { (response: AnyObject?, error: NSError?) -> Void in
-            
             if error != nil {
                 println("Create new conversation has some errors: \(error!.description)")
                 failure(error: error)
@@ -263,17 +262,19 @@ class LINNetworkClient: OVCHTTPSessionManager {
         })
     }
     
-    func getAllConversation(success:(conversationsArray:[LINConversation]? , error:NSError?)->Void,
-                                     failure:(error:NSError?)->Void){
+    func getAllConversations(completion:(conversationsArray: [LINConversation]? , error: NSError?) -> Void) {
         setAuthorizedRequest()
+        
         self.GET(kLINConversationsPath, parameters: nil, completion: { (response: AnyObject?, error: NSError?) -> Void in
             if error != nil {
-                failure(error: error)
+                println("Get all conversations has some errors: \(error!.description)")
+                completion(conversationsArray: nil, error: error)
                 return
             }
-            if let tmpConversationArray = (response as OVCResponse).result as? [LINConversation]{
+            
+            if let tmpConversationArray = (response as OVCResponse).result as? [LINConversation] {
                 println("All conversation \(tmpConversationArray)")
-                success(conversationsArray: tmpConversationArray, error: nil)
+                completion(conversationsArray: tmpConversationArray, error: nil)
             }
         })
     }
