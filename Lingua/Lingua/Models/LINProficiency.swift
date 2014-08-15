@@ -29,17 +29,6 @@ class LINProficiency: MTLModel, MTLJSONSerializing {
                 "proficiencyName": "name"]
     }
     
-    class func fromDictionary(dictionary: NSDictionary) -> LINProficiency? {
-        let proficiency = LINProficiency()
-        if let id = dictionary["_id"] as? Int {
-            proficiency.proficiencyID = id
-        }
-        if let name = dictionary["name"] as? String {
-            proficiency.proficiencyName = name
-        }
-        return proficiency
-    }
-    
     class func fromProficiency(p: Int) -> LINProficiency? {
         let proficiencies = ["No proficiency", "Elementary proficiency", "Limited proficiency", "Professional proficiency", "Full professional proficiency"]
         let proficiency = LINProficiency()

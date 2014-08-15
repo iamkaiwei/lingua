@@ -21,17 +21,6 @@ class LINLanguage: MTLModel, MTLJSONSerializing {
         super.init()
     }
     
-    class func fromDictionary(dictionary: NSDictionary) -> LINLanguage? {
-        let language = LINLanguage()
-        if let id = dictionary["_id"] as? Int {
-            language.languageID = id
-        }
-        if let name = dictionary["name"] as? String {
-            language.languageName = name
-        }
-        return language
-    }
-    
     required init(coder aDecoder: NSCoder!) {
         super.init(coder: aDecoder)
     }

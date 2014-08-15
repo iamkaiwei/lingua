@@ -39,18 +39,6 @@ class LINUser: MTLModel, MTLJSONSerializing {
     
     override init(dictionary dictionaryValue: [NSObject : AnyObject]!, error: NSErrorPointer)  {
         super.init(dictionary: dictionaryValue, error: error)
-        if let dict = dictionaryValue["nativeLanguage"] as? NSDictionary {
-            nativeLanguage = LINLanguage.fromDictionary(dict)
-        }
-        if let dict = dictionaryValue["learningLanguage"] as? NSDictionary {
-            learningLanguage = LINLanguage.fromDictionary(dict)
-        }
-        if let dict = dictionaryValue["speakingProficiency"] as? NSDictionary {
-            speakingProficiency = LINProficiency.fromDictionary(dict)
-        }
-        if let dict = dictionaryValue["writingProficiency"] as? NSDictionary {
-            writingProficiency = LINProficiency.fromDictionary(dict)
-        }
     }
     
     class func JSONKeyPathsByPropertyKey() -> [NSObject : AnyObject]! {
@@ -78,4 +66,11 @@ class LINUser: MTLModel, MTLJSONSerializing {
         return NSValueTransformer.mtl_JSONDictionaryTransformerWithModelClass(LINLanguage.self)
     }
     
+    class func speakingProficiencyJSONTransformer()-> NSValueTransformer {
+        return NSValueTransformer.mtl_JSONDictionaryTransformerWithModelClass(LINProficiency.self)
+    }
+    
+    class func writingProficiencyJSONTransformer()-> NSValueTransformer {
+        return NSValueTransformer.mtl_JSONDictionaryTransformerWithModelClass(LINProficiency.self)
+    }
 }
