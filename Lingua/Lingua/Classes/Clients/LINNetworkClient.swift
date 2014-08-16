@@ -273,30 +273,39 @@ class LINNetworkClient: OVCHTTPSessionManager {
             }
             
             if let tmpConversationArray = (response as OVCResponse).result as? [LINConversation] {
-                println("All conversation \(tmpConversationArray)")
+                println("You have \(tmpConversationArray.count) conversations.")
                 completion(conversationsArray: tmpConversationArray, error: nil)
             }
         })
     }
     
-    func creatBulkWithConversationId(conversationId: String,
+   func creatBulkWithConversationId(conversationId: String,
                                      messagesArray: [AnyObject],
-                                     success: (success: Bool) -> Void ) {
-       setAuthorizedRequest()
-        
-       let path = kLINConversationsPath + "/" + "\(conversationId)/messages"
-          
-       /* self.POST(path, parameters: nil, constructingBodyWithBlock: { (formData) -> Void in
-        
-        }) { (response, error) -> Void in
-            if error != nil {
-                println("Create a bulk of messages has some errors: \(error!.description)")
-                return
-            }
+                                     completion: (success: Bool) -> Void ) {
+        setAuthorizedRequest()
+                                    
+        let path = kLINConversationsPath + "/" + "\(conversationId)/messages"
+                                        
+        var error: NSError?
+        let jsonData  = NSJSONSerialization.dataWithJSONObject(messagesArray, options: NSJSONWritingOptions(0), error: &error)
+        if error != nil {
+            println("Error creating JSON data from messages array: \(error!.description)");
+            completion(success: false)
+            return
+        }
+                                    
+        self.POST(path, parameters: nil, constructingBodyWithBlock: { (formData) -> Void in
+            formData.appendPartWithFormData(jsonData, name: "messages")
+         }) { (response, error) -> Void in
+                if error != nil {
+                    println("Create a bulk of messages has some errors: \(error!.description)")
+                    completion(success: false)
+                    return
+                }
             
-            println("Create a bulk with response: \(response)")
-            // KTODO: Parse response to model
-        } */
+                println("Create a bulk of messages successfully.")
+                completion(success: true)
+        }
     }
     
     // MARK: Photos, Voices
