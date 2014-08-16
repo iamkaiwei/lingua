@@ -56,7 +56,8 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         
         nameLabel.text = userChat.firstName
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadHistoryChatData", name: kNotificationAppBecomActive, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadHistoryChatData", name: kNotificationAppDidBecomActive, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "postMessagesToServer", name: kNotificationAppDidEnterBackground, object: nil)
         
         loadHistoryChatData()
         setupTableView()
@@ -83,9 +84,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         NSNotificationCenter.defaultCenter().removeObserver(self)
         isChatScreenVisible = false
         
-        if repliesArray.count > 0 {
-            postMessagesToServer()
-        }
+        postMessagesToServer()
     }
     
     // MARK: Configuration
@@ -127,41 +126,38 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     }
     
     func replyWithText(text: String, type: MessageType) {
-        let sendDate = NSDateFormatter.conversationDateFormatter().stringFromDate(NSDate())
+        let sendDate = NSDateFormatter.iSODateFormatter().stringFromDate(NSDate())
         
-        if currentChannel.members.count <= 1 {
-            // Send push notification
-            pushNotificationWithMessage(text, sendDate: sendDate, type: type)
-        } else {
-            // Trigger a client event
-            currentChannel.triggerEventNamed(kPusherEventNameNewMessage,
-                data: [kUserIdKey: currentUser.userId,
-                       kFirstName: currentUser.firstName,
-                       kAvatarURL: currentUser.avatarURL,
-                       kMessageTextKey: text,
-                       kMessageSendDateKey: sendDate,
-                       kMessageTypeKey: type.toRaw()
-                ])
-        }
+//        if currentChannel.members.count <= 1 {
+//            // Send push notification
+//            pushNotificationWithMessage(text, sendDate: sendDate, type: type)
+//        } else {
+//            // Trigger a client event
+//            currentChannel.triggerEventNamed(kPusherEventNameNewMessage,
+//                data: [kUserIdKey: currentUser.userId,
+//                       kFirstName: currentUser.firstName,
+//                       kAvatarURL: currentUser.avatarURL,
+//                       kMessageTextKey: text,
+//                       kMessageSendDateKey: sendDate,
+//                       kMessageTypeKey: type.toRaw()
+//                ])
+//        }
         
-        if type == MessageType.Photo {
-           // KTODO: Update photo message
-        } else {
+       
+        if type == MessageType.Text {
             let messageData = LINMessage(incoming: false, text: text, sendDate: NSDate(), photo: nil, type: type)
             addBubbleViewCellWithMessageData(messageData)
-            
-            repliesArray.append(["sender_id": currentUser.userId,
-                                 "message_type_id": type.toRaw(),
-                                 "content": text,
-                                 "created_at": sendDate])
-            
-            if repliesArray.count == 20 {
-                postMessagesToServer()
-            }
         }
         
-        // KTODO: Save chat history
+        repliesArray.append(["sender_id": currentUser.userId,
+                             "message_type_id": type.toRaw(),
+                             "content": text,
+                             "created_at": sendDate])
         
+        if repliesArray.count == 20 {
+            postMessagesToServer()
+        }
+
         inputTextView.text = ""
         textViewDidChange(inputTextView)
         
@@ -231,17 +227,21 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         })
     }
     
-    private func postMessagesToServer() {
+    func postMessagesToServer() {
+        if repliesArray.count <= 0 {
+            return
+        }
+        
         // KTODO: Check status of internet connection
         // If no internet --> return
         
-       /* LINNetworkClient.sharedInstance.creatBulkWithConversationId(conversation.conversationId,
+       LINNetworkClient.sharedInstance.creatBulkWithConversationId(conversation.conversationId,
                                                                     messagesArray: repliesArray) {
             (success) -> Void in
                 if success {
                     self.repliesArray.removeAll(keepCapacity: false)
                 }
-        } */
+        }
     }
     
     private func addBubbleViewCellWithMessageData(messageData: LINMessage) {
@@ -386,7 +386,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     }
     
     
-    // MARK - TextView Delegate
+    // MARK: TextView Delegate
     
     func textViewDidChange(textView: UITextView!) {
         if  textView.text.utf16Count > 0 {
@@ -407,8 +407,6 @@ extension LINChatController: LINEmoticonsViewDelegate {
     func emoticonsView(emoticonsView: LINEmoticonsView, replyWithPhoto photo: UIImage) {
         let messageData = LINMessage(incoming: false, text: "", sendDate: NSDate(), photo: photo, type: .Photo)
         addBubbleViewCellWithMessageData(messageData)
-        
-        repliesArray.append(messageData)
     }
     
     func emoticonsView(emoticonsView: LINEmoticonsView, replyWithImageURL imageURL: String) {
