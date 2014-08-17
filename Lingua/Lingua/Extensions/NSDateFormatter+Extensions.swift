@@ -9,37 +9,16 @@
 import Foundation
 
 extension NSDateFormatter {
-    class var dateDefaultFormat: String {
-        return "yyyy-MM-dd HH:mm:ss zzz"
-    }
-    
-    class var hourDefaultFormat: String {
-        return "HH:mm a"
-    }
-    
-    class func stringWithDefautFormatFromDate(date: NSDate) -> String {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = dateDefaultFormat
-        
-        let result = dateFormatter.stringFromDate(date)
-        return result
-    }
-    
-    class func dateWithDefaultFormatFromString(string: String) -> NSDate {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = dateDefaultFormat
-
-        let result = dateFormatter.dateFromString(string)
-        return result
-    }
-    
-    class func hourStringFromDate(date: NSDate) -> String {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = hourDefaultFormat
-        dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
-        
-        let result = dateFormatter.stringFromDate(date)
-        return result.lowercaseString
+    class func hourDateFormatter() -> NSDateFormatter {
+        struct Static {
+            static var instance: NSDateFormatter?
+        }
+        if Static.instance == nil {
+            Static.instance = NSDateFormatter()
+            Static.instance?.dateFormat = "HH:mm a"
+            Static.instance?.timeStyle = NSDateFormatterStyle.ShortStyle
+        }
+        return Static.instance!
     }
     
     class func iSODateFormatter() -> NSDateFormatter {
@@ -75,7 +54,7 @@ extension NSDateFormatter {
             var dayString:String = ""
             
             if differentInDays  == 0{
-                dayString = self.hourStringFromDate(date)
+                dayString = NSDateFormatter.hourDateFormatter().stringFromDate(date).lowercaseString
             }
             else if differentInDays == -1 {
                 dayString = "Yesterday"

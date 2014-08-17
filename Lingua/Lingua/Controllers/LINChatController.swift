@@ -128,22 +128,21 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     func replyWithText(text: String, type: MessageType) {
         let sendDate = NSDateFormatter.iSODateFormatter().stringFromDate(NSDate())
         
-//        if currentChannel.members.count <= 1 {
-//            // Send push notification
-//            pushNotificationWithMessage(text, sendDate: sendDate, type: type)
-//        } else {
-//            // Trigger a client event
-//            currentChannel.triggerEventNamed(kPusherEventNameNewMessage,
-//                data: [kUserIdKey: currentUser.userId,
-//                       kFirstName: currentUser.firstName,
-//                       kAvatarURL: currentUser.avatarURL,
-//                       kMessageTextKey: text,
-//                       kMessageSendDateKey: sendDate,
-//                       kMessageTypeKey: type.toRaw()
-//                ])
-//        }
+        if currentChannel.members.count <= 1 {
+            // Send push notification
+            pushNotificationWithMessage(text, sendDate: sendDate, type: type)
+        } else {
+            // Trigger a client event
+            currentChannel.triggerEventNamed(kPusherEventNameNewMessage,
+                data: [kUserIdKey: currentUser.userId,
+                       kFirstName: currentUser.firstName,
+                       kAvatarURL: currentUser.avatarURL,
+                       kMessageTextKey: text,
+                       kMessageSendDateKey: sendDate,
+                       kMessageTypeKey: type.toRaw()
+                ])
+        }
         
-       
         if type == MessageType.Text {
             let messageData = LINMessage(incoming: false, text: text, sendDate: NSDate(), photo: nil, type: type)
             addBubbleViewCellWithMessageData(messageData)
@@ -261,6 +260,33 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     
     func loadHistoryChatData() {
         subcribeToPresenceChannel()
+        
+        LINNetworkClient.sharedInstance.getChatHistoryWithConversationId(conversation.conversationId,
+                                                                         length: 20,
+                                                                         page: 1) {
+            (repliesArray, error) -> Void in
+                if let tmpRepliesArray = repliesArray {
+                    for var index = tmpRepliesArray.count - 1; index >= 0; index-- {
+                        let reply = tmpRepliesArray[index]
+                        
+                        var incoming = true
+                        if reply.senderId == self.currentUser.userId {
+                            incoming = false
+                        }
+                        
+                        let messageData = LINMessage(incoming: incoming, text: reply.content, sendDate: NSDateFormatter.iSODateFormatter().dateFromString(reply.createdAt), photo: nil, type: MessageType.fromRaw(reply.messageTypeId)!)
+                        self.messagesDataArray.append(messageData)
+                    }
+                    
+                    dispatch_async(dispatch_get_main_queue()) {
+                        () -> Void in
+                            self.dataSource!.items = self.messagesDataArray
+                            self.tableView.dataSource = self.dataSource
+                            self.tableView.reloadData()
+                            self.scrollBubbleTableViewToBottomAnimated(true)
+                    }
+                }
+        }
     }
     
     private func scrollBubbleTableViewToBottomAnimated(animated: Bool) {

@@ -16,7 +16,7 @@ extension PTPusherEvent {
         let avatarURL = data[kAvatarURL] as String
         let text = data[kMessageTextKey] as String
         let tmpDate = data[kMessageSendDateKey] as String
-        let sendDate = NSDateFormatter.dateWithDefaultFormatFromString(tmpDate)
+        let sendDate = NSDateFormatter.iSODateFormatter().dateFromString(tmpDate)
         let type = data[kMessageTypeKey] as Int
         
         return (userId, firstName, avatarURL, text, sendDate, type)
