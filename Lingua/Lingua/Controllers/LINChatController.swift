@@ -10,6 +10,8 @@ import Foundation
 import QuartzCore
 
 let kPusherEventNameNewMessage = "client-chat";
+let kChatHistoryBeginPageIndex = 1
+let kChatHistoryMaxLenght = 20
 
 class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelegate {
     @IBOutlet weak var inputContainerView: UIView!
@@ -19,7 +21,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var addButton: UIButton!
-    
+    private var pullRefreshControl: UIRefreshControl = UIRefreshControl()
     private var emoticonsView: LINEmoticonsView!
     
     @IBOutlet weak var inputContainerViewBottomLayoutGuideConstraint: NSLayoutConstraint!
@@ -39,6 +41,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     private var currentUser = LINUser()
     var userChat = LINUser()
     private var repliesArray = [AnyObject]()
+    private var currentPageIndex = kChatHistoryBeginPageIndex
     
     private var isChatScreenVisible: Bool = false
     private var addButtonClicked: Bool = false
@@ -46,6 +49,10 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Add loading view to load older messages
+        pullRefreshControl.addTarget(self, action: Selector("loadOlderMessages"), forControlEvents: UIControlEvents.ValueChanged)
+        tableView.addSubview(pullRefreshControl)
         
         configureInputContainerView()
         configureTapGestureOnTableView()
@@ -56,10 +63,10 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         
         nameLabel.text = userChat.firstName
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadHistoryChatData", name: kNotificationAppDidBecomActive, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadListLastestMessages", name: kNotificationAppDidBecomActive, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "postMessagesToServer", name: kNotificationAppDidEnterBackground, object: nil)
         
-        loadHistoryChatData()
+        loadListLastestMessages()
         setupTableView()
         
         isChatScreenVisible = true
@@ -110,6 +117,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         
         dataSource = LINArrayDataSource(items: messagesDataArray, cellIdentifier: cellIdentifier, configureClosure: configureClosure)
         tableView.dataSource = dataSource
+        tableView.delegate = self
         
         tableView.contentInset = UIEdgeInsetsMake(10, 0, 20, 0)
         tableView.registerClass(LINBubbleCell.self, forCellReuseIdentifier: cellIdentifier)
@@ -194,10 +202,9 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     // MARK: UITableView delegate
     
     func tableView(tableView: UITableView!, heightForRowAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
-        let messageData = messagesDataArray[indexPath.row]
-        return LINBubbleCell.getHeighWithMessageData(messageData)
+        return heightForCellAtIndexPath(indexPath)
     }
-    
+
     // MARK: Functions 
     
     private func pushNotificationWithMessage(text: String, sendDate: String, type: MessageType) {
@@ -257,36 +264,89 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         
         scrollBubbleTableViewToBottomAnimated(true)
     }
+
+    private func addListBubbleCellsWithCount(count: Int) {
+        var contentOffset = self.tableView.contentOffset
+        
+        UIView.setAnimationsEnabled(false)
+        
+        var indexPaths = [NSIndexPath]()
+        var heightForNewRows: CGFloat = 0
+        
+        for var i = 0; i < count; i++ {
+            let indexPath = NSIndexPath(forRow: i, inSection: 0)
+            indexPaths.append(indexPath)
+            
+            heightForNewRows += heightForCellAtIndexPath(indexPath)
+        }
+        
+        contentOffset.y += heightForNewRows
+        
+        tableView.beginUpdates()
+        tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.None)
+        tableView.endUpdates()
+        
+        UIView.setAnimationsEnabled(true)
+        
+        // Keep uitableview static when inserting rows at the top
+        self.tableView.setContentOffset(contentOffset, animated: false)
+    }
     
-    func loadHistoryChatData() {
+    private func heightForCellAtIndexPath(indexPath: NSIndexPath) -> CGFloat {
+        let messageData = messagesDataArray[indexPath.row]
+        return LINBubbleCell.getHeighWithMessageData(messageData)
+    }
+    
+    func loadListLastestMessages() {
         subcribeToPresenceChannel()
         
+        loadChatHistoryWithLenght(kChatHistoryMaxLenght, page: currentPageIndex)
+    }
+    
+    private func loadChatHistoryWithLenght(lenght: Int, page: Int) {
         LINNetworkClient.sharedInstance.getChatHistoryWithConversationId(conversation.conversationId,
-                                                                         length: 20,
-                                                                         page: 1) {
+                                                                         length: lenght,
+                                                                         page: page) {
             (repliesArray, error) -> Void in
                 if let tmpRepliesArray = repliesArray {
-                    for var index = tmpRepliesArray.count - 1; index >= 0; index-- {
-                        let reply = tmpRepliesArray[index]
-                        
+                    for reply in tmpRepliesArray  {
                         var incoming = true
                         if reply.senderId == self.currentUser.userId {
                             incoming = false
                         }
                         
-                        let messageData = LINMessage(incoming: incoming, text: reply.content, sendDate: NSDateFormatter.iSODateFormatter().dateFromString(reply.createdAt), photo: nil, type: MessageType.fromRaw(reply.messageTypeId)!)
-                        self.messagesDataArray.append(messageData)
+                        let messageData = LINMessage(incoming: incoming,
+                                                     text: reply.content,
+                                                     sendDate: NSDateFormatter.iSODateFormatter().dateFromString(reply.createdAt),
+                                                     photo: nil,
+                                                     type: MessageType.fromRaw(reply.messageTypeId)!)
+                        self.messagesDataArray.insert(messageData, atIndex: 0)
                     }
                     
                     dispatch_async(dispatch_get_main_queue()) {
                         () -> Void in
-                            self.dataSource!.items = self.messagesDataArray
-                            self.tableView.dataSource = self.dataSource
-                            self.tableView.reloadData()
-                            self.scrollBubbleTableViewToBottomAnimated(true)
+                            if tmpRepliesArray.count > 0 {
+                                self.dataSource!.items = self.messagesDataArray
+                                self.tableView.dataSource = self.dataSource
+                                
+                                if self.currentPageIndex == kChatHistoryBeginPageIndex {
+                                    self.tableView.reloadData()
+                                    self.scrollBubbleTableViewToBottomAnimated(true)
+                                } else {
+                                    self.addListBubbleCellsWithCount(tmpRepliesArray.count)
+                                }
+                                
+                                self.currentPageIndex++
+                            }
+                            self.pullRefreshControl.endRefreshing()
                     }
                 }
         }
+
+    }
+    
+    func loadOlderMessages() {
+       loadChatHistoryWithLenght(kChatHistoryMaxLenght, page: currentPageIndex)
     }
     
     private func scrollBubbleTableViewToBottomAnimated(animated: Bool) {
@@ -295,7 +355,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
             tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: lastRowIdx, inSection: 0), atScrollPosition: UITableViewScrollPosition.Bottom, animated: animated)
         }
     }
-
+    
     func subcribeToPresenceChannel() {
         currentChannel = LINPusherManager.sharedInstance.subcribeToChannelFromUserId(currentUser.userId, toUserId: userChat.userId)
         
