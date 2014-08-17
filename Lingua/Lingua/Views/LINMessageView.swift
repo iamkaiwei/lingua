@@ -14,6 +14,7 @@ class LINMessageView: UIView {
     @IBOutlet weak var textLabel: UILabel!
     
     private var userId: String?
+    private var conversationId: String?
     private var timer: NSTimer?
     
     @IBAction func closeButtonTouched(sender: UIButton) {
@@ -54,8 +55,9 @@ class LINMessageView: UIView {
         timer = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: Selector("hideNotification"), userInfo: nil, repeats: false)
     }
     
-    func configureWithUserId(userId: String, name: String, text: String, avatarURL: String, type: Int) {
+    func configureWithUserId(userId: String, name: String, text: String, avatarURL: String, type: Int, conversationId: String) {
         self.userId = userId
+        self.conversationId = conversationId
         nameLabel.text = name
         
         let messageType = MessageType.fromRaw(type)
@@ -72,6 +74,6 @@ class LINMessageView: UIView {
     
     func openChatScreenWithGesture(recognizer: UITapGestureRecognizer) {
         hideNotification()
-        LINNotificationHelper.openChatScreenWithUserId(userId!, name: nameLabel.text)
+        LINNotificationHelper.openChatScreenWithUserId(userId!, name: nameLabel.text, conversationId: conversationId!)
     }
 }

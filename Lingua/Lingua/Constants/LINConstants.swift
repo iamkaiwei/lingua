@@ -21,6 +21,9 @@ let kMessageTextKey = "text"
 let kMessageSendDateKey = "send_date"
 let kMessageTypeKey = "message_type"
 
+// Conversation
+let kConversationIdKey = "conversation_id"
+
 // Notifications
 let kNotificationAppDidBecomActive = "kNotificationAppDidBecomActive"
 let kNotificationAppDidEnterBackground = "kNotificationAppDidEnterBackground"

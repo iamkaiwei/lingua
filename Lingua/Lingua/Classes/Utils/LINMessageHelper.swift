@@ -9,9 +9,9 @@
 import Foundation
 
 class LINMessageHelper {
-    class func showNotificationWitUserId(userId: String, name: String, text: String, avatarURL: String, type: Int){
+    class func showNotificationWitUserId(userId: String, name: String, text: String, avatarURL: String, type: Int, conversationId: String){
         let messageView =  NSBundle.mainBundle().loadNibNamed("LINMessageView", owner: nil, options: nil)[0] as LINMessageView
-        messageView.configureWithUserId(userId, name: name, text: text, avatarURL: avatarURL, type: type)
+        messageView.configureWithUserId(userId, name: name, text: text, avatarURL: avatarURL, type: type, conversationId: conversationId)
         messageView.showNotification()
     }
 }

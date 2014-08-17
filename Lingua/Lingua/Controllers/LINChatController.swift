@@ -39,8 +39,10 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     var conversation: LINConversation = LINConversation() {
         didSet {
             userChat = conversation.getChatUser()
+            conversationId = conversation.conversationId
         }
     }
+    var conversationId: String = ""
     
     private var currentUser = LINUser()
     var userChat = LINUser()
@@ -67,8 +69,8 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         
         nameLabel.text = userChat.firstName
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadListLastestMessages", name: kNotificationAppDidBecomActive, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "postMessagesToServer", name: kNotificationAppDidEnterBackground, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "appDidBecomActive", name: kNotificationAppDidBecomActive, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "appDidEnterBackground", name: kNotificationAppDidEnterBackground, object: nil)
         
         loadListLastestMessages()
         setupTableView()
@@ -168,7 +170,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         } else {
             let tmpRepliesArray = [replyDict]
             // KTODO: No internet --> Add this message to replies array
-            LINNetworkClient.sharedInstance.creatBulkWithConversationId(conversation.conversationId, messagesArray: tmpRepliesArray) {
+            LINNetworkClient.sharedInstance.creatBulkWithConversationId(conversationId, messagesArray: tmpRepliesArray) {
                 (success) -> Void in
             }
             
@@ -217,6 +219,16 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
 
     // MARK: Functions 
     
+    func appDidEnterBackground() {
+        currentChannel.unsubscribe()
+        postMessagesToServer()
+    }
+    
+    func appDidBecomActive() {
+        subcribeToPresenceChannel()
+        loadListLastestMessages()
+    }
+    
     private func pushNotificationWithMessage(text: String, sendDate: String, type: MessageType) {
         // Create our Installation query
         let pushQuery = PFInstallation.query()
@@ -231,7 +243,8 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
                      kFirstName: currentUser.firstName,
                      kAvatarURL: currentUser.avatarURL,
                      kMessageSendDateKey: sendDate,
-                     kMessageTypeKey: type.toRaw()])
+                     kMessageTypeKey: type.toRaw(),
+                     kConversationIdKey: conversationId])
         push.setQuery(pushQuery)
         
         push.sendPushInBackgroundWithBlock({ (success, error) in
@@ -251,7 +264,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         // KTODO: Check status of internet connection
         // If no internet --> return
         
-       LINNetworkClient.sharedInstance.creatBulkWithConversationId(conversation.conversationId,
+       LINNetworkClient.sharedInstance.creatBulkWithConversationId(conversationId,
                                                                     messagesArray: repliesArray) {
             (success) -> Void in
                 if success {
@@ -312,7 +325,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     }
     
     private func loadChatHistoryWithLenght(lenght: Int, page: Int) {
-        LINNetworkClient.sharedInstance.getChatHistoryWithConversationId(conversation.conversationId,
+        LINNetworkClient.sharedInstance.getChatHistoryWithConversationId(conversationId,
                                                                          length: lenght,
                                                                          page: page) {
             (repliesArray, error) -> Void in
@@ -366,6 +379,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     
     private func subcribeToPresenceChannel() {
         let channelName = generateUniqueChannelNameFromUserId(currentUser.userId, toUserId: userChat.userId)
+        currentChannel.unsubscribe()
         currentChannel = LINPusherManager.sharedInstance.subscribeToPresenceChannelNamed(channelName, delegate: self)
 
         // Bind to event to receive data
