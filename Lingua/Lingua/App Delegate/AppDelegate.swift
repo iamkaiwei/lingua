@@ -120,7 +120,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAppDidEnterBackground, object: nil)
         
-        LINChannelManager.unsubscribeAllChannels()
         LINStorageHelper.updateLastOnlineTimeStamp()
     }
 

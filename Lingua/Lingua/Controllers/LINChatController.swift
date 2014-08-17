@@ -13,6 +13,10 @@ let kPusherEventNameNewMessage = "client-chat";
 let kChatHistoryBeginPageIndex = 1
 let kChatHistoryMaxLenght = 20
 
+enum LINChatMode {
+    case Online, Offline
+}
+
 class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelegate {
     @IBOutlet weak var inputContainerView: UIView!
     @IBOutlet weak var inputTextView: UITextView!
@@ -42,8 +46,8 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     var userChat = LINUser()
     private var repliesArray = [AnyObject]()
     private var currentPageIndex = kChatHistoryBeginPageIndex
+    private var currentChatMode = LINChatMode.Offline
     
-    private var isChatScreenVisible: Bool = false
     private var addButtonClicked: Bool = false
     private var shouldChangeInputTextViewFrame: Bool = true
     
@@ -69,8 +73,6 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         loadListLastestMessages()
         setupTableView()
         
-        isChatScreenVisible = true
-        
         // Emoticon view
         emoticonsView = NSBundle.mainBundle().loadNibNamed("LINEmoticonsView", owner: self, options: nil)[0] as LINEmoticonsView
         emoticonsView.delegate = self
@@ -83,14 +85,16 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     
         notificationCenter.addObserver(self, selector: "handleKeyboardWillShowNotification:", name: UIKeyboardWillShowNotification, object: nil)
         notificationCenter.addObserver(self, selector: "handleKeyboardWillHideNotification:", name: UIKeyboardWillHideNotification, object: nil)
+        
+        subcribeToPresenceChannel()
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         
         NSNotificationCenter.defaultCenter().removeObserver(self)
-        isChatScreenVisible = false
         
+        currentChannel.unsubscribe()
         postMessagesToServer()
     }
     
@@ -136,11 +140,17 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     func replyWithText(text: String, type: MessageType) {
         let sendDate = NSDateFormatter.iSODateFormatter().stringFromDate(NSDate())
         
-        if currentChannel.members.count <= 1 {
-            // Send push notification
-            pushNotificationWithMessage(text, sendDate: sendDate, type: type)
-        } else {
-            // Trigger a client event
+        if type == MessageType.Text {
+            let messageData = LINMessage(incoming: false, text: text, sendDate: NSDate(), photo: nil, type: type)
+            addBubbleViewCellWithMessageData(messageData)
+        }
+        
+        let replyDict = ["sender_id": currentUser.userId,
+                         "message_type_id": type.toRaw(),
+                         "content": text,
+                         "created_at": sendDate]
+        
+        if currentChatMode == LINChatMode.Online {
             currentChannel.triggerEventNamed(kPusherEventNameNewMessage,
                 data: [kUserIdKey: currentUser.userId,
                        kFirstName: currentUser.firstName,
@@ -149,22 +159,22 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
                        kMessageSendDateKey: sendDate,
                        kMessageTypeKey: type.toRaw()
                 ])
+            
+            repliesArray.append(replyDict)
+            
+            if repliesArray.count == 20 {
+                postMessagesToServer()
+            }
+        } else {
+            let tmpRepliesArray = [replyDict]
+            // KTODO: No internet --> Add this message to replies array
+            LINNetworkClient.sharedInstance.creatBulkWithConversationId(conversation.conversationId, messagesArray: tmpRepliesArray) {
+                (success) -> Void in
+            }
+            
+            pushNotificationWithMessage(text, sendDate: sendDate, type: type)
         }
         
-        if type == MessageType.Text {
-            let messageData = LINMessage(incoming: false, text: text, sendDate: NSDate(), photo: nil, type: type)
-            addBubbleViewCellWithMessageData(messageData)
-        }
-        
-        repliesArray.append(["sender_id": currentUser.userId,
-                             "message_type_id": type.toRaw(),
-                             "content": text,
-                             "created_at": sendDate])
-        
-        if repliesArray.count == 20 {
-            postMessagesToServer()
-        }
-
         inputTextView.text = ""
         textViewDidChange(inputTextView)
         
@@ -298,8 +308,6 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     }
     
     func loadListLastestMessages() {
-        subcribeToPresenceChannel()
-        
         loadChatHistoryWithLenght(kChatHistoryMaxLenght, page: currentPageIndex)
     }
     
@@ -356,9 +364,10 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         }
     }
     
-    func subcribeToPresenceChannel() {
-        currentChannel = LINPusherManager.sharedInstance.subcribeToChannelFromUserId(currentUser.userId, toUserId: userChat.userId)
-        
+    private func subcribeToPresenceChannel() {
+        let channelName = generateUniqueChannelNameFromUserId(currentUser.userId, toUserId: userChat.userId)
+        currentChannel = LINPusherManager.sharedInstance.subscribeToPresenceChannelNamed(channelName, delegate: self)
+
         // Bind to event to receive data
         currentChannel.bindToEventNamed(kPusherEventNameNewMessage, handleWithBlock: { channelEvent in
             println("Channel event data: \(channelEvent.data)")
@@ -368,14 +377,20 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
             let type = MessageType.fromRaw(replyData.type)
             let messageData = LINMessage(incoming: true, text: replyData.text, sendDate: replyData.sendDate, photo: nil, type: type!)
             self.addBubbleViewCellWithMessageData(messageData)
-            
-            // If User is not in chat screen ---> Show banner to notify to user
-            if !self.isChatScreenVisible {
-                LINMessageHelper.showNotificationWitUserId(replyData.userId, name: replyData.firstName, text: replyData.text, avatarURL: replyData.avatarURL, type: replyData.type)
-            }
         })
     }
     
+    private func generateUniqueChannelNameFromUserId(fromUserId: String, toUserId: String) -> String {
+        var channelName = ""
+        if fromUserId.compare(toUserId, options: NSStringCompareOptions.CaseInsensitiveSearch) == NSComparisonResult.OrderedAscending {
+            channelName = "\(fromUserId)-\(toUserId)"
+        } else {
+            channelName = "\(toUserId)-\(fromUserId)"
+        }
+        
+        return channelName
+    }
+
     func showEmoticonsView() {
         addButtonClicked = true
         addButton.setImage(UIImage(named: "icn_cancel_blue"), forState: UIControlState.Normal)
@@ -483,6 +498,27 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
             speakButton.hidden = false
         }
    }
+}
+
+extension LINChatController: PTPusherPresenceChannelDelegate {
+    func presenceChannelDidSubscribe(channel: PTPusherPresenceChannel!) {
+        println("[pusher] Channel members: \(channel.members)")
+        if channel.members.count == 2 {
+            currentChatMode = LINChatMode.Online
+        }
+    }
+    
+    func presenceChannel(channel: PTPusherPresenceChannel!, memberAdded member: PTPusherChannelMember!) {
+        println("[pusher] Member joined channel: \(member)")
+        currentChatMode = LINChatMode.Online
+    }
+    
+    func presenceChannel(channel: PTPusherPresenceChannel!, memberRemoved member: PTPusherChannelMember!) {
+        println("[pusher] Member left channel: \(member)")
+        currentChatMode = LINChatMode.Offline
+        
+        postMessagesToServer()
+    }
 }
 
 extension LINChatController: LINEmoticonsViewDelegate {

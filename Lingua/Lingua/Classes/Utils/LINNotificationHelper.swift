@@ -19,16 +19,6 @@ class LINNotificationHelper {
         // Only show banner when app is active
         if applicationState == .Active {
             if let tmpId = userId {
-                if let tmpuser = LINUserManager.sharedInstance.currentUser {
-                    var currentChannel = LINPusherManager.sharedInstance.subcribeToChannelFromUserId(tmpuser.userId, toUserId: tmpId)
-                    // Bind to event to receive data
-                    currentChannel.bindToEventNamed(kPusherEventNameNewMessage, handleWithBlock: { channelEvent in
-                        println("Channel event data: \(channelEvent.data)")
-                        let replyData = channelEvent.getReplyData()
-                        LINMessageHelper.showNotificationWitUserId(replyData.userId, name: replyData.firstName, text: replyData.text, avatarURL: replyData.avatarURL, type: replyData.type)
-                    })
-                }
-                
                 let text = (alert! as NSString).stringByReplacingOccurrencesOfString(firstName! + ":", withString: "") as String
                 LINMessageHelper.showNotificationWitUserId(tmpId, name: firstName!, text: text, avatarURL: avatarURL!, type: type!)
             }

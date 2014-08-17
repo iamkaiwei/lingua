@@ -15,7 +15,7 @@ let kPusherAPISecret = "b0d277089fc2d751fb8a"
 let kPuserAuthorizationURL = "http://pusher-chat-server.herokuapp.com/pusher/auth"
 
 
-class LINPusherManager : NSObject, PTPusherDelegate, PTPusherPresenceChannelDelegate {
+class LINPusherManager : NSObject, PTPusherDelegate {
     var pusherClient : PTPusher = PTPusher()
     
     class var sharedInstance : LINPusherManager {
@@ -38,47 +38,8 @@ class LINPusherManager : NSObject, PTPusherDelegate, PTPusherPresenceChannelDele
         pusherClient.connect()
     }
     
-    func subcribeToChannelFromUserId(fromUserId: String, toUserId: String) -> PTPusherPresenceChannel {
-        let channelName = generateUniqueChannelNameFromUserId(fromUserId, toUserId: toUserId)
-        var currentChannel = pusherClient.subscribeToPresenceChannelNamed(channelName, delegate: self)
-        
-        // Check channel exist or not
-        let channel = LINChannelManager.getChannelByName(channelName)
-        if channel == nil {
-            let newChannel = LINChannel(channel: currentChannel, name: channelName)
-            LINChannelManager.addNewChannel(newChannel)
-        } else {
-            channel!.channel.removeAllBindings()
-            channel!.channel = currentChannel
-            LINChannelManager.updateWithChannel(channel!)
-        }
-        
-        return currentChannel
-    }
-    
-    func generateUniqueChannelNameFromUserId(fromUserId: String, toUserId: String) -> String {
-        var channelName = ""
-        if fromUserId.compare(toUserId, options: NSStringCompareOptions.CaseInsensitiveSearch) == NSComparisonResult.OrderedAscending {
-            channelName = "\(fromUserId)-\(toUserId)"
-        } else {
-            channelName = "\(toUserId)-\(fromUserId)"
-        }
-        
-        return channelName
-    }
-    
-    // MARKL: Presence channel events
-    
-    func presenceChannelDidSubscribe(channel: PTPusherPresenceChannel!) {
-        println("[pusher] Channel members: \(channel.members)")
-    }
-    
-    func presenceChannel(channel: PTPusherPresenceChannel!, memberAdded member: PTPusherChannelMember!) {
-        println("[pusher] Member joined channel: \(member)")
-    }
-    
-    func presenceChannel(channel: PTPusherPresenceChannel!, memberRemoved member: PTPusherChannelMember!) {
-        println("[pusher] Member left channel: \(member)")
+    func subscribeToPresenceChannelNamed(channelName: String, delegate: PTPusherPresenceChannelDelegate) -> PTPusherPresenceChannel {
+        return pusherClient.subscribeToPresenceChannelNamed(channelName, delegate: delegate)
     }
 
     // MARK: PTPusher Delegate

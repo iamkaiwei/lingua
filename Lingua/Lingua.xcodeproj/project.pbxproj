@@ -63,7 +63,6 @@
 		9268DFBB1969CEFC00C89603 /* LINUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9268DFBA1969CEFC00C89603 /* LINUser.swift */; };
 		926B2859198647380089DDAA /* LINStorageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926B2858198647380089DDAA /* LINStorageHelper.swift */; };
 		92781D47199FBF0B00FAAFBB /* LINReply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92781D46199FBF0B00FAAFBB /* LINReply.swift */; };
-		9284A1DE1991EB3F0012E0FA /* LINChannelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9284A1DD1991EB3F0012E0FA /* LINChannelManager.swift */; };
 		9284A1E01991EBA10012E0FA /* LINChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9284A1DF1991EBA10012E0FA /* LINChannel.swift */; };
 		92894CAF1996156D00824A3B /* LINConversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92894CAE1996156D00824A3B /* LINConversation.swift */; };
 		929824EC199B7BB300C56819 /* LINPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929824EB199B7BB300C56819 /* LINPhoto.swift */; };
@@ -192,7 +191,6 @@
 		9268DFBA1969CEFC00C89603 /* LINUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINUser.swift; sourceTree = "<group>"; };
 		926B2858198647380089DDAA /* LINStorageHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINStorageHelper.swift; sourceTree = "<group>"; };
 		92781D46199FBF0B00FAAFBB /* LINReply.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINReply.swift; sourceTree = "<group>"; };
-		9284A1DD1991EB3F0012E0FA /* LINChannelManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINChannelManager.swift; sourceTree = "<group>"; };
 		9284A1DF1991EBA10012E0FA /* LINChannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINChannel.swift; sourceTree = "<group>"; };
 		92894CAE1996156D00824A3B /* LINConversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINConversation.swift; sourceTree = "<group>"; };
 		929824EB199B7BB300C56819 /* LINPhoto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINPhoto.swift; sourceTree = "<group>"; };
@@ -496,7 +494,6 @@
 				92F3167F1962AB75002005B9 /* LINPusherManager.swift */,
 				9267833919655D4500F19DB4 /* LINUserManager.swift */,
 				92C2A4AB1982146500ABF826 /* LINFacebookManager.swift */,
-				9284A1DD1991EB3F0012E0FA /* LINChannelManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -670,7 +667,6 @@
 				92052F3F199522A900EA773B /* LINNotificationHelper.swift in Sources */,
 				92F0BF421993449E00608803 /* LINMessageHelper.swift in Sources */,
 				2082DEF5195762E8009ADF45 /* LINHomeController.swift in Sources */,
-				9284A1DE1991EB3F0012E0FA /* LINChannelManager.swift in Sources */,
 				92257FC51993DC2E0000B37C /* UIImageView+Extensions.swift in Sources */,
 				92CA2A4C198F9DA800367DB2 /* LINConstants.swift in Sources */,
 				20974985196FCCC00070E8C3 /* LINLanguagePickerController.swift in Sources */,
