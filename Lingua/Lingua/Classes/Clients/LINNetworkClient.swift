@@ -20,6 +20,7 @@ let kLINMatchUser = "api/v1/users/match"
 let kLINConversationsPath = "api/v1/conversations"
 let kLINLanguagePath = "api/v1/languages"
 let kLINUploadPath = "api/v1/upload"
+let kLINMessagesPath = "api/v1/conversations/*/messages"
 
 // Storage
 let kLINAccessTokenKey = "kLINAccessTokenKey"
@@ -281,7 +282,7 @@ class LINNetworkClient: OVCHTTPSessionManager {
     
    func creatBulkWithConversationId(conversationId: String,
                                      messagesArray: [AnyObject],
-                                     completion: (success: Bool) -> Void ) {
+                                     completion: (success: Bool) -> Void) {
         setAuthorizedRequest()
                                     
         let path = kLINConversationsPath + "/" + "\(conversationId)/messages"
@@ -305,6 +306,31 @@ class LINNetworkClient: OVCHTTPSessionManager {
             
                 println("Create a bulk of messages successfully.")
                 completion(success: true)
+        }
+    }
+    
+    func getChatHistoryWithConversationId(conversationId: String,
+                                          length: Int,
+                                          page: Int,
+                                          completion: (repliesArray: [LINReply]?, error: NSError?) -> Void) {
+        setAuthorizedRequest()
+          
+        let parameters = ["conversation_id": conversationId,
+                          "length": length,
+                          "page": page]
+        let path = kLINMessagesPath.stringByReplacingOccurrencesOfString("*", withString: "\(conversationId)", options: nil, range: nil)
+        
+        self.GET(path, parameters: parameters) { (response, error) -> Void in
+            if error != nil {
+                println("Get chat history has some errors: \(error!.description)")
+                completion(repliesArray: nil, error: error!)
+                return
+            }
+            
+            if let tmpRepliesArray = (response as OVCResponse).result as? [LINReply] {
+                println("You have \(tmpRepliesArray.count) messages.")
+                completion(repliesArray: tmpRepliesArray, error: nil)
+            }
         }
     }
     
@@ -340,7 +366,8 @@ class LINNetworkClient: OVCHTTPSessionManager {
                 kLINMatchUser: LINUser.self,
                 kLINLanguagePath: LINLanguage.self,
                 kLINConversationsPath: LINConversation.self,
-                kLINUploadPath: LINPhoto.self
+                kLINUploadPath: LINPhoto.self,
+                kLINMessagesPath: LINReply.self
         ]
     }
 }
