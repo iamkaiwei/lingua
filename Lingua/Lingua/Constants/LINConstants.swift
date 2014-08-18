@@ -30,3 +30,6 @@ let kNotificationAppDidEnterBackground = "kNotificationAppDidEnterBackground"
 
 let kNotificationAppDidLostInternetConnection = "kNotificationAppDidLostConnection"
 let kNotificationAppDidRestoreConnection      = "kNotificationAppDidRestoreConnection"
+
+// External resources
+let kCachedConversationDataFile = "conversations_data.lingua"

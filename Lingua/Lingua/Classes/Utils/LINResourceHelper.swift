@@ -24,4 +24,20 @@ class LINResourceHelper: NSObject {
         }
         return (quotes, authors)
     }
+    
+    class func cachingConversationOfflineData(data:NSData){
+        var fullFilePath = getDocumentPathForFile(kCachedConversationDataFile)
+        data.writeToFile(fullFilePath, atomically: true)
+    }
+    
+    class func retrievingCachedConversation()->NSData{
+        var fullFilePath = getDocumentPathForFile(kCachedConversationDataFile)
+        return NSData.dataWithContentsOfFile(fullFilePath, options: NSDataReadingOptions.UncachedRead, error: nil)
+    }
+    
+    //Helper
+    class func getDocumentPathForFile(filePath:String)->String{
+        var documentPath:String = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+        return "\(documentPath)/\(filePath)"
+    }
 }

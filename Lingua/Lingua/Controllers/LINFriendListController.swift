@@ -16,8 +16,12 @@ class LINFriendListController: UIViewController, UITableViewDataSource, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = 70
-        
-        loadAllConversation()
+        refreshConversationList()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "appDidEnterBackground", name: kNotificationAppDidEnterBackground, object: nil)
+    }
+    
+    func appDidEnterBackground(){
+        self.cachingConversationData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -60,11 +64,39 @@ class LINFriendListController: UIViewController, UITableViewDataSource, UITableV
     // MARK: Helpers
     
     func loadAllConversation() {
-         LINNetworkClient.sharedInstance.getAllConversations { (conversationsArray, error) -> Void in
+        LINNetworkClient.sharedInstance.getAllConversations { (conversationsArray, error) -> Void in
             if conversationsArray != nil {
                 self.conversationList = conversationsArray!
                 self.tableView.reloadData()
+                self.cachingConversationData()
             }
+        }
+    }
+    
+    func refreshConversationList(){
+        if LINNetworkHelper.isReachable()
+        {
+            //Network available , request new data from server
+            loadAllConversation()
+        }
+        else
+        {
+            //Network Unavailable , load cached data
+            NSLog("Network unavailable , loading cached data")
+            loadCachedConversationData()
+        }
+    }
+    
+    func cachingConversationData() {
+        var conversationData = NSKeyedArchiver.archivedDataWithRootObject(self.conversationList)
+        LINResourceHelper.cachingConversationOfflineData(conversationData)
+    }
+    
+    func loadCachedConversationData() {
+        var cachedData = LINResourceHelper.retrievingCachedConversation()
+        if cachedData != nil {
+            self.conversationList = NSKeyedUnarchiver.unarchiveObjectWithData(cachedData) as [LINConversation]
+            self.tableView.reloadData()
         }
     }
     
