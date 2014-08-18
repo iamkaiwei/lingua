@@ -17,7 +17,7 @@ enum LINChatMode {
     case Online, Offline
 }
 
-class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelegate {
+class LINChatController: UIViewController {
     @IBOutlet weak var inputContainerView: UIView!
     @IBOutlet weak var inputTextView: UITextView!
     @IBOutlet weak var speakButton: UIButton!
@@ -99,7 +99,9 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         currentChannel.unsubscribe()
         postMessagesToServer()
     }
-    
+}
+
+extension LINChatController {
     // MARK: Configuration
     
     private func configureInputContainerView () {
@@ -118,7 +120,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     
     private func setupTableView() {
         let configureClosure: TableViewCellConfigureClosure = { (bubbleCell: UITableViewCell, messageData: AnyObject) -> Void in
-                (bubbleCell as LINBubbleCell).configureCellWithMessageData(messageData as LINMessage)
+            (bubbleCell as LINBubbleCell).configureCellWithMessageData(messageData as LINMessage)
         }
         
         dataSource = LINArrayDataSource(items: messagesDataArray, cellIdentifier: cellIdentifier, configureClosure: configureClosure)
@@ -130,7 +132,9 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         tableView.reloadData()
         scrollBubbleTableViewToBottomAnimated(false)
     }
-    
+}
+
+extension LINChatController {
     // MARK: Actions
     
     @IBAction func buttonSendTouched(sender: UIButton) {
@@ -148,18 +152,18 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         }
         
         let replyDict = ["sender_id": currentUser.userId,
-                         "message_type_id": type.toRaw(),
-                         "content": text,
-                         "created_at": sendDate]
+            "message_type_id": type.toRaw(),
+            "content": text,
+            "created_at": sendDate]
         
         if currentChatMode == LINChatMode.Online {
             currentChannel.triggerEventNamed(kPusherEventNameNewMessage,
                 data: [kUserIdKey: currentUser.userId,
-                       kFirstName: currentUser.firstName,
-                       kAvatarURL: currentUser.avatarURL,
-                       kMessageTextKey: text,
-                       kMessageSendDateKey: sendDate,
-                       kMessageTypeKey: type.toRaw()
+                    kFirstName: currentUser.firstName,
+                    kAvatarURL: currentUser.avatarURL,
+                    kMessageTextKey: text,
+                    kMessageSendDateKey: sendDate,
+                    kMessageTypeKey: type.toRaw()
                 ])
             
             repliesArray.append(replyDict)
@@ -210,14 +214,10 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
             hideEmoticonsView()
         }
     }
-    
-    // MARK: UITableView delegate
-    
-    func tableView(tableView: UITableView!, heightForRowAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
-        return heightForCellAtIndexPath(indexPath)
-    }
+}
 
-    // MARK: Functions 
+extension LINChatController {
+    // MARK: Functions
     
     func appDidEnterBackground() {
         currentChannel.unsubscribe()
@@ -239,12 +239,12 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         
         let push = PFPush()
         push.setData(["aps": ["alert": alertTitle, "sound": "defaut"],
-                     kUserIdKey: currentUser.userId,
-                     kFirstName: currentUser.firstName,
-                     kAvatarURL: currentUser.avatarURL,
-                     kMessageSendDateKey: sendDate,
-                     kMessageTypeKey: type.toRaw(),
-                     kConversationIdKey: conversationId])
+            kUserIdKey: currentUser.userId,
+            kFirstName: currentUser.firstName,
+            kAvatarURL: currentUser.avatarURL,
+            kMessageSendDateKey: sendDate,
+            kMessageTypeKey: type.toRaw(),
+            kConversationIdKey: conversationId])
         push.setQuery(pushQuery)
         
         push.sendPushInBackgroundWithBlock({ (success, error) in
@@ -256,7 +256,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         })
     }
     
-    func postMessagesToServer() {
+    private func postMessagesToServer() {
         if repliesArray.count <= 0 {
             return
         }
@@ -264,9 +264,9 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         // KTODO: Check status of internet connection
         // If no internet --> return
         
-       LINNetworkClient.sharedInstance.creatBulkWithConversationId(conversationId,
-                                                                    messagesArray: repliesArray) {
-            (success) -> Void in
+        LINNetworkClient.sharedInstance.creatBulkWithConversationId(conversationId,
+            messagesArray: repliesArray) {
+                (success) -> Void in
                 if success {
                     self.repliesArray.removeAll(keepCapacity: false)
                 }
@@ -287,7 +287,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         
         scrollBubbleTableViewToBottomAnimated(true)
     }
-
+    
     private func addListBubbleCellsWithCount(count: Int) {
         var contentOffset = self.tableView.contentOffset
         
@@ -320,15 +320,15 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         return LINBubbleCell.getHeighWithMessageData(messageData)
     }
     
-    func loadListLastestMessages() {
+    private func loadListLastestMessages() {
         loadChatHistoryWithLenght(kChatHistoryMaxLenght, page: currentPageIndex)
     }
     
     private func loadChatHistoryWithLenght(lenght: Int, page: Int) {
         LINNetworkClient.sharedInstance.getChatHistoryWithConversationId(conversationId,
-                                                                         length: lenght,
-                                                                         page: page) {
-            (repliesArray, error) -> Void in
+            length: lenght,
+            page: page) {
+                (repliesArray, error) -> Void in
                 if let tmpRepliesArray = repliesArray {
                     for reply in tmpRepliesArray  {
                         var incoming = true
@@ -337,37 +337,37 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
                         }
                         
                         let messageData = LINMessage(incoming: incoming,
-                                                     text: reply.content,
-                                                     sendDate: NSDateFormatter.iSODateFormatter().dateFromString(reply.createdAt),
-                                                     photo: nil,
-                                                     type: MessageType.fromRaw(reply.messageTypeId)!)
+                            text: reply.content,
+                            sendDate: NSDateFormatter.iSODateFormatter().dateFromString(reply.createdAt),
+                            photo: nil,
+                            type: MessageType.fromRaw(reply.messageTypeId)!)
                         self.messagesDataArray.insert(messageData, atIndex: 0)
                     }
                     
                     dispatch_async(dispatch_get_main_queue()) {
                         () -> Void in
-                            if tmpRepliesArray.count > 0 {
-                                self.dataSource!.items = self.messagesDataArray
-                                self.tableView.dataSource = self.dataSource
-                                
-                                if self.currentPageIndex == kChatHistoryBeginPageIndex {
-                                    self.tableView.reloadData()
-                                    self.scrollBubbleTableViewToBottomAnimated(true)
-                                } else {
-                                    self.addListBubbleCellsWithCount(tmpRepliesArray.count)
-                                }
-                                
-                                self.currentPageIndex++
+                        if tmpRepliesArray.count > 0 {
+                            self.dataSource!.items = self.messagesDataArray
+                            self.tableView.dataSource = self.dataSource
+                            
+                            if self.currentPageIndex == kChatHistoryBeginPageIndex {
+                                self.tableView.reloadData()
+                                self.scrollBubbleTableViewToBottomAnimated(true)
+                            } else {
+                                self.addListBubbleCellsWithCount(tmpRepliesArray.count)
                             }
-                            self.pullRefreshControl.endRefreshing()
+                            
+                            self.currentPageIndex++
+                        }
+                        self.pullRefreshControl.endRefreshing()
                     }
                 }
         }
-
+        
     }
     
     func loadOlderMessages() {
-       loadChatHistoryWithLenght(kChatHistoryMaxLenght, page: currentPageIndex)
+        loadChatHistoryWithLenght(kChatHistoryMaxLenght, page: currentPageIndex)
     }
     
     private func scrollBubbleTableViewToBottomAnimated(animated: Bool) {
@@ -381,7 +381,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         let channelName = generateUniqueChannelNameFromUserId(currentUser.userId, toUserId: userChat.userId)
         currentChannel.unsubscribe()
         currentChannel = LINPusherManager.sharedInstance.subscribeToPresenceChannelNamed(channelName, delegate: self)
-
+        
         // Bind to event to receive data
         currentChannel.bindToEventNamed(kPusherEventNameNewMessage, handleWithBlock: { channelEvent in
             println("Channel event data: \(channelEvent.data)")
@@ -404,8 +404,12 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         
         return channelName
     }
+}
 
-    func showEmoticonsView() {
+extension LINChatController {
+    // MARK: Emoticons
+    
+    private func showEmoticonsView() {
         addButtonClicked = true
         addButton.setImage(UIImage(named: "icn_cancel_blue"), forState: UIControlState.Normal)
         
@@ -414,16 +418,80 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         emoticonsView.showInViewController(self)
     }
     
-    func hideEmoticonsView() {
+    private func hideEmoticonsView() {
         addButtonClicked = false
         addButton.setImage(UIImage(named: "Icn_add"), forState: UIControlState.Normal)
-
+        
         inputTextView.becomeFirstResponder()
         emoticonsView.hide()
     }
-    
-    // MARK: Keyboard Events Notifications
+}
 
+extension LINChatController: UITableViewDelegate {
+    // MARK: UITableviewDelegate
+    
+    func tableView(tableView: UITableView!, heightForRowAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
+        return heightForCellAtIndexPath(indexPath)
+    }
+}
+
+extension LINChatController: UITextViewDelegate {
+    // MARK: UITextViewDelegate
+    
+    func textViewDidChange(textView: UITextView!) {
+        if  textView.text.utf16Count > 0 {
+            sendButton.hidden = false
+            speakButton.hidden = true
+        } else {
+            sendButton.hidden = true
+            speakButton.hidden = false
+        }
+    }
+}
+
+extension LINChatController: PTPusherPresenceChannelDelegate {
+    // MARK: PTPusherPresenceDelegate
+    
+    func presenceChannelDidSubscribe(channel: PTPusherPresenceChannel!) {
+        println("[pusher] Channel members: \(channel.members)")
+        if channel.members.count == 2 {
+            currentChatMode = LINChatMode.Online
+        }
+    }
+    
+    func presenceChannel(channel: PTPusherPresenceChannel!, memberAdded member: PTPusherChannelMember!) {
+        println("[pusher] Member joined channel: \(member)")
+        currentChatMode = LINChatMode.Online
+    }
+    
+    func presenceChannel(channel: PTPusherPresenceChannel!, memberRemoved member: PTPusherChannelMember!) {
+        println("[pusher] Member left channel: \(member)")
+        currentChatMode = LINChatMode.Offline
+        
+        postMessagesToServer()
+    }
+}
+
+extension LINChatController: LINEmoticonsViewDelegate {
+    // MAKR: EmoticonsViewDelegate
+    
+    func emoticonsView(emoticonsView: LINEmoticonsView, startPickingMediaWithPickerViewController picker: UIImagePickerController) {
+        presentViewController(picker, animated: true, completion: nil)
+    }
+    
+    func emoticonsView(emoticonsView: LINEmoticonsView, replyWithPhoto photo: UIImage) {
+        let messageData = LINMessage(incoming: false, text: "", sendDate: NSDate(), photo: photo, type: .Photo)
+        addBubbleViewCellWithMessageData(messageData)
+    }
+    
+    func emoticonsView(emoticonsView: LINEmoticonsView, replyWithImageURL imageURL: String) {
+        replyWithText(imageURL, type: .Photo)
+    }
+}
+
+extension LINChatController {
+    // MARK: Keyboards
+    
     func handleKeyboardWillShowNotification(notification: NSNotification) {
         if !emoticonsView.isHidden {
             hideEmoticonsView()
@@ -437,7 +505,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
     
     func handleKeyboardWillHideNotification(notification: NSNotification) {
         if shouldChangeInputTextViewFrame {
-           keyboardWillChangeFrameWithNotification(notification, showKeyboard: false)
+            keyboardWillChangeFrameWithNotification(notification, showKeyboard: false)
         }
     }
     
@@ -445,7 +513,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         let userInfo = notfication.userInfo
         let kbSize = (userInfo[UIKeyboardFrameBeginUserInfoKey] as NSValue).CGRectValue().size
         var animationDuration: NSTimeInterval = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as NSNumber).doubleValue
-
+        
         if showKeyboard {
             // Convert the keyboard frame from screen to view coordinates.
             let keyboardScreenBeginFrame = (userInfo[UIKeyboardFrameBeginUserInfoKey] as NSValue).CGRectValue()
@@ -462,7 +530,7 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
         }
         
         view.setNeedsUpdateConstraints()
-    
+        
         UIView.animateWithDuration(animationDuration, animations: {
             var inputContainerFrame = self.inputContainerView.frame
             var tableFrame = self.tableView.frame
@@ -494,58 +562,9 @@ class LINChatController: UIViewController, UITextViewDelegate, UITableViewDelega
             
             inputContainerFrame.origin.y -= kbSize.height
             tableFrame.size.height -= kbSize.height
-
+            
             self.inputContainerView.frame = inputContainerFrame
             self.tableView.frame = tableFrame
         })
-    }
-    
-    
-    // MARK: TextView Delegate
-    
-    func textViewDidChange(textView: UITextView!) {
-        if  textView.text.utf16Count > 0 {
-            sendButton.hidden = false
-            speakButton.hidden = true
-        } else {
-            sendButton.hidden = true
-            speakButton.hidden = false
-        }
-   }
-}
-
-extension LINChatController: PTPusherPresenceChannelDelegate {
-    func presenceChannelDidSubscribe(channel: PTPusherPresenceChannel!) {
-        println("[pusher] Channel members: \(channel.members)")
-        if channel.members.count == 2 {
-            currentChatMode = LINChatMode.Online
-        }
-    }
-    
-    func presenceChannel(channel: PTPusherPresenceChannel!, memberAdded member: PTPusherChannelMember!) {
-        println("[pusher] Member joined channel: \(member)")
-        currentChatMode = LINChatMode.Online
-    }
-    
-    func presenceChannel(channel: PTPusherPresenceChannel!, memberRemoved member: PTPusherChannelMember!) {
-        println("[pusher] Member left channel: \(member)")
-        currentChatMode = LINChatMode.Offline
-        
-        postMessagesToServer()
-    }
-}
-
-extension LINChatController: LINEmoticonsViewDelegate {
-    func emoticonsView(emoticonsView: LINEmoticonsView, startPickingMediaWithPickerViewController picker: UIImagePickerController) {
-        presentViewController(picker, animated: true, completion: nil)
-    }
-    
-    func emoticonsView(emoticonsView: LINEmoticonsView, replyWithPhoto photo: UIImage) {
-        let messageData = LINMessage(incoming: false, text: "", sendDate: NSDate(), photo: photo, type: .Photo)
-        addBubbleViewCellWithMessageData(messageData)
-    }
-    
-    func emoticonsView(emoticonsView: LINEmoticonsView, replyWithImageURL imageURL: String) {
-        replyWithText(imageURL, type: .Photo)
     }
 }

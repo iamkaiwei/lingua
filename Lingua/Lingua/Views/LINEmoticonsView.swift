@@ -25,7 +25,9 @@ class LINEmoticonsView: UIView {
             collectionView.registerClass(LINEmoticonCell.self, forCellWithReuseIdentifier: "EmoticonCellIdentifier")
         }
     }
-    
+}
+
+extension LINEmoticonsView {
     // MARK: Actions
     
     @IBAction func imagesButtonTouched(sender: UIButton) {
@@ -35,7 +37,9 @@ class LINEmoticonsView: UIView {
     @IBAction func photosButtonTouched(sender: UIButton) {
         showPickerControllerWithSourceType(.Camera)
     }
+}
 
+extension LINEmoticonsView {
     // MARK: Functions
     
     private func showPickerControllerWithSourceType(sourceType: UIImagePickerControllerSourceType) {
@@ -51,7 +55,7 @@ class LINEmoticonsView: UIView {
         
         delegate?.emoticonsView(self, startPickingMediaWithPickerViewController: picker)
     }
-
+    
     func showInViewController(viewController: UIViewController) {
         viewController.view.addSubview(self)
         

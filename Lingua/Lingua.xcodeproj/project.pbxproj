@@ -63,7 +63,6 @@
 		9268DFBB1969CEFC00C89603 /* LINUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9268DFBA1969CEFC00C89603 /* LINUser.swift */; };
 		926B2859198647380089DDAA /* LINStorageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926B2858198647380089DDAA /* LINStorageHelper.swift */; };
 		92781D47199FBF0B00FAAFBB /* LINReply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92781D46199FBF0B00FAAFBB /* LINReply.swift */; };
-		9284A1E01991EBA10012E0FA /* LINChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9284A1DF1991EBA10012E0FA /* LINChannel.swift */; };
 		92894CAF1996156D00824A3B /* LINConversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92894CAE1996156D00824A3B /* LINConversation.swift */; };
 		929824EC199B7BB300C56819 /* LINPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929824EB199B7BB300C56819 /* LINPhoto.swift */; };
 		92C2A4AC1982146500ABF826 /* LINFacebookManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C2A4AB1982146500ABF826 /* LINFacebookManager.swift */; };
@@ -192,7 +191,6 @@
 		9268DFBA1969CEFC00C89603 /* LINUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINUser.swift; sourceTree = "<group>"; };
 		926B2858198647380089DDAA /* LINStorageHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINStorageHelper.swift; sourceTree = "<group>"; };
 		92781D46199FBF0B00FAAFBB /* LINReply.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINReply.swift; sourceTree = "<group>"; };
-		9284A1DF1991EBA10012E0FA /* LINChannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINChannel.swift; sourceTree = "<group>"; };
 		92894CAE1996156D00824A3B /* LINConversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINConversation.swift; sourceTree = "<group>"; };
 		929824EB199B7BB300C56819 /* LINPhoto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINPhoto.swift; sourceTree = "<group>"; };
 		929F38AB196C7C0F009A7E6A /* libPods-libPusher.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-libPusher.a"; path = "Pods/build/Debug-iphoneos/libPods-libPusher.a"; sourceTree = "<group>"; };
@@ -473,7 +471,6 @@
 				9268DFBA1969CEFC00C89603 /* LINUser.swift */,
 				92313495197E5B08003BD927 /* LINMessage.swift */,
 				9268B6C11984EFFF00D526AA /* LINAccessToken.swift */,
-				9284A1DF1991EBA10012E0FA /* LINChannel.swift */,
 				92894CAE1996156D00824A3B /* LINConversation.swift */,
 				20BF6A3C19948EF300C384BC /* LINLanguage.swift */,
 				2062686E199B5A7500E8D09E /* LINProficiency.swift */,
@@ -689,7 +686,6 @@
 				207630B9195AC19800D23B2A /* UIFont+Extensions.swift in Sources */,
 				20BF6A3D19948EF300C384BC /* LINLanguage.swift in Sources */,
 				2078D96A196C180C009BF095 /* LINPickNativeLanguageController.swift in Sources */,
-				9284A1E01991EBA10012E0FA /* LINChannel.swift in Sources */,
 				92781D47199FBF0B00FAAFBB /* LINReply.swift in Sources */,
 				2062686F199B5A7500E8D09E /* LINProficiency.swift in Sources */,
 				20F5835A1993456B00DE77A6 /* LINShrinkDismissAnimationController.swift in Sources */,

@@ -20,7 +20,9 @@ class LINMessageView: UIView {
     @IBAction func closeButtonTouched(sender: UIButton) {
         hideNotification()
     }
-    
+}
+
+extension LINMessageView {
     func hideNotification() {
         UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: UIStatusBarAnimation.Fade)
         
@@ -31,8 +33,8 @@ class LINMessageView: UIView {
             var frame = self.frame
             frame.origin.y -= self.frame.size.height
             self.frame = frame
-        }, completion: { finished in
-            self.removeFromSuperview()
+            }, completion: { finished in
+                self.removeFromSuperview()
         })
     }
     
@@ -49,12 +51,14 @@ class LINMessageView: UIView {
             frame.origin.y = 0
             self.frame = frame
             UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: UIStatusBarAnimation.Fade)
-        }, completion: { finished in
+            }, completion: { finished in
         })
         
         timer = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: Selector("hideNotification"), userInfo: nil, repeats: false)
     }
-    
+}
+
+extension LINMessageView {
     func configureWithUserId(userId: String, name: String, text: String, avatarURL: String, type: Int, conversationId: String) {
         self.userId = userId
         self.conversationId = conversationId
@@ -64,7 +68,7 @@ class LINMessageView: UIView {
         textLabel.text = messageType?.getSubtitleWithText(text)
         
         avatarImageView.sd_setImageWithURL(NSURL(string: avatarURL),
-                                           placeholderImage: UIImage(named: "avatar_holder"))
+            placeholderImage: UIImage(named: "avatar_holder"))
         avatarImageView.addRoundedCorner()
         
         // Add gesture

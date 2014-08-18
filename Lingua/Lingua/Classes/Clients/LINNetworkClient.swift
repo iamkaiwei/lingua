@@ -52,7 +52,23 @@ class LINNetworkClient: OVCHTTPSessionManager {
     required init(coder aDecoder: NSCoder!) {
         super.init(coder: aDecoder)
     }
+
+    // MARK: OVCHTTPSessionManager
     
+    override class func modelClassesByResourcePath() -> [NSObject : AnyObject]! {
+        return [kLINGetAccessTokenPath: LINAccessToken.self,
+                kLINGetCurrentUserPath: LINUser.self,
+                kLINUsersPath: LINUser.self,
+                kLINMatchUser: LINUser.self,
+                kLINLanguagePath: LINLanguage.self,
+                kLINConversationsPath: LINConversation.self,
+                kLINUploadPath: LINPhoto.self,
+                kLINMessagesPath: LINReply.self
+        ]
+    }
+}
+
+extension LINNetworkClient {
     // MARK: Shared
     
     func setAuthorizedRequest() {
@@ -63,54 +79,56 @@ class LINNetworkClient: OVCHTTPSessionManager {
             requestSerializer.setValue("Bearer \(accessToken!.accessToken)", forHTTPHeaderField: "Authorization")
         }
     }
-    
+}
+
+extension LINNetworkClient {
     // MARK: Oauth token
     
     func getServerTokenWithFacebookToken(facebookToken: String,
                                          completion: (success: Bool) -> Void) {
-        let parameters = ["client_id": "lingua-ios",
-                          "client_secret": "l1n9u4",
-                          "grant_type": "password",
-                          "facebook_token": facebookToken]
-        
-        self.POST(kLINGetAccessTokenPath, parameters: parameters, { (response: AnyObject?, error: NSError?) -> Void in
-            if error != nil {
-                completion(success: false)
-            } else {
-                let serverToken = (response as OVCResponse).result as? LINAccessToken
-                if serverToken != nil {
-                    println(serverToken)
-                    println("Access token: \(serverToken!.accessToken)")
-                    LINStorageHelper.setObject(serverToken!, forKey: kLINAccessTokenKey)
-                    completion(success: true)
-                } else {
+            let parameters = ["client_id": "lingua-ios",
+                              "client_secret": "l1n9u4",
+                              "grant_type": "password",
+                              "facebook_token": facebookToken]
+            
+            self.POST(kLINGetAccessTokenPath, parameters: parameters, { (response: AnyObject?, error: NSError?) -> Void in
+                if error != nil {
                     completion(success: false)
+                } else {
+                    let serverToken = (response as OVCResponse).result as? LINAccessToken
+                    if serverToken != nil {
+                        println(serverToken)
+                        println("Access token: \(serverToken!.accessToken)")
+                        LINStorageHelper.setObject(serverToken!, forKey: kLINAccessTokenKey)
+                        completion(success: true)
+                    } else {
+                        completion(success: false)
+                    }
                 }
-            }
-        })
+            })
     }
     
     func refreshTokenWithRefreshToken(refreshToken: String,
                                       completion: (success: Bool) -> Void ) {
-        let parameters = ["client_id": "lingua-ios",
-                          "client_secret": "l1n9u4",
-                          "grant_type": "password",
-                          "refresh_token": refreshToken]
-        
-        self.POST(kLINGetAccessTokenPath, parameters: parameters, { (response: AnyObject?, error: NSError?) -> Void in
-            if error != nil {
-                completion(success: false)
-            } else {
-                let serverToken = (response as OVCResponse).result as? LINAccessToken
-                if serverToken != nil {
-                    println("Access token: \(serverToken!.accessToken)")
-                    LINStorageHelper.setObject(serverToken!, forKey: kLINAccessTokenKey)
-                    completion(success: true)
-                } else {
+            let parameters = ["client_id": "lingua-ios",
+                              "client_secret": "l1n9u4",
+                              "grant_type": "password",
+                              "refresh_token": refreshToken]
+            
+            self.POST(kLINGetAccessTokenPath, parameters: parameters, { (response: AnyObject?, error: NSError?) -> Void in
+                if error != nil {
                     completion(success: false)
+                } else {
+                    let serverToken = (response as OVCResponse).result as? LINAccessToken
+                    if serverToken != nil {
+                        println("Access token: \(serverToken!.accessToken)")
+                        LINStorageHelper.setObject(serverToken!, forKey: kLINAccessTokenKey)
+                        completion(success: true)
+                    } else {
+                        completion(success: false)
+                    }
                 }
-            }
-        })
+            })
     }
     
     func isValidToken(completion: (success: Bool) -> Void) {
@@ -126,74 +144,76 @@ class LINNetworkClient: OVCHTTPSessionManager {
             }
         })
     }
-    
+}
+
+extension LINNetworkClient {
     // MARK: Users
     
     func getCurrentUser(success: (user: LINUser?) -> Void,
                         failture: (error: NSError?) -> Void) {
-        setAuthorizedRequest()
-        
-        self.GET(kLINGetCurrentUserPath, parameters: nil, completion: { (response: AnyObject?, error: NSError?) -> Void in
-            if error != nil {
-                failture(error: error!)
-            } else {
-                let user = (response as OVCResponse).result as? LINUser
-                if user != nil {
-                    println("Current user: \(user!.firstName)")
-                    success(user: user)
+            setAuthorizedRequest()
+            
+            self.GET(kLINGetCurrentUserPath, parameters: nil, completion: { (response: AnyObject?, error: NSError?) -> Void in
+                if error != nil {
+                    failture(error: error!)
                 } else {
-                    failture(error: nil)
+                    let user = (response as OVCResponse).result as? LINUser
+                    if user != nil {
+                        println("Current user: \(user!.firstName)")
+                        success(user: user)
+                    } else {
+                        failture(error: nil)
+                    }
                 }
-            }
-        })
+            })
     }
     
     func updateCurrentUser(success: () -> Void,
                            failture: (error: NSError?) -> Void) {
-        setAuthorizedRequest()
+            setAuthorizedRequest()
             
-        var parameters = [String: AnyObject]()
-        var path = kLINUsersPath
-        if let currentUser = LINUserManager.sharedInstance.currentUser {
-            path = "\(path)/\(currentUser.userId)"
-            parameters = ["learn_language_id": currentUser.learningLanguage!.languageID,
-                          "native_language_id": currentUser.nativeLanguage!.languageID,
-                          "spoken_proficiency_id": currentUser.speakingProficiency!.proficiencyID,
-                          "written_proficiency_id": currentUser.writingProficiency!.proficiencyID,
-                          "introduction" : currentUser.introduction]
-        }
-        else {
-            return
-        }
-        
-        self.PUT(path, parameters: parameters, completion: { (response: AnyObject?, error: NSError?) -> Void in
-            if error != nil {
-                failture(error: error)
+            var parameters = [String: AnyObject]()
+            var path = kLINUsersPath
+            if let currentUser = LINUserManager.sharedInstance.currentUser {
+                path = "\(path)/\(currentUser.userId)"
+                parameters = ["learn_language_id": currentUser.learningLanguage!.languageID,
+                              "native_language_id":     currentUser.nativeLanguage!.languageID,
+                              "spoken_proficiency_id":  currentUser.speakingProficiency!.proficiencyID,
+                              "written_proficiency_id": currentUser.writingProficiency!.proficiencyID,
+                              "introduction" :          currentUser.introduction]
+            }
+            else {
                 return
             }
-            println(response?.result)
-            success()
-        })
+            
+            self.PUT(path, parameters: parameters, completion: { (response: AnyObject?, error: NSError?) -> Void in
+                if error != nil {
+                    failture(error: error)
+                    return
+                }
+                println(response?.result)
+                success()
+            })
     }
     
     func getAllUsers(success: (arrUsers: [LINUser]?) -> Void,
-                    failture: (error: NSError?) -> Void) {
-        setAuthorizedRequest()
-                        
-        self.GET(kLINUsersPath, parameters: nil, completion: { (response: AnyObject?, error: NSError?) -> Void in
-            if error != nil {
-                 failture(error: error!)
-            } else {
-                let arrUsers = (response as OVCResponse).result as? [LINUser]
-                if let tmp = arrUsers {
-                    success(arrUsers: tmp)
+                     failture: (error: NSError?) -> Void) {
+            setAuthorizedRequest()
+            
+            self.GET(kLINUsersPath, parameters: nil, completion: { (response: AnyObject?, error: NSError?) -> Void in
+                if error != nil {
+                    failture(error: error!)
                 } else {
-                    failture(error: nil)
+                    let arrUsers = (response as OVCResponse).result as? [LINUser]
+                    if let tmp = arrUsers {
+                        success(arrUsers: tmp)
+                    } else {
+                        failture(error: nil)
+                    }
                 }
-            }
-        })
+            })
     }
-
+    
     func sendNotificationWithUserId(userId: String, text: String, sendDate: String) {
         setAuthorizedRequest()
         
@@ -208,9 +228,9 @@ class LINNetworkClient: OVCHTTPSessionManager {
         setAuthorizedRequest()
         
         let parameters = [kUserIdKey: userId,
-                          kDeviceTokenKey: deviceToken]
+            kDeviceTokenKey: deviceToken]
         let path = "\(kLINUsersPath)/\(userId)"
-                                        
+        
         self.PUT(path, parameters: parameters, { (response: AnyObject?, error: NSError?) -> Void in
             if error != nil {
                 println("Update device token has some errors: \(error!.description)")
@@ -237,30 +257,31 @@ class LINNetworkClient: OVCHTTPSessionManager {
             failture(error: nil)
         })
     }
-    
+}
+
+extension LINNetworkClient {
     // MARK: Conversations
     
-    func createNewConversationWithTeacherId(teacherId: String,
-                                            learnerId: String,
-                                              success: (conversation: LINConversation) -> Void,
-                                              failure: (error: NSError?) -> Void) {
-        setAuthorizedRequest()
-        
-        let parameters = ["teacher_id": teacherId,
-                          "learner_id": learnerId]
-        
-        self.POST(kLINConversationsPath, parameters: parameters, { (response: AnyObject?, error: NSError?) -> Void in
-            if error != nil {
-                println("Create new conversation has some errors: \(error!.description)")
-                failure(error: error)
-                return
-            }
+    func createNewConversationWithTeacherId(teacherId: String, learnerId: String,
+                                            success: (conversation: LINConversation) -> Void,
+                                            failure: (error: NSError?) -> Void) {
+            setAuthorizedRequest()
             
-            if let tmpConversation = (response as OVCResponse).result as? LINConversation {
-                println("Current conversation: \(tmpConversation)")
-                success(conversation: tmpConversation)
-            }
-        })
+            let parameters = ["teacher_id": teacherId,
+                              "learner_id": learnerId]
+            
+            self.POST(kLINConversationsPath, parameters: parameters, { (response: AnyObject?, error: NSError?) -> Void in
+                if error != nil {
+                    println("Create new conversation has some errors: \(error!.description)")
+                    failure(error: error)
+                    return
+                }
+                
+                if let tmpConversation = (response as OVCResponse).result as? LINConversation {
+                    println("Current conversation: \(tmpConversation)")
+                    success(conversation: tmpConversation)
+                }
+            })
     }
     
     func getAllConversations(completion:(conversationsArray: [LINConversation]? , error: NSError?) -> Void) {
@@ -280,94 +301,80 @@ class LINNetworkClient: OVCHTTPSessionManager {
         })
     }
     
-   func creatBulkWithConversationId(conversationId: String,
+    func creatBulkWithConversationId(conversationId: String,
                                      messagesArray: [AnyObject],
                                      completion: (success: Bool) -> Void) {
-        setAuthorizedRequest()
-                                    
-        let path = kLINConversationsPath + "/" + "\(conversationId)/messages"
-                                        
-        var error: NSError?
-        let jsonData  = NSJSONSerialization.dataWithJSONObject(messagesArray, options: NSJSONWritingOptions(0), error: &error)
-        if error != nil {
-            println("Error creating JSON data from messages array: \(error!.description)");
-            completion(success: false)
-            return
-        }
-                                    
-        self.POST(path, parameters: nil, constructingBodyWithBlock: { (formData) -> Void in
-            formData.appendPartWithFormData(jsonData, name: "messages")
-         }) { (response, error) -> Void in
-                if error != nil {
-                    println("Create a bulk of messages has some errors: \(error!.description)")
-                    completion(success: false)
-                    return
-                }
+            setAuthorizedRequest()
             
-                println("Create a bulk of messages successfully.")
-                completion(success: true)
-        }
-    }
-    
-    func getChatHistoryWithConversationId(conversationId: String,
-                                          length: Int,
-                                          page: Int,
-                                          completion: (repliesArray: [LINReply]?, error: NSError?) -> Void) {
-        setAuthorizedRequest()
-          
-        let parameters = ["conversation_id": conversationId,
-                          "length": length,
-                          "page": page]
-        let path = kLINMessagesPath.stringByReplacingOccurrencesOfString("*", withString: "\(conversationId)", options: nil, range: nil)
-        
-        self.GET(path, parameters: parameters) { (response, error) -> Void in
+            let path = kLINConversationsPath + "/" + "\(conversationId)/messages"
+            
+            var error: NSError?
+            let jsonData  = NSJSONSerialization.dataWithJSONObject(messagesArray, options: NSJSONWritingOptions(0), error: &error)
             if error != nil {
-                println("Get chat history has some errors: \(error!.description)")
-                completion(repliesArray: nil, error: error!)
+                println("Error creating JSON data from messages array: \(error!.description)");
+                completion(success: false)
                 return
             }
             
-            if let tmpRepliesArray = (response as OVCResponse).result as? [LINReply] {
-                println("You have \(tmpRepliesArray.count) messages.")
-                completion(repliesArray: tmpRepliesArray, error: nil)
+            self.POST(path, parameters: nil, constructingBodyWithBlock: { (formData) -> Void in
+                formData.appendPartWithFormData(jsonData, name: "messages")
+                }) { (response, error) -> Void in
+                    if error != nil {
+                        println("Create a bulk of messages has some errors: \(error!.description)")
+                        completion(success: false)
+                        return
+                    }
+                    
+                    println("Create a bulk of messages successfully.")
+                    completion(success: true)
             }
-        }
     }
     
+    func getChatHistoryWithConversationId(conversationId: String, length: Int, page: Int,
+                                          completion: (repliesArray: [LINReply]?, error: NSError?) -> Void) {
+            setAuthorizedRequest()
+            
+            let parameters = ["conversation_id": conversationId,
+                              "length": length,
+                              "page": page]
+            let path = kLINMessagesPath.stringByReplacingOccurrencesOfString("*", withString: "\(conversationId)", options: nil, range: nil)
+            
+            self.GET(path, parameters: parameters) { (response, error) -> Void in
+                if error != nil {
+                    println("Get chat history has some errors: \(error!.description)")
+                    completion(repliesArray: nil, error: error!)
+                    return
+                }
+                
+                if let tmpRepliesArray = (response as OVCResponse).result as? [LINReply] {
+                    println("You have \(tmpRepliesArray.count) messages.")
+                    completion(repliesArray: tmpRepliesArray, error: nil)
+                }
+            }
+    }
+}
+
+extension LINNetworkClient {
     // MARK: Photos, Voices
     
     func uploadImage(image: UIImage,
                      completion: (imageURL: String?, error: NSError?) -> Void) {
-        let imageData = UIImageJPEGRepresentation(image, 0.8) as NSData
-        let fileName = "\(NSDate().timeIntervalSince1970)" + ".jpg"
-                       
-        self.POST(kLINUploadPath, parameters: nil, constructingBodyWithBlock: { (formData) -> Void in
-            formData.appendPartWithFileData(imageData, name: "image", fileName: fileName, mimeType: "image/jpeg")
-        }) { (response, error) -> Void in
-                if error != nil {
-                    println("Upload image has some errors: \(error!.description)")
-                    completion(imageURL: nil, error: error!)
-                    return
-                }
-                
-                if let tmpImage = (response as OVCResponse).result as? LINPhoto {
-                    println("Image URL: \(tmpImage.imageURL)")
-                    completion(imageURL: tmpImage.imageURL, error: nil)
-                }
-        }
-    }
-    
-    // MARK: OVCHTTPSessionManager
-    
-    override class func modelClassesByResourcePath() -> [NSObject : AnyObject]! {
-        return [kLINGetAccessTokenPath: LINAccessToken.self,
-                kLINGetCurrentUserPath: LINUser.self,
-                kLINUsersPath: LINUser.self,
-                kLINMatchUser: LINUser.self,
-                kLINLanguagePath: LINLanguage.self,
-                kLINConversationsPath: LINConversation.self,
-                kLINUploadPath: LINPhoto.self,
-                kLINMessagesPath: LINReply.self
-        ]
+            let imageData = UIImageJPEGRepresentation(image, 0.8) as NSData
+            let fileName = "\(NSDate().timeIntervalSince1970)" + ".jpg"
+            
+            self.POST(kLINUploadPath, parameters: nil, constructingBodyWithBlock: { (formData) -> Void in
+                formData.appendPartWithFileData(imageData, name: "image", fileName: fileName, mimeType: "image/jpeg")
+                }) { (response, error) -> Void in
+                    if error != nil {
+                        println("Upload image has some errors: \(error!.description)")
+                        completion(imageURL: nil, error: error!)
+                        return
+                    }
+                    
+                    if let tmpImage = (response as OVCResponse).result as? LINPhoto {
+                        println("Image URL: \(tmpImage.imageURL)")
+                        completion(imageURL: tmpImage.imageURL, error: nil)
+                    }
+            }
     }
 }
