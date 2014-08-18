@@ -154,16 +154,16 @@ class LINBubbleCell: UITableViewCell {
         let offsetX = (messageData.incoming == true ? 5 : frame.size.width  - imageSize.width - insets.left - insets.right - 5)
         
         photoImgView.frame = CGRect(x: offsetX + insets.left,
-            y: insets.top + 10,
-            width: imageSize.width,
-            height: imageSize.height)
+                                    y: insets.top + 10,
+                                    width: imageSize.width,
+                                    height: imageSize.height)
         addSubview(photoImgView)
         
         // Bubble imageview
         bubbleImageView.frame = CGRect(x: offsetX + 0,
-            y: 0,
-            width: imageSize.width + insets.left + insets.right,
-            height: imageSize.height + insets.top + insets.bottom + (messageData.incoming == true ? 10: 0))
+                                       y: 0,
+                                       width: imageSize.width + insets.left + insets.right,
+                                       height: imageSize.height + insets.top + insets.bottom + (messageData.incoming == true ? 10: 0))
         
         calcTimeFrameWithContentFrame(bubbleImageView.frame, messageData: messageData)
         
@@ -186,8 +186,8 @@ class LINBubbleCell: UITableViewCell {
             (contentFrame.origin.x - 60))
         createAtLabel.frame = CGRect(x: offsetXCreateAtLabel,
                                      y: contentFrame.origin.y + contentFrame.size.height / 2 - 10,
-                                 width: 100,
-                                height: 20)
+                                     width: 100,
+                                     height: 20)
         createAtLabel.text = NSDateFormatter.hourDateFormatter().stringFromDate(messageData.sendDate).lowercaseString
     }
     

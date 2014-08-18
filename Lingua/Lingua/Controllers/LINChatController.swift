@@ -72,8 +72,8 @@ class LINChatController: UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "appDidBecomActive", name: kNotificationAppDidBecomActive, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "appDidEnterBackground", name: kNotificationAppDidEnterBackground, object: nil)
         
-        loadListLastestMessages()
         setupTableView()
+        loadListLastestMessages()
         
         // Emoticon view
         emoticonsView = NSBundle.mainBundle().loadNibNamed("LINEmoticonsView", owner: self, options: nil)[0] as LINEmoticonsView
@@ -131,14 +131,12 @@ extension LINChatController {
         
         tableView.contentInset = UIEdgeInsetsMake(10, 0, 20, 0)
         tableView.registerClass(LINBubbleCell.self, forCellReuseIdentifier: cellIdentifier)
-        tableView.reloadData()
-        scrollBubbleTableViewToBottomAnimated(false)
     }
 }
 
 extension LINChatController: LINBubbleCellDelegate {
     func bubbleCell(bubbleCell: LINBubbleCell, updatePhotoWithMessageData messageData: LINMessage) {
-        let indexPath: NSIndexPath? = tableView.indexPathForCell(bubbleCell)
+        let indexPath: NSIndexPath? = tableView.indexPathForRowAtPoint(bubbleCell.center)
         if indexPath != nil && messageData.photo != nil {
             println("Resize height for cell at row \(indexPath!.row)")
             messagesDataArray[indexPath!.row] = messageData
@@ -360,10 +358,10 @@ extension LINChatController {
                         }
                         
                         let messageData = LINMessage(incoming: incoming,
-                            text: reply.content,
-                            sendDate: NSDateFormatter.iSODateFormatter().dateFromString(reply.createdAt),
-                            photo: nil,
-                            type: MessageType.fromRaw(reply.messageTypeId)!)
+                                                     text: reply.content,
+                                                     sendDate: NSDateFormatter.iSODateFormatter().dateFromString(reply.createdAt),
+                                                     photo: nil,
+                                                     type: MessageType.fromRaw(reply.messageTypeId)!)
                         self.messagesDataArray.insert(messageData, atIndex: 0)
                     }
                     
