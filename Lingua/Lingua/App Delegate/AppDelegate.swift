@@ -18,7 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: NSDictionary?) -> Bool {
         setupAppearance()
-
         // Register to use Parse Server
         Parse.setApplicationId("OMS2KayfQ1rDTjkWvAjdiF3GFkxTD9hoPR9SnLSR", clientKey: "JPXeT1Kelnsw66qLwQlrOAP69ybbLXhb5Bvh7YQ5")
         
@@ -54,7 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             showOnboardingScreen()
         }
-        
+        LINNetworkHelper.setupWithDefaultViewController(window!.rootViewController)
         return true
     }
 

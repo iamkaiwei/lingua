@@ -16,6 +16,7 @@
 #import "Reachability.h"
 #import "REMenu.h"
 #import "SZTextView.h"
+#import <TSMessage.h>
 #import <Overcoat/Overcoat.h>
 #import <Mantle/Mantle.h>
 #import <SVProgressHUD/SVProgressHUD.h>

@@ -27,3 +27,6 @@ let kConversationIdKey = "conversation_id"
 // Notifications
 let kNotificationAppDidBecomActive = "kNotificationAppDidBecomActive"
 let kNotificationAppDidEnterBackground = "kNotificationAppDidEnterBackground"
+
+let kNotificationAppDidLostInternetConnection = "kNotificationAppDidLostConnection"
+let kNotificationAppDidRestoreConnection      = "kNotificationAppDidRestoreConnection"
