@@ -74,6 +74,7 @@
 		92F0BF421993449E00608803 /* LINMessageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F0BF411993449E00608803 /* LINMessageHelper.swift */; };
 		92F316801962AB75002005B9 /* LINPusherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F3167F1962AB75002005B9 /* LINPusherManager.swift */; };
 		973CD716199B2AD600F01EB3 /* LINConversationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973CD715199B2AD600F01EB3 /* LINConversationCell.swift */; };
+		97A824B119A19D3200C03CC5 /* LINNetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A824B019A19D3200C03CC5 /* LINNetworkHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -203,6 +204,7 @@
 		92F0BF411993449E00608803 /* LINMessageHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINMessageHelper.swift; sourceTree = "<group>"; };
 		92F3167F1962AB75002005B9 /* LINPusherManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINPusherManager.swift; sourceTree = "<group>"; };
 		973CD715199B2AD600F01EB3 /* LINConversationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINConversationCell.swift; sourceTree = "<group>"; };
+		97A824B019A19D3200C03CC5 /* LINNetworkHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINNetworkHelper.swift; sourceTree = "<group>"; };
 		C8726A87F4DA410EA300A2B5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		E5B35F1B8D924BC3AAC02042 /* libPods-Lingua.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Lingua.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -436,6 +438,7 @@
 				926B2858198647380089DDAA /* LINStorageHelper.swift */,
 				92F0BF411993449E00608803 /* LINMessageHelper.swift */,
 				92052F3E199522A900EA773B /* LINNotificationHelper.swift */,
+				97A824B019A19D3200C03CC5 /* LINNetworkHelper.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -698,6 +701,7 @@
 				92F316801962AB75002005B9 /* LINPusherManager.swift in Sources */,
 				20BF3FAB1957ECA700963B1F /* LINFriendListController.swift in Sources */,
 				20DC6566197BEA4F008DA659 /* LINBadgeCell.swift in Sources */,
+				97A824B119A19D3200C03CC5 /* LINNetworkHelper.swift in Sources */,
 				9222F8C41997782D005420EC /* LINEmoticonCell.swift in Sources */,
 				20473E201966D5C200EDF620 /* SZTextView.m in Sources */,
 				20F5835819931E6D00DE77A6 /* LINPopPresentAnimationController.swift in Sources */,
@@ -868,7 +872,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Kiet Nguyen (CG3J4YZ53P)";
 				DEFINES_MODULE = NO;
 				INFOPLIST_FILE = Lingua/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -888,7 +892,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Kiet Nguyen (CG3J4YZ53P)";
 				DEFINES_MODULE = NO;
 				INFOPLIST_FILE = Lingua/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
