@@ -120,6 +120,7 @@ extension LINChatController {
     
     private func setupTableView() {
         let configureClosure: TableViewCellConfigureClosure = { (bubbleCell: UITableViewCell, messageData: AnyObject) -> Void in
+            (bubbleCell as LINBubbleCell).delegate = self
             (bubbleCell as LINBubbleCell).configureCellWithMessageData(messageData as LINMessage)
         }
         
@@ -131,6 +132,20 @@ extension LINChatController {
         tableView.registerClass(LINBubbleCell.self, forCellReuseIdentifier: cellIdentifier)
         tableView.reloadData()
         scrollBubbleTableViewToBottomAnimated(false)
+    }
+}
+
+extension LINChatController: LINBubbleCellDelegate {
+    func bubbleCell(bubbleCell: LINBubbleCell, updatePhotoWithMessageData messageData: LINMessage) {
+        let indexPath: NSIndexPath? = tableView.indexPathForCell(bubbleCell)
+        if indexPath != nil && messageData.photo != nil {
+            println("Resize height for cell at row \(indexPath!.row)")
+            messagesDataArray[indexPath!.row] = messageData
+            
+            tableView.beginUpdates()
+            tableView.reloadRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.None)
+            tableView.endUpdates()
+        }
     }
 }
 
@@ -152,18 +167,18 @@ extension LINChatController {
         }
         
         let replyDict = ["sender_id": currentUser.userId,
-            "message_type_id": type.toRaw(),
-            "content": text,
-            "created_at": sendDate]
+                         "message_type_id": type.toRaw(),
+                         "content": text,
+                         "created_at": sendDate]
         
         if currentChatMode == LINChatMode.Online {
             currentChannel.triggerEventNamed(kPusherEventNameNewMessage,
                 data: [kUserIdKey: currentUser.userId,
-                    kFirstName: currentUser.firstName,
-                    kAvatarURL: currentUser.avatarURL,
-                    kMessageTextKey: text,
-                    kMessageSendDateKey: sendDate,
-                    kMessageTypeKey: type.toRaw()
+                       kFirstName: currentUser.firstName,
+                       kAvatarURL: currentUser.avatarURL,
+                       kMessageTextKey: text,
+                       kMessageSendDateKey: sendDate,
+                       kMessageTypeKey: type.toRaw()
                 ])
             
             repliesArray.append(replyDict)
@@ -239,12 +254,12 @@ extension LINChatController {
         
         let push = PFPush()
         push.setData(["aps": ["alert": alertTitle, "sound": "defaut"],
-            kUserIdKey: currentUser.userId,
-            kFirstName: currentUser.firstName,
-            kAvatarURL: currentUser.avatarURL,
-            kMessageSendDateKey: sendDate,
-            kMessageTypeKey: type.toRaw(),
-            kConversationIdKey: conversationId])
+                      kUserIdKey: currentUser.userId,
+                      kFirstName: currentUser.firstName,
+                      kAvatarURL: currentUser.avatarURL,
+                      kMessageSendDateKey: sendDate,
+                      kMessageTypeKey: type.toRaw(),
+                      kConversationIdKey: conversationId])
         push.setQuery(pushQuery)
         
         push.sendPushInBackgroundWithBlock({ (success, error) in

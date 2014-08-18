@@ -31,6 +31,10 @@ enum MessageType: Int {
     }
 }
 
+protocol LINBubbleCellDelegate {
+    func bubbleCell(bubbleCell: LINBubbleCell, updatePhotoWithMessageData messageData: LINMessage)
+}
+
 class LINBubbleCell: UITableViewCell {
     var contentLabel: UILabel = UILabel()
     var bubbleImageView: UIImageView = UIImageView()
@@ -41,6 +45,8 @@ class LINBubbleCell: UITableViewCell {
     let textInsetsSomeone = UIEdgeInsetsMake(5, 15, 7, 10)
     let photoInsetsMine = UIEdgeInsetsMake(10, 10, 18, 10)
     let photoInsetsSomeone = UIEdgeInsetsMake(10, 10, 10, 10)
+    
+    var delegate: LINBubbleCellDelegate?
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String!) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -117,9 +123,12 @@ class LINBubbleCell: UITableViewCell {
                     println("Finish downloading photo message.")
                     messageData.photo = tmpImage
                     self.addPhotoToBubbleCellWithMessageData(messageData)
-    
+                    
+                    // Save photo to memory
+                    self.delegate?.bubbleCell(self, updatePhotoWithMessageData: messageData)
+                    
                     // Save photo to camera roll
-                    UIImageWriteToSavedPhotosAlbum(tmpImage, nil, nil, nil)
+                    // UIImageWriteToSavedPhotosAlbum(tmpImage, nil, nil, nil)
                 }
             }
         } else {
