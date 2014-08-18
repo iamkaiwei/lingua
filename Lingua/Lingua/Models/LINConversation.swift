@@ -53,14 +53,14 @@ class LINConversation: MTLModel, MTLJSONSerializing {
             if self.teacher!.nativeLanguage != nil {
                 language = self.teacher!.nativeLanguage!.languageName
             }
-            return "Teaching " + language
+            return "Teaching \(language)"
         }
         else
         {
             if self.learner!.learningLanguage != nil {
                 language = self.learner!.learningLanguage!.languageName
             }
-            return "Learning " + language
+            return "Learning \(language)"
         }
     }
 }

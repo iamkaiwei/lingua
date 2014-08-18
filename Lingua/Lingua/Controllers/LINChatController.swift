@@ -235,7 +235,7 @@ extension LINChatController {
         pushQuery.whereKey(kUserIdKey, equalTo: userChat.userId)
         
         var content = type.getSubtitleWithText(text)
-        let alertTitle = currentUser.firstName + ": " + content
+        let alertTitle = "\(currentUser.firstName): \(content)"
         
         let push = PFPush()
         push.setData(["aps": ["alert": alertTitle, "sound": "defaut"],

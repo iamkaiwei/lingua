@@ -20,7 +20,7 @@ class LINNotificationHelper {
         // Only show banner when app is active
         if applicationState == .Active {
             if let tmpId = userId {
-                let text = (alert! as NSString).stringByReplacingOccurrencesOfString(firstName! + ":", withString: "") as String
+                let text = (alert! as NSString).stringByReplacingOccurrencesOfString("\(firstName!):", withString: "") as String
                 LINMessageHelper.showNotificationWitUserId(tmpId, name: firstName!, text: text, avatarURL: avatarURL!,
                                                            type: type!, conversationId: conversationId!)
             }

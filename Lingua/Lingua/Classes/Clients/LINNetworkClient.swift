@@ -306,7 +306,7 @@ extension LINNetworkClient {
                                      completion: (success: Bool) -> Void) {
             setAuthorizedRequest()
             
-            let path = kLINConversationsPath + "/" + "\(conversationId)/messages"
+            let path = "\(kLINConversationsPath)/\(conversationId)/messages"
             
             var error: NSError?
             let jsonData  = NSJSONSerialization.dataWithJSONObject(messagesArray, options: NSJSONWritingOptions(0), error: &error)
@@ -360,7 +360,7 @@ extension LINNetworkClient {
     func uploadImage(image: UIImage,
                      completion: (imageURL: String?, error: NSError?) -> Void) {
             let imageData = UIImageJPEGRepresentation(image, 0.8) as NSData
-            let fileName = "\(NSDate().timeIntervalSince1970)" + ".jpg"
+            let fileName = "\(NSDate().timeIntervalSince1970).jpg"
             
             self.POST(kLINUploadPath, parameters: nil, constructingBodyWithBlock: { (formData) -> Void in
                 formData.appendPartWithFileData(imageData, name: "image", fileName: fileName, mimeType: "image/jpeg")
