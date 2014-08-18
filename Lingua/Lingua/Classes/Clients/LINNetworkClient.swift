@@ -8,8 +8,6 @@
 
 import Foundation
 
-typealias CompletionClosure = (success: Bool, errorMessage: String) -> Void
-
 // Requests
 let kLINBaseURL = "http://linguatheapp.herokuapp.com/"
 let kLINGetAccessTokenPath = "oauth/token"
@@ -21,6 +19,7 @@ let kLINConversationsPath = "api/v1/conversations"
 let kLINLanguagePath = "api/v1/languages"
 let kLINUploadPath = "api/v1/upload"
 let kLINMessagesPath = "api/v1/conversations/*/messages"
+let kLINLeaveConversationPath = "/api/v1/conversations/*/leave_conversation"
 
 // Storage
 let kLINAccessTokenKey = "kLINAccessTokenKey"
@@ -265,23 +264,23 @@ extension LINNetworkClient {
     func createNewConversationWithTeacherId(teacherId: String, learnerId: String,
                                             success: (conversation: LINConversation) -> Void,
                                             failure: (error: NSError?) -> Void) {
-            setAuthorizedRequest()
+        setAuthorizedRequest()
+        
+        let parameters = ["teacher_id": teacherId,
+                          "learner_id": learnerId]
+        
+        self.POST(kLINConversationsPath, parameters: parameters, { (response: AnyObject?, error: NSError?) -> Void in
+            if error != nil {
+                println("Create new conversation has some errors: \(error!.description)")
+                failure(error: error)
+                return
+            }
             
-            let parameters = ["teacher_id": teacherId,
-                              "learner_id": learnerId]
-            
-            self.POST(kLINConversationsPath, parameters: parameters, { (response: AnyObject?, error: NSError?) -> Void in
-                if error != nil {
-                    println("Create new conversation has some errors: \(error!.description)")
-                    failure(error: error)
-                    return
-                }
-                
-                if let tmpConversation = (response as OVCResponse).result as? LINConversation {
-                    println("Current conversation: \(tmpConversation)")
-                    success(conversation: tmpConversation)
-                }
-            })
+            if let tmpConversation = (response as OVCResponse).result as? LINConversation {
+                println("Current conversation: \(tmpConversation)")
+                success(conversation: tmpConversation)
+            }
+        })
     }
     
     func getAllConversations(completion:(conversationsArray: [LINConversation]? , error: NSError?) -> Void) {
@@ -304,53 +303,70 @@ extension LINNetworkClient {
     func creatBulkWithConversationId(conversationId: String,
                                      messagesArray: [AnyObject],
                                      completion: (success: Bool) -> Void) {
-            setAuthorizedRequest()
-            
-            let path = "\(kLINConversationsPath)/\(conversationId)/messages"
-            
-            var error: NSError?
-            let jsonData  = NSJSONSerialization.dataWithJSONObject(messagesArray, options: NSJSONWritingOptions(0), error: &error)
-            if error != nil {
-                println("Error creating JSON data from messages array: \(error!.description)");
-                completion(success: false)
-                return
-            }
-            
-            self.POST(path, parameters: nil, constructingBodyWithBlock: { (formData) -> Void in
-                formData.appendPartWithFormData(jsonData, name: "messages")
-                }) { (response, error) -> Void in
-                    if error != nil {
-                        println("Create a bulk of messages has some errors: \(error!.description)")
-                        completion(success: false)
-                        return
-                    }
-                    
-                    println("Create a bulk of messages successfully.")
-                    completion(success: true)
-            }
+        setAuthorizedRequest()
+        
+        let path = "\(kLINConversationsPath)/\(conversationId)/messages"
+        
+        var error: NSError?
+        let jsonData  = NSJSONSerialization.dataWithJSONObject(messagesArray, options: NSJSONWritingOptions(0), error: &error)
+        if error != nil {
+            println("Error creating JSON data from messages array: \(error!.description)");
+            completion(success: false)
+            return
+        }
+        
+        self.POST(path, parameters: nil, constructingBodyWithBlock: { (formData) -> Void in
+            formData.appendPartWithFormData(jsonData, name: "messages")
+            }) { (response, error) -> Void in
+                if error != nil {
+                    println("Create a bulk of messages has some errors: \(error!.description)")
+                    completion(success: false)
+                    return
+                }
+                
+                println("Create a bulk of messages successfully.")
+                completion(success: true)
+        }
     }
     
     func getChatHistoryWithConversationId(conversationId: String, length: Int, page: Int,
                                           completion: (repliesArray: [LINReply]?, error: NSError?) -> Void) {
-            setAuthorizedRequest()
-            
-            let parameters = ["conversation_id": conversationId,
-                              "length": length,
-                              "page": page]
-            let path = kLINMessagesPath.stringByReplacingOccurrencesOfString("*", withString: "\(conversationId)", options: nil, range: nil)
-            
-            self.GET(path, parameters: parameters) { (response, error) -> Void in
-                if error != nil {
-                    println("Get chat history has some errors: \(error!.description)")
-                    completion(repliesArray: nil, error: error!)
-                    return
-                }
-                
-                if let tmpRepliesArray = (response as OVCResponse).result as? [LINReply] {
-                    println("You have \(tmpRepliesArray.count) messages.")
-                    completion(repliesArray: tmpRepliesArray, error: nil)
-                }
+        setAuthorizedRequest()
+        
+        let parameters = ["conversation_id": conversationId,
+                          "length": length,
+                          "page": page]
+        let path = kLINMessagesPath.stringByReplacingOccurrencesOfString("*", withString: "\(conversationId)", options: nil, range: nil)
+        
+        self.GET(path, parameters: parameters) { (response, error) -> Void in
+            if error != nil {
+                println("Get chat history has some errors: \(error!.description)")
+                completion(repliesArray: nil, error: error!)
+                return
             }
+            
+            if let tmpRepliesArray = (response as OVCResponse).result as? [LINReply] {
+                println("You have \(tmpRepliesArray.count) messages.")
+                completion(repliesArray: tmpRepliesArray, error: nil)
+            }
+        }
+    }
+    
+    func leaveConversationWithConversationId(conversationId: String, completion: (success: Bool) -> Void){
+        setAuthorizedRequest()
+        
+        let path = kLINLeaveConversationPath.stringByReplacingOccurrencesOfString("*", withString: "\(conversationId)", options: nil, range: nil)
+        
+        self.PUT(path, parameters: nil) { (response, error) -> Void in
+            if error != nil {
+                println("Leave conversation has some errors: \(error!.description)")
+                completion(success: false)
+                return
+            }
+            
+            println("Leave conversation successfully.")
+            completion(success: true)
+       }
     }
 }
 

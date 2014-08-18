@@ -96,6 +96,7 @@ class LINChatController: UIViewController {
         
         NSNotificationCenter.defaultCenter().removeObserver(self)
         
+        leaveConversation()
         currentChannel.unsubscribe()
         postMessagesToServer()
     }
@@ -234,7 +235,14 @@ extension LINChatController {
 extension LINChatController {
     // MARK: Functions
     
+    private func leaveConversation() {
+        LINNetworkClient.sharedInstance.leaveConversationWithConversationId(conversationId,
+            completion: { (success) -> Void in
+        })
+    }
+    
     func appDidEnterBackground() {
+        leaveConversation()
         currentChannel.unsubscribe()
         postMessagesToServer()
     }
