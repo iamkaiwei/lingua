@@ -33,8 +33,7 @@ extension UINavigationBar {
     }
     
     func appDidRestoreConnection(notification:NSNotification) {
-        var notificationView:UILabel = self.viewWithTag(HUD_VIEW_TAG) as UILabel
-        if notificationView == nil {
+        if let notificationView = self.viewWithTag(HUD_VIEW_TAG) as? UILabel {
             UIView.animateWithDuration(animationDuration, animations: { () -> Void in
                 notificationView.frame = self.getRectForHUD(false)
             }, completion: {(finished:Bool) -> Void in

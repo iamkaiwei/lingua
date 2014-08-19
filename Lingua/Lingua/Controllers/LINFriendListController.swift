@@ -91,11 +91,9 @@ class LINFriendListController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func loadCachedConversationData() {
-        var cachedData = LINResourceHelper.retrievingCachedConversation()
-        if cachedData != nil {
-            self.conversationList = NSKeyedUnarchiver.unarchiveObjectWithData(cachedData) as [LINConversation]
-            self.tableView.reloadData()
-        }
+        let cachedData = LINResourceHelper.retrievingCachedConversation()
+        self.conversationList = NSKeyedUnarchiver.unarchiveObjectWithData(cachedData) as [LINConversation]
+        self.tableView.reloadData()
     }
     
     // MARK: UIViewControllerTransitioningDelegate
