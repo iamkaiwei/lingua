@@ -19,7 +19,7 @@ class LINStorageHelper {
         if data  == nil {
             return nil
         }
-        return NSKeyedUnarchiver.unarchiveObjectWithData(data)
+        return NSKeyedUnarchiver.unarchiveObjectWithData(data!)
     }
     
     class func setObject(value: AnyObject?, forKey key: String) {
@@ -27,13 +27,11 @@ class LINStorageHelper {
             return
         }
         
-        let data: NSData? = NSKeyedArchiver.archivedDataWithRootObject(value)
-        if data == nil {
-            return
+        if value != nil {
+            let data = NSKeyedArchiver.archivedDataWithRootObject(value!)
+            NSUserDefaults.standardUserDefaults().setObject(data, forKey: key)
+            NSUserDefaults.standardUserDefaults().synchronize()
         }
-        
-        NSUserDefaults.standardUserDefaults().setObject(data, forKey: key)
-        NSUserDefaults.standardUserDefaults().synchronize()
     }
     
     class func setStringValue(value: String, forkey key: String) {

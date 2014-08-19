@@ -17,7 +17,7 @@ class LINCountryCell: UITableViewCell {
         textLabel.font = UIFont.appThinFontWithSize(14)
     }
     
-    required init(coder aDecoder: NSCoder!) {
+    required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
 }

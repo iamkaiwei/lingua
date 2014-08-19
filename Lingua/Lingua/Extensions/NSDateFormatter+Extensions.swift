@@ -43,30 +43,27 @@ extension NSDateFormatter {
         return Static.conversationDateFormatter!
     }
     
-    class func getConversationTimeStringFromDate(date:NSDate) -> String {
-        if date != nil{
-            var calendar:NSCalendar = NSCalendar.currentCalendar()
-            var dateComponents:NSDateComponents = calendar.components(NSCalendarUnit.CalendarUnitYear|NSCalendarUnit.CalendarUnitMonth|NSCalendarUnit.CalendarUnitDay , fromDate: date)
+    class func getConversationTimeStringFromDate(date: NSDate) -> String {
+        var calendar:NSCalendar = NSCalendar.currentCalendar()
+        var dateComponents:NSDateComponents = calendar.components(NSCalendarUnit.CalendarUnitYear|NSCalendarUnit.CalendarUnitMonth|NSCalendarUnit.CalendarUnitDay , fromDate: date)
             
-            var currentDate = NSDate()
-            var differentInDays:Int = calendar.ordinalityOfUnit(NSCalendarUnit.CalendarUnitDay, inUnit: NSCalendarUnit.CalendarUnitEra, forDate: date) - calendar.ordinalityOfUnit(NSCalendarUnit.CalendarUnitDay, inUnit: NSCalendarUnit.CalendarUnitEra, forDate: currentDate)
+        var currentDate = NSDate()
+        var differentInDays:Int = calendar.ordinalityOfUnit(NSCalendarUnit.CalendarUnitDay, inUnit: NSCalendarUnit.CalendarUnitEra, forDate: date) - calendar.ordinalityOfUnit(NSCalendarUnit.CalendarUnitDay, inUnit: NSCalendarUnit.CalendarUnitEra, forDate: currentDate)
     
-            var dayString:String = ""
+        var dayString:String = ""
             
-            if differentInDays  == 0{
-                dayString = NSDateFormatter.hourDateFormatter().stringFromDate(date).lowercaseString
-            }
-            else if differentInDays == -1 {
-                dayString = "Yesterday"
-            }else if differentInDays < -1 && differentInDays >= -6 {
-                dayString = NSDateFormatter.conversationDateFormatter().stringFromDate(date)
-            }
-            else
-            {
-                dayString = "\(dateComponents.day)/\(dateComponents.month)/\(dateComponents.year)"
-            }
-            return dayString
+        if differentInDays  == 0{
+            dayString = NSDateFormatter.hourDateFormatter().stringFromDate(date).lowercaseString
         }
-        return ""
+        else if differentInDays == -1 {
+            dayString = "Yesterday"
+        }
+        else if differentInDays < -1 && differentInDays >= -6 {
+            dayString = NSDateFormatter.conversationDateFormatter().stringFromDate(date)
+        }
+        else {
+            dayString = "\(dateComponents.day)/\(dateComponents.month)/\(dateComponents.year)"
+        }
+        return dayString
     }
 }

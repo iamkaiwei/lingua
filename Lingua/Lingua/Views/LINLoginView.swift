@@ -19,7 +19,7 @@ protocol LINLoginViewDelegate {
 class LINLoginView: UIView {
     var delegate: LINLoginViewDelegate?
     
-    required init(coder aDecoder: NSCoder!) {
+    required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
