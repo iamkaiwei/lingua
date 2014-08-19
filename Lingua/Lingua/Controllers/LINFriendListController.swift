@@ -73,14 +73,12 @@ class LINFriendListController: UIViewController, UITableViewDataSource, UITableV
         }
     }
     
-    func refreshConversationList(){
-        if LINNetworkHelper.isReachable()
-        {
+    func refreshConversationList() {
+        if LINNetworkHelper.isReachable(){
             //Network available , request new data from server
             loadAllConversation()
         }
-        else
-        {
+        else{
             //Network Unavailable , load cached data
             NSLog("Network unavailable , loading cached data")
             loadCachedConversationData()
