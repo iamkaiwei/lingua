@@ -29,18 +29,21 @@ class LINConversationCell: UITableViewCell {
         if let tempDate = NSDateFormatter.iSODateFormatter().dateFromString(conversation.lastestUpdate) {
             conversationDate = tempDate as NSDate
         }
+        else {
+            return
+        }
         
         dateLabel.text = NSDateFormatter.getConversationTimeStringFromDate(conversationDate!)
         
         //check if conversation has new message
-        var lastOnline:NSDate? = LINStorageHelper.getLastOnlineTimeStamp()
+        var lastOnline: NSDate? = LINStorageHelper.getLastOnlineTimeStamp()
         if lastOnline == nil {
             //We have no previous online timestamp
             self.backgroundColor = UIColor.lightGrayColor()
         }
         else
         {
-            if lastOnline?.compare(conversationDate) == NSComparisonResult.OrderedAscending {
+            if lastOnline?.compare(conversationDate!) == NSComparisonResult.OrderedAscending {
                 self.backgroundColor = UIColor.lightGrayColor()
             }
             else

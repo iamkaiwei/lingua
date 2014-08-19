@@ -136,45 +136,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
-        self.saveContext()
+        
     }
 
     func application(application: UIApplication!, openURL url: NSURL!, sourceApplication: String!, annotation: AnyObject!) -> Bool {
-        if url.absoluteString.hasPrefix("fb") {
+        if (url.absoluteString?.hasPrefix("fb") != nil) {
             return FBAppCall.handleOpenURL(url, sourceApplication: sourceApplication)
         }
         
         return GPPURLHandler.handleURL(url, sourceApplication: sourceApplication, annotation: annotation) 
     }
-    
-    func saveContext () {
-        var error: NSError? = nil
-        let managedObjectContext = self.managedObjectContext
-        if managedObjectContext != nil {
-            if managedObjectContext.hasChanges && !managedObjectContext.save(&error) {
-                // Replace this implementation with code to handle the error appropriately.
-                // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                //println("Unresolved error \(error), \(error.userInfo)")
-                abort()
-            }
-        }
-    }
 
     // #pragma mark - Core Data stack
-
-    // Returns the managed object context for the application.
-    // If the context doesn't already exist, it is created and bound to the persistent store coordinator for the application.
-    var managedObjectContext: NSManagedObjectContext {
-        if _managedObjectContext == nil {
-            let coordinator = self.persistentStoreCoordinator
-            if coordinator != nil {
-                _managedObjectContext = NSManagedObjectContext()
-                _managedObjectContext!.persistentStoreCoordinator = coordinator
-            }
-        }
-        return _managedObjectContext!
-    }
-    var _managedObjectContext: NSManagedObjectContext? = nil
 
     // Returns the managed object model for the application.
     // If the model doesn't already exist, it is created from the application's model.

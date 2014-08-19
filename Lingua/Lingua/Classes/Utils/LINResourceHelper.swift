@@ -12,7 +12,7 @@ class LINResourceHelper: NSObject {
     
     class func quotes() -> (quotes: [String], authors: [String]) {
         let path = NSBundle.mainBundle().pathForResource("Quotes", ofType: "txt")
-        let fullText = String.stringWithContentsOfFile(path, encoding: NSUTF8StringEncoding, error: nil)!
+        let fullText = String.stringWithContentsOfFile(path!, encoding: NSUTF8StringEncoding, error: nil)!
         let fullArray = fullText.componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet()).filter{countElements($0) > 0} as [String]
         var quotes = [String]()
         var authors = [String]()

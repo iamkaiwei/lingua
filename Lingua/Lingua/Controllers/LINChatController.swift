@@ -368,7 +368,7 @@ extension LINChatController {
                         
                         let messageData = LINMessage(incoming: incoming,
                                                      text: reply.content,
-                                                     sendDate: NSDateFormatter.iSODateFormatter().dateFromString(reply.createdAt),
+                                                     sendDate: NSDateFormatter.iSODateFormatter().dateFromString(reply.createdAt)!,
                                                      photo: nil,
                                                      type: MessageType.fromRaw(reply.messageTypeId)!)
                         self.messagesDataArray.insert(messageData, atIndex: 0)
@@ -540,7 +540,7 @@ extension LINChatController {
     }
     
     func keyboardWillChangeFrameWithNotification(notfication: NSNotification, showKeyboard: Bool) {
-        let userInfo = notfication.userInfo
+        let userInfo = notfication.userInfo!
         let kbSize = (userInfo[UIKeyboardFrameBeginUserInfoKey] as NSValue).CGRectValue().size
         var animationDuration: NSTimeInterval = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as NSNumber).doubleValue
         

@@ -12,6 +12,9 @@ let kTextMessageMaxWidth = 233
 let kTextMessageMaxHeight = 9999
 let kPhotoMessageMaxWidth = 200
 let kPhotoMessageMaxHeight = 200
+let kVoiceMessageMaxWidth: CGFloat = 233
+let kVoiceMessageMaxHeight: CGFloat = 55
+let kSideMargin: CGFloat = 10
 
 enum MessageType: Int {
     case Text = 1, Photo, Voice
@@ -40,6 +43,11 @@ class LINBubbleCell: UITableViewCell {
     var bubbleImageView: UIImageView = UIImageView()
     var createAtLabel: UILabel = UILabel()
     var photoImgView: UIImageView = UIImageView()
+    
+    //Voice message
+    var playButton: UIButton?
+    var voiceProgressBar: UIProgressView?
+    var durationLabel: UILabel?
     
     let textInsetsMine = UIEdgeInsetsMake(5, 10, 7, 17)
     let textInsetsSomeone = UIEdgeInsetsMake(5, 15, 7, 10)
@@ -70,19 +78,26 @@ class LINBubbleCell: UITableViewCell {
         addSubview(createAtLabel)
     }
     
-    required init(coder aDecoder: NSCoder!) {
+    required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    func configureCellWithMessageData(messageData: LINMessage) {
+    override func prepareForReuse() {
         contentLabel.removeFromSuperview()
         photoImgView.removeFromSuperview()
-        
+        playButton?.removeFromSuperview()
+        voiceProgressBar?.removeFromSuperview()
+        durationLabel?.removeFromSuperview()
+    }
+    
+    func configureCellWithMessageData(messageData: LINMessage) {
         switch(messageData.type) {
             case .Text:
                 configureWithTextMessage(messageData)
             case .Photo:
                 configureWithPhotoMessage(messageData)
+            case .Voice:
+                configureWithVoiceMessage(messageData)
             default:
                 break
         }
@@ -135,6 +150,34 @@ class LINBubbleCell: UITableViewCell {
             // Add photo to cell by image
             self.addPhotoToBubbleCellWithMessageData(messageData)
         }
+    }
+    
+    private func configureWithVoiceMessage(messageData: LINMessage) {
+        // Bubble imageview
+        let x = messageData.incoming == true ? kSideMargin : CGRectGetWidth(frame) - kVoiceMessageMaxWidth - kSideMargin/2
+        bubbleImageView.frame = CGRectMake(x, 5,  kVoiceMessageMaxWidth,  kVoiceMessageMaxHeight)
+        calcTimeFrameWithContentFrame(bubbleImageView.frame, messageData: messageData)
+        
+        //Set up other UIs
+        playButton = UIButton(frame: CGRectMake(x, 10, kVoiceMessageMaxHeight, kVoiceMessageMaxHeight))
+        playButton?.setImage(UIImage(named: "PlayButton"), forState: .Normal)
+        playButton?.setImage(UIImage(named: "PauseButton"), forState: .Selected)
+        playButton?.addTarget(self, action: "toggleAudioButton:", forControlEvents: .TouchUpInside)
+        addSubview(playButton!)
+        
+        voiceProgressBar = UIProgressView(frame: CGRectMake(CGRectGetMaxX(playButton!.frame) - 5, kVoiceMessageMaxHeight/2 + kSideMargin - 2, kVoiceMessageMaxWidth - CGRectGetWidth(playButton!.frame)*2, 2))
+        voiceProgressBar?.progressTintColor = UIColor.appTealColor()
+        voiceProgressBar?.progress = 1
+        addSubview(voiceProgressBar!)
+        
+        durationLabel = UILabel()
+        durationLabel?.font = UIFont.appLightFontWithSize(14)
+        durationLabel?.textAlignment = .Center
+        durationLabel?.text = "00:00"
+        durationLabel?.numberOfLines = 0
+        durationLabel?.sizeToFit()
+        durationLabel?.frame.origin = CGPointMake(CGRectGetMaxX(voiceProgressBar!.frame) + kSideMargin, kVoiceMessageMaxHeight/2)
+        addSubview(durationLabel!)
     }
     
     private func addPhotoToBubbleCellWithMessageData(messageData: LINMessage) {
@@ -205,6 +248,8 @@ class LINBubbleCell: UITableViewCell {
                 } else {
                     height = CGFloat(kPhotoMessageMaxHeight)
                 }
+            case .Voice:
+                height = CGFloat(kVoiceMessageMaxHeight)
             default:
                break
         }
@@ -228,5 +273,11 @@ class LINBubbleCell: UITableViewCell {
                                                             options: .UsesLineFragmentOrigin,
                                                          attributes: [NSFontAttributeName: font],
                                                             context: nil)
+    }
+    
+    // MARK: Actions
+    
+    func toggleAudioButton(playButton: UIButton) {
+        playButton.selected = !playButton.selected
     }
 }

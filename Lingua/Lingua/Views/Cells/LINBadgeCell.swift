@@ -23,7 +23,7 @@ class LINBadgeCell: UICollectionViewCell {
     override func drawRect(rect: CGRect) {
     }
     
-    required init(coder aDecoder: NSCoder!) {
+    required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
 }

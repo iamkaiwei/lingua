@@ -48,7 +48,7 @@ class LINNetworkClient: OVCHTTPSessionManager {
         super.init(baseURL: url, managedObjectContext: context, sessionConfiguration: configuration)
     }
     
-    required init(coder aDecoder: NSCoder!) {
+    required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
 
