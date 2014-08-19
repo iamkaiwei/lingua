@@ -25,6 +25,8 @@ class LINChatController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var topNavigationView:LINTopNavigationView!
+    
     private var pullRefreshControl: UIRefreshControl = UIRefreshControl()
     private var emoticonsView: LINEmoticonsView!
     
@@ -78,6 +80,13 @@ class LINChatController: UIViewController {
         // Emoticon view
         emoticonsView = NSBundle.mainBundle().loadNibNamed("LINEmoticonsView", owner: self, options: nil)[0] as LINEmoticonsView
         emoticonsView.delegate = self
+        
+        self.topNavigationView.registerForNetworkStatusNotification(lostConnection: kNotificationAppDidLostConnection, restoreConnection: kNotificationAppDidRestoreConnection)
+        self.tableView.registerForNetworkStatusNotification(lossConnection: kNotificationAppDidLostConnection, restoreConnection: kNotificationAppDidRestoreConnection)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        self.topNavigationView.checkingConnectionStatus()
     }
     
     override func viewWillAppear(animated: Bool) {

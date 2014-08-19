@@ -75,7 +75,7 @@
 		973CD716199B2AD600F01EB3 /* LINConversationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973CD715199B2AD600F01EB3 /* LINConversationCell.swift */; };
 		97A824B119A19D3200C03CC5 /* LINNetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A824B019A19D3200C03CC5 /* LINNetworkHelper.swift */; };
 		97CCA2DC19A2F3E700455D1D /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CCA2DB19A2F3E700455D1D /* UITableView+Extensions.swift */; };
-		97CCA2DE19A2F61E00455D1D /* UINavigationBar+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CCA2DD19A2F61E00455D1D /* UINavigationBar+Extensions.swift */; };
+		97CCA2E019A32E0D00455D1D /* LINTopNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CCA2DF19A32E0D00455D1D /* LINTopNavigationView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -206,7 +206,7 @@
 		973CD715199B2AD600F01EB3 /* LINConversationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINConversationCell.swift; sourceTree = "<group>"; };
 		97A824B019A19D3200C03CC5 /* LINNetworkHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINNetworkHelper.swift; sourceTree = "<group>"; };
 		97CCA2DB19A2F3E700455D1D /* UITableView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
-		97CCA2DD19A2F61E00455D1D /* UINavigationBar+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+Extensions.swift"; sourceTree = "<group>"; };
+		97CCA2DF19A32E0D00455D1D /* LINTopNavigationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINTopNavigationView.swift; sourceTree = "<group>"; };
 		C8726A87F4DA410EA300A2B5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		E5B35F1B8D924BC3AAC02042 /* libPods-Lingua.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Lingua.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -234,6 +234,7 @@
 			isa = PBXGroup;
 			children = (
 				2043DFD6196550F8005905B9 /* LINViewController.swift */,
+				97CCA2DF19A32E0D00455D1D /* LINTopNavigationView.swift */,
 			);
 			path = BaseClasses;
 			sourceTree = "<group>";
@@ -333,7 +334,6 @@
 				9247D62319926B590011FC85 /* PTPusherEvent+Extensions.swift */,
 				92257FC41993DC2E0000B37C /* UIImageView+Extensions.swift */,
 				97CCA2DB19A2F3E700455D1D /* UITableView+Extensions.swift */,
-				97CCA2DD19A2F61E00455D1D /* UINavigationBar+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -665,6 +665,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9267833E196561D800F19DB4 /* NSArray+Extensions.swift in Sources */,
+				97CCA2E019A32E0D00455D1D /* LINTopNavigationView.swift in Sources */,
 				201F2B3D195AF1E100E0C17A /* UIColor+Extensions.swift in Sources */,
 				20C7BB44197C491300E4D9FE /* LINIntroductionView.swift in Sources */,
 				920A9C09199CAA3900940693 /* LINPhotoPreviewController.swift in Sources */,
@@ -694,7 +695,6 @@
 				2078D96A196C180C009BF095 /* LINPickNativeLanguageController.swift in Sources */,
 				92781D47199FBF0B00FAAFBB /* LINReply.swift in Sources */,
 				2062686F199B5A7500E8D09E /* LINProficiency.swift in Sources */,
-				97CCA2DE19A2F61E00455D1D /* UINavigationBar+Extensions.swift in Sources */,
 				20F5835A1993456B00DE77A6 /* LINShrinkDismissAnimationController.swift in Sources */,
 				97CCA2DC19A2F3E700455D1D /* UITableView+Extensions.swift in Sources */,
 				20C84ED61982683500259F81 /* LINProficiencyCell.swift in Sources */,

@@ -9,13 +9,14 @@
 import UIKit
 
 class LINHomeController: LINViewController, UIViewControllerTransitioningDelegate {
-
+    
     @IBOutlet weak var profileButton: UIButton!
     @IBOutlet weak var messageButton: UIButton!
     @IBOutlet weak var loadingImageView: UIImageView!
     @IBOutlet weak var teachButton: UIImageView!
     @IBOutlet weak var tipLabel: UILabel!
     @IBOutlet weak var authorLabel: UILabel!
+    @IBOutlet weak var topNavigationView:LINTopNavigationView!
     
     var timer: NSTimer?
     var animationImages = [UIImage]()
@@ -34,6 +35,8 @@ class LINHomeController: LINViewController, UIViewControllerTransitioningDelegat
         loadingImageView.animationImages = animationImages
         teachButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "startMatching"))
         timer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "changeQuote", userInfo: nil, repeats: true)
+        
+        self.topNavigationView.registerForNetworkStatusNotification(lostConnection: kNotificationAppDidLostConnection, restoreConnection: kNotificationAppDidRestoreConnection)
     }
     
     func changeQuote() {

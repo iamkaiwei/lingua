@@ -14,14 +14,13 @@ extension UITableView{
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "appDidRestoreConnection", name: restoreConnection, object: nil)
     }
     
-    func appDidLostConnection(notification:NSNotification) {
+    func appDidLostConnection() {
         var currentTopInset = self.contentInset.top
         self.contentInset = UIEdgeInsets(top: currentTopInset + 30, left: 0, bottom: 0, right: 0)
     }
     
-    func appDidRestoreConnection(notification:NSNotification) {
+    func appDidRestoreConnection() {
         var currentTopInset = self.contentInset.top
         self.contentInset = UIEdgeInsets(top: currentTopInset - 30, left: 0, bottom: 0, right: 0 )
-        
     }
 }
