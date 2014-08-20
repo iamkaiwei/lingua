@@ -55,7 +55,7 @@ class LINChatController: UIViewController {
         pullRefreshControl.addTarget(self, action: Selector("loadOlderMessages"), forControlEvents: UIControlEvents.ValueChanged)
         tableView.addSubview(pullRefreshControl)
         composeBar.delegate = self
-
+        
         configureTapGestureOnTableView()
         
         if let tmpuser = LINUserManager.sharedInstance.currentUser {
@@ -213,6 +213,19 @@ extension LINChatController: LINComposeBarViewDelegate {
     
     func didTapOnTableView(sender: UITapGestureRecognizer) {
         composeBar.hide()
+    }
+
+    func composeBar(composeBar: LINComposeBarView, startPickingMediaWithPickerViewController picker: UIImagePickerController) {
+        presentViewController(picker, animated: true, completion: nil)
+    }
+    
+    func composeBar(composeBar: LINComposeBarView, replyWithPhoto photo: UIImage) {
+        let messageData = LINMessage(incoming: false, text: "", sendDate: NSDate(), photo: photo, type: .Photo)
+        addBubbleViewCellWithMessageData(messageData)
+    }
+    
+    func composeBar(composeBar: LINComposeBarView, replyWithImageURL imageURL: String) {
+        replyWithText(imageURL, type: .Photo)
     }
 }
 
@@ -441,22 +454,5 @@ extension LINChatController: PTPusherPresenceChannelDelegate {
         currentChatMode = LINChatMode.Offline
         
         postMessagesToServer()
-    }
-}
-
-extension LINChatController: LINEmoticonsViewDelegate {
-    // MAKR: EmoticonsViewDelegate
-    
-    func emoticonsView(emoticonsView: LINEmoticonsView, startPickingMediaWithPickerViewController picker: UIImagePickerController) {
-        presentViewController(picker, animated: true, completion: nil)
-    }
-    
-    func emoticonsView(emoticonsView: LINEmoticonsView, replyWithPhoto photo: UIImage) {
-        let messageData = LINMessage(incoming: false, text: "", sendDate: NSDate(), photo: photo, type: .Photo)
-        addBubbleViewCellWithMessageData(messageData)
-    }
-    
-    func emoticonsView(emoticonsView: LINEmoticonsView, replyWithImageURL imageURL: String) {
-        replyWithText(imageURL, type: .Photo)
     }
 }

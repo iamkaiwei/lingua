@@ -12,6 +12,9 @@ protocol LINComposeBarViewDelegate {
     func composeBar(composeBar: LINComposeBarView, sendMessage message: String)
     func composeBar(composeBar: LINComposeBarView, willShowKeyBoard rect: CGRect, duration: NSTimeInterval)
     func composeBar(composeBar: LINComposeBarView, willHideKeyBoard rect: CGRect, duration: NSTimeInterval)
+    func composeBar(composeBar: LINComposeBarView, startPickingMediaWithPickerViewController picker: UIImagePickerController)
+    func composeBar(composeBar: LINComposeBarView, replyWithPhoto photo: UIImage)
+    func composeBar(composeBar: LINComposeBarView, replyWithImageURL imageURL: String)
 }
 
 class LINComposeBarView: UIView {
@@ -33,6 +36,7 @@ class LINComposeBarView: UIView {
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         emoticonsView = UINib(nibName: "LINEmoticonsView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as? LINEmoticonsView
+        emoticonsView?.delegate = self
         let contentView = UINib(nibName: "LINComposeBarView", bundle: nil).instantiateWithOwner(self, options: nil)[0] as UIView
         contentView.frame = bounds
         addSubview(contentView)
@@ -115,6 +119,22 @@ class LINComposeBarView: UIView {
     }
 }
  
+extension LINComposeBarView: LINEmoticonsViewDelegate {
+    // MAKR: EmoticonsViewDelegate
+    
+    func emoticonsView(emoticonsView: LINEmoticonsView, startPickingMediaWithPickerViewController picker: UIImagePickerController) {
+        delegate?.composeBar(self, startPickingMediaWithPickerViewController: picker)
+    }
+    
+    func emoticonsView(emoticonsView: LINEmoticonsView, replyWithPhoto photo: UIImage) {
+        delegate?.composeBar(self, replyWithPhoto: photo)
+    }
+    
+    func emoticonsView(emoticonsView: LINEmoticonsView, replyWithImageURL imageURL: String) {
+        delegate?.composeBar(self, replyWithImageURL: imageURL)
+    }
+}
+
 extension LINComposeBarView: UITextViewDelegate {
 
     func textViewShouldBeginEditing(textView: UITextView!) -> Bool {
