@@ -18,20 +18,13 @@ enum LINChatMode {
 }
 
 class LINChatController: UIViewController {
-    @IBOutlet weak var inputContainerView: UIView!
-    @IBOutlet weak var inputTextView: UITextView!
-    @IBOutlet weak var speakButton: UIButton!
-    @IBOutlet weak var sendButton: UIButton!
+    @IBOutlet weak var composeBar: LINComposeBarView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var topNavigationView:LINTopNavigationView!
+    @IBOutlet weak var composeBarBottomLayoutGuideConstraint: NSLayoutConstraint!
     
     private var pullRefreshControl: UIRefreshControl = UIRefreshControl()
-    private var emoticonsView: LINEmoticonsView!
-    
-    @IBOutlet weak var inputContainerViewBottomLayoutGuideConstraint: NSLayoutConstraint!
-    
     private var messagesDataArray = [LINMessage]()
     private var dataSource: LINArrayDataSource?
     private let cellIdentifier = "kLINBubbleCell"
@@ -61,8 +54,8 @@ class LINChatController: UIViewController {
         // Add loading view to load older messages
         pullRefreshControl.addTarget(self, action: Selector("loadOlderMessages"), forControlEvents: UIControlEvents.ValueChanged)
         tableView.addSubview(pullRefreshControl)
-        
-        configureInputContainerView()
+        composeBar.delegate = self
+
         configureTapGestureOnTableView()
         
         if let tmpuser = LINUserManager.sharedInstance.currentUser {
@@ -76,27 +69,18 @@ class LINChatController: UIViewController {
         
         setupTableView()
         loadListLastestMessages()
-        
-        // Emoticon view
-        emoticonsView = NSBundle.mainBundle().loadNibNamed("LINEmoticonsView", owner: self, options: nil)[0] as LINEmoticonsView
-        emoticonsView.delegate = self
-        
+                
         self.topNavigationView.registerForNetworkStatusNotification(lostConnection: kNotificationAppDidLostConnection, restoreConnection: kNotificationAppDidRestoreConnection)
         self.tableView.registerForNetworkStatusNotification(lossConnection: kNotificationAppDidLostConnection, restoreConnection: kNotificationAppDidRestoreConnection)
     }
     
     override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         self.topNavigationView.checkingConnectionStatus()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
-        let notificationCenter = NSNotificationCenter.defaultCenter()
-    
-        notificationCenter.addObserver(self, selector: "handleKeyboardWillShowNotification:", name: UIKeyboardWillShowNotification, object: nil)
-        notificationCenter.addObserver(self, selector: "handleKeyboardWillHideNotification:", name: UIKeyboardWillHideNotification, object: nil)
-        
         subcribeToPresenceChannel()
     }
     
@@ -113,15 +97,6 @@ class LINChatController: UIViewController {
 
 extension LINChatController {
     // MARK: Configuration
-    
-    private func configureInputContainerView () {
-        let backgroundView = UIImageView(image: UIImage(named: "bg_chat"))
-        inputContainerView.addSubview(backgroundView)
-        inputContainerView.sendSubviewToBack(backgroundView)
-        
-        inputTextView.clipsToBounds = true
-        inputTextView.layer.cornerRadius = 10.0
-    }
     
     private func configureTapGestureOnTableView() {
         let tapGesture = UITapGestureRecognizer(target: self, action: "didTapOnTableView:")
@@ -157,16 +132,40 @@ extension LINChatController: LINBubbleCellDelegate {
     }
 }
 
-extension LINChatController {
-    // MARK: Actions
+extension LINChatController: LINComposeBarViewDelegate {
     
-    @IBAction func buttonSendTouched(sender: UIButton) {
-        if (inputTextView.text.utf16Count > 0) {
-            replyWithText(inputTextView.text, type: .Text)
-        }
+    func composeBar(composeBar: LINComposeBarView, sendMessage message: String) {
+        let messageData = LINMessage(incoming: false, text: "", sendDate: NSDate(), photo: nil, type: .Voice)
+        addBubbleViewCellWithMessageData(messageData)
+        replyWithText(message, type: .Text)
     }
     
-    func replyWithText(text: String, type: MessageType) {
+    func composeBar(composeBar: LINComposeBarView, willShowKeyBoard rect: CGRect, duration: NSTimeInterval) {
+        var composeBarFrame = composeBar.frame
+        composeBarFrame.origin.y -= rect.size.height
+        var tableFrame = tableView.frame
+        tableFrame.size.height -= rect.size.height
+        self.composeBarBottomLayoutGuideConstraint.constant = rect.size.height
+        UIView.animateWithDuration(duration, animations: {
+            self.composeBar.frame = composeBarFrame
+            self.tableView.frame = tableFrame
+            self.scrollBubbleTableViewToBottomAnimated(true)
+        })
+    }
+
+    func composeBar(composeBar: LINComposeBarView, willHideKeyBoard rect: CGRect, duration: NSTimeInterval) {
+        var composeBarFrame = composeBar.frame
+        composeBarFrame.origin.y += rect.size.height
+        var tableFrame = tableView.frame
+        tableFrame.size.height += rect.size.height
+        self.composeBarBottomLayoutGuideConstraint.constant = 0
+        UIView.animateWithDuration(duration, animations: {
+            self.composeBar.frame = composeBarFrame
+            self.tableView.frame = tableFrame
+        })
+    }
+
+    private func replyWithText(text: String, type: MessageType) {
         let sendDate = NSDateFormatter.iSODateFormatter().stringFromDate(NSDate())
         
         if type == MessageType.Text {
@@ -204,38 +203,16 @@ extension LINChatController {
             pushNotificationWithMessage(text, sendDate: sendDate, type: type)
         }
         
-        inputTextView.text = ""
-        textViewDidChange(inputTextView)
-        
         println("pusher] Count channel members: \(self.currentChannel.members.count)");
     }
     
     @IBAction func backButtonTouched(sender: UIButton) {
-        inputTextView.resignFirstResponder()
+        composeBar.resignFirstResponder()
         dismissViewControllerAnimated(true, completion: nil)
     }
     
     func didTapOnTableView(sender: UITapGestureRecognizer) {
-        if !emoticonsView.isHidden {
-            hideEmoticonsView()
-        }
-        
-        shouldChangeInputTextViewFrame = true
-        inputTextView.resignFirstResponder()
-    }
-    
-    @IBAction func buttonAddTouched(sender: UIButton) {
-        if !addButtonClicked {
-            if shouldChangeInputTextViewFrame {
-                changeInputFrame()
-            }
-            
-            // Show emoticons view
-            showEmoticonsView()
-        } else {
-            // Hide emotions view
-            hideEmoticonsView()
-        }
+        composeBar.hide()
     }
 }
 
@@ -436,46 +413,11 @@ extension LINChatController {
     }
 }
 
-extension LINChatController {
-    // MARK: Emoticons
-    
-    private func showEmoticonsView() {
-        addButtonClicked = true
-        addButton.setImage(UIImage(named: "icn_cancel_blue"), forState: UIControlState.Normal)
-        
-        shouldChangeInputTextViewFrame = false
-        inputTextView.resignFirstResponder()
-        emoticonsView.showInViewController(self)
-    }
-    
-    private func hideEmoticonsView() {
-        addButtonClicked = false
-        addButton.setImage(UIImage(named: "Icn_add"), forState: UIControlState.Normal)
-        
-        inputTextView.becomeFirstResponder()
-        emoticonsView.hide()
-    }
-}
-
 extension LINChatController: UITableViewDelegate {
     // MARK: UITableviewDelegate
     
     func tableView(tableView: UITableView!, heightForRowAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
         return heightForCellAtIndexPath(indexPath)
-    }
-}
-
-extension LINChatController: UITextViewDelegate {
-    // MARK: UITextViewDelegate
-    
-    func textViewDidChange(textView: UITextView!) {
-        if  textView.text.utf16Count > 0 {
-            sendButton.hidden = false
-            speakButton.hidden = true
-        } else {
-            sendButton.hidden = true
-            speakButton.hidden = false
-        }
     }
 }
 
@@ -516,85 +458,5 @@ extension LINChatController: LINEmoticonsViewDelegate {
     
     func emoticonsView(emoticonsView: LINEmoticonsView, replyWithImageURL imageURL: String) {
         replyWithText(imageURL, type: .Photo)
-    }
-}
-
-extension LINChatController {
-    // MARK: Keyboards
-    
-    func handleKeyboardWillShowNotification(notification: NSNotification) {
-        if !emoticonsView.isHidden {
-            hideEmoticonsView()
-        }
-        
-        if shouldChangeInputTextViewFrame {
-            keyboardWillChangeFrameWithNotification(notification, showKeyboard: true)
-            scrollBubbleTableViewToBottomAnimated(true)
-        }
-    }
-    
-    func handleKeyboardWillHideNotification(notification: NSNotification) {
-        if shouldChangeInputTextViewFrame {
-            keyboardWillChangeFrameWithNotification(notification, showKeyboard: false)
-        }
-    }
-    
-    func keyboardWillChangeFrameWithNotification(notfication: NSNotification, showKeyboard: Bool) {
-        let userInfo = notfication.userInfo!
-        let kbSize = (userInfo[UIKeyboardFrameBeginUserInfoKey] as NSValue).CGRectValue().size
-        var animationDuration: NSTimeInterval = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as NSNumber).doubleValue
-        
-        if showKeyboard {
-            // Convert the keyboard frame from screen to view coordinates.
-            let keyboardScreenBeginFrame = (userInfo[UIKeyboardFrameBeginUserInfoKey] as NSValue).CGRectValue()
-            let keyboardScreenEndFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as NSValue).CGRectValue()
-            
-            let keyboardViewBeginFrame = view.convertRect(keyboardScreenBeginFrame, fromView: view.window)
-            let keyboardViewEndFrame = view.convertRect(keyboardScreenEndFrame, fromView: view.window)
-            let originDelta = keyboardViewEndFrame.origin.y - keyboardViewBeginFrame.origin.y
-            
-            // The input container view should be adjusted, update the constant for this constraint.
-            self.inputContainerViewBottomLayoutGuideConstraint.constant -= originDelta
-        } else {
-            self.inputContainerViewBottomLayoutGuideConstraint.constant = 0
-        }
-        
-        view.setNeedsUpdateConstraints()
-        
-        UIView.animateWithDuration(animationDuration, animations: {
-            var inputContainerFrame = self.inputContainerView.frame
-            var tableFrame = self.tableView.frame
-            
-            if showKeyboard {
-                inputContainerFrame.origin.y -= kbSize.height
-                tableFrame.size.height -= kbSize.height
-            } else {
-                inputContainerFrame.origin.y += kbSize.height
-                tableFrame.size.height += kbSize.height
-            }
-            
-            self.inputContainerView.frame = inputContainerFrame
-            self.tableView.frame = tableFrame
-            
-            self.view.layoutIfNeeded()
-        })
-    }
-    
-    func changeInputFrame() {
-        shouldChangeInputTextViewFrame = false
-        
-        self.inputContainerViewBottomLayoutGuideConstraint.constant = emoticonsView.frame.size.height
-        let kbSize = emoticonsView.frame.size
-        
-        UIView.animateWithDuration(0.3, animations: {
-            var inputContainerFrame = self.inputContainerView.frame
-            var tableFrame = self.tableView.frame
-            
-            inputContainerFrame.origin.y -= kbSize.height
-            tableFrame.size.height -= kbSize.height
-            
-            self.inputContainerView.frame = inputContainerFrame
-            self.tableView.frame = tableFrame
-        })
     }
 }

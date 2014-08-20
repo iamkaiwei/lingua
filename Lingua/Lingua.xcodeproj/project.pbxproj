@@ -37,6 +37,8 @@
 		20DC6564197BEA4F008DA659 /* LINBubbleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DC655F197BEA4F008DA659 /* LINBubbleCell.swift */; };
 		20DC6566197BEA4F008DA659 /* LINBadgeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DC6561197BEA4F008DA659 /* LINBadgeCell.swift */; };
 		20DC6568197BEA4F008DA659 /* LINCountryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DC6563197BEA4F008DA659 /* LINCountryCell.swift */; };
+		20EE47C319A34F51000EB6A6 /* LINComposeBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EE47C219A34F51000EB6A6 /* LINComposeBarView.swift */; };
+		20EE47C519A35165000EB6A6 /* LINComposeBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 20EE47C419A35165000EB6A6 /* LINComposeBarView.xib */; };
 		20F5835819931E6D00DE77A6 /* LINPopPresentAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F5835719931E6D00DE77A6 /* LINPopPresentAnimationController.swift */; };
 		20F5835A1993456B00DE77A6 /* LINShrinkDismissAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F583591993456B00DE77A6 /* LINShrinkDismissAnimationController.swift */; };
 		3539D820182145359C2B8DA9 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 81D3DA7628DD45F7938E71F3 /* libPods.a */; settings = {ATTRIBUTES = (Required, ); }; };
@@ -166,6 +168,8 @@
 		20DC655F197BEA4F008DA659 /* LINBubbleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINBubbleCell.swift; sourceTree = "<group>"; };
 		20DC6561197BEA4F008DA659 /* LINBadgeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINBadgeCell.swift; sourceTree = "<group>"; };
 		20DC6563197BEA4F008DA659 /* LINCountryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINCountryCell.swift; sourceTree = "<group>"; };
+		20EE47C219A34F51000EB6A6 /* LINComposeBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINComposeBarView.swift; sourceTree = "<group>"; };
+		20EE47C419A35165000EB6A6 /* LINComposeBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LINComposeBarView.xib; sourceTree = "<group>"; };
 		20F5835719931E6D00DE77A6 /* LINPopPresentAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINPopPresentAnimationController.swift; sourceTree = "<group>"; };
 		20F583591993456B00DE77A6 /* LINShrinkDismissAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINShrinkDismissAnimationController.swift; sourceTree = "<group>"; };
 		81D3DA7628DD45F7938E71F3 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -353,6 +357,8 @@
 				92F0BF3F1993417400608803 /* LINMessageView.swift */,
 				9222F8BF19972AE6005420EC /* LINEmoticonsView.xib */,
 				9222F8C119972EA6005420EC /* LINEmoticonsView.swift */,
+				20EE47C219A34F51000EB6A6 /* LINComposeBarView.swift */,
+				20EE47C419A35165000EB6A6 /* LINComposeBarView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -606,6 +612,7 @@
 				92313494197E4EAA003BD927 /* Quotes.txt in Resources */,
 				92313490197E4E26003BD927 /* RobotoSlab-Regular.ttf in Resources */,
 				92313491197E4E26003BD927 /* RobotoSlab-Thin.ttf in Resources */,
+				20EE47C519A35165000EB6A6 /* LINComposeBarView.xib in Resources */,
 				9231348F197E4E26003BD927 /* RobotoSlab-Light.ttf in Resources */,
 				20448A871954301A00AC639A /* Main.storyboard in Resources */,
 				9222F8C019972AE6005420EC /* LINEmoticonsView.xib in Resources */,
@@ -715,6 +722,7 @@
 				2043DFD7196550F8005905B9 /* LINViewController.swift in Sources */,
 				2078D969196C1769009BF095 /* LINUserManager.swift in Sources */,
 				9268DFBB1969CEFC00C89603 /* LINUser.swift in Sources */,
+				20EE47C319A34F51000EB6A6 /* LINComposeBarView.swift in Sources */,
 				20D484A61956D35D007B4E96 /* LINOnboardingController.swift in Sources */,
 				201323A619683F70004B884D /* LINLoadingView.swift in Sources */,
 				92313496197E5B08003BD927 /* LINMessage.swift in Sources */,
