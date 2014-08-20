@@ -1,5 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict/>
+<dict>
+	<key>regex</key>
+	<string>:D|B/|:[)]|;[)]|8-[*]|;3|:[M]|;/P|;S|:[&gt;]|8[*]|O[)]|8&quot;|XX|&gt;:[)]|@@|8O|&gt;&lt;|&gt;[(]|:-Z|:=|=[(]|:&apos;D|:&apos;[(]|;[|]|&gt;D|:[(]|8[|]|;P|:[k]|</string>
+	<key>:d</key>
+	<string>emoticon_1</string>
+	<key>b/</key>
+	<string>emoticon_2</string>
+	<key>:)</key>
+	<string>emoticon_3</string>
+	<key>;)</key>
+	<string>emoticon_4</string>
+	<key>8-*</key>
+	<string>emoticon_5</string>
+	<key>;3</key>
+	<string>emoticon_6</string>
+	<key>:m</key>
+	<string>emoticon_7</string>
+	<key>;/p</key>
+	<string>emoticon_8</string>
+	<key>;s</key>
+	<string>emoticon_9</string>
+	<key>:&gt;</key>
+	<string>emoticon_10</string>
+	<key>8*</key>
+	<string>emoticon_11</string>
+	<key>o)</key>
+	<string>emoticon_12</string>
+	<key>8&quot;</key>
+	<string>emoticon_13</string>
+	<key>xx</key>
+	<string>emoticon_14</string>
+	<key>&gt;:)</key>
+	<string>emoticon_15</string>
+	<key>@@</key>
+	<string>emoticon_16</string>
+	<key>8o</key>
+	<string>emoticon_17</string>
+	<key>&gt;&lt;</key>
+	<string>emoticon_18</string>
+	<key>&gt;(</key>
+	<string>emoticon_19</string>
+	<key>:-z</key>
+	<string>emoticon_20</string>
+	<key>:=</key>
+	<string>emoticon_21</string>
+	<key>=(</key>
+	<string>emoticon_22</string>
+	<key>:&apos;d</key>
+	<string>emoticon_23</string>
+	<key>:&apos;(</key>
+	<string>emoticon_24</string>
+	<key>;|</key>
+	<string>emoticon_25</string>
+	<key>&gt;d</key>
+	<string>emoticon_26</string>
+	<key>:(</key>
+	<string>emoticon_27</string>
+	<key>8|</key>
+	<string>emoticon_28</string>
+	<key>;p</key>
+	<string>emoticon_29</string>
+	<key>:k</key>
+	<string>emoticon_30</string>
+</dict>
 </plist>
