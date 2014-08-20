@@ -92,6 +92,7 @@ class LINComposeBarView: UIView {
         moreButton.setImage(UIImage(named: "Recording"), forState: UIControlState.Normal)
         voicePanelView.hidden = false
         recordingTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "timerTick:", userInfo: nil, repeats: true)
+        LINAudioHelper.sharedInstance.startRecording()
     }
 
     func timerTick(timer: NSTimer) {
@@ -123,6 +124,7 @@ class LINComposeBarView: UIView {
                     recordingTimer?.invalidate()
                     recordingDuration = 0
                     durationLabel.text = String(format: "%02d:%02d", recordingDuration/60, recordingDuration%60)
+                    LINAudioHelper.sharedInstance.stopRecording()
                 }
                 else {
                     moreButton.setImage(UIImage(named: "Recording"), forState: UIControlState.Normal)

@@ -15,6 +15,8 @@
 		20448A891954301A00AC639A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20448A881954301A00AC639A /* Images.xcassets */; };
 		20448A951954301A00AC639A /* LinguaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20448A941954301A00AC639A /* LinguaTests.swift */; };
 		20473E201966D5C200EDF620 /* SZTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 20473E1F1966D5C200EDF620 /* SZTextView.m */; };
+		20502E1219A518C90051410E /* LINAudioHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20502E1119A518C90051410E /* LINAudioHelper.swift */; };
+		20502E1419A51A690051410E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20502E1319A51A690051410E /* AVFoundation.framework */; };
 		2062686F199B5A7500E8D09E /* LINProficiency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2062686E199B5A7500E8D09E /* LINProficiency.swift */; };
 		2065405E197D3B0B00E9F978 /* LINBadgeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2065405D197D3B0B00E9F978 /* LINBadgeHeaderView.swift */; };
 		207630B9195AC19800D23B2A /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207630B8195AC19800D23B2A /* UIFont+Extensions.swift */; };
@@ -146,6 +148,8 @@
 		20448A941954301A00AC639A /* LinguaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinguaTests.swift; sourceTree = "<group>"; };
 		20473E1E1966D5C200EDF620 /* SZTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZTextView.h; sourceTree = "<group>"; };
 		20473E1F1966D5C200EDF620 /* SZTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZTextView.m; sourceTree = "<group>"; };
+		20502E1119A518C90051410E /* LINAudioHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINAudioHelper.swift; sourceTree = "<group>"; };
+		20502E1319A51A690051410E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		2062686E199B5A7500E8D09E /* LINProficiency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINProficiency.swift; sourceTree = "<group>"; };
 		2065405D197D3B0B00E9F978 /* LINBadgeHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINBadgeHeaderView.swift; sourceTree = "<group>"; };
 		207630B8195AC19800D23B2A /* UIFont+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
@@ -220,6 +224,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20502E1419A51A690051410E /* AVFoundation.framework in Frameworks */,
 				3539D820182145359C2B8DA9 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -449,6 +454,7 @@
 				92F0BF411993449E00608803 /* LINMessageHelper.swift */,
 				92052F3E199522A900EA773B /* LINNotificationHelper.swift */,
 				97A824B019A19D3200C03CC5 /* LINNetworkHelper.swift */,
+				20502E1119A518C90051410E /* LINAudioHelper.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -513,6 +519,7 @@
 		CFFA1F0014D9434085221D84 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				20502E1319A51A690051410E /* AVFoundation.framework */,
 				929F38AB196C7C0F009A7E6A /* libPods-libPusher.a */,
 				E5B35F1B8D924BC3AAC02042 /* libPods-Lingua.a */,
 				81D3DA7628DD45F7938E71F3 /* libPods.a */,
@@ -723,6 +730,7 @@
 				2078D969196C1769009BF095 /* LINUserManager.swift in Sources */,
 				9268DFBB1969CEFC00C89603 /* LINUser.swift in Sources */,
 				20EE47C319A34F51000EB6A6 /* LINComposeBarView.swift in Sources */,
+				20502E1219A518C90051410E /* LINAudioHelper.swift in Sources */,
 				20D484A61956D35D007B4E96 /* LINOnboardingController.swift in Sources */,
 				201323A619683F70004B884D /* LINLoadingView.swift in Sources */,
 				92313496197E5B08003BD927 /* LINMessage.swift in Sources */,
