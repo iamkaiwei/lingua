@@ -69,7 +69,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yLx-am-nIb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1071" y="331"/>
+            <point key="canvasLocation" x="1128" y="326"/>
         </scene>
         <!--Language Picker Controller-->
         <scene sceneID="RVL-PN-hD4">
@@ -674,6 +674,7 @@
                     </view>
                     <connections>
                         <outlet property="authorLabel" destination="4co-B1-bWX" id="9GP-Wh-ZTp"/>
+                        <outlet property="conversationListButton" destination="jYp-mh-Mf9" id="Mtk-GG-4ct"/>
                         <outlet property="loadingImageView" destination="yXx-fn-s5M" id="BeE-fC-uFw"/>
                         <outlet property="messageButton" destination="axt-Yo-jC8" id="P4w-qW-duF"/>
                         <outlet property="profileButton" destination="dqF-TG-jop" id="iKg-Hx-R7A"/>

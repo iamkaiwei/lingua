@@ -17,6 +17,7 @@ class LINHomeController: LINViewController, UIViewControllerTransitioningDelegat
     @IBOutlet weak var tipLabel: UILabel!
     @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var topNavigationView:LINTopNavigationView!
+    @IBOutlet weak var conversationListButton:UIButton!
     
     var timer: NSTimer?
     var animationImages = [UIImage]()
@@ -37,6 +38,22 @@ class LINHomeController: LINViewController, UIViewControllerTransitioningDelegat
         timer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "changeQuote", userInfo: nil, repeats: true)
         
         self.topNavigationView.registerForNetworkStatusNotification(lostConnection: kNotificationAppDidLostConnection, restoreConnection: kNotificationAppDidRestoreConnection)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateNewMessageCount:", name: kNotificationShouldUpdateNewMessageCount, object: nil)
+        
+        configureBadgeViewAppearance()
+    }
+    
+    func configureBadgeViewAppearance(){
+        conversationListButton.badgeView.badgeColor = UIColor.orangeColor()
+        conversationListButton.badgeView.position = MGBadgePosition.TopLeft
+        conversationListButton.badgeView.outlineWidth = 0
+        conversationListButton.badgeView.maximumBadgeValueAllowed = 99
+    }
+    
+    func updateNewMessageCount(notification:NSNotification) {
+        var messageCount:Int = notification.object as Int
+        conversationListButton.badgeView.badgeValue = messageCount
+        conversationListButton.badgeView.updateBadgeViewPosition()
     }
     
     func changeQuote() {

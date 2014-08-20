@@ -11,7 +11,13 @@ import UIKit
 class LINFriendListController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate {
     @IBOutlet weak var tableView: UITableView!
     var arrFriends = [LINUser]()
-    var conversationList = [LINConversation]()
+    var newMessageCount:Int = 0
+    var conversationList:[LINConversation] = [LINConversation](){
+        didSet{
+            newMessageCount = conversationList.filter({$0.haveNewMessage == true}).count
+            updateNewMessageCount()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +30,13 @@ class LINFriendListController: UIViewController, UITableViewDataSource, UITableV
         self.cachingConversationData()
     }
     
+    func updateNewMessageCount(){
+        if self.newMessageCount < 0 {
+            self.newMessageCount = 0
+        }
+        NSNotificationCenter.defaultCenter().postNotificationName(kNotificationShouldUpdateNewMessageCount, object: self.newMessageCount)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -34,8 +47,15 @@ class LINFriendListController: UIViewController, UITableViewDataSource, UITableV
             let indexPath: NSIndexPath = tableView.indexPathForSelectedRow()
             let chatController = segue.destinationViewController as LINChatController
             
+            var conversation = self.conversationList[indexPath.row] as LINConversation
+            if(conversation.haveNewMessage){
+                conversation.haveNewMessage = false
+                self.newMessageCount--
+                updateNewMessageCount()
+            }
             chatController.conversation = self.conversationList[indexPath.row]
             chatController.transitioningDelegate = self
+            
         }
     }
     

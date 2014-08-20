@@ -62,6 +62,7 @@ PODS:
   - SVProgressHUD (1.0)
   - TSMessages (0.9.9):
     - HexColors
+  - UIView+MGBadgeView (0.0.1)
 
 DEPENDENCIES:
   - Facebook-iOS-SDK (from `https://github.com/pgaspar/facebook-ios-sdk.git`, branch `beta4`)
@@ -76,11 +77,14 @@ DEPENDENCIES:
   - SDWebImage (~> 3.7.1)
   - SVProgressHUD (~> 1.0)
   - TSMessages (~> 0.9.9)
+  - UIView+MGBadgeView (from `https://github.com/untouchable741/UIView-MGBadgeView.git`)
 
 EXTERNAL SOURCES:
   Facebook-iOS-SDK:
     :branch: beta4
     :git: https://github.com/pgaspar/facebook-ios-sdk.git
+  UIView+MGBadgeView:
+    :git: https://github.com/untouchable741/UIView-MGBadgeView.git
 
 SPEC CHECKSUMS:
   AFNetworking: 6d7b76aa5d04c8c37daad3eef4b7e3f2a7620da3
@@ -99,5 +103,6 @@ SPEC CHECKSUMS:
   SocketRocket: 79a68ae186063c65e1fe6f638b1ae2927aa5f304
   SVProgressHUD: 5034c6e22b8c2ca3e09402e48d41ed0340aa1c50
   TSMessages: 2999ef55e532378692e9d14d32da2bb60e285129
+  UIView+MGBadgeView: 08e881f428d75ef3d4f51bbdb506383059964dd5
 
 COCOAPODS: 0.33.1

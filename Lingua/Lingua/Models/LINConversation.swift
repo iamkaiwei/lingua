@@ -12,7 +12,7 @@ class LINConversation: MTLModel, MTLJSONSerializing {
     var conversationId: String = ""
     var lastestUpdate: String = ""
     var createdAt: String = ""
-    
+    var haveNewMessage : Bool = false
     var teacher :LINUser?
     var learner :LINUser?
     
@@ -22,6 +22,7 @@ class LINConversation: MTLModel, MTLJSONSerializing {
                 "createdAt": "created_at",
                 "teacher":"teacher_id",
                 "learner":"learner_id",
+                "haveNewMessage":"have_new_messages"
         ]
     }
     
