@@ -557,7 +557,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ITY-nd-jX3">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ITY-nd-jX3" customClass="LINTopNavigationView" customModule="Lingua" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dqF-TG-jop">
@@ -680,6 +680,7 @@
                         <outlet property="teachButton" destination="rKr-Xd-Ayv" id="QLR-6g-nu8"/>
                         <outlet property="tipLabel" destination="HwL-6Q-08g" id="hJO-4q-ucA"/>
                         <outlet property="titleLabel" destination="SCu-fY-SXg" id="P0L-vd-Bgi"/>
+                        <outlet property="topNavigationView" destination="ITY-nd-jX3" id="GWN-HF-JTd"/>
                         <segue destination="90d-9n-3fJ" kind="presentation" identifier="kLINChatControllerIdentifier" id="eLM-I3-Bqx"/>
                     </connections>
                 </viewController>
@@ -825,7 +826,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wVJ-xu-KmF">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wVJ-xu-KmF" customClass="LINTopNavigationView" customModule="Lingua" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Laura" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L1u-mm-Pot">
@@ -927,6 +928,7 @@
                         <outlet property="composeBarBottomLayoutGuideConstraint" destination="RxS-0E-LAa" id="Org-MM-vLg"/>
                         <outlet property="nameLabel" destination="L1u-mm-Pot" id="4AX-Aq-48b"/>
                         <outlet property="tableView" destination="wR0-OC-umP" id="HC5-Bc-fXE"/>
+                        <outlet property="topNavigationView" destination="wVJ-xu-KmF" id="Xu6-cV-nDE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uFp-bm-BFX" userLabel="First Responder" sceneMemberID="firstResponder"/>
