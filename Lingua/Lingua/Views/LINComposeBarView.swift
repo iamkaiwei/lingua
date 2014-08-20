@@ -23,28 +23,40 @@ class LINComposeBarView: UIView {
     @IBOutlet weak var speakButton: UIButton!
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var textView: UITextView!
+    @IBOutlet weak var voicePanelView: UIView!
+    @IBOutlet weak var slideBack: UIImageView!
+    @IBOutlet weak var durationLabel: UILabel!
+    @IBOutlet weak var cancelLabel: UILabel!
 
-    private var emoticonsView: LINEmoticonsView?
     var delegate: LINComposeBarViewDelegate?
-    let defaultAnimationDuration = 0.3
-    var shouldChangeFrameForKeyboard = true
-
-    override init() {
-        super.init()
-    }
-
-    required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    private var emoticonsView: LINEmoticonsView?
+    private let defaultAnimationDuration = 0.3
+    private var shouldChangeFrameForKeyboard = true
+    private var shouldFinishRecording = false
+    private var initialFrameForSlideImage = CGRectZero
+    private var recordingDuration: Int = 0
+    private var recordingTimer: NSTimer?
+    
+    func commonInit() {
+        let notificationCenter = NSNotificationCenter.defaultCenter()
+        notificationCenter.addObserver(self, selector: "handleKeyboardWillShowNotification:", name: UIKeyboardWillShowNotification, object: nil)
+        notificationCenter.addObserver(self, selector: "handleKeyboardWillHideNotification:", name: UIKeyboardWillHideNotification, object: nil)
         emoticonsView = UINib(nibName: "LINEmoticonsView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as? LINEmoticonsView
         emoticonsView?.delegate = self
         let contentView = UINib(nibName: "LINComposeBarView", bundle: nil).instantiateWithOwner(self, options: nil)[0] as UIView
         contentView.frame = bounds
         addSubview(contentView)
         textView.layer.cornerRadius = 10
+    }
 
-        let notificationCenter = NSNotificationCenter.defaultCenter()
-        notificationCenter.addObserver(self, selector: "handleKeyboardWillShowNotification:", name: UIKeyboardWillShowNotification, object: nil)
-        notificationCenter.addObserver(self, selector: "handleKeyboardWillHideNotification:", name: UIKeyboardWillHideNotification, object: nil)
+    override init() {
+        super.init()
+        commonInit()
+    }
+
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonInit()
     }
 
     func hide() {
@@ -72,6 +84,55 @@ class LINComposeBarView: UIView {
             shouldChangeFrameForKeyboard = false
             textView.becomeFirstResponder()
             hideEmoticonsView()
+        }
+    }
+
+    @IBAction func startSpeaking(sender: UIButton) {
+        hide()
+        moreButton.setImage(UIImage(named: "Recording"), forState: UIControlState.Normal)
+        voicePanelView.hidden = false
+        recordingTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "timerTick:", userInfo: nil, repeats: true)
+    }
+
+    func timerTick(timer: NSTimer) {
+        recordingDuration++
+        durationLabel.text = String(format: "%02d:%02d", recordingDuration/60, recordingDuration%60)
+    }
+
+    @IBAction func startPanning(sender: UIPanGestureRecognizer) {
+        switch sender.state {
+            case .Began:
+            moreButton.setImage(UIImage(named: "Trash"), forState: UIControlState.Normal)
+            initialFrameForSlideImage = slideBack.frame
+            case .Changed:
+            let translation = sender.translationInView(voicePanelView)
+            if translation.x + sender.view.center.x > CGRectGetMidX(initialFrameForSlideImage) {
+                return
+            }
+            if translation.x + sender.view.center.x < 20 {
+                moreButton.setImage(UIImage(named: "Icn_add"), forState: UIControlState.Normal)
+                voicePanelView.hidden = true
+                shouldFinishRecording = true
+                return
+            }
+            sender.view.center = CGPointMake(sender.view.center.x + translation.x, sender.view.center.y)
+            sender.setTranslation(CGPointZero, inView: voicePanelView)
+
+            case .Ended:
+                if shouldFinishRecording {
+                    recordingTimer?.invalidate()
+                    recordingDuration = 0
+                    durationLabel.text = String(format: "%02d:%02d", recordingDuration/60, recordingDuration%60)
+                }
+                else {
+                    moreButton.setImage(UIImage(named: "Recording"), forState: UIControlState.Normal)
+                }
+                shouldFinishRecording = false
+                UIView.animateWithDuration(0.2, animations: {
+                    sender.view.center.x = CGRectGetMidX(self.initialFrameForSlideImage)
+                })
+
+            default: return
         }
     }
 
