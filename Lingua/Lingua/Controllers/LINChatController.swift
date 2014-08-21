@@ -154,24 +154,28 @@ extension LINChatController: LINComposeBarViewDelegate {
     }
     
     func composeBar(composeBar: LINComposeBarView, willShowKeyBoard rect: CGRect, duration: NSTimeInterval) {
-        var composeBarFrame = composeBar.frame
-        composeBarFrame.origin.y -= rect.size.height
-        var tableFrame = tableView.frame
-        tableFrame.size.height -= rect.size.height
-        self.composeBarBottomLayoutGuideConstraint.constant = rect.size.height
-        UIView.animateWithDuration(duration, animations: {
-            self.composeBar.frame = composeBarFrame
-            self.tableView.frame = tableFrame
-            self.scrollBubbleTableViewToBottomAnimated(true)
-        })
+        if composeBarBottomLayoutGuideConstraint.constant == 0 {
+            moveComposeBarViewUpOrDown(true, rect: rect, duration: duration)
+            scrollBubbleTableViewToBottomAnimated(true)
+        }
     }
 
     func composeBar(composeBar: LINComposeBarView, willHideKeyBoard rect: CGRect, duration: NSTimeInterval) {
+        if composeBarBottomLayoutGuideConstraint.constant > 0 {
+            moveComposeBarViewUpOrDown(false, rect: rect, duration: duration)
+        }
+    }
+   
+    private func moveComposeBarViewUpOrDown(isUp: Bool, rect: CGRect, duration: NSTimeInterval) {
+        let keyboardHeight = rect.size.height
+        self.composeBarBottomLayoutGuideConstraint.constant = (isUp == false ? 0 : keyboardHeight)
+       
         var composeBarFrame = composeBar.frame
-        composeBarFrame.origin.y += rect.size.height
         var tableFrame = tableView.frame
-        tableFrame.size.height += rect.size.height
-        self.composeBarBottomLayoutGuideConstraint.constant = 0
+        let tmpHeight = (isUp == true ? -keyboardHeight : keyboardHeight)
+        composeBarFrame.origin.y += tmpHeight
+        tableFrame.size.height += tmpHeight
+       
         UIView.animateWithDuration(duration, animations: {
             self.composeBar.frame = composeBarFrame
             self.tableView.frame = tableFrame

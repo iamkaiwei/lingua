@@ -31,7 +31,6 @@ class LINComposeBarView: UIView {
     var delegate: LINComposeBarViewDelegate?
     private var emoticonsView: LINEmoticonsView?
     private let defaultAnimationDuration = 0.3
-    private var shouldChangeFrameForKeyboard = true
     private var shouldFinishRecording = false
     private var initialFrameForSlideImage = CGRectZero
     private var recordingDuration: Int = 0
@@ -60,11 +59,8 @@ class LINComposeBarView: UIView {
     }
 
     func hide() {
-        moreButton.setImage(UIImage(named: "Icn_add"), forState: UIControlState.Normal)
         if !emoticonsView!.isHidden {
             hideEmoticonsView()
-            shouldChangeFrameForKeyboard = false
-            textView.becomeFirstResponder()
         }
         textView.resignFirstResponder()
     }
@@ -78,11 +74,10 @@ class LINComposeBarView: UIView {
     }
     
     @IBAction func expandOptions(sender: UIButton) {
+        textView.becomeFirstResponder()
         if emoticonsView!.isHidden {
             showEmoticonsView()
         } else {
-            shouldChangeFrameForKeyboard = false
-            textView.becomeFirstResponder()
             hideEmoticonsView()
         }
     }
@@ -141,44 +136,35 @@ class LINComposeBarView: UIView {
     private func showEmoticonsView() {
         moreButton.setImage(UIImage(named: "icn_cancel_blue"), forState: UIControlState.Normal)
         if let solidView = superview {
-            if textView.isFirstResponder() {
-                shouldChangeFrameForKeyboard = false
-                textView.resignFirstResponder()
-            }
-            else {
-                let rect = CGRectMake(0, CGRectGetHeight(solidView.frame) - CGRectGetHeight(emoticonsView!.frame), CGRectGetWidth(emoticonsView!.frame), CGRectGetHeight(emoticonsView!.frame))
-                delegate?.composeBar(self, willShowKeyBoard: rect, duration: defaultAnimationDuration)
-            }
-            emoticonsView!.showInView(solidView)
+            emoticonsView!.isHidden = false
+            textView.inputView = emoticonsView!
+            textView.reloadInputViews()
         }
     }
     
     private func hideEmoticonsView() {
         moreButton.setImage(UIImage(named: "Icn_add"), forState: UIControlState.Normal)
-        emoticonsView?.hide()
+        emoticonsView!.isHidden = true
+        textView.inputView = nil
+        textView.reloadInputViews()
     }
 
     // MARK: Keyboards
     func handleKeyboardWillShowNotification(notification: NSNotification) {
-        if !shouldChangeFrameForKeyboard {
-            shouldChangeFrameForKeyboard = true
-            return
-        }
-        let userInfo = notification.userInfo!
-        let keyboardRect = (userInfo[UIKeyboardFrameEndUserInfoKey] as NSValue).CGRectValue()
-        let duration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as NSNumber).doubleValue
-        delegate?.composeBar(self, willShowKeyBoard: keyboardRect, duration: duration)
+        let keyboardInfo = getKeyboardInfoWithNotification(notification)
+        delegate?.composeBar(self, willShowKeyBoard: keyboardInfo.rect, duration: keyboardInfo.duration)
     }
     
     func handleKeyboardWillHideNotification(notification: NSNotification) {
-        if !shouldChangeFrameForKeyboard {
-            shouldChangeFrameForKeyboard = true
-            return
-        }
+        let keyboardInfo = getKeyboardInfoWithNotification(notification)
+        delegate?.composeBar(self, willHideKeyBoard: keyboardInfo.rect, duration: keyboardInfo.duration)
+    }
+    
+    private func getKeyboardInfoWithNotification(notification: NSNotification) -> (rect: CGRect, duration: Double) {
         let userInfo = notification.userInfo!
-        let keyboardRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as NSValue).CGRectValue()
+        let keyboardRect = (userInfo[UIKeyboardFrameEndUserInfoKey] as NSValue).CGRectValue()
         let duration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as NSNumber).doubleValue
-        delegate?.composeBar(self, willHideKeyBoard: keyboardRect, duration: duration)
+        return (keyboardRect, duration)
     }
 }
  
@@ -190,11 +176,16 @@ extension LINComposeBarView: LINEmoticonsViewDelegate {
     }
     
     func emoticonsView(emoticonsView: LINEmoticonsView, replyWithPhoto photo: UIImage) {
+        hideEmoticonsView()
         delegate?.composeBar(self, replyWithPhoto: photo)
     }
     
     func emoticonsView(emoticonsView: LINEmoticonsView, replyWithImageURL imageURL: String) {
         delegate?.composeBar(self, replyWithImageURL: imageURL)
+    }
+
+    func emoticonsView(emoticonsView: LINEmoticonsView, didCancelWithPickerController picker: UIImagePickerController) {
+        hideEmoticonsView()
     }
 }
 
@@ -203,7 +194,6 @@ extension LINComposeBarView: UITextViewDelegate {
     func textViewShouldBeginEditing(textView: UITextView!) -> Bool {
         if !emoticonsView!.isHidden {
             hideEmoticonsView()
-            shouldChangeFrameForKeyboard = false
         }
         return true
     }
