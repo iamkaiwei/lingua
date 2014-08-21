@@ -113,6 +113,10 @@ extension LINChatController {
         tableView.addGestureRecognizer(tapGesture)
     }
     
+    func didTapOnTableView(sender: UITapGestureRecognizer) {
+        composeBar.hide()
+    }
+
     private func setupTableView() {
         let configureClosure: TableViewCellConfigureClosure = { (bubbleCell: UITableViewCell, messageData: AnyObject) -> Void in
             (bubbleCell as LINBubbleCell).delegate = self
@@ -143,7 +147,7 @@ extension LINChatController: LINBubbleCellDelegate {
 }
 
 extension LINChatController: LINComposeBarViewDelegate {
-    
+    //MARK: LINComposeBarViewDelegate
     func composeBar(composeBar: LINComposeBarView, sendMessage message: String) {
         let messageData = LINMessage(incoming: false, text: "", sendDate: NSDate(), photo: nil, type: .Voice)
         addBubbleViewCellWithMessageData(messageData)
@@ -163,6 +167,23 @@ extension LINChatController: LINComposeBarViewDelegate {
         }
     }
    
+    func composeBar(composeBar: LINComposeBarView, startPickingMediaWithPickerViewController picker: UIImagePickerController) {
+        presentViewController(picker, animated: true, completion: nil)
+    }
+
+    func composeBar(composeBar: LINComposeBarView, replyWithPhoto photo: UIImage) {
+        let messageData = LINMessage(incoming: false, text: "", sendDate: NSDate(), photo: photo, type: .Photo)
+        addBubbleViewCellWithMessageData(messageData)
+    }
+    
+    func composeBar(composeBar: LINComposeBarView, replyWithImageURL imageURL: String) {
+        replyWithText(imageURL, type: .Photo)
+    }
+
+    func composeBar(composeBar: LINComposeBarView, replyWithVoice voice: NSData) {
+
+    }
+
     private func moveComposeBarViewUpOrDown(isUp: Bool, rect: CGRect, duration: NSTimeInterval) {
         let keyboardHeight = rect.size.height
         self.composeBarBottomLayoutGuideConstraint.constant = (isUp == false ? 0 : keyboardHeight)
@@ -224,23 +245,6 @@ extension LINChatController: LINComposeBarViewDelegate {
     @IBAction func backButtonTouched(sender: UIButton) {
         composeBar.resignFirstResponder()
         dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    func didTapOnTableView(sender: UITapGestureRecognizer) {
-        composeBar.hide()
-    }
-
-    func composeBar(composeBar: LINComposeBarView, startPickingMediaWithPickerViewController picker: UIImagePickerController) {
-        presentViewController(picker, animated: true, completion: nil)
-    }
-    
-    func composeBar(composeBar: LINComposeBarView, replyWithPhoto photo: UIImage) {
-        let messageData = LINMessage(incoming: false, text: "", sendDate: NSDate(), photo: photo, type: .Photo)
-        addBubbleViewCellWithMessageData(messageData)
-    }
-    
-    func composeBar(composeBar: LINComposeBarView, replyWithImageURL imageURL: String) {
-        replyWithText(imageURL, type: .Photo)
     }
 }
 

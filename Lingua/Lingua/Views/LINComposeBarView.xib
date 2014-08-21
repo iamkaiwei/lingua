@@ -53,7 +53,9 @@
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
-                        <action selector="startSpeaking:" destination="-1" eventType="touchUpInside" id="aQE-oF-HLs"/>
+                        <action selector="startSpeaking:" destination="-1" eventType="touchDown" id="UxO-ei-88c"/>
+                        <action selector="stopSpeaking:" destination="-1" eventType="touchUpInside" id="2kY-qZ-Pq6"/>
+                        <outletCollection property="gestureRecognizers" destination="a09-F9-EYU" appends="YES" id="Abg-oQ-gzI"/>
                     </connections>
                 </button>
                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l7h-ha-uRB">
@@ -104,9 +106,6 @@
                             <constraints>
                                 <constraint firstAttribute="width" constant="50" id="VVd-8M-Hfv"/>
                             </constraints>
-                            <connections>
-                                <outletCollection property="gestureRecognizers" destination="a09-F9-EYU" appends="YES" id="jri-IF-SDE"/>
-                            </connections>
                         </imageView>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

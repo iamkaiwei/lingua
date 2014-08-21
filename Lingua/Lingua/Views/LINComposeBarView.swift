@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AudioToolbox
 
 protocol LINComposeBarViewDelegate {
     func composeBar(composeBar: LINComposeBarView, sendMessage message: String)
@@ -15,6 +16,7 @@ protocol LINComposeBarViewDelegate {
     func composeBar(composeBar: LINComposeBarView, startPickingMediaWithPickerViewController picker: UIImagePickerController)
     func composeBar(composeBar: LINComposeBarView, replyWithPhoto photo: UIImage)
     func composeBar(composeBar: LINComposeBarView, replyWithImageURL imageURL: String)
+    func composeBar(composeBar: LINComposeBarView, replyWithVoice voice: NSData)
 }
 
 class LINComposeBarView: UIView {
@@ -31,7 +33,7 @@ class LINComposeBarView: UIView {
     var delegate: LINComposeBarViewDelegate?
     private var emoticonsView: LINEmoticonsView?
     private let defaultAnimationDuration = 0.3
-    private var shouldFinishRecording = false
+    private var shouldCancelRecording = false
     private var initialFrameForSlideImage = CGRectZero
     private var recordingDuration: Int = 0
     private var recordingTimer: NSTimer?
@@ -40,16 +42,23 @@ class LINComposeBarView: UIView {
     private var emoticonsTextStorage = LINParsingEmoticonsTextStorage()
 
     func commonInit() {
+        //Keyboards
         let notificationCenter = NSNotificationCenter.defaultCenter()
         notificationCenter.addObserver(self, selector: "handleKeyboardWillShowNotification:", name: UIKeyboardWillShowNotification, object: nil)
         notificationCenter.addObserver(self, selector: "handleKeyboardWillHideNotification:", name: UIKeyboardWillHideNotification, object: nil)
+
+        //Emoticons View
         emoticonsView = UINib(nibName: "LINEmoticonsView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as? LINEmoticonsView
         emoticonsView?.delegate = self
+
+        //Initialize UIs
         let contentView = UINib(nibName: "LINComposeBarView", bundle: nil).instantiateWithOwner(self, options: nil)[0] as UIView
         contentView.frame = bounds
         addSubview(contentView)
         textView.layer.cornerRadius = 10
+
         // emoticonsTextStorage.addLayoutManager(textView.layoutManager)
+        LINAudioHelper.sharedInstance.delegate = self
     }
 
     override init() {
@@ -88,10 +97,22 @@ class LINComposeBarView: UIView {
 
     @IBAction func startSpeaking(sender: UIButton) {
         hide()
+        initialFrameForSlideImage = slideBack.frame
         moreButton.setImage(UIImage(named: "Recording"), forState: UIControlState.Normal)
         voicePanelView.hidden = false
         recordingTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "timerTick:", userInfo: nil, repeats: true)
         LINAudioHelper.sharedInstance.startRecording()
+        AudioServicesPlaySystemSound(UInt32(kSystemSoundID_Vibrate)) //TODO: this is not working right now.
+    }
+
+    @IBAction func stopSpeaking(sender: UIButton) {
+        recordingTimer?.invalidate()
+        recordingDuration = 0
+        durationLabel.text = String(format: "%02d:%02d", recordingDuration/60, recordingDuration%60)
+        LINAudioHelper.sharedInstance.stopRecording()
+        slideBack.center.x = CGRectGetMidX(self.initialFrameForSlideImage)
+        voicePanelView.hidden = true
+        moreButton.setImage(UIImage(named: "Icn_add"), forState: UIControlState.Normal)
     }
 
     func timerTick(timer: NSTimer) {
@@ -101,37 +122,32 @@ class LINComposeBarView: UIView {
 
     @IBAction func startPanning(sender: UIPanGestureRecognizer) {
         switch sender.state {
-            case .Began:
-            moreButton.setImage(UIImage(named: "Trash"), forState: UIControlState.Normal)
-            initialFrameForSlideImage = slideBack.frame
-            case .Changed:
-            let translation = sender.translationInView(voicePanelView)
-            if translation.x + sender.view.center.x > CGRectGetMidX(initialFrameForSlideImage) {
+            case .Began, .Changed:
+            let translation = sender.translationInView(self)
+            if translation.x + sender.view.center.x > CGRectGetMaxX(initialFrameForSlideImage) {
+                slideBack.frame = initialFrameForSlideImage
                 return
             }
-            if translation.x + sender.view.center.x < 20 {
-                moreButton.setImage(UIImage(named: "Icn_add"), forState: UIControlState.Normal)
-                voicePanelView.hidden = true
-                shouldFinishRecording = true
+
+            if translation.x + sender.view.center.x < 35 {
+                slideBack.center.x = 35 - CGRectGetHeight(initialFrameForSlideImage)
                 return
             }
-            sender.view.center = CGPointMake(sender.view.center.x + translation.x, sender.view.center.y)
-            sender.setTranslation(CGPointZero, inView: voicePanelView)
+
+            if translation.x + sender.view.center.x < 100 && !shouldCancelRecording {
+                shouldCancelRecording = true
+                moreButton.setImage(UIImage(named: "Trash"), forState: UIControlState.Normal)
+            }
+
+            if translation.x + sender.view.center.x >= 100 && shouldCancelRecording {
+                shouldCancelRecording = false
+                moreButton.setImage(UIImage(named: "Recording"), forState: UIControlState.Normal)
+            }
+
+            slideBack.center.x = sender.view.center.x + translation.x - CGRectGetHeight(initialFrameForSlideImage)
 
             case .Ended:
-                if shouldFinishRecording {
-                    recordingTimer?.invalidate()
-                    recordingDuration = 0
-                    durationLabel.text = String(format: "%02d:%02d", recordingDuration/60, recordingDuration%60)
-                    LINAudioHelper.sharedInstance.stopRecording()
-                }
-                else {
-                    moreButton.setImage(UIImage(named: "Recording"), forState: UIControlState.Normal)
-                }
-                shouldFinishRecording = false
-                UIView.animateWithDuration(0.2, animations: {
-                    sender.view.center.x = CGRectGetMidX(self.initialFrameForSlideImage)
-                })
+                stopSpeaking(sender.view as UIButton)
 
             default: return
         }
@@ -196,6 +212,18 @@ extension LINComposeBarView: LINEmoticonsViewDelegate {
         let tmpKey = LINParsingEmoticonsTextStorage.serchEmoticonKeyByName("emoticon_\(index + 1)")
         textView.text = textView.text.stringByAppendingString(tmpKey)
         textViewDidChange(textView)
+    }
+}
+
+extension LINComposeBarView: LINAudioHelperDelegate {
+    
+    func audioHelperDidComposeVoice(voice: NSData) {
+        if shouldCancelRecording {
+            shouldCancelRecording = false
+        }
+        else {
+            delegate?.composeBar(self, replyWithVoice: voice)
+        }
     }
 }
 

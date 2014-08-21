@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		200405D919A63617006F88F8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 200405D819A63617006F88F8 /* AudioToolbox.framework */; };
 		201323A619683F70004B884D /* LINLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201323A519683F70004B884D /* LINLoadingView.swift */; };
 		201F2B3D195AF1E100E0C17A /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201F2B3C195AF1E100E0C17A /* UIColor+Extensions.swift */; };
 		2043DFD7196550F8005905B9 /* LINViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2043DFD6196550F8005905B9 /* LINViewController.swift */; };
@@ -137,6 +138,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		200405D819A63617006F88F8 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		201323A519683F70004B884D /* LINLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINLoadingView.swift; sourceTree = "<group>"; };
 		201F2B3C195AF1E100E0C17A /* UIColor+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		2043DFD6196550F8005905B9 /* LINViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINViewController.swift; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				200405D919A63617006F88F8 /* AudioToolbox.framework in Frameworks */,
 				20502E1419A51A690051410E /* AVFoundation.framework in Frameworks */,
 				3539D820182145359C2B8DA9 /* libPods.a in Frameworks */,
 			);
@@ -533,6 +536,7 @@
 		CFFA1F0014D9434085221D84 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				200405D819A63617006F88F8 /* AudioToolbox.framework */,
 				20502E1319A51A690051410E /* AVFoundation.framework */,
 				929F38AB196C7C0F009A7E6A /* libPods-libPusher.a */,
 				E5B35F1B8D924BC3AAC02042 /* libPods-Lingua.a */,
