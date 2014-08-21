@@ -61,13 +61,11 @@ class LINNetworkHelper : NSObject{
         case LINNetworkNotificationType.NetworkStatusOffline :
             message = "Network offline"
             messageType = TSMessageNotificationType.Error
-            break;
         case LINNetworkNotificationType.NetworkStatusOnline:
             message = "Network online"
             messageType = TSMessageNotificationType.Success
-            break;
         default:
-            break;
+            break
         }
         dispatch_async(dispatch_get_main_queue(), {
             TSMessage.showNotificationWithTitle(message, type: messageType)
