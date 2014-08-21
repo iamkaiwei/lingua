@@ -50,10 +50,7 @@ class LINChatController: UIViewController {
     private var repliesArray = [AnyObject]()
     private var currentPageIndex = kChatHistoryBeginPageIndex
     private var currentChatMode = LINChatMode.Offline
-    
-    private var addButtonClicked:Bool = false
-    private var shouldChangeInputTextViewFrame:Bool = true
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         

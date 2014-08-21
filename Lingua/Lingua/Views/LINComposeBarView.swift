@@ -36,6 +36,9 @@ class LINComposeBarView: UIView {
     private var recordingDuration: Int = 0
     private var recordingTimer: NSTimer?
     
+    // Parsing emoticons
+    private var emoticonsTextStorage = LINParsingEmoticonsTextStorage()
+
     func commonInit() {
         let notificationCenter = NSNotificationCenter.defaultCenter()
         notificationCenter.addObserver(self, selector: "handleKeyboardWillShowNotification:", name: UIKeyboardWillShowNotification, object: nil)
@@ -46,6 +49,7 @@ class LINComposeBarView: UIView {
         contentView.frame = bounds
         addSubview(contentView)
         textView.layer.cornerRadius = 10
+        // emoticonsTextStorage.addLayoutManager(textView.layoutManager)
     }
 
     override init() {
@@ -186,6 +190,12 @@ extension LINComposeBarView: LINEmoticonsViewDelegate {
 
     func emoticonsView(emoticonsView: LINEmoticonsView, didCancelWithPickerController picker: UIImagePickerController) {
         hideEmoticonsView()
+    }
+    
+    func emoticonsView(emoticonsView: LINEmoticonsView, didSelectEmoticonAtIndex index: Int) {
+        let tmpKey = LINParsingEmoticonsTextStorage.serchEmoticonKeyByName("emoticon_\(index + 1)")
+        textView.text = textView.text.stringByAppendingString(tmpKey)
+        textViewDidChange(textView)
     }
 }
 

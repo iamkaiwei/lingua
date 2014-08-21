@@ -11,18 +11,13 @@ import UIKit
 class LINParsingEmoticonsTextStorage: NSTextStorage {
     private var imp = NSMutableAttributedString()
     private var dict = NSDictionary()
-    
+    private var expression = NSRegularExpression()
+
     override init() {
         super.init()
         
-        struct Static {
-            static var instance: NSDictionary?
-        }
-        
-        if Static.instance == nil {
-            let path = NSBundle.mainBundle().pathForResource("Emoticons", ofType: "plist")
-            dict = NSDictionary(contentsOfFile: path!)
-        }
+        dict = LINParsingEmoticonsTextStorage.getMappingDict()
+        expression = LINParsingEmoticonsTextStorage.getRegularExpression()
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -53,16 +48,7 @@ class LINParsingEmoticonsTextStorage: NSTextStorage {
     // MARK: Adding emoticons
     
     override func processEditing() {
-        struct Static {
-            static var expression: NSRegularExpression?
-        }
-        
-        if Static.expression == nil {
-            let regex = dict["regex"] as String
-            Static.expression = NSRegularExpression.regularExpressionWithPattern(regex, options: NSRegularExpressionOptions.CaseInsensitive, error: nil)
-        }
-        
-        let matches = Static.expression!.matchesInString(self.string, options: NSMatchingOptions(0), range: NSMakeRange(0, self.string.utf16Count))
+        let matches = expression.matchesInString(self.string, options: NSMatchingOptions(0), range: NSMakeRange(0, self.string.utf16Count))
         
         for result in matches.reverse() {
             let matchRange = result.range
@@ -84,5 +70,41 @@ class LINParsingEmoticonsTextStorage: NSTextStorage {
         
         super.processEditing()
     }
-    
 }
+
+extension LINParsingEmoticonsTextStorage {
+    // MARK: Class functions
+
+    // Get mapping keys
+    class func getMappingDict() -> NSDictionary {
+        struct Static {
+            static var dict: NSDictionary?
+        }
+        
+        if Static.dict == nil {
+            let path = NSBundle.mainBundle().pathForResource("Emoticons", ofType: "plist")
+            Static.dict = NSDictionary(contentsOfFile: path!)
+        }
+        return Static.dict!
+    }
+    
+    // Get regular expression
+    class func getRegularExpression() -> NSRegularExpression {
+        struct Static {
+            static var expression: NSRegularExpression?
+        }
+        
+        if Static.expression == nil {
+            let dict = LINParsingEmoticonsTextStorage.getMappingDict()
+            let regex = dict["regex"] as String
+            Static.expression = NSRegularExpression.regularExpressionWithPattern(regex, options: NSRegularExpressionOptions.CaseInsensitive, error: nil)
+        }
+        return Static.expression!
+    }
+
+    class func serchEmoticonKeyByName(emoticonName: String) -> String {
+        let dict = LINParsingEmoticonsTextStorage.getMappingDict()
+        return dict.allKeysForObject(emoticonName)[0] as String
+    }
+}
+ 
