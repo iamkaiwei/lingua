@@ -17,7 +17,6 @@ class LINHomeController: LINViewController, UIViewControllerTransitioningDelegat
     @IBOutlet weak var tipLabel: UILabel!
     @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var topNavigationView:LINTopNavigationView!
-    @IBOutlet weak var conversationListButton:UIButton!
     
     var timer: NSTimer?
     var animationImages = [UIImage]()
@@ -48,16 +47,16 @@ class LINHomeController: LINViewController, UIViewControllerTransitioningDelegat
     }
     
     func configureBadgeViewAppearance(){
-        conversationListButton.badgeView.badgeColor = UIColor.orangeColor()
-        conversationListButton.badgeView.position = MGBadgePosition.TopLeft
-        conversationListButton.badgeView.outlineWidth = 0
-        conversationListButton.badgeView.maximumBadgeValueAllowed = 99
+        messageButton.badgeView.badgeColor = UIColor.orangeColor()
+        messageButton.badgeView.position = MGBadgePosition.TopLeft
+        messageButton.badgeView.outlineWidth = 0
+        messageButton.badgeView.maximumBadgeValueAllowed = 99
     }
     
     func updateNewMessageCount(notification:NSNotification) {
         var messageCount:Int = notification.object as Int
-        conversationListButton.badgeView.badgeValue = messageCount
-        conversationListButton.badgeView.updateBadgeViewPosition()
+        messageButton.badgeView.badgeValue = messageCount
+        messageButton.badgeView.updateBadgeViewPosition()
     }
     
     func changeQuote() {

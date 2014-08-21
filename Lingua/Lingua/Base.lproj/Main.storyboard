@@ -747,10 +747,9 @@
                     </view>
                     <connections>
                         <outlet property="authorLabel" destination="4co-B1-bWX" id="9GP-Wh-ZTp"/>
-                        <outlet property="conversationListButton" destination="axt-Yo-jC8" id="wjX-Qe-ZOP"/>
                         <outlet property="loadingImageView" destination="yXx-fn-s5M" id="BeE-fC-uFw"/>
-                        <outlet property="messageButton" destination="axt-Yo-jC8" id="P4w-qW-duF"/>
-                        <outlet property="profileButton" destination="dqF-TG-jop" id="iKg-Hx-R7A"/>
+                        <outlet property="messageButton" destination="OrX-2G-Wrq" id="OxS-0O-1YH"/>
+                        <outlet property="profileButton" destination="fPJ-OM-zql" id="qIY-Bc-Yue"/>
                         <outlet property="teachButton" destination="rKr-Xd-Ayv" id="QLR-6g-nu8"/>
                         <outlet property="tipLabel" destination="HwL-6Q-08g" id="hJO-4q-ucA"/>
                         <outlet property="titleLabel" destination="SCu-fY-SXg" id="P0L-vd-Bgi"/>
@@ -1019,6 +1018,7 @@
                     <connections>
                         <outlet property="composeBar" destination="tP5-sg-AVJ" id="Lsp-hB-fw6"/>
                         <outlet property="composeBarBottomLayoutGuideConstraint" destination="RxS-0E-LAa" id="Org-MM-vLg"/>
+                        <outlet property="nameLabel" destination="sII-sl-pw1" id="3rE-0Z-ull"/>
                         <outlet property="tableView" destination="wR0-OC-umP" id="HC5-Bc-fXE"/>
                         <outlet property="topNavigationView" destination="q4T-kB-obB" id="CAN-xj-BM8"/>
                     </connections>
