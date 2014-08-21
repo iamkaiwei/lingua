@@ -151,17 +151,20 @@ class LINComposeBarView: UIView {
 
     // MARK: Keyboards
     func handleKeyboardWillShowNotification(notification: NSNotification) {
-        let userInfo = notification.userInfo!
-        let keyboardRect = (userInfo[UIKeyboardFrameEndUserInfoKey] as NSValue).CGRectValue()
-        let duration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as NSNumber).doubleValue
-        delegate?.composeBar(self, willShowKeyBoard: keyboardRect, duration: duration)
+        let keyboardInfo = getKeyboardInfoWithNotification(notification)
+        delegate?.composeBar(self, willShowKeyBoard: keyboardInfo.rect, duration: keyboardInfo.duration)
     }
     
     func handleKeyboardWillHideNotification(notification: NSNotification) {
+        let keyboardInfo = getKeyboardInfoWithNotification(notification)
+        delegate?.composeBar(self, willHideKeyBoard: keyboardInfo.rect, duration: keyboardInfo.duration)
+    }
+    
+    private func getKeyboardInfoWithNotification(notification: NSNotification) -> (rect: CGRect, duration: Double) {
         let userInfo = notification.userInfo!
-        let keyboardRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as NSValue).CGRectValue()
+        let keyboardRect = (userInfo[UIKeyboardFrameEndUserInfoKey] as NSValue).CGRectValue()
         let duration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as NSNumber).doubleValue
-        delegate?.composeBar(self, willHideKeyBoard: keyboardRect, duration: duration)
+        return (keyboardRect, duration)
     }
 }
  
