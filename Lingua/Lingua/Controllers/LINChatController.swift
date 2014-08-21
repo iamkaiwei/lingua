@@ -68,7 +68,7 @@ class LINChatController: UIViewController {
             currentUser = tmpuser
         }
         
-        //nameLabel.text = userChat.firstName
+        nameLabel.text = userChat.firstName
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "appDidBecomActive", name: kNotificationAppDidBecomActive, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "appDidEnterBackground", name: kNotificationAppDidEnterBackground, object: nil)
