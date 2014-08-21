@@ -34,7 +34,11 @@ class LINConversationCell: UITableViewCell {
         }
         
         dateLabel.text = NSDateFormatter.getConversationTimeStringFromDate(conversationDate!)
-        if conversation.haveNewMessage {
+        updateHighlightedCell(conversation.haveNewMessage)
+    }
+    
+    func updateHighlightedCell(containNewMessage:Bool){
+        if containNewMessage {
             self.backgroundColor = UIColor.lightGrayColor()
         }
         else{

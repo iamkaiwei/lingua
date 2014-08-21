@@ -43,6 +43,10 @@ class LINHomeController: LINViewController, UIViewControllerTransitioningDelegat
         configureBadgeViewAppearance()
     }
     
+    override func viewDidAppear(animated: Bool) {
+        self.topNavigationView.checkingConnectionStatus()
+    }
+    
     func configureBadgeViewAppearance(){
         conversationListButton.badgeView.badgeColor = UIColor.orangeColor()
         conversationListButton.badgeView.position = MGBadgePosition.TopLeft

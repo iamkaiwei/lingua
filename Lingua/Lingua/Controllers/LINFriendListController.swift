@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LINFriendListController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate {
+class LINFriendListController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate,LINChatControllerDelegate {
     @IBOutlet weak var tableView: UITableView!
     var arrFriends = [LINUser]()
     var newMessageCount:Int = 0
@@ -22,12 +22,11 @@ class LINFriendListController: UIViewController, UITableViewDataSource, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = 70
-        refreshConversationList()
+        //Register notification
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "appDidEnterBackground", name: kNotificationAppDidEnterBackground, object: nil)
-    }
-    
-    func appDidEnterBackground(){
-        self.cachingConversationData()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "appDidBecomeActive", name: kNotificationAppDidBecomActive, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "appReceivedNewMessage:", name: kNotificationAppReceivedNewMessage, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "appDidOpenChatViewFromHUD:", name: kNotificationAppDidOpenChatViewFromHUD, object: nil)
     }
     
     func updateNewMessageCount(){
@@ -47,16 +46,16 @@ class LINFriendListController: UIViewController, UITableViewDataSource, UITableV
             let indexPath: NSIndexPath = tableView.indexPathForSelectedRow()
             let chatController = segue.destinationViewController as LINChatController
             
-            var conversation = self.conversationList[indexPath.row] as LINConversation
-            if(conversation.haveNewMessage){
-                conversation.haveNewMessage = false
-                self.newMessageCount--
-                updateNewMessageCount()
-            }
+            chatController.delegate = self
             chatController.conversation = self.conversationList[indexPath.row]
             chatController.transitioningDelegate = self
             
         }
+    }
+    
+    // MARK: LINChatControllerDelegate
+    func shouldMoveConversationToTheTop(conversationId:String) {
+        moveConversationToTop(conversationId,markAsNewMessage:false)
     }
     
     // MARK: UITableView Datasource
@@ -78,11 +77,84 @@ class LINFriendListController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
+        var conversation = self.conversationList[indexPath.row] as LINConversation
+        if(conversation.haveNewMessage){
+            conversation.haveNewMessage = false
+            self.newMessageCount--
+            updateNewMessageCount();
+            
+            //Unhightlight cell
+            var selectedCell:LINConversationCell = tableView.cellForRowAtIndexPath(indexPath) as LINConversationCell
+            selectedCell.updateHighlightedCell(false)
+        }
         performSegueWithIdentifier("kLINChatControllerIdentifier", sender: self)
     }
     
-    // MARK: Helpers
+    // MARK: UIViewControllerTransitioningDelegate
+    func animationControllerForPresentedController(presented: UIViewController!, presentingController presenting: UIViewController!, sourceController source: UIViewController!) -> UIViewControllerAnimatedTransitioning! {
+        return LINPopPresentAnimationController()
+    }
     
+    func animationControllerForDismissedController(dismissed: UIViewController!) -> UIViewControllerAnimatedTransitioning! {
+        return LINShrinkDismissAnimationController()
+    }
+    
+    // MARK: Local Notification
+    func appDidOpenChatViewFromHUD(notification:NSNotification) {
+        var conversationId:String = notification.object as String
+        var index = self.indexForConnversationWithID(conversationId)
+        if index >= 0 {
+            var conversationToUpdate = self.conversationList[index]
+            markConversation(conversationToUpdate, isRead: true)
+            self.tableView.reloadData()
+        }
+    }
+
+    func appDidEnterBackground() {
+        cachingConversationData()
+    }
+    
+    func appDidBecomeActive() {
+        refreshConversationList()
+    }
+    
+    func appReceivedNewMessage(notification:NSNotification) {
+       var conversationId:String = notification.object as String
+        moveConversationToTop(conversationId,markAsNewMessage:true)
+    }
+    
+    func moveConversationToTop(conversationId:String , markAsNewMessage:Bool) {
+        var index = self.indexForConnversationWithID(conversationId)
+        if index >= 0 {
+            var conversationToUpdate = self.conversationList[index]
+            if markAsNewMessage {
+                markConversation(conversationToUpdate, isRead: false)
+            }
+            conversationToUpdate.lastestUpdate = NSDateFormatter.iSODateFormatter().stringFromDate(NSDate())
+            //Sorting conversation list here
+            self.conversationList.removeAtIndex(index)
+            self.conversationList.insert(conversationToUpdate, atIndex: 0)
+            self.tableView.reloadData()
+        }
+    }
+    
+    func markConversation(conversation:LINConversation , isRead:Bool) {
+        //Only if the conversation has new message and we want to mask it as read
+        if conversation.haveNewMessage && isRead {
+            conversation.haveNewMessage = false
+            self.newMessageCount--
+        }
+        
+        //If the conversation has no message and we want to mask it as contain new message
+        if !conversation.haveNewMessage && !isRead {
+            conversation.haveNewMessage = true
+            self.newMessageCount++
+        }
+        
+        self.updateNewMessageCount()
+    }
+    
+    // MARK: Helpers
     func loadAllConversation() {
         LINNetworkClient.sharedInstance.getAllConversations { (conversationsArray, error) -> Void in
             if conversationsArray != nil {
@@ -116,13 +188,21 @@ class LINFriendListController: UIViewController, UITableViewDataSource, UITableV
         self.tableView.reloadData()
     }
     
-    // MARK: UIViewControllerTransitioningDelegate
-    func animationControllerForPresentedController(presented: UIViewController!, presentingController presenting: UIViewController!, sourceController source: UIViewController!) -> UIViewControllerAnimatedTransitioning! {
-        return LINPopPresentAnimationController()
+    func getConversationWithID(conversationId:String) -> LINConversation? {
+        var filteredList = self.conversationList.filter({$0.conversationId == conversationId}) as [LINConversation]
+        if filteredList.count > 0 {
+            return filteredList[0]
+        }
+        return nil
     }
     
-    func animationControllerForDismissedController(dismissed: UIViewController!) -> UIViewControllerAnimatedTransitioning! {
-        return LINShrinkDismissAnimationController()
+    func indexForConnversationWithID(conversationId:String) -> Int {
+        for (index, element) in enumerate(self.conversationList) {
+            if element.conversationId == conversationId {
+                return index
+            }
+        }
+        return -1;
     }
 }
 
