@@ -13,6 +13,7 @@ protocol LINEmoticonsViewDelegate {
     func emoticonsView(emoticonsView: LINEmoticonsView, replyWithPhoto photo: UIImage)
     func emoticonsView(emoticonsView: LINEmoticonsView, replyWithImageURL imageURL: String)
     func emoticonsView(emoticonsView: LINEmoticonsView, didCancelWithPickerController picker: UIImagePickerController)
+    func emoticonsView(emoticonsView: LINEmoticonsView, didSelectEmoticonAtIndex index: Int)
 }
 
 class LINEmoticonsView: UIView {
@@ -93,7 +94,7 @@ extension LINEmoticonsView: UICollectionViewDataSource, UICollectionViewDelegate
     }
     
     func collectionView(collectionView: UICollectionView!, numberOfItemsInSection section: Int) -> Int {
-        return 31
+        return 30
     }
     
     func collectionView(collectionView: UICollectionView!, cellForItemAtIndexPath indexPath: NSIndexPath!) -> UICollectionViewCell! {
@@ -105,6 +106,6 @@ extension LINEmoticonsView: UICollectionViewDataSource, UICollectionViewDelegate
     // MARK: UICollectionViewDelegate
     
     func collectionView(collectionView: UICollectionView!, didSelectItemAtIndexPath indexPath: NSIndexPath!) {
-        println("Emotion \(indexPath.row) is selected.")
+        delegate?.emoticonsView(self, didSelectEmoticonAtIndex: indexPath.row)
     }
 }
