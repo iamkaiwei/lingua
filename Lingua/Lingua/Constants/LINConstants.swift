@@ -31,5 +31,8 @@ let kNotificationAppDidEnterBackground = "kNotificationAppDidEnterBackground"
 let kNotificationAppDidLostConnection = "kNotificationAppDidLostConnection"
 let kNotificationAppDidRestoreConnection      = "kNotificationAppDidRestoreConnection"
 
+let kNotificationShouldUpdateNewMessageCount = "kNotificationShouldUpdateNewMessageCount"
+let kNotificationAppReceivedNewMessage       = "kNotificationAppReceivedNewMessage"
+let kNotificationAppDidOpenChatViewFromHUD   = "kNotificationAppDidOpenChatViewFromHUD"
 // External resources
 let kCachedConversationDataFile = "conversations_data.lingua"

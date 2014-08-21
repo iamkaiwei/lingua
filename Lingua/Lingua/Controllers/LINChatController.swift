@@ -17,6 +17,10 @@ enum LINChatMode {
     case Online, Offline
 }
 
+protocol LINChatControllerDelegate {
+    func shouldMoveConversationToTheTop(conversationId:String) -> Void
+}
+
 class LINChatController: UIViewController {
     @IBOutlet weak var composeBar: LINComposeBarView!
     @IBOutlet weak var tableView: UITableView!
@@ -30,7 +34,9 @@ class LINChatController: UIViewController {
     private let cellIdentifier = "kLINBubbleCell"
     
     private var currentChannel = PTPusherPresenceChannel()
-    
+    private var conversationChanged : Bool = false
+    var delegate:LINChatControllerDelegate?
+
     var conversation: LINConversation = LINConversation() {
         didSet {
             userChat = conversation.getChatUser()
@@ -45,8 +51,8 @@ class LINChatController: UIViewController {
     private var currentPageIndex = kChatHistoryBeginPageIndex
     private var currentChatMode = LINChatMode.Offline
     
-    private var addButtonClicked: Bool = false
-    private var shouldChangeInputTextViewFrame: Bool = true
+    private var addButtonClicked:Bool = false
+    private var shouldChangeInputTextViewFrame:Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,7 +68,7 @@ class LINChatController: UIViewController {
             currentUser = tmpuser
         }
         
-        nameLabel.text = userChat.firstName
+        //nameLabel.text = userChat.firstName
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "appDidBecomActive", name: kNotificationAppDidBecomActive, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "appDidEnterBackground", name: kNotificationAppDidEnterBackground, object: nil)
@@ -92,6 +98,13 @@ class LINChatController: UIViewController {
         leaveConversation()
         currentChannel.unsubscribe()
         postMessagesToServer()
+
+        //Call previous view controller to re-arrange the order 
+        if self.conversationChanged {
+            if self.delegate != nil {
+                self.delegate?.shouldMoveConversationToTheTop(conversationId)
+            }
+        }
     }
 }
 
@@ -166,6 +179,7 @@ extension LINChatController: LINComposeBarViewDelegate {
     }
 
     private func replyWithText(text: String, type: MessageType) {
+        self.conversationChanged = true
         let sendDate = NSDateFormatter.iSODateFormatter().stringFromDate(NSDate())
         
         if type == MessageType.Text {

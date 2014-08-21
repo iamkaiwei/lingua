@@ -23,6 +23,9 @@ class LINNotificationHelper {
                 let text = (alert! as NSString).stringByReplacingOccurrencesOfString("\(firstName!):", withString: "") as String
                 LINMessageHelper.showNotificationWitUserId(tmpId, name: firstName!, text: text, avatarURL: avatarURL!,
                                                            type: type!, conversationId: conversationId!)
+                
+                //Post notification for FriendListViewController to update new message counter
+                NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAppReceivedNewMessage, object: conversationId)
             }
         } else if applicationState == .Background || applicationState == .Inactive {
             openChatScreenWithUserId(userId!, name: firstName!, conversationId: conversationId!)

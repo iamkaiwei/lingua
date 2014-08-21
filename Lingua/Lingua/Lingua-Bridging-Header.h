@@ -25,3 +25,4 @@
 #import <Pusher/PTPusherEventDispatcher.h>
 #import <Parse/Parse.h>
 #import "HexColor.h"
+#import <UIView+MGBadgeView.h>
