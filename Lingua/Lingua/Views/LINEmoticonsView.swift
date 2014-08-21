@@ -12,6 +12,7 @@ protocol LINEmoticonsViewDelegate {
     func emoticonsView(emoticonsView: LINEmoticonsView, startPickingMediaWithPickerViewController picker: UIImagePickerController)
     func emoticonsView(emoticonsView: LINEmoticonsView, replyWithPhoto photo: UIImage)
     func emoticonsView(emoticonsView: LINEmoticonsView, replyWithImageURL imageURL: String)
+    func emoticonsView(emoticonsView: LINEmoticonsView, didCancelWithPickerController picker: UIImagePickerController)
 }
 
 class LINEmoticonsView: UIView {
@@ -73,6 +74,7 @@ extension LINEmoticonsView: UIImagePickerControllerDelegate, UINavigationControl
     }
     
     func imagePickerControllerDidCancel(picker: UIImagePickerController!) {
+        delegate?.emoticonsView(self, didCancelWithPickerController: picker)
         hidePhotosScreenWithPickerViewController(picker)
     }
     

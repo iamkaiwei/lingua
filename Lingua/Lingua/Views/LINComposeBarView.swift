@@ -173,11 +173,16 @@ extension LINComposeBarView: LINEmoticonsViewDelegate {
     }
     
     func emoticonsView(emoticonsView: LINEmoticonsView, replyWithPhoto photo: UIImage) {
+        hideEmoticonsView()
         delegate?.composeBar(self, replyWithPhoto: photo)
     }
     
     func emoticonsView(emoticonsView: LINEmoticonsView, replyWithImageURL imageURL: String) {
         delegate?.composeBar(self, replyWithImageURL: imageURL)
+    }
+
+    func emoticonsView(emoticonsView: LINEmoticonsView, didCancelWithPickerController picker: UIImagePickerController) {
+        hideEmoticonsView()
     }
 }
 
