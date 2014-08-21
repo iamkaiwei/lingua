@@ -154,30 +154,34 @@ extension LINChatController: LINComposeBarViewDelegate {
     }
     
     func composeBar(composeBar: LINComposeBarView, willShowKeyBoard rect: CGRect, duration: NSTimeInterval) {
-        var composeBarFrame = composeBar.frame
-        composeBarFrame.origin.y -= rect.size.height
-        var tableFrame = tableView.frame
-        tableFrame.size.height -= rect.size.height
-        self.composeBarBottomLayoutGuideConstraint.constant = rect.size.height
-        UIView.animateWithDuration(duration, animations: {
-            self.composeBar.frame = composeBarFrame
-            self.tableView.frame = tableFrame
-            self.scrollBubbleTableViewToBottomAnimated(true)
-        })
+        if self.composeBarBottomLayoutGuideConstraint.constant == 0 {
+            var composeBarFrame = composeBar.frame
+            composeBarFrame.origin.y -= rect.size.height
+            var tableFrame = tableView.frame
+            tableFrame.size.height -= rect.size.height
+            self.composeBarBottomLayoutGuideConstraint.constant = rect.size.height
+            UIView.animateWithDuration(duration, animations: {
+                self.composeBar.frame = composeBarFrame
+                self.tableView.frame = tableFrame
+                self.scrollBubbleTableViewToBottomAnimated(true)
+            })
+        }
     }
 
     func composeBar(composeBar: LINComposeBarView, willHideKeyBoard rect: CGRect, duration: NSTimeInterval) {
-        var composeBarFrame = composeBar.frame
-        composeBarFrame.origin.y += rect.size.height
-        var tableFrame = tableView.frame
-        tableFrame.size.height += rect.size.height
-        self.composeBarBottomLayoutGuideConstraint.constant = 0
-        UIView.animateWithDuration(duration, animations: {
-            self.composeBar.frame = composeBarFrame
-            self.tableView.frame = tableFrame
-        })
+        if self.composeBarBottomLayoutGuideConstraint.constant > 0 {
+            var composeBarFrame = composeBar.frame
+            composeBarFrame.origin.y += rect.size.height
+            var tableFrame = tableView.frame
+            tableFrame.size.height += rect.size.height
+            self.composeBarBottomLayoutGuideConstraint.constant = 0
+            UIView.animateWithDuration(duration, animations: {
+                self.composeBar.frame = composeBarFrame
+                self.tableView.frame = tableFrame
+            })
+        }
     }
-
+   
     private func replyWithText(text: String, type: MessageType) {
         self.conversationChanged = true
         let sendDate = NSDateFormatter.iSODateFormatter().stringFromDate(NSDate())

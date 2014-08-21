@@ -55,35 +55,6 @@ extension LINEmoticonsView {
         
         delegate?.emoticonsView(self, startPickingMediaWithPickerViewController: picker)
     }
-    
-    func showInView(view: UIView) {
-        view.addSubview(self)
-        
-        var frame = self.frame
-        frame.origin.y = view.frame.size.height
-        self.frame = frame
-        
-        UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveEaseIn, animations: {
-            var frame = self.frame
-            frame.origin.y = view.frame.size.height - self.frame.size.height
-            self.frame = frame
-            }, completion: { finished in
-        })
-        
-        isHidden = false
-    }
-    
-    func hide() {
-        UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveEaseIn, animations: {
-            var frame = self.frame
-            frame.origin.y += self.frame.size.height
-            self.frame = frame
-            }, completion: { finished in
-                self.removeFromSuperview()
-        })
-        
-        isHidden = true
-    }
 }
 
 extension LINEmoticonsView: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
