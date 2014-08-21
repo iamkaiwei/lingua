@@ -747,7 +747,6 @@
                     </view>
                     <connections>
                         <outlet property="authorLabel" destination="4co-B1-bWX" id="9GP-Wh-ZTp"/>
-                        <outlet property="conversationListButton" destination="axt-Yo-jC8" id="wjX-Qe-ZOP"/>
                         <outlet property="loadingImageView" destination="yXx-fn-s5M" id="BeE-fC-uFw"/>
                         <outlet property="messageButton" destination="OrX-2G-Wrq" id="OxS-0O-1YH"/>
                         <outlet property="profileButton" destination="fPJ-OM-zql" id="qIY-Bc-Yue"/>
