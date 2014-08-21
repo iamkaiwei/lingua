@@ -9,10 +9,15 @@
 import Foundation
 import AVFoundation
 
+protocol LINAudioHelperDelegate {
+    func audioHelperDidComposeVoice(voice: NSData)
+}
+
 class LINAudioHelper: NSObject {
     
     private let recorder: AVAudioRecorder
     private var player: AVAudioPlayer?
+    var delegate: LINAudioHelperDelegate?
 
     class var sharedInstance: LINAudioHelper {
     struct Static {
@@ -51,6 +56,10 @@ class LINAudioHelper: NSObject {
         AVAudioSession.sharedInstance().setActive(false, error: nil)
     }
 
+    func isRecording() -> Bool {
+        return recorder.recording
+    }
+
     func startPlaying(data: NSData) {
         var error: NSError?
         player = AVAudioPlayer(data: data, error: &error)
@@ -65,7 +74,18 @@ class LINAudioHelper: NSObject {
 
 extension LINAudioHelper: AVAudioRecorderDelegate {
     func audioRecorderDidFinishRecording(recorder: AVAudioRecorder!, successfully flag: Bool) {
-
+        if !flag {
+            return
+        }
+        
+        var error: NSError?
+        let voiceData = NSData(contentsOfURL: recorder.url, options: .DataReadingMappedIfSafe, error: &error)
+        if error != nil {
+            println(error)
+            return
+        }
+        
+        delegate?.audioHelperDidComposeVoice(voiceData)
     }
 
     func audioRecorderEncodeErrorDidOccur(recorder: AVAudioRecorder!, error: NSError!) {
