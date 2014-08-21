@@ -13,6 +13,7 @@ class LINConversationCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var roleName: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var dotView:UIImageView!
     
     func configureWithConversation(conversation:LINConversation) {
         var opponentDetail = conversation.getOpponentDetail()
@@ -28,21 +29,17 @@ class LINConversationCell: UITableViewCell {
         
         if let tempDate = NSDateFormatter.iSODateFormatter().dateFromString(conversation.lastestUpdate) {
             conversationDate = tempDate as NSDate
+            dateLabel.text = NSDateFormatter.getConversationTimeStringFromDate(conversationDate!)
         }
-        else {
-            return
-        }
-        
-        dateLabel.text = NSDateFormatter.getConversationTimeStringFromDate(conversationDate!)
         updateHighlightedCell(conversation.haveNewMessage)
     }
     
     func updateHighlightedCell(containNewMessage:Bool){
         if containNewMessage {
-            self.backgroundColor = UIColor.lightGrayColor()
+            self.dotView.hidden = false
         }
         else{
-            self.backgroundColor = UIColor.whiteColor()
+            self.dotView.hidden = true
         }
     }
 }

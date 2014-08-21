@@ -804,18 +804,18 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ff0-BB-hPN" id="pIi-1v-Xud">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20/6" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CCa-Gv-m22">
-                                                    <rect key="frame" x="525" y="8" width="60" height="19"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Yesterday" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CCa-Gv-m22">
+                                                    <rect key="frame" x="515" y="8" width="70" height="19"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="19" id="CNs-Jk-Cfc"/>
-                                                        <constraint firstAttribute="width" constant="60" id="SkH-Pm-ydb"/>
+                                                        <constraint firstAttribute="width" constant="70" id="SkH-Pm-ydb"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="RobotoSlab-Light" family="Roboto Slab" pointSize="13"/>
                                                     <color key="textColor" red="0.24878698587417603" green="0.61424487829208374" blue="0.68069750070571899" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kenny" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uCf-jK-8tc">
-                                                    <rect key="frame" x="77" y="6" width="448" height="23"/>
+                                                    <rect key="frame" x="77" y="6" width="438" height="23"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="23" id="aOV-oB-qbG"/>
                                                     </constraints>
@@ -839,6 +839,9 @@
                                                         <constraint firstAttribute="width" constant="50" id="sOD-o0-rth"/>
                                                     </constraints>
                                                 </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DotImage" translatesAutoresizingMaskIntoConstraints="NO" id="7ci-Gw-DV8">
+                                                    <rect key="frame" x="577" y="39" width="8" height="8"/>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="vZE-UA-lmc" firstAttribute="leading" secondItem="Gkq-RF-lFc" secondAttribute="trailing" constant="7" id="3t8-XW-ZRs"/>
@@ -847,14 +850,17 @@
                                                 <constraint firstItem="CCa-Gv-m22" firstAttribute="leading" secondItem="uCf-jK-8tc" secondAttribute="trailing" id="V7R-Ks-ODy"/>
                                                 <constraint firstItem="uCf-jK-8tc" firstAttribute="leading" secondItem="Gkq-RF-lFc" secondAttribute="trailing" constant="7" id="WCR-6a-KNj"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="CCa-Gv-m22" secondAttribute="trailing" constant="7" id="cFY-u1-46s"/>
+                                                <constraint firstItem="vZE-UA-lmc" firstAttribute="bottom" secondItem="7ci-Gw-DV8" secondAttribute="bottom" id="cXY-A3-9cN"/>
                                                 <constraint firstItem="vZE-UA-lmc" firstAttribute="top" secondItem="pIi-1v-Xud" secondAttribute="top" constant="26" id="e0v-fd-fvW"/>
                                                 <constraint firstItem="Gkq-RF-lFc" firstAttribute="leading" secondItem="pIi-1v-Xud" secondAttribute="leading" constant="20" id="jF9-rQ-lpi"/>
                                                 <constraint firstItem="uCf-jK-8tc" firstAttribute="top" secondItem="pIi-1v-Xud" secondAttribute="top" constant="6" id="qHd-fv-o0m"/>
+                                                <constraint firstAttribute="trailing" secondItem="7ci-Gw-DV8" secondAttribute="trailing" constant="15" id="vwo-hL-z6w"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="avatarImgView" destination="Gkq-RF-lFc" id="Qgc-7C-Mq4"/>
                                             <outlet property="dateLabel" destination="CCa-Gv-m22" id="X74-I9-5xj"/>
+                                            <outlet property="dotView" destination="7ci-Gw-DV8" id="Hye-pu-iZi"/>
                                             <outlet property="nameLabel" destination="uCf-jK-8tc" id="yJw-Su-r2r"/>
                                             <outlet property="roleName" destination="vZE-UA-lmc" id="xXz-PF-Bkm"/>
                                             <segue destination="90d-9n-3fJ" kind="presentation" identifier="kLINChatControllerIdentifier" id="1of-Ig-ulf"/>
@@ -885,7 +891,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ey2-hD-VP2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2765" y="1071"/>
+            <point key="canvasLocation" x="2765" y="1070"/>
         </scene>
         <!--Chat Controller-->
         <scene sceneID="MCs-yX-gYb">
@@ -1127,6 +1133,7 @@
     <resources>
         <image name="Avatar3" width="50" height="50"/>
         <image name="Avatar_1" width="50" height="50"/>
+        <image name="DotImage" width="8" height="8"/>
         <image name="Edit" width="22" height="22"/>
         <image name="GrayDownArrow" width="14" height="8"/>
         <image name="Icn_flag_normal" width="26" height="24"/>
@@ -1142,6 +1149,6 @@
         <image name="loading_elip_0" width="150" height="150"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="eLM-I3-Bqx"/>
+        <segue reference="1of-Ig-ulf"/>
     </inferredMetricsTieBreakers>
 </document>
