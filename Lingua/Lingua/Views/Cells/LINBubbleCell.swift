@@ -39,7 +39,7 @@ protocol LINBubbleCellDelegate {
 }
 
 class LINBubbleCell: UITableViewCell {
-    var contentLabel: UILabel = UILabel()
+    var contentTextView: UITextView = UITextView()
     var bubbleImageView: UIImageView = UIImageView()
     var createAtLabel: UILabel = UILabel()
     var photoImgView: UIImageView = UIImageView()
@@ -51,8 +51,6 @@ class LINBubbleCell: UITableViewCell {
     
     let textInsetsMine = UIEdgeInsetsMake(5, 10, 7, 17)
     let textInsetsSomeone = UIEdgeInsetsMake(5, 15, 7, 10)
-    let photoInsetsMine = UIEdgeInsetsMake(10, 10, 18, 10)
-    let photoInsetsSomeone = UIEdgeInsetsMake(10, 10, 10, 10)
     
     var delegate: LINBubbleCellDelegate?
     
@@ -68,9 +66,11 @@ class LINBubbleCell: UITableViewCell {
         // Bubble imageview
         addSubview(bubbleImageView)
         
-        // Content label
-        contentLabel.numberOfLines = 0
-        contentLabel.font = UIFont.appRegularFontWithSize(14)
+        // Content
+        contentTextView.scrollEnabled = false
+        contentTextView.editable = false
+        contentTextView.backgroundColor = UIColor.clearColor()
+        contentTextView.font = UIFont.appRegularFontWithSize(14)
         
         // CreateAt label
         createAtLabel.font = UIFont.appRegularFontWithSize(10)
@@ -83,7 +83,7 @@ class LINBubbleCell: UITableViewCell {
     }
     
     override func prepareForReuse() {
-        contentLabel.removeFromSuperview()
+        contentTextView.removeFromSuperview()
         photoImgView.removeFromSuperview()
         playButton?.removeFromSuperview()
         voiceProgressBar?.removeFromSuperview()
@@ -106,26 +106,25 @@ class LINBubbleCell: UITableViewCell {
     // MARK: Send texts, photos, voices message
     
     private func configureWithTextMessage(messageData: LINMessage) {
-        // Content label
-        let rect = LINBubbleCell.getboundingRectWithText(messageData.text, font: contentLabel.font)
-        
+        let size = LINBubbleCell.getSizeOfTextViewWithText(messageData.text, font: contentTextView.font)
         let insets = (messageData.incoming == false ? textInsetsMine : textInsetsSomeone)
-        let offsetX = (messageData.incoming == true ? 5 : frame.size.width  - rect.size.width - insets.left - insets.right - 5)
+        let offsetX = (messageData.incoming == true ? 0 : frame.size.width  - size.width - insets.left - insets.right)
         
-        contentLabel.frame = CGRect(x: offsetX + insets.left - (messageData.incoming == true ? 6 : 0),
-                                    y: insets.top + 15,
-                                width: rect.size.width,
-                               height: rect.size.height)
-        contentLabel.text = messageData.text
-        addSubview(contentLabel)
+        contentTextView.text = messageData.text
+        contentTextView.frame = CGRectMake(offsetX + insets.left,
+                                           insets.top,
+                                           size.width,
+                                           size.height)
+        addSubview(contentTextView)
+        contentTextView.sizeToFit()
         
         // Bubble imageview
-        bubbleImageView.frame = CGRect(x: offsetX,
-                                       y: 5,
-                                   width: rect.size.width + insets.left + insets.right - 5,
-                                  height: CGRectGetHeight(rect) + 20)
+        bubbleImageView.frame = CGRect(x: offsetX + insets.left - 5,
+                                       y: 0,
+                                       width: contentTextView.frame.size.width + 10,
+                                       height: contentTextView.frame.size.height + 5)
         
-         calcTimeFrameWithContentFrame(contentLabel.frame, messageData: messageData)
+        calcTimeFrameWithContentFrame(contentTextView.frame, messageData: messageData)
     }
     
     private func configureWithPhotoMessage(messageData: LINMessage) {
@@ -187,26 +186,24 @@ class LINBubbleCell: UITableViewCell {
             imageSize.width = CGFloat(kPhotoMessageMaxWidth)
         }
         
-        println("Photo size: width: \(imageSize.width) height: \(imageSize.height)")
-        
         photoImgView.image = messageData.photo!
         photoImgView.layer.cornerRadius = 5.0
         photoImgView.layer.masksToBounds = true
         
-        let insets = (messageData.incoming == false ? photoInsetsMine : photoInsetsSomeone)
-        let offsetX = (messageData.incoming == true ? 5 : frame.size.width  - imageSize.width - insets.left - insets.right - 5)
+        let insets = (messageData.incoming == false ? textInsetsMine : textInsetsSomeone)
+        let offsetX = (messageData.incoming == true ? 0 : frame.size.width  - imageSize.width - insets.left - insets.right - 5)
         
-        photoImgView.frame = CGRect(x: offsetX + insets.left,
-                                    y: insets.top + 10,
+        photoImgView.frame = CGRect(x: offsetX + insets.left + 2,
+                                    y: insets.top + 15,
                                     width: imageSize.width,
                                     height: imageSize.height)
         addSubview(photoImgView)
         
         // Bubble imageview
-        bubbleImageView.frame = CGRect(x: offsetX + 0,
+        bubbleImageView.frame = CGRect(x: offsetX + insets.left - 5,
                                        y: 0,
-                                       width: imageSize.width + insets.left + insets.right,
-                                       height: imageSize.height + insets.top + insets.bottom + (messageData.incoming == true ? 10: 0))
+                                       width: imageSize.width + 17,
+                                       height: imageSize.height + 30)
         
         calcTimeFrameWithContentFrame(bubbleImageView.frame, messageData: messageData)
         
@@ -239,8 +236,8 @@ class LINBubbleCell: UITableViewCell {
         
         switch(messageData.type) {
             case .Text:
-                let rect = getboundingRectWithText(messageData.text, font: UIFont.appRegularFontWithSize(14))
-                height =  CGRectGetHeight(rect) + 20
+                let size = getSizeOfTextViewWithText(messageData.text, font: UIFont.appRegularFontWithSize(14))
+                height = size.height + 5
             case .Photo:
                 if let tmpPhoto = messageData.photo {
                     let imageSize = tmpPhoto.size
@@ -268,11 +265,11 @@ class LINBubbleCell: UITableViewCell {
     
     // MARK: Utils
     
-    class func getboundingRectWithText(text: String, font: UIFont) -> CGRect {
-        return (text as NSString).boundingRectWithSize(CGSize(width: kTextMessageMaxWidth, height: kTextMessageMaxHeight),
-                                                            options: .UsesLineFragmentOrigin,
-                                                         attributes: [NSFontAttributeName: font],
-                                                            context: nil)
+    class func getSizeOfTextViewWithText(text: String, font: UIFont) -> CGSize {
+        let textView = UITextView()
+        textView.text = text
+        textView.font = font
+        return textView.sizeThatFits(CGSize(width: kTextMessageMaxWidth, height: kTextMessageMaxHeight))
     }
     
     // MARK: Actions
