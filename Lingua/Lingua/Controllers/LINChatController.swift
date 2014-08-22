@@ -27,6 +27,8 @@ class LINChatController: UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var topNavigationView:LINTopNavigationView!
     @IBOutlet weak var composeBarBottomLayoutGuideConstraint: NSLayoutConstraint!
+    @IBOutlet weak var likeButton:UIButton!
+    @IBOutlet weak var flagButton:UIButton!
     
     private var pullRefreshControl: UIRefreshControl = UIRefreshControl()
     private var messagesDataArray = [LINMessage]()
@@ -66,6 +68,8 @@ class LINChatController: UIViewController {
         }
         
         nameLabel.text = userChat.firstName
+        likeButton.selected = conversation.isLiked
+        flagButton.selected = conversation.isFlagged
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "appDidBecomActive", name: kNotificationAppDidBecomActive, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "appDidEnterBackground", name: kNotificationAppDidEnterBackground, object: nil)
@@ -96,7 +100,7 @@ class LINChatController: UIViewController {
         currentChannel.unsubscribe()
         postMessagesToServer()
 
-        //Call previous view controller to re-arrange the order 
+        //Call previous view controller to re-arrange the order
         if self.conversationChanged {
             if self.delegate != nil {
                 self.delegate?.shouldMoveConversationToTheTop(conversationId)
@@ -245,6 +249,50 @@ extension LINChatController: LINComposeBarViewDelegate {
     @IBAction func backButtonTouched(sender: UIButton) {
         composeBar.resignFirstResponder()
         dismissViewControllerAnimated(true, completion: nil)
+    }
+
+    @IBAction func onFlagButton(sender:UIButton) {
+        var actionType:LINActionType
+        var isOn : Bool = !sender.selected
+        if isOn {
+            actionType = LINActionType.LINActionTypeFlag
+        }
+        else {
+            actionType = LINActionType.LINActionTypeUnFlag
+        }
+        
+        LINNetworkClient.sharedInstance.callActionAPI(actionType, userId:userChat.userId, {(error) -> Void in
+            if error == nil {
+               println("Action completed successfully")
+               sender.selected = isOn
+               self.conversation.isFlagged = isOn
+            }
+            else {
+                println("Action got error : \(error?.localizedDescription)")
+            }
+        })
+    }
+    
+    @IBAction func onLikeButton(sender:UIButton) {
+        var actionType:LINActionType
+        var isOn : Bool = !sender.selected
+        if isOn {
+            actionType = LINActionType.LINActionTypeLike
+        }
+        else {
+            actionType = LINActionType.LINActionTypeUnLike
+        }
+        
+        LINNetworkClient.sharedInstance.callActionAPI(actionType, userId:userChat.userId, {(error) -> Void in
+            if error == nil {
+               println("Action completed successfully")
+               sender.selected = isOn
+               self.conversation.isLiked = isOn
+            }
+            else {
+                println("Action got error : \(error?.localizedDescription)")
+            }
+        })
     }
 }
 
