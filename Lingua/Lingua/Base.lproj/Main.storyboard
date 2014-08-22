@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6206.8" systemVersion="14A329f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
+        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7026.1"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -802,10 +803,10 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ff0-BB-hPN" id="pIi-1v-Xud">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20/6" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CCa-Gv-m22">
-                                                    <rect key="frame" x="525" y="8" width="60" height="19"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Yesterday" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CCa-Gv-m22">
+                                                    <rect key="frame" x="520" y="8" width="65" height="19"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="60" id="edU-ls-Sz6"/>
+                                                        <constraint firstAttribute="width" constant="65" id="edU-ls-Sz6"/>
                                                         <constraint firstAttribute="height" constant="19" id="rNC-fv-JgP"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="RobotoSlab-Light" family="Roboto Slab" pointSize="13"/>
@@ -813,7 +814,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kenny" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uCf-jK-8tc">
-                                                    <rect key="frame" x="77" y="6" width="448" height="23"/>
+                                                    <rect key="frame" x="77" y="6" width="443" height="23"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="23" id="aOV-oB-qbG"/>
                                                     </constraints>
@@ -837,22 +838,29 @@
                                                         <constraint firstAttribute="width" constant="50" id="sOD-o0-rth"/>
                                                     </constraints>
                                                 </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DotImage" translatesAutoresizingMaskIntoConstraints="NO" id="nOj-TP-3v3">
+                                                    <rect key="frame" x="577" y="39" width="8" height="8"/>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="CCa-Gv-m22" secondAttribute="trailing" constant="15" id="0ns-YE-HBF"/>
                                                 <constraint firstItem="vZE-UA-lmc" firstAttribute="leading" secondItem="Gkq-RF-lFc" secondAttribute="trailing" constant="7" id="3t8-XW-ZRs"/>
                                                 <constraint firstItem="Gkq-RF-lFc" firstAttribute="top" secondItem="pIi-1v-Xud" secondAttribute="top" constant="12" id="UNC-Ut-eAE"/>
                                                 <constraint firstItem="uCf-jK-8tc" firstAttribute="leading" secondItem="Gkq-RF-lFc" secondAttribute="trailing" constant="7" id="WCR-6a-KNj"/>
+                                                <constraint firstAttribute="bottom" secondItem="nOj-TP-3v3" secondAttribute="bottom" constant="22" id="ZiL-m6-L0d"/>
                                                 <constraint firstItem="vZE-UA-lmc" firstAttribute="top" secondItem="pIi-1v-Xud" secondAttribute="top" constant="26" id="e0v-fd-fvW"/>
                                                 <constraint firstItem="CCa-Gv-m22" firstAttribute="top" secondItem="pIi-1v-Xud" secondAttribute="top" constant="8" id="j46-eb-k5Y"/>
                                                 <constraint firstItem="Gkq-RF-lFc" firstAttribute="leading" secondItem="pIi-1v-Xud" secondAttribute="leading" constant="20" id="jF9-rQ-lpi"/>
+                                                <constraint firstItem="nOj-TP-3v3" firstAttribute="bottom" secondItem="vZE-UA-lmc" secondAttribute="bottom" id="lkY-WV-pMG"/>
                                                 <constraint firstItem="uCf-jK-8tc" firstAttribute="top" secondItem="pIi-1v-Xud" secondAttribute="top" constant="6" id="qHd-fv-o0m"/>
                                                 <constraint firstItem="CCa-Gv-m22" firstAttribute="leading" secondItem="uCf-jK-8tc" secondAttribute="trailing" id="sX4-v4-FvQ"/>
+                                                <constraint firstAttribute="trailing" secondItem="nOj-TP-3v3" secondAttribute="trailing" constant="15" id="wIV-Va-b49"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="avatarImgView" destination="Gkq-RF-lFc" id="Qgc-7C-Mq4"/>
                                             <outlet property="dateLabel" destination="CCa-Gv-m22" id="X74-I9-5xj"/>
+                                            <outlet property="dotView" destination="nOj-TP-3v3" id="DrH-rF-yQb"/>
                                             <outlet property="nameLabel" destination="uCf-jK-8tc" id="yJw-Su-r2r"/>
                                             <outlet property="roleName" destination="vZE-UA-lmc" id="xXz-PF-Bkm"/>
                                             <segue destination="90d-9n-3fJ" kind="presentation" identifier="kLINChatControllerIdentifier" id="1of-Ig-ulf"/>
@@ -883,7 +891,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ey2-hD-VP2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2765" y="1071"/>
+            <point key="canvasLocation" x="2765" y="1067"/>
         </scene>
         <!--Chat Controller-->
         <scene sceneID="MCs-yX-gYb">
@@ -935,6 +943,9 @@
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <state key="selected" image="Icn_flag_select"/>
+                                                <connections>
+                                                    <action selector="onFlagButton:" destination="90d-9n-3fJ" eventType="touchUpInside" id="gPo-sl-rUY"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P3i-L5-4qA">
                                                 <rect key="frame" x="555" y="20" width="40" height="36"/>
@@ -946,6 +957,9 @@
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <state key="selected" image="Icn_like_select"/>
+                                                <connections>
+                                                    <action selector="onLikeButton:" destination="90d-9n-3fJ" eventType="touchUpInside" id="4FN-nS-0oK"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" red="0.0" green="0.62644213299999996" blue="0.68167469110000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -1005,6 +1019,8 @@
                     <connections>
                         <outlet property="composeBar" destination="tP5-sg-AVJ" id="Lsp-hB-fw6"/>
                         <outlet property="composeBarBottomLayoutGuideConstraint" destination="VXJ-ee-asL" id="XBu-qU-nQk"/>
+                        <outlet property="flagButton" destination="DrB-zs-EIC" id="1hb-WG-qC1"/>
+                        <outlet property="likeButton" destination="P3i-L5-4qA" id="TfK-lE-msI"/>
                         <outlet property="nameLabel" destination="sII-sl-pw1" id="3rE-0Z-ull"/>
                         <outlet property="tableView" destination="wR0-OC-umP" id="HC5-Bc-fXE"/>
                         <outlet property="topNavigationView" destination="q4T-kB-obB" id="CAN-xj-BM8"/>
@@ -1114,6 +1130,7 @@
     <resources>
         <image name="Avatar3" width="50" height="50"/>
         <image name="Avatar_1" width="50" height="50"/>
+        <image name="DotImage" width="8" height="8"/>
         <image name="Edit" width="22" height="22"/>
         <image name="GrayDownArrow" width="14" height="8"/>
         <image name="Icn_flag_normal" width="26" height="24"/>

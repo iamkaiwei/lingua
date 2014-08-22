@@ -15,6 +15,8 @@ class LINConversation: MTLModel, MTLJSONSerializing {
     var haveNewMessage : Bool = false
     var teacher :LINUser?
     var learner :LINUser?
+    var isLiked : Bool = false
+    var isFlagged : Bool = false
     
     class func JSONKeyPathsByPropertyKey() -> [NSObject : AnyObject]! {
         return ["conversationId": "_id",
@@ -22,7 +24,9 @@ class LINConversation: MTLModel, MTLJSONSerializing {
                 "createdAt": "created_at",
                 "teacher":"teacher_id",
                 "learner":"learner_id",
-                "haveNewMessage":"have_new_messages"
+                "haveNewMessage":"have_new_messages",
+                "isLiked":"isLiked",
+                "isFlagged":"isFlagged"
         ]
     }
     

@@ -20,11 +20,22 @@ let kLINLanguagePath = "api/v1/languages"
 let kLINUploadPath = "api/v1/upload"
 let kLINMessagesPath = "api/v1/conversations/*/messages"
 let kLINLeaveConversationPath = "/api/v1/conversations/*/leave_conversation"
+let kLINSetFlagPath = "/api/v1/users/*/flag"
+let kLINUnsetFlagPath = "/api/v1/users/*/unflag"
+let kLINLikePath = "/api/v1/users/*/like"
+let kLINUnlikePath = "/api/v1/users/*/unlike"
 
 // Storage
 let kLINAccessTokenKey = "kLINAccessTokenKey"
 let kLINCurrentUserKey = "kLINCurrentUserKey"
 let kLINLastOnlineKey  = "kLINLastOnlineKey"
+
+enum LINActionType{
+    case LINActionTypeFlag
+    case LINActionTypeUnFlag
+    case LINActionTypeLike
+    case LINActionTypeUnLike
+}
 
 class LINNetworkClient: OVCHTTPSessionManager {
     class var sharedInstance: LINNetworkClient {
@@ -229,7 +240,7 @@ extension LINNetworkClient {
         let parameters = [kUserIdKey: userId,
             kDeviceTokenKey: deviceToken]
         let path = "\(kLINUsersPath)/\(userId)"
-        
+
         self.PUT(path, parameters: parameters, { (response: AnyObject?, error: NSError?) -> Void in
             if error != nil {
                 println("Update device token has some errors: \(error!.description)")
@@ -254,6 +265,29 @@ extension LINNetworkClient {
             }
             
             failture(error: nil)
+        })
+    }
+
+    func callActionAPI(actionType:LINActionType, userId:String, completion:(error:NSError?) -> Void ) {
+        var apiPath:String
+
+        switch actionType {
+            case .LINActionTypeFlag:
+                apiPath = kLINSetFlagPath
+            case .LINActionTypeUnFlag:
+                apiPath = kLINUnsetFlagPath
+            case .LINActionTypeLike:
+                apiPath = kLINLikePath
+            case .LINActionTypeUnLike:
+                apiPath = kLINUnlikePath
+            default:
+                break
+            }
+
+        apiPath = apiPath.stringByReplacingOccurrencesOfString("*", withString: "\(userId)", options: nil, range: nil)
+
+        self.POST(apiPath, parameters: nil, { (response: AnyObject?, error: NSError?) -> Void in
+            completion(error: error)
         })
     }
 }
