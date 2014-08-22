@@ -123,28 +123,30 @@ class LINComposeBarView: UIView {
     @IBAction func startPanning(sender: UIPanGestureRecognizer) {
         switch sender.state {
             case .Began, .Changed:
-            let translation = sender.translationInView(self)
-            if translation.x + sender.view.center.x > CGRectGetMaxX(initialFrameForSlideImage) {
+            let currentTouchLocation = sender.locationInView(voicePanelView)
+            if currentTouchLocation.x > CGRectGetMidX(initialFrameForSlideImage) {
                 slideBack.frame = initialFrameForSlideImage
                 return
             }
 
-            if translation.x + sender.view.center.x < 35 {
-                slideBack.center.x = 35 - CGRectGetHeight(initialFrameForSlideImage)
+            if currentTouchLocation.x < 5 {
+                slideBack.center.x = 5
                 return
             }
 
-            if translation.x + sender.view.center.x < 100 && !shouldCancelRecording {
+            if currentTouchLocation.x < 100 && !shouldCancelRecording {
                 shouldCancelRecording = true
+                durationLabel.alpha = 0.5
                 moreButton.setImage(UIImage(named: "Trash"), forState: UIControlState.Normal)
             }
 
-            if translation.x + sender.view.center.x >= 100 && shouldCancelRecording {
+            if currentTouchLocation.x >= 100 && shouldCancelRecording {
                 shouldCancelRecording = false
+                durationLabel.alpha = 1
                 moreButton.setImage(UIImage(named: "Recording"), forState: UIControlState.Normal)
             }
 
-            slideBack.center.x = sender.view.center.x + translation.x - CGRectGetHeight(initialFrameForSlideImage)
+            slideBack.center.x = currentTouchLocation.x
 
             case .Ended:
                 stopSpeaking(sender.view as UIButton)
@@ -218,6 +220,7 @@ extension LINComposeBarView: LINEmoticonsViewDelegate {
 extension LINComposeBarView: LINAudioHelperDelegate {
     
     func audioHelperDidComposeVoice(voice: NSData) {
+        println(voice.length)
         if shouldCancelRecording {
             shouldCancelRecording = false
         }
