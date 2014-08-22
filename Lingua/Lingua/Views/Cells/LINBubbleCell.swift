@@ -51,8 +51,6 @@ class LINBubbleCell: UITableViewCell {
     
     let textInsetsMine = UIEdgeInsetsMake(5, 10, 7, 17)
     let textInsetsSomeone = UIEdgeInsetsMake(5, 15, 7, 10)
-    let photoInsetsMine = UIEdgeInsetsMake(5, 10, 18, 10) // (10, 10, 18, 10)
-    let photoInsetsSomeone = UIEdgeInsetsMake(5, 15, 10, 10) // (10, 10, 10, 10)
     
     var delegate: LINBubbleCellDelegate?
     
@@ -188,17 +186,15 @@ class LINBubbleCell: UITableViewCell {
             imageSize.width = CGFloat(kPhotoMessageMaxWidth)
         }
         
-        println("Photo size: width: \(imageSize.width) height: \(imageSize.height)")
-        
         photoImgView.image = messageData.photo!
         photoImgView.layer.cornerRadius = 5.0
         photoImgView.layer.masksToBounds = true
         
-        let insets = (messageData.incoming == false ? photoInsetsMine : photoInsetsSomeone)
-        let offsetX = (messageData.incoming == true ? 0 : frame.size.width  - imageSize.width - insets.left - insets.right)
+        let insets = (messageData.incoming == false ? textInsetsMine : textInsetsSomeone)
+        let offsetX = (messageData.incoming == true ? 0 : frame.size.width  - imageSize.width - insets.left - insets.right - 5)
         
-        photoImgView.frame = CGRect(x: offsetX + insets.left,
-                                    y: insets.top,
+        photoImgView.frame = CGRect(x: offsetX + insets.left + 2,
+                                    y: insets.top + 15,
                                     width: imageSize.width,
                                     height: imageSize.height)
         addSubview(photoImgView)
@@ -206,8 +202,8 @@ class LINBubbleCell: UITableViewCell {
         // Bubble imageview
         bubbleImageView.frame = CGRect(x: offsetX + insets.left - 5,
                                        y: 0,
-                                       width: imageSize.width + insets.left + insets.right,
-                                       height: imageSize.height + insets.top + insets.bottom + (messageData.incoming == true ? 10: 0))
+                                       width: imageSize.width + 17,
+                                       height: imageSize.height + 30)
         
         calcTimeFrameWithContentFrame(bubbleImageView.frame, messageData: messageData)
         
