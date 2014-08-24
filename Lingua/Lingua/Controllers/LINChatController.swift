@@ -148,6 +148,19 @@ extension LINChatController: LINBubbleCellDelegate {
             tableView.endUpdates()
         }
     }
+
+    func bubbleCellDidStartPlayingRecord(bubbleCell: LINBubbleCell) {
+        let indexPath = tableView.indexPathForCell(bubbleCell)
+        let message = messagesDataArray[indexPath.row]
+        if let data = message.content as? NSData {
+            LINAudioHelper.sharedInstance.playerDelegate = bubbleCell
+            LINAudioHelper.sharedInstance.startPlaying(message.content as NSData)
+        }
+    }
+    
+    func bubbleCellDidStopPlayingRecord(bubbleCell: LINBubbleCell) {
+        LINAudioHelper.sharedInstance.stopPlaying()
+    }
 }
 
 extension LINChatController: LINComposeBarViewDelegate {
@@ -177,7 +190,7 @@ extension LINChatController: LINComposeBarViewDelegate {
 
     func composeBar(composeBar: LINComposeBarView, didPickPhoto photo: UIImage) {
         let message = LINMessage(incoming: false, sendDate: NSDate(), content: photo)
-        addBubbleViewCellWithMessageData(message )
+        addBubbleViewCellWithMessageData(message)
     }
     
     func composeBar(composeBar: LINComposeBarView, didUploadPhoto imageURL: String) {
@@ -186,7 +199,12 @@ extension LINChatController: LINComposeBarViewDelegate {
     }
 
     func composeBar(composeBar: LINComposeBarView, didRecord data: NSData) {
+        let message = LINMessage(incoming: false, sendDate: NSDate(), content: data)
+        addBubbleViewCellWithMessageData(message)
+    }
 
+    func composeBar(composeBar: LINComposeBarView, didUploadRecord url: String) {
+        
     }
 
     private func moveComposeBarViewUpOrDown(isUp: Bool, rect: CGRect, duration: NSTimeInterval) {

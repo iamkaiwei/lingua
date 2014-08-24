@@ -427,4 +427,24 @@ extension LINNetworkClient {
                     }
             }
     }
+
+    func uploadVoiceRecord(data: NSData,
+                     completion: (url: String?, error: NSError?) -> Void) {
+            let fileName = "\(NSDate().timeIntervalSince1970).caf"
+            
+            self.POST(kLINUploadPath, parameters: nil, constructingBodyWithBlock: { (formData) -> Void in
+                formData.appendPartWithFileData(data, name: "voiceRecord", fileName: fileName, mimeType: "caf")
+                }) { (response, error) -> Void in
+                    if error != nil {
+                        println("Upload voice record has some errors: \(error!.description)")
+                        completion(url: nil, error: error!)
+                        return
+                    }
+                    
+                    if let tmpImage = (response as OVCResponse).result as? LINPhoto {
+                        println("Voice record URL: \(tmpImage.imageURL)")
+                        completion(url: tmpImage.imageURL, error: nil)
+                    }
+            }
+    }
 }

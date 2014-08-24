@@ -17,6 +17,7 @@ protocol LINComposeBarViewDelegate {
     func composeBar(composeBar: LINComposeBarView, didPickPhoto photo: UIImage)
     func composeBar(composeBar: LINComposeBarView, didUploadPhoto imageURL: String)
     func composeBar(composeBar: LINComposeBarView, didRecord data: NSData)
+    func composeBar(composeBar: LINComposeBarView, didUploadRecord url: String)
 }
 
 class LINComposeBarView: UIView {
@@ -58,7 +59,7 @@ class LINComposeBarView: UIView {
         textView.layer.cornerRadius = 10
 
         // emoticonsTextStorage.addLayoutManager(textView.layoutManager)
-        LINAudioHelper.sharedInstance.delegate = self
+        LINAudioHelper.sharedInstance.recorderDelegate = self
     }
 
     override init() {
@@ -217,7 +218,7 @@ extension LINComposeBarView: LINEmoticonsViewDelegate {
     }
 }
 
-extension LINComposeBarView: LINAudioHelperDelegate {
+extension LINComposeBarView: LINAudioHelperRecorderDelegate {
     
     func audioHelperDidComposeVoice(voice: NSData) {
         println(voice.length)
@@ -226,6 +227,12 @@ extension LINComposeBarView: LINAudioHelperDelegate {
         }
         else {
             delegate?.composeBar(self, didRecord: voice)
+            // Upload record to server
+            LINNetworkClient.sharedInstance.uploadVoiceRecord(voice, completion: { (url, error) -> Void in
+                if let tmpURL = url {
+                    self.delegate?.composeBar(self, didUploadRecord: tmpURL)
+                }
+            })
         }
     }
 }

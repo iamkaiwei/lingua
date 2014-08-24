@@ -18,6 +18,8 @@ let kSideMargin: CGFloat = 10
 
 protocol LINBubbleCellDelegate {
     func bubbleCell(bubbleCell: LINBubbleCell, updatePhotoWithMessageData messageData: LINMessage)
+    func bubbleCellDidStartPlayingRecord(bubbleCell: LINBubbleCell)
+    func bubbleCellDidStopPlayingRecord(bubbleCell: LINBubbleCell)
 }
 
 class LINBubbleCell: UITableViewCell {
@@ -258,5 +260,12 @@ class LINBubbleCell: UITableViewCell {
     
     func toggleAudioButton(playButton: UIButton) {
         playButton.selected = !playButton.selected
+        playButton.selected ? delegate?.bubbleCellDidStartPlayingRecord(self) : delegate?.bubbleCellDidStopPlayingRecord(self)
+    }
+}
+
+extension LINBubbleCell: LINAudioHelperPlayerDelegate {
+    func audioHelperDidFinishPlaying() {
+        playButton?.selected = false
     }
 }
