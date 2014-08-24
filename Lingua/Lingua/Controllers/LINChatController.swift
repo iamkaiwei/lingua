@@ -175,16 +175,16 @@ extension LINChatController: LINComposeBarViewDelegate {
         presentViewController(picker, animated: true, completion: nil)
     }
 
-    func composeBar(composeBar: LINComposeBarView, replyWithPhoto photo: UIImage) {
+    func composeBar(composeBar: LINComposeBarView, didPickPhoto photo: UIImage) {
         let aMessage = LINMessage(incoming: false, sendDate: NSDate(), content: photo)
         addBubbleViewCellWithMessageData(aMessage)
     }
     
-    func composeBar(composeBar: LINComposeBarView, replyWithImageURL imageURL: String) {
+    func composeBar(composeBar: LINComposeBarView, didUploadPhoto imageURL: String) {
         replyWithText(imageURL, type: .Photo)
     }
 
-    func composeBar(composeBar: LINComposeBarView, replyWithVoice voice: NSData) {
+    func composeBar(composeBar: LINComposeBarView, didRecord data: NSData) {
 
     }
 

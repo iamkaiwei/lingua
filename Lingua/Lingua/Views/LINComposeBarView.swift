@@ -14,9 +14,9 @@ protocol LINComposeBarViewDelegate {
     func composeBar(composeBar: LINComposeBarView, willShowKeyBoard rect: CGRect, duration: NSTimeInterval)
     func composeBar(composeBar: LINComposeBarView, willHideKeyBoard rect: CGRect, duration: NSTimeInterval)
     func composeBar(composeBar: LINComposeBarView, startPickingMediaWithPickerViewController picker: UIImagePickerController)
-    func composeBar(composeBar: LINComposeBarView, replyWithPhoto photo: UIImage)
-    func composeBar(composeBar: LINComposeBarView, replyWithImageURL imageURL: String)
-    func composeBar(composeBar: LINComposeBarView, replyWithVoice voice: NSData)
+    func composeBar(composeBar: LINComposeBarView, didPickPhoto photo: UIImage)
+    func composeBar(composeBar: LINComposeBarView, didUploadPhoto imageURL: String)
+    func composeBar(composeBar: LINComposeBarView, didRecord data: NSData)
 }
 
 class LINComposeBarView: UIView {
@@ -197,13 +197,13 @@ extension LINComposeBarView: LINEmoticonsViewDelegate {
         delegate?.composeBar(self, startPickingMediaWithPickerViewController: picker)
     }
     
-    func emoticonsView(emoticonsView: LINEmoticonsView, replyWithPhoto photo: UIImage) {
+    func emoticonsView(emoticonsView: LINEmoticonsView, didPickPhoto photo: UIImage) {
         hideEmoticonsView()
-        delegate?.composeBar(self, replyWithPhoto: photo)
+        delegate?.composeBar(self, didPickPhoto: photo)
     }
     
-    func emoticonsView(emoticonsView: LINEmoticonsView, replyWithImageURL imageURL: String) {
-        delegate?.composeBar(self, replyWithImageURL: imageURL)
+    func emoticonsView(emoticonsView: LINEmoticonsView, didUploadPhoto imageURL: String) {
+        delegate?.composeBar(self, didUploadPhoto: imageURL)
     }
 
     func emoticonsView(emoticonsView: LINEmoticonsView, didCancelWithPickerController picker: UIImagePickerController) {
@@ -225,7 +225,7 @@ extension LINComposeBarView: LINAudioHelperDelegate {
             shouldCancelRecording = false
         }
         else {
-            delegate?.composeBar(self, replyWithVoice: voice)
+            delegate?.composeBar(self, didRecord: voice)
         }
     }
 }
