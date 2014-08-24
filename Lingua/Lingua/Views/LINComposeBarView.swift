@@ -10,7 +10,7 @@ import UIKit
 import AudioToolbox
 
 protocol LINComposeBarViewDelegate {
-    func composeBar(composeBar: LINComposeBarView, sendMessage message: String)
+    func composeBar(composeBar: LINComposeBarView, sendMessage text: String)
     func composeBar(composeBar: LINComposeBarView, willShowKeyBoard rect: CGRect, duration: NSTimeInterval)
     func composeBar(composeBar: LINComposeBarView, willHideKeyBoard rect: CGRect, duration: NSTimeInterval)
     func composeBar(composeBar: LINComposeBarView, startPickingMediaWithPickerViewController picker: UIImagePickerController)
