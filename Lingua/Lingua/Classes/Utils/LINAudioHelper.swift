@@ -9,15 +9,20 @@
 import Foundation
 import AVFoundation
 
-protocol LINAudioHelperDelegate {
+protocol LINAudioHelperRecorderDelegate {
     func audioHelperDidComposeVoice(voice: NSData)
+}
+
+protocol LINAudioHelperPlayerDelegate {
+    func audioHelperDidFinishPlaying()
 }
 
 class LINAudioHelper: NSObject {
     
     private let recorder: AVAudioRecorder
     private var player: AVAudioPlayer?
-    var delegate: LINAudioHelperDelegate?
+    var recorderDelegate: LINAudioHelperRecorderDelegate?
+    var playerDelegate: LINAudioHelperPlayerDelegate?
 
     class var sharedInstance: LINAudioHelper {
     struct Static {
@@ -63,12 +68,17 @@ class LINAudioHelper: NSObject {
     func startPlaying(data: NSData) {
         var error: NSError?
         player = AVAudioPlayer(data: data, error: &error)
+        player?.delegate = self
         if error != nil {
             println(error)
         }
         else {
             player?.play()
         }
+    }
+
+    func stopPlaying() {
+        player?.stop()
     }
 }
 
@@ -85,10 +95,23 @@ extension LINAudioHelper: AVAudioRecorderDelegate {
             return
         }
         
-        delegate?.audioHelperDidComposeVoice(voiceData)
+        recorderDelegate?.audioHelperDidComposeVoice(voiceData)
     }
 
     func audioRecorderEncodeErrorDidOccur(recorder: AVAudioRecorder!, error: NSError!) {
         println(error)
     }
 }
+
+extension LINAudioHelper: AVAudioPlayerDelegate {
+
+    func audioPlayerDidFinishPlaying(player: AVAudioPlayer!, successfully flag: Bool) {
+        playerDelegate?.audioHelperDidFinishPlaying()
+    }
+
+    func audioPlayerDecodeErrorDidOccur(player: AVAudioPlayer!, error: NSError!) {
+        println(error)
+    }
+}
+
+

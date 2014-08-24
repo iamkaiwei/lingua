@@ -10,13 +10,14 @@ import UIKit
 import AudioToolbox
 
 protocol LINComposeBarViewDelegate {
-    func composeBar(composeBar: LINComposeBarView, sendMessage message: String)
+    func composeBar(composeBar: LINComposeBarView, sendMessage text: String)
     func composeBar(composeBar: LINComposeBarView, willShowKeyBoard rect: CGRect, duration: NSTimeInterval)
     func composeBar(composeBar: LINComposeBarView, willHideKeyBoard rect: CGRect, duration: NSTimeInterval)
     func composeBar(composeBar: LINComposeBarView, startPickingMediaWithPickerViewController picker: UIImagePickerController)
-    func composeBar(composeBar: LINComposeBarView, replyWithPhoto photo: UIImage)
-    func composeBar(composeBar: LINComposeBarView, replyWithImageURL imageURL: String)
-    func composeBar(composeBar: LINComposeBarView, replyWithVoice voice: NSData)
+    func composeBar(composeBar: LINComposeBarView, didPickPhoto photo: UIImage)
+    func composeBar(composeBar: LINComposeBarView, didUploadPhoto imageURL: String)
+    func composeBar(composeBar: LINComposeBarView, didRecord data: NSData)
+    func composeBar(composeBar: LINComposeBarView, didUploadRecord url: String)
 }
 
 class LINComposeBarView: UIView {
@@ -58,7 +59,7 @@ class LINComposeBarView: UIView {
         textView.layer.cornerRadius = 10
 
         // emoticonsTextStorage.addLayoutManager(textView.layoutManager)
-        LINAudioHelper.sharedInstance.delegate = self
+        LINAudioHelper.sharedInstance.recorderDelegate = self
     }
 
     override init() {
@@ -123,28 +124,30 @@ class LINComposeBarView: UIView {
     @IBAction func startPanning(sender: UIPanGestureRecognizer) {
         switch sender.state {
             case .Began, .Changed:
-            let translation = sender.translationInView(self)
-            if translation.x + sender.view.center.x > CGRectGetMaxX(initialFrameForSlideImage) {
+            let currentTouchLocation = sender.locationInView(voicePanelView)
+            if currentTouchLocation.x > CGRectGetMidX(initialFrameForSlideImage) {
                 slideBack.frame = initialFrameForSlideImage
                 return
             }
 
-            if translation.x + sender.view.center.x < 35 {
-                slideBack.center.x = 35 - CGRectGetHeight(initialFrameForSlideImage)
+            if currentTouchLocation.x < 5 {
+                slideBack.center.x = 5
                 return
             }
 
-            if translation.x + sender.view.center.x < 100 && !shouldCancelRecording {
+            if currentTouchLocation.x < 100 && !shouldCancelRecording {
                 shouldCancelRecording = true
+                durationLabel.alpha = 0.5
                 moreButton.setImage(UIImage(named: "Trash"), forState: UIControlState.Normal)
             }
 
-            if translation.x + sender.view.center.x >= 100 && shouldCancelRecording {
+            if currentTouchLocation.x >= 100 && shouldCancelRecording {
                 shouldCancelRecording = false
+                durationLabel.alpha = 1
                 moreButton.setImage(UIImage(named: "Recording"), forState: UIControlState.Normal)
             }
 
-            slideBack.center.x = sender.view.center.x + translation.x - CGRectGetHeight(initialFrameForSlideImage)
+            slideBack.center.x = currentTouchLocation.x
 
             case .Ended:
                 stopSpeaking(sender.view as UIButton)
@@ -195,13 +198,13 @@ extension LINComposeBarView: LINEmoticonsViewDelegate {
         delegate?.composeBar(self, startPickingMediaWithPickerViewController: picker)
     }
     
-    func emoticonsView(emoticonsView: LINEmoticonsView, replyWithPhoto photo: UIImage) {
+    func emoticonsView(emoticonsView: LINEmoticonsView, didPickPhoto photo: UIImage) {
         hideEmoticonsView()
-        delegate?.composeBar(self, replyWithPhoto: photo)
+        delegate?.composeBar(self, didPickPhoto: photo)
     }
     
-    func emoticonsView(emoticonsView: LINEmoticonsView, replyWithImageURL imageURL: String) {
-        delegate?.composeBar(self, replyWithImageURL: imageURL)
+    func emoticonsView(emoticonsView: LINEmoticonsView, didUploadPhoto imageURL: String) {
+        delegate?.composeBar(self, didUploadPhoto: imageURL)
     }
 
     func emoticonsView(emoticonsView: LINEmoticonsView, didCancelWithPickerController picker: UIImagePickerController) {
@@ -215,14 +218,21 @@ extension LINComposeBarView: LINEmoticonsViewDelegate {
     }
 }
 
-extension LINComposeBarView: LINAudioHelperDelegate {
+extension LINComposeBarView: LINAudioHelperRecorderDelegate {
     
     func audioHelperDidComposeVoice(voice: NSData) {
+        println(voice.length)
         if shouldCancelRecording {
             shouldCancelRecording = false
         }
         else {
-            delegate?.composeBar(self, replyWithVoice: voice)
+            delegate?.composeBar(self, didRecord: voice)
+            // Upload record to server
+            LINNetworkClient.sharedInstance.uploadVoiceRecord(voice, completion: { (url, error) -> Void in
+                if let tmpURL = url {
+                    self.delegate?.composeBar(self, didUploadRecord: tmpURL)
+                }
+            })
         }
     }
 }

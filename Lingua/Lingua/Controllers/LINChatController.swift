@@ -139,7 +139,7 @@ extension LINChatController {
 extension LINChatController: LINBubbleCellDelegate {
     func bubbleCell(bubbleCell: LINBubbleCell, updatePhotoWithMessageData messageData: LINMessage) {
         let indexPath: NSIndexPath? = tableView.indexPathForRowAtPoint(bubbleCell.center)
-        if indexPath != nil && messageData.photo != nil {
+        if indexPath != nil && messageData.content != nil {
             println("Resize height for cell at row \(indexPath!.row)")
             messagesDataArray[indexPath!.row] = messageData
             
@@ -148,14 +148,27 @@ extension LINChatController: LINBubbleCellDelegate {
             tableView.endUpdates()
         }
     }
+
+    func bubbleCellDidStartPlayingRecord(bubbleCell: LINBubbleCell) {
+        let indexPath = tableView.indexPathForCell(bubbleCell)
+        let message = messagesDataArray[indexPath.row]
+        if let data = message.content as? NSData {
+            LINAudioHelper.sharedInstance.playerDelegate = bubbleCell
+            LINAudioHelper.sharedInstance.startPlaying(message.content as NSData)
+        }
+    }
+    
+    func bubbleCellDidStopPlayingRecord(bubbleCell: LINBubbleCell) {
+        LINAudioHelper.sharedInstance.stopPlaying()
+    }
 }
 
 extension LINChatController: LINComposeBarViewDelegate {
     //MARK: LINComposeBarViewDelegate
-    func composeBar(composeBar: LINComposeBarView, sendMessage message: String) {
-        let messageData = LINMessage(incoming: false, text: "", sendDate: NSDate(), photo: nil, type: .Voice)
-        addBubbleViewCellWithMessageData(messageData)
-        replyWithText(message, type: .Text)
+    func composeBar(composeBar: LINComposeBarView, sendMessage text: String) {
+        let message = LINMessage(incoming: false, sendDate: NSDate(), content: text)
+        addBubbleViewCellWithMessageData(message)
+        replyWithMessage(message)
     }
     
     func composeBar(composeBar: LINComposeBarView, willShowKeyBoard rect: CGRect, duration: NSTimeInterval) {
@@ -175,17 +188,23 @@ extension LINChatController: LINComposeBarViewDelegate {
         presentViewController(picker, animated: true, completion: nil)
     }
 
-    func composeBar(composeBar: LINComposeBarView, replyWithPhoto photo: UIImage) {
-        let messageData = LINMessage(incoming: false, text: "", sendDate: NSDate(), photo: photo, type: .Photo)
-        addBubbleViewCellWithMessageData(messageData)
+    func composeBar(composeBar: LINComposeBarView, didPickPhoto photo: UIImage) {
+        let message = LINMessage(incoming: false, sendDate: NSDate(), content: photo)
+        addBubbleViewCellWithMessageData(message)
     }
     
-    func composeBar(composeBar: LINComposeBarView, replyWithImageURL imageURL: String) {
-        replyWithText(imageURL, type: .Photo)
+    func composeBar(composeBar: LINComposeBarView, didUploadPhoto imageURL: String) {
+        let message  = LINMessage(incoming: false, sendDate: NSDate(), type: .Photo)
+        replyWithMessage(message)
     }
 
-    func composeBar(composeBar: LINComposeBarView, replyWithVoice voice: NSData) {
+    func composeBar(composeBar: LINComposeBarView, didRecord data: NSData) {
+        let message = LINMessage(incoming: false, sendDate: NSDate(), content: data)
+        addBubbleViewCellWithMessageData(message)
+    }
 
+    func composeBar(composeBar: LINComposeBarView, didUploadRecord url: String) {
+        
     }
 
     private func moveComposeBarViewUpOrDown(isUp: Bool, rect: CGRect, duration: NSTimeInterval) {
@@ -204,18 +223,29 @@ extension LINChatController: LINComposeBarViewDelegate {
         })
     }
 
-    private func replyWithText(text: String, type: MessageType) {
+    private func replyWithMessage(message: LINMessage) {
         self.conversationChanged = true
         let sendDate = NSDateFormatter.iSODateFormatter().stringFromDate(NSDate())
         
-        if type == MessageType.Text {
-            let messageData = LINMessage(incoming: false, text: text, sendDate: NSDate(), photo: nil, type: type)
-            addBubbleViewCellWithMessageData(messageData)
+        var content: String?
+        if message.url != nil {
+            content = message.url
         }
-        
+        else if message.content != nil {
+            if let tempContent = message.content as? String {
+                content = tempContent
+            }
+            else {
+                return
+            }
+        }
+        else {
+            return //Nothing to send here...
+        }
+
         let replyDict = ["sender_id": currentUser.userId,
-                         "message_type_id": type.toRaw(),
-                         "content": text,
+                         "message_type_id": message.type.toRaw(),
+                         "content": content!,
                          "created_at": sendDate]
         
         if currentChatMode == LINChatMode.Online {
@@ -223,9 +253,9 @@ extension LINChatController: LINComposeBarViewDelegate {
                 data: [kUserIdKey: currentUser.userId,
                        kFirstName: currentUser.firstName,
                        kAvatarURL: currentUser.avatarURL,
-                       kMessageTextKey: text,
+                       kMessageTextKey: content!,
                        kMessageSendDateKey: sendDate,
-                       kMessageTypeKey: type.toRaw()
+                       kMessageTypeKey: message.type.toRaw()
                 ])
             
             repliesArray.append(replyDict)
@@ -240,7 +270,7 @@ extension LINChatController: LINComposeBarViewDelegate {
                 (success) -> Void in
             }
             
-            pushNotificationWithMessage(text, sendDate: sendDate, type: type)
+            pushNotificationWithMessage(message)
         }
         
         println("pusher] Count channel members: \(self.currentChannel.members.count)");
@@ -316,12 +346,12 @@ extension LINChatController {
         loadListLastestMessages()
     }
     
-    private func pushNotificationWithMessage(text: String, sendDate: String, type: MessageType) {
+    private func pushNotificationWithMessage(message: LINMessage) {
         // Create our Installation query
         let pushQuery = PFInstallation.query()
         pushQuery.whereKey(kUserIdKey, equalTo: userChat.userId)
         
-        var content = type.getSubtitleWithText(text)
+        var content = message.type.getSubtitleWithText((message.type == MessageType.Text) ? message.content as String : "")
         let alertTitle = "\(currentUser.firstName): \(content)"
         
         let push = PFPush()
@@ -329,8 +359,8 @@ extension LINChatController {
                       kUserIdKey: currentUser.userId,
                       kFirstName: currentUser.firstName,
                       kAvatarURL: currentUser.avatarURL,
-                      kMessageSendDateKey: sendDate,
-                      kMessageTypeKey: type.toRaw(),
+                      kMessageSendDateKey: message.sendDate,
+                      kMessageTypeKey: message.type.toRaw(),
                       kConversationIdKey: conversationId])
         push.setQuery(pushQuery)
         
@@ -423,12 +453,14 @@ extension LINChatController {
                             incoming = false
                         }
                         
-                        let messageData = LINMessage(incoming: incoming,
-                                                     text: reply.content,
-                                                     sendDate: NSDateFormatter.iSODateFormatter().dateFromString(reply.createdAt)!,
-                                                     photo: nil,
-                                                     type: MessageType.fromRaw(reply.messageTypeId)!)
-                        self.messagesDataArray.insert(messageData, atIndex: 0)
+                        let aMessage = LINMessage(incoming: incoming,
+                                                  sendDate: NSDateFormatter.iSODateFormatter().dateFromString(reply.createdAt)!,
+                                                      type: MessageType.fromRaw(reply.messageTypeId)!)
+                        switch aMessage.type {
+                            case .Text: aMessage.content = reply.content
+                            default: aMessage.url = reply.content
+                        }
+                        self.messagesDataArray.insert(aMessage, atIndex: 0)
                     }
                     
                     dispatch_async(dispatch_get_main_queue()) {
@@ -476,8 +508,8 @@ extension LINChatController {
             let replyData = channelEvent.getReplyData()
             
             let type = MessageType.fromRaw(replyData.type)
-            let messageData = LINMessage(incoming: true, text: replyData.text, sendDate: replyData.sendDate, photo: nil, type: type!)
-            self.addBubbleViewCellWithMessageData(messageData)
+            let aMessage = LINMessage(incoming: true, sendDate: replyData.sendDate, content: replyData.text)
+            self.addBubbleViewCellWithMessageData(aMessage)
         })
     }
     
