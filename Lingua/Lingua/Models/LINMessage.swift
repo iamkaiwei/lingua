@@ -8,18 +8,54 @@
 
 import Foundation
 
+enum MessageType: Int {
+    case Text = 1, Photo, Voice
+    func getSubtitleWithText(text: String) -> String {
+        var result = ""
+        switch self {
+        case .Text:
+            result = text
+        case .Photo:
+            result = "Sent you a photo"
+        case .Voice:
+            result = "Sent you a voice message"
+        default:
+            break
+        }
+        return result
+    }
+}
+
 class LINMessage {
     let incoming: Bool
-    var text: String
     let sendDate: NSDate
-    var photo: UIImage?
-    let type: MessageType
+    var content: AnyObject?
+    var url: String?
+    var type: MessageType
     
-    init(incoming: Bool, text: String, sendDate: NSDate, photo: UIImage?, type: MessageType) {
+    init(incoming: Bool, sendDate: NSDate, content: AnyObject) {
         self.incoming = incoming
-        self.text = text
+        self.content = content
         self.sendDate = sendDate
-        self.photo = photo
+        
+        if content is String {
+            self.type = .Text
+        }
+        else if content is UIImage {
+            self.type = .Photo
+        }
+        else if content is NSData {
+            self.type = .Voice
+        }
+        else {
+            self.type = .Text
+            println("There is something wrong...")
+        }
+    }
+    
+    init(incoming: Bool, sendDate: NSDate, type: MessageType) {
+        self.incoming = incoming
+        self.sendDate = sendDate
         self.type = type
     }
 }

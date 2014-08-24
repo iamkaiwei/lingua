@@ -16,24 +16,6 @@ let kVoiceMessageMaxWidth: CGFloat = 233
 let kVoiceMessageMaxHeight: CGFloat = 55
 let kSideMargin: CGFloat = 10
 
-enum MessageType: Int {
-    case Text = 1, Photo, Voice
-    func getSubtitleWithText(text: String) -> String {
-        var result = ""
-        switch self {
-            case .Text:
-                result = text
-            case .Photo:
-                result = "Sent you a photo"
-            case .Voice:
-                result = "Sent you a voice message"
-            default:
-                break
-        }
-        return result
-    }
-}
-
 protocol LINBubbleCellDelegate {
     func bubbleCell(bubbleCell: LINBubbleCell, updatePhotoWithMessageData messageData: LINMessage)
 }
@@ -106,11 +88,11 @@ class LINBubbleCell: UITableViewCell {
     // MARK: Send texts, photos, voices message
     
     private func configureWithTextMessage(messageData: LINMessage) {
-        let size = LINBubbleCell.getSizeOfTextViewWithText(messageData.text, font: contentTextView.font)
+        let size = LINBubbleCell.getSizeOfTextViewWithText(messageData.content as String, font: contentTextView.font)
         let insets = (messageData.incoming == false ? textInsetsMine : textInsetsSomeone)
         let offsetX = (messageData.incoming == true ? 0 : frame.size.width  - size.width - insets.left - insets.right)
         
-        contentTextView.text = messageData.text
+        contentTextView.text = messageData.content as String
         contentTextView.frame = CGRectMake(offsetX + insets.left,
                                            insets.top,
                                            size.width,
@@ -127,19 +109,19 @@ class LINBubbleCell: UITableViewCell {
         calcTimeFrameWithContentFrame(contentTextView.frame, messageData: messageData)
     }
     
-    private func configureWithPhotoMessage(messageData: LINMessage) {
-        if messageData.photo == nil {
+    private func configureWithPhotoMessage(message: LINMessage) {
+        if message.content == nil {
             println("Downloading photo message.")
             // Add photo to cell by image URL
-            photoImgView.sd_setImageWithURL(NSURL(string: messageData.text)) {
+            photoImgView.sd_setImageWithURL(NSURL(string: message.url!)) {
               (image, error, cacheType, imageURL) in
                 if let tmpImage = image {
                     println("Finish downloading photo message.")
-                    messageData.photo = tmpImage
-                    self.addPhotoToBubbleCellWithMessageData(messageData)
+                    message.content = tmpImage
+                    self.addPhotoToBubbleCellWithMessageData(message)
                     
                     // Save photo to memory
-                    self.delegate?.bubbleCell(self, updatePhotoWithMessageData: messageData)
+                    self.delegate?.bubbleCell(self, updatePhotoWithMessageData: message)
                     
                     // Save photo to camera roll
                     // UIImageWriteToSavedPhotosAlbum(tmpImage, nil, nil, nil)
@@ -147,7 +129,7 @@ class LINBubbleCell: UITableViewCell {
             }
         } else {
             // Add photo to cell by image
-            self.addPhotoToBubbleCellWithMessageData(messageData)
+            self.addPhotoToBubbleCellWithMessageData(message)
         }
     }
     
@@ -180,13 +162,13 @@ class LINBubbleCell: UITableViewCell {
     }
     
     private func addPhotoToBubbleCellWithMessageData(messageData: LINMessage) {
-        var imageSize = messageData.photo!.size
+        var imageSize = (messageData.content as UIImage).size
         if Int(imageSize.width) > kPhotoMessageMaxWidth {
             imageSize.height /= CGFloat(Int(imageSize.width) / kPhotoMessageMaxWidth)
             imageSize.width = CGFloat(kPhotoMessageMaxWidth)
         }
         
-        photoImgView.image = messageData.photo!
+        photoImgView.image = messageData.content as UIImage
         photoImgView.layer.cornerRadius = 5.0
         photoImgView.layer.masksToBounds = true
         
@@ -236,10 +218,10 @@ class LINBubbleCell: UITableViewCell {
         
         switch(messageData.type) {
             case .Text:
-                let size = getSizeOfTextViewWithText(messageData.text, font: UIFont.appRegularFontWithSize(14))
+                let size = getSizeOfTextViewWithText(messageData.content as String, font: UIFont.appRegularFontWithSize(14))
                 height = size.height + 5
             case .Photo:
-                if let tmpPhoto = messageData.photo {
+                if let tmpPhoto = messageData.content as? UIImage {
                     let imageSize = tmpPhoto.size
                     height = imageSize.height / (CGFloat(Int(imageSize.width) / kPhotoMessageMaxWidth)) + 30
                 } else {

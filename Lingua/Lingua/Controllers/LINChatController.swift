@@ -139,7 +139,7 @@ extension LINChatController {
 extension LINChatController: LINBubbleCellDelegate {
     func bubbleCell(bubbleCell: LINBubbleCell, updatePhotoWithMessageData messageData: LINMessage) {
         let indexPath: NSIndexPath? = tableView.indexPathForRowAtPoint(bubbleCell.center)
-        if indexPath != nil && messageData.photo != nil {
+        if indexPath != nil && messageData.content != nil {
             println("Resize height for cell at row \(indexPath!.row)")
             messagesDataArray[indexPath!.row] = messageData
             
@@ -153,8 +153,8 @@ extension LINChatController: LINBubbleCellDelegate {
 extension LINChatController: LINComposeBarViewDelegate {
     //MARK: LINComposeBarViewDelegate
     func composeBar(composeBar: LINComposeBarView, sendMessage message: String) {
-        let messageData = LINMessage(incoming: false, text: "", sendDate: NSDate(), photo: nil, type: .Voice)
-        addBubbleViewCellWithMessageData(messageData)
+        let aMessage = LINMessage(incoming: false, sendDate: NSDate(), content: message)
+        addBubbleViewCellWithMessageData(aMessage)
         replyWithText(message, type: .Text)
     }
     
@@ -176,8 +176,8 @@ extension LINChatController: LINComposeBarViewDelegate {
     }
 
     func composeBar(composeBar: LINComposeBarView, replyWithPhoto photo: UIImage) {
-        let messageData = LINMessage(incoming: false, text: "", sendDate: NSDate(), photo: photo, type: .Photo)
-        addBubbleViewCellWithMessageData(messageData)
+        let aMessage = LINMessage(incoming: false, sendDate: NSDate(), content: photo)
+        addBubbleViewCellWithMessageData(aMessage)
     }
     
     func composeBar(composeBar: LINComposeBarView, replyWithImageURL imageURL: String) {
@@ -209,8 +209,8 @@ extension LINChatController: LINComposeBarViewDelegate {
         let sendDate = NSDateFormatter.iSODateFormatter().stringFromDate(NSDate())
         
         if type == MessageType.Text {
-            let messageData = LINMessage(incoming: false, text: text, sendDate: NSDate(), photo: nil, type: type)
-            addBubbleViewCellWithMessageData(messageData)
+            let aMessage = LINMessage(incoming: false, sendDate: NSDate(), content: text)
+            addBubbleViewCellWithMessageData(aMessage)
         }
         
         let replyDict = ["sender_id": currentUser.userId,
@@ -423,12 +423,14 @@ extension LINChatController {
                             incoming = false
                         }
                         
-                        let messageData = LINMessage(incoming: incoming,
-                                                     text: reply.content,
-                                                     sendDate: NSDateFormatter.iSODateFormatter().dateFromString(reply.createdAt)!,
-                                                     photo: nil,
-                                                     type: MessageType.fromRaw(reply.messageTypeId)!)
-                        self.messagesDataArray.insert(messageData, atIndex: 0)
+                        let aMessage = LINMessage(incoming: incoming,
+                                                  sendDate: NSDateFormatter.iSODateFormatter().dateFromString(reply.createdAt)!,
+                                                      type: MessageType.fromRaw(reply.messageTypeId)!)
+                        switch aMessage.type {
+                            case .Text: aMessage.content = reply.content
+                            default: aMessage.url = reply.content
+                        }
+                        self.messagesDataArray.insert(aMessage, atIndex: 0)
                     }
                     
                     dispatch_async(dispatch_get_main_queue()) {
@@ -476,8 +478,8 @@ extension LINChatController {
             let replyData = channelEvent.getReplyData()
             
             let type = MessageType.fromRaw(replyData.type)
-            let messageData = LINMessage(incoming: true, text: replyData.text, sendDate: replyData.sendDate, photo: nil, type: type!)
-            self.addBubbleViewCellWithMessageData(messageData)
+            let aMessage = LINMessage(incoming: true, sendDate: replyData.sendDate, content: replyData.text)
+            self.addBubbleViewCellWithMessageData(aMessage)
         })
     }
     
