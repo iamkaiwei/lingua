@@ -8,13 +8,14 @@
 
 import Foundation
 
-let kTextMessageMaxWidth = 233
-let kTextMessageMaxHeight = 9999
-let kPhotoMessageMaxWidth = 200
-let kPhotoMessageMaxHeight = 200
+let kTextMessageMaxWidth: CGFloat = 233
+let kTextMessageMaxHeight: CGFloat = 9999
+let kPhotoMessageMaxWidth: CGFloat = 200
+let kPhotoMessageMaxHeight: CGFloat = 200
 let kVoiceMessageMaxWidth: CGFloat = 233
 let kVoiceMessageMaxHeight: CGFloat = 55
 let kSideMargin: CGFloat = 10
+let kBubbleCellHeightPadding: CGFloat = 5
 
 protocol LINBubbleCellDelegate {
     func bubbleCell(bubbleCell: LINBubbleCell, updatePhotoWithMessageData messageData: LINMessage)
@@ -37,7 +38,9 @@ class LINBubbleCell: UITableViewCell {
     let textInsetsSomeone = UIEdgeInsetsMake(5, 15, 7, 10)
     
     var delegate: LINBubbleCellDelegate?
-    private var emoticonsTextStorage: LINParsingEmoticonsTextStorage?
+   
+    // Textkit
+    private var emoticonsTextStorage = LINParsingEmoticonsTextStorage()
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String!) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -62,6 +65,8 @@ class LINBubbleCell: UITableViewCell {
         createAtLabel.font = UIFont.appRegularFontWithSize(10)
         createAtLabel.textColor =  UIColor(red: 153/255.0, green: 153/255.0, blue: 153/255.0, alpha: 1.0)
         addSubview(createAtLabel)
+
+        emoticonsTextStorage.addLayoutManager(contentTextView.layoutManager)
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -92,11 +97,7 @@ class LINBubbleCell: UITableViewCell {
     // MARK: Send texts, photos, voices message
     
     private func configureWithTextMessage(messageData: LINMessage) {
-        // Textkit
-        emoticonsTextStorage = nil
-        emoticonsTextStorage = LINParsingEmoticonsTextStorage()
-        emoticonsTextStorage!.addLayoutManager(contentTextView.layoutManager)
-        emoticonsTextStorage!.replaceCharactersInRange(NSMakeRange(0, 0), withString: messageData.content as String)
+        emoticonsTextStorage.setAttributedString(NSAttributedString(string: messageData.content as String))
         
         let size = contentTextView.sizeThatFits(CGSize(width: kTextMessageMaxWidth, height: kTextMessageMaxHeight))
         let insets = (messageData.incoming == false ? textInsetsMine : textInsetsSomeone)
@@ -167,8 +168,8 @@ class LINBubbleCell: UITableViewCell {
     
     private func addPhotoToBubbleCellWithMessageData(messageData: LINMessage) {
         var imageSize = (messageData.content as UIImage).size
-        if Int(imageSize.width) > kPhotoMessageMaxWidth {
-            imageSize.height /= CGFloat(Int(imageSize.width) / kPhotoMessageMaxWidth)
+        if imageSize.width > kPhotoMessageMaxWidth {
+            imageSize.height /= imageSize.width / kPhotoMessageMaxWidth
             imageSize.width = CGFloat(kPhotoMessageMaxWidth)
         }
         

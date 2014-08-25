@@ -67,6 +67,7 @@
 		9268B6C21984EFFF00D526AA /* LINAccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9268B6C11984EFFF00D526AA /* LINAccessToken.swift */; };
 		9268DFBB1969CEFC00C89603 /* LINUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9268DFBA1969CEFC00C89603 /* LINUser.swift */; };
 		926B2859198647380089DDAA /* LINStorageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926B2858198647380089DDAA /* LINStorageHelper.swift */; };
+		926D831D19AB5D9F00F1F0A7 /* LINString+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926D831C19AB5D9F00F1F0A7 /* LINString+Extensions.swift */; };
 		92781D47199FBF0B00FAAFBB /* LINReply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92781D46199FBF0B00FAAFBB /* LINReply.swift */; };
 		92894CAF1996156D00824A3B /* LINConversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92894CAE1996156D00824A3B /* LINConversation.swift */; };
 		929824EC199B7BB300C56819 /* LINPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929824EB199B7BB300C56819 /* LINPhoto.swift */; };
@@ -204,6 +205,7 @@
 		9268B6C11984EFFF00D526AA /* LINAccessToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINAccessToken.swift; sourceTree = "<group>"; };
 		9268DFBA1969CEFC00C89603 /* LINUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINUser.swift; sourceTree = "<group>"; };
 		926B2858198647380089DDAA /* LINStorageHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINStorageHelper.swift; sourceTree = "<group>"; };
+		926D831C19AB5D9F00F1F0A7 /* LINString+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LINString+Extensions.swift"; sourceTree = "<group>"; };
 		92781D46199FBF0B00FAAFBB /* LINReply.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINReply.swift; sourceTree = "<group>"; };
 		92894CAE1996156D00824A3B /* LINConversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINConversation.swift; sourceTree = "<group>"; };
 		929824EB199B7BB300C56819 /* LINPhoto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINPhoto.swift; sourceTree = "<group>"; };
@@ -350,6 +352,7 @@
 				9247D62319926B590011FC85 /* PTPusherEvent+Extensions.swift */,
 				92257FC41993DC2E0000B37C /* UIImageView+Extensions.swift */,
 				97CCA2DB19A2F3E700455D1D /* UITableView+Extensions.swift */,
+				926D831C19AB5D9F00F1F0A7 /* LINString+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -728,6 +731,7 @@
 				207630B9195AC19800D23B2A /* UIFont+Extensions.swift in Sources */,
 				20BF6A3D19948EF300C384BC /* LINLanguage.swift in Sources */,
 				2078D96A196C180C009BF095 /* LINPickNativeLanguageController.swift in Sources */,
+				926D831D19AB5D9F00F1F0A7 /* LINString+Extensions.swift in Sources */,
 				92781D47199FBF0B00FAAFBB /* LINReply.swift in Sources */,
 				2062686F199B5A7500E8D09E /* LINProficiency.swift in Sources */,
 				20F5835A1993456B00DE77A6 /* LINShrinkDismissAnimationController.swift in Sources */,
@@ -917,7 +921,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "35355366-5112-44B8-9B45-8F92EF31F1B7";
+				PROVISIONING_PROFILE = "";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Lingua/Lingua-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -938,7 +942,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "35355366-5112-44B8-9B45-8F92EF31F1B7";
+				PROVISIONING_PROFILE = "";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Lingua/Lingua-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
