@@ -34,7 +34,8 @@ class LINChatController: UIViewController {
     private var messagesDataArray = [LINMessage]()
     private var dataSource: LINArrayDataSource?
     private let cellIdentifier = "kLINBubbleCell"
-    
+    private var textViewsDict = NSMutableDictionary()
+
     private var currentChannel = PTPusherPresenceChannel()
     private var conversationChanged : Bool = false
     var delegate:LINChatControllerDelegate?
@@ -122,9 +123,11 @@ extension LINChatController {
     }
 
     private func setupTableView() {
-        let configureClosure: TableViewCellConfigureClosure = { (bubbleCell: UITableViewCell, messageData: AnyObject) -> Void in
-            (bubbleCell as LINBubbleCell).delegate = self
-            (bubbleCell as LINBubbleCell).configureCellWithMessageData(messageData as LINMessage)
+        let configureClosure: TableViewCellConfigureClosure = { (bubbleCell, messageData, indexPath) -> Void in
+            let bubbleCell = (bubbleCell as LINBubbleCell)
+            bubbleCell.delegate = self
+            bubbleCell.configureCellWithMessageData(messageData as LINMessage)
+            self.textViewsDict[indexPath] = bubbleCell.contentTextView
         }
         
         dataSource = LINArrayDataSource(items: messagesDataArray, cellIdentifier: cellIdentifier, configureClosure: configureClosure)
@@ -142,11 +145,14 @@ extension LINChatController: LINBubbleCellDelegate {
         if indexPath != nil && messageData.content != nil {
             println("Resize height for cell at row \(indexPath!.row)")
             messagesDataArray[indexPath!.row] = messageData
-            
-            tableView.beginUpdates()
-            tableView.reloadRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.None)
-            tableView.endUpdates()
+           reloadRowsAtIndexPaths([indexPath!])
         }
+    }
+
+    private func reloadRowsAtIndexPaths(indexPaths: [NSIndexPath]) {
+        tableView.beginUpdates()
+        tableView.reloadRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.None)
+        tableView.endUpdates()
     }
 
     func bubbleCellDidStartPlayingRecord(bubbleCell: LINBubbleCell) {
@@ -433,8 +439,34 @@ extension LINChatController {
     }
     
     private func heightForCellAtIndexPath(indexPath: NSIndexPath) -> CGFloat {
+        var height: CGFloat = 0.0
         let messageData = messagesDataArray[indexPath.row]
-        return LINBubbleCell.getHeighWithMessageData(messageData)
+
+        switch(messageData.type) {
+            case .Text:
+                var contentTextView = textViewsDict[indexPath] as? UITextView
+                if contentTextView == nil {
+                    contentTextView = UITextView()
+                    contentTextView!.text = messageData.content as String
+                    contentTextView!.font = UIFont.appRegularFontWithSize(14)
+                }
+
+                let size = contentTextView!.sizeThatFits(CGSize(width: kTextMessageMaxWidth, height: kTextMessageMaxHeight))
+                height = size.height + 5
+            case .Photo:
+                if let tmpPhoto = messageData.content as? UIImage {
+                    let imageSize = tmpPhoto.size
+                    height = imageSize.height / (CGFloat(Int(imageSize.width) / kPhotoMessageMaxWidth)) + 30
+                } else {
+                    height = CGFloat(kPhotoMessageMaxHeight)
+                }
+            case .Voice:
+                height = CGFloat(kVoiceMessageMaxHeight)
+            default:
+               break
+        }
+
+        return height
     }
     
     private func loadListLastestMessages() {
