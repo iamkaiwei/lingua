@@ -47,7 +47,7 @@ class LINHomeController: LINViewController, UIViewControllerTransitioningDelegat
     }
     
     func configureBadgeViewAppearance(){
-        messageButton.badgeView.badgeColor = UIColor.orangeColor()
+        messageButton.badgeView.badgeColor = UIColor.messageBadgeColor()
         messageButton.badgeView.position = MGBadgePosition.TopLeft
         messageButton.badgeView.outlineWidth = 0
         messageButton.badgeView.maximumBadgeValueAllowed = 99
