@@ -127,7 +127,7 @@ extension LINChatController {
             bubbleCell.delegate = self
             bubbleCell.configureCellWithMessageData(messageData as LINMessage)
             
-            // Catch height for textview
+            // Cache height for textview
             let message = messageData as (LINMessage)
             message.height = CGRectGetHeight(bubbleCell.contentTextView.frame)
             self.messagesDataArray[indexPath.row] = message
@@ -448,19 +448,20 @@ extension LINChatController {
         switch(messageData.type) {
             case .Text:
                 if messageData.height != nil {
-                    return messageData.height! + 5
+                    height = messageData.height!
                 } else {
-                    height =  40
+                    height = (messageData.content! as String).sizeOfStringUseTextStorage().height
                 }
+                height += kBubbleCellHeightPadding
             case .Photo:
                 if let tmpPhoto = messageData.content as? UIImage {
                     let imageSize = tmpPhoto.size
-                    height = imageSize.height / (CGFloat(Int(imageSize.width) / kPhotoMessageMaxWidth)) + 30
+                    height = imageSize.height / (imageSize.width / kPhotoMessageMaxWidth) + 30
                 } else {
-                    height = CGFloat(kPhotoMessageMaxHeight)
+                    height = kPhotoMessageMaxHeight
                 }
-            case .Voice:
-                height = CGFloat(kVoiceMessageMaxHeight)
+                case .Voice:
+                    height = kVoiceMessageMaxHeight
             default:
                break
         }
