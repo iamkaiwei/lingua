@@ -37,7 +37,8 @@ class LINBubbleCell: UITableViewCell {
     let textInsetsSomeone = UIEdgeInsetsMake(5, 15, 7, 10)
     
     var delegate: LINBubbleCellDelegate?
-    
+    private var emoticonsTextStorage: LINParsingEmoticonsTextStorage?
+
     override init(style: UITableViewCellStyle, reuseIdentifier: String!) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
@@ -51,6 +52,7 @@ class LINBubbleCell: UITableViewCell {
         addSubview(bubbleImageView)
         
         // Content
+        contentTextView.userInteractionEnabled = false
         contentTextView.scrollEnabled = false
         contentTextView.editable = false
         contentTextView.backgroundColor = UIColor.clearColor()
@@ -90,23 +92,23 @@ class LINBubbleCell: UITableViewCell {
     // MARK: Send texts, photos, voices message
     
     private func configureWithTextMessage(messageData: LINMessage) {
-        let size = LINBubbleCell.getSizeOfTextViewWithText(messageData.content as String, font: contentTextView.font)
+        // Textkit
+        emoticonsTextStorage = nil
+        emoticonsTextStorage = LINParsingEmoticonsTextStorage()
+        emoticonsTextStorage!.addLayoutManager(contentTextView.layoutManager)
+        emoticonsTextStorage!.replaceCharactersInRange(NSMakeRange(0, 0), withString: messageData.content as String)
+        
+        let size = contentTextView.sizeThatFits(CGSize(width: kTextMessageMaxWidth, height: kTextMessageMaxHeight))
         let insets = (messageData.incoming == false ? textInsetsMine : textInsetsSomeone)
         let offsetX = (messageData.incoming == true ? 0 : frame.size.width  - size.width - insets.left - insets.right)
         
-        contentTextView.text = messageData.content as String
-        contentTextView.frame = CGRectMake(offsetX + insets.left,
-                                           insets.top,
-                                           size.width,
-                                           size.height)
+        contentTextView.frame = CGRectMake(offsetX + insets.left, insets.top, size.width, size.height)
         addSubview(contentTextView)
-        contentTextView.sizeToFit()
         
         // Bubble imageview
-        bubbleImageView.frame = CGRect(x: offsetX + insets.left - 5,
-                                       y: 0,
+        bubbleImageView.frame = CGRect(x: contentTextView.frame.origin.x - 5, y: 0,
                                        width: contentTextView.frame.size.width + 10,
-                                       height: contentTextView.frame.size.height + 5)
+                                       height: contentTextView.frame.size.height)
         
         calcTimeFrameWithContentFrame(contentTextView.frame, messageData: messageData)
     }
@@ -215,29 +217,6 @@ class LINBubbleCell: UITableViewCell {
         createAtLabel.text = NSDateFormatter.hourDateFormatter().stringFromDate(messageData.sendDate).lowercaseString
     }
     
-    class func getHeighWithMessageData(messageData: LINMessage)-> CGFloat {
-        var height: CGFloat = 0.0
-        
-        switch(messageData.type) {
-            case .Text:
-                let size = getSizeOfTextViewWithText(messageData.content as String, font: UIFont.appRegularFontWithSize(14))
-                height = size.height + 5
-            case .Photo:
-                if let tmpPhoto = messageData.content as? UIImage {
-                    let imageSize = tmpPhoto.size
-                    height = imageSize.height / (CGFloat(Int(imageSize.width) / kPhotoMessageMaxWidth)) + 30
-                } else {
-                    height = CGFloat(kPhotoMessageMaxHeight)
-                }
-            case .Voice:
-                height = CGFloat(kVoiceMessageMaxHeight)
-            default:
-               break
-        }
-        
-        return height
-    }
-    
     func openPhotoPreviewWithGesture(recognizer: UITapGestureRecognizer) {
         let appDelegate = AppDelegate.sharedDelegate()
         let photoPreviewController = appDelegate.storyboard.instantiateViewControllerWithIdentifier("kLINPhotoPreviewController") as LINPhotoPreviewController
@@ -245,15 +224,6 @@ class LINBubbleCell: UITableViewCell {
         
         let chatController = appDelegate.drawerController.presentedViewController as LINChatController
         chatController.presentViewController(photoPreviewController, animated: true, completion: nil)
-    }
-    
-    // MARK: Utils
-    
-    class func getSizeOfTextViewWithText(text: String, font: UIFont) -> CGSize {
-        let textView = UITextView()
-        textView.text = text
-        textView.font = font
-        return textView.sizeThatFits(CGSize(width: kTextMessageMaxWidth, height: kTextMessageMaxHeight))
     }
     
     // MARK: Actions

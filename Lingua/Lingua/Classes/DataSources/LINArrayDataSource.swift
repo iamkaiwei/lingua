@@ -8,7 +8,7 @@
 
 import Foundation
 
-typealias TableViewCellConfigureClosure = (cell: UITableViewCell, item: AnyObject) -> Void
+typealias TableViewCellConfigureClosure = (cell: UITableViewCell, item: AnyObject, indexPath: NSIndexPath) -> Void
 
 class LINArrayDataSource: NSObject, UITableViewDataSource {
     var items: Array<AnyObject>
@@ -43,8 +43,8 @@ class LINArrayDataSource: NSObject, UITableViewDataSource {
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as UITableViewCell
         
         let item: AnyObject = itemAtIndexPath(indexPath)
-        configureClosure(cell: cell, item: item)
-        
+        configureClosure(cell: cell, item: item, indexPath: indexPath)
+
         return cell
     }
 }
