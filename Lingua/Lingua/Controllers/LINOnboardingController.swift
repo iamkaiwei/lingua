@@ -103,6 +103,8 @@ extension LINOnboardingController: LINLoginViewDelegate {
     
     func showHomeScreen() {
          AppDelegate.sharedDelegate().showHomeScreenWithNavigationController(navigationController)
+         //Post this notification to make sure that ConversationList will be refreshed after logged-in
+         NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAppDidBecomActive, object: nil)
     }
 }
 
