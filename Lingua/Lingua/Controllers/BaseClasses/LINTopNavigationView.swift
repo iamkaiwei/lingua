@@ -71,7 +71,7 @@ class LINTopNavigationView : UIView {
     func getLostNotificationHUDView() -> UILabel {
         var notificationLabel:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: 320, height: 30))
         notificationLabel.text = "No Internet Connection"
-        notificationLabel.backgroundColor = UIColor.redColor()
+        notificationLabel.backgroundColor = UIColor.networkStatusHUDColor()
         notificationLabel.textColor = UIColor.whiteColor()
         notificationLabel.textAlignment = NSTextAlignment.Center
         notificationLabel.font = UIFont(name: "System", size: 13)
