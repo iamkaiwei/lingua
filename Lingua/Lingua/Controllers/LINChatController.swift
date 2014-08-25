@@ -34,7 +34,6 @@ class LINChatController: UIViewController {
     private var messagesDataArray = [LINMessage]()
     private var dataSource: LINArrayDataSource?
     private let cellIdentifier = "kLINBubbleCell"
-    private var textViewsDict = NSMutableDictionary()
 
     private var currentChannel = PTPusherPresenceChannel()
     private var conversationChanged : Bool = false
@@ -127,7 +126,11 @@ extension LINChatController {
             let bubbleCell = (bubbleCell as LINBubbleCell)
             bubbleCell.delegate = self
             bubbleCell.configureCellWithMessageData(messageData as LINMessage)
-            self.textViewsDict[indexPath] = bubbleCell.contentTextView
+            
+            // Catch height for textview
+            let message = messageData as (LINMessage)
+            message.height = CGRectGetHeight(bubbleCell.contentTextView.frame)
+            self.messagesDataArray[indexPath.row] = message
         }
         
         dataSource = LINArrayDataSource(items: messagesDataArray, cellIdentifier: cellIdentifier, configureClosure: configureClosure)
@@ -444,15 +447,11 @@ extension LINChatController {
 
         switch(messageData.type) {
             case .Text:
-                var contentTextView = textViewsDict[indexPath] as? UITextView
-                if contentTextView == nil {
-                    contentTextView = UITextView()
-                    contentTextView!.text = messageData.content as String
-                    contentTextView!.font = UIFont.appRegularFontWithSize(14)
+                if messageData.height != nil {
+                    return messageData.height! + 5
+                } else {
+                    height =  40
                 }
-
-                let size = contentTextView!.sizeThatFits(CGSize(width: kTextMessageMaxWidth, height: kTextMessageMaxHeight))
-                height = size.height + 5
             case .Photo:
                 if let tmpPhoto = messageData.content as? UIImage {
                     let imageSize = tmpPhoto.size

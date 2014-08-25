@@ -32,6 +32,7 @@ class LINMessage {
     var content: AnyObject?
     var url: String?
     var type: MessageType
+    var height: CGFloat?
     
     init(incoming: Bool, sendDate: NSDate, content: AnyObject) {
         self.incoming = incoming
