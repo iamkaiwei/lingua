@@ -57,17 +57,16 @@ class LINParsingEmoticonsTextStorage: NSTextStorage {
             let emoticonKey = (self.string as NSString).substringWithRange(captureRange) as String
             let emoticonName = dict[emoticonKey.lowercaseString] as? String
             if emoticonName != nil {
-                println("Emoticon key: \(emoticonKey)")
-                
                 let textAttactment = NSTextAttachment()
                 textAttactment.image = UIImage(named: emoticonName!)
-                textAttactment.bounds = CGRectMake(0, 0, 20, 20)
-                
+                textAttactment.bounds = CGRectMake(0, -5, 20, 20)
+
                 let replacementString = NSAttributedString(attachment: textAttactment)
                 replaceCharactersInRange(matchRange, withAttributedString: replacementString)
             }
         }
-        
+
+        imp.addAttribute(NSFontAttributeName, value: UIFont.appRegularFontWithSize(14), range: NSMakeRange(0, self.string.utf16Count))
         super.processEditing()
     }
 }
