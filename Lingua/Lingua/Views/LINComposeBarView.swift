@@ -227,11 +227,11 @@ extension LINComposeBarView: LINAudioHelperRecorderDelegate {
         else {
             delegate?.composeBar(self, didRecord: voice)
             // Upload record to server
-            LINNetworkClient.sharedInstance.uploadVoiceRecord(voice, completion: { (url, error) -> Void in
-                if let tmpURL = url {
-                    self.delegate?.composeBar(self, didUploadRecord: tmpURL)
+            LINNetworkClient.sharedInstance.uploadFile(voice, fileType: LINFileType.Audio, completion: { (fileURL, error) -> Void in
+                if let tmpFileURL = fileURL {
+                    self.delegate?.composeBar(self, didUploadRecord: tmpFileURL)
                 }
-            })
+           })
         }
     }
 }

@@ -65,9 +65,10 @@ extension LINEmoticonsView: UIImagePickerControllerDelegate, UINavigationControl
         delegate?.emoticonsView(self, didPickPhoto: chooseImage)
         
         // Upload photo to server
-        LINNetworkClient.sharedInstance.uploadImage(chooseImage, completion: { (imageURL, error) -> Void in
-            if let imgURL = imageURL {
-                self.delegate?.emoticonsView(self, didUploadPhoto: imgURL)
+        let imageData = UIImageJPEGRepresentation(chooseImage, 0.8) as NSData
+        LINNetworkClient.sharedInstance.uploadFile(imageData, fileType: LINFileType.Image, completion: { (fileURL, error) -> Void in
+            if let tmpFileURL = fileURL {
+                self.delegate?.emoticonsView(self, didUploadPhoto: tmpFileURL)
             }
         })
         
