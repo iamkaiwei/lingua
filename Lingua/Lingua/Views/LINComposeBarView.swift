@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import AudioToolbox
+
 
 protocol LINComposeBarViewDelegate {
     func composeBar(composeBar: LINComposeBarView, sendMessage text: String)
@@ -103,7 +103,6 @@ class LINComposeBarView: UIView {
         voicePanelView.hidden = false
         recordingTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "timerTick:", userInfo: nil, repeats: true)
         LINAudioHelper.sharedInstance.startRecording()
-        AudioServicesPlaySystemSound(UInt32(kSystemSoundID_Vibrate)) //TODO: this is not working right now.
     }
 
     @IBAction func stopSpeaking(sender: UIButton) {

@@ -8,6 +8,7 @@
 
 import Foundation
 import AVFoundation
+import AudioToolbox
 
 protocol LINAudioHelperRecorderDelegate {
     func audioHelperDidComposeVoice(voice: NSData)
@@ -52,6 +53,7 @@ class LINAudioHelper: NSObject {
     }
 
     func startRecording() {
+        AudioServicesPlaySystemSound(UInt32(kSystemSoundID_Vibrate))
         AVAudioSession.sharedInstance().setActive(true, error: nil)
         recorder.record()
     }

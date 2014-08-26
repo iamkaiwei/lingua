@@ -60,7 +60,7 @@ extension LINMyProfileController: UICollectionViewDataSource {
         if section == 0{
             return 0
         }
-        return 10
+        return 20
     }
     
     func collectionView(collectionView: UICollectionView!, cellForItemAtIndexPath indexPath: NSIndexPath!) -> UICollectionViewCell! {
@@ -87,7 +87,7 @@ extension LINMyProfileController: LINIntroductionViewDelegate {
         let padding: CGFloat = 20
         
         if UIDevice.currentDevice().model != "iPhone Simulator" {
-            let frame = CGRectMake(0, CGRectGetMaxY(introductionView.frame) + padding, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - CGRectGetMaxY(introductionView.frame) + padding)
+            let frame = CGRectMake(0, CGRectGetMaxY(introductionView.frame) + padding, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - CGRectGetMaxY(introductionView.frame) - padding)
             collectionView.frame = frame
             return
         }

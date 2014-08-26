@@ -40,7 +40,7 @@ class LINPickLearningLanguageController: LINViewController {
             LINUserManager.sharedInstance.currentUser?.speakingProficiency = LINProficiency.fromProficiency(indexPath.row)
         }
         else {
-            UIAlertView(title: nil, message: "Please choose a speaking proficiency.", delegate: nil, cancelButtonTitle: "Okay").show()
+            UIAlertView(title: nil, message: "Please choose a writing proficiency.", delegate: nil, cancelButtonTitle: "Okay").show()
             return
         }
         
@@ -48,7 +48,7 @@ class LINPickLearningLanguageController: LINViewController {
             LINUserManager.sharedInstance.currentUser?.writingProficiency = LINProficiency.fromProficiency(indexPath.row)
         }
         else {
-            UIAlertView(title: nil, message: "Please choose a writing proficiency.", delegate: nil, cancelButtonTitle: "Okay").show()
+            UIAlertView(title: nil, message: "Please choose a speaking proficiency.", delegate: nil, cancelButtonTitle: "Okay").show()
             return
         }
         
