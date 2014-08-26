@@ -30,12 +30,14 @@ class LINBubbleCell: UITableViewCell {
     var photoImgView: UIImageView = UIImageView()
     
     //Voice message
-    var playButton: UIButton?
-    var voiceProgressBar: UIProgressView?
-    var durationLabel: UILabel?
-    
-    let textInsetsMine = UIEdgeInsetsMake(5, 10, 7, 17)
-    let textInsetsSomeone = UIEdgeInsetsMake(5, 15, 7, 10)
+    private var playButton: UIButton?
+    private var voiceProgressBar: UIProgressView?
+    private var durationLabel: UILabel?
+    private var trackingTimer: NSTimer?
+    private var progress: NSTimeInterval = 0
+
+    private let textInsetsMine = UIEdgeInsetsMake(5, 10, 7, 17)
+    private let textInsetsSomeone = UIEdgeInsetsMake(5, 15, 7, 10)
     
     var delegate: LINBubbleCellDelegate?
    
@@ -144,6 +146,9 @@ class LINBubbleCell: UITableViewCell {
                 if data != nil {
                     println("Downloaded voice record successfully")
                     message.content = data
+                    message.duration = LINAudioHelper.sharedInstance.getDurationFromData(data!)
+                    let simplified = Int(message.duration + 0.5)
+                    self.durationLabel?.text = String(format: "%02d:%02d", simplified/60, simplified%60)
                 }
             })
         }
@@ -161,14 +166,15 @@ class LINBubbleCell: UITableViewCell {
         addSubview(playButton!)
         
         voiceProgressBar = UIProgressView(frame: CGRectMake(CGRectGetMaxX(playButton!.frame) - 5, kVoiceMessageMaxHeight/2 + kSideMargin - 2, kVoiceMessageMaxWidth - CGRectGetWidth(playButton!.frame)*2, 2))
-        voiceProgressBar?.progressTintColor = UIColor.appTealColor()
-        voiceProgressBar?.progress = 1
+        voiceProgressBar?.progressTintColor = UIColor.lightGrayColor()
+        voiceProgressBar?.trackTintColor = UIColor.appTealColor()
         addSubview(voiceProgressBar!)
         
         durationLabel = UILabel()
         durationLabel?.font = UIFont.appLightFontWithSize(14)
         durationLabel?.textAlignment = .Center
-        durationLabel?.text = "00:00"
+        let simplified = Int(message.duration + 0.5)
+        durationLabel?.text = String(format: "%02d:%02d", simplified/60, simplified%60)
         durationLabel?.numberOfLines = 0
         durationLabel?.sizeToFit()
         durationLabel?.frame.origin = CGPointMake(CGRectGetMaxX(voiceProgressBar!.frame) + kSideMargin, kVoiceMessageMaxHeight/2)
@@ -239,13 +245,45 @@ class LINBubbleCell: UITableViewCell {
     // MARK: Actions
     
     func toggleAudioButton(playButton: UIButton) {
+        if LINAudioHelper.sharedInstance.isPlaying() {
+            LINAudioHelper.sharedInstance.stopPlaying()
+        }
+
         playButton.selected = !playButton.selected
         playButton.selected ? delegate?.bubbleCellDidStartPlayingRecord(self) : delegate?.bubbleCellDidStopPlayingRecord(self)
+    }
+
+    func trackForDuration(duration: NSTimeInterval) {
+        if voiceProgressBar == nil {
+            return //Apparently this is not type .Voice
+        }
+
+        trackingTimer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "updateProgressBar:", userInfo: duration, repeats: true)
+    }
+
+    func updateProgressBar(timer: NSTimer) {
+        if let duration = timer.userInfo as? NSTimeInterval {
+            progress += 0.1
+            voiceProgressBar?.progress = Float(progress/duration)
+            
+            if Int(duration - progress - 0.1) < Int(duration - progress) {
+                let simplified = Int(duration - progress)
+                self.durationLabel?.text = String(format: "%02d:%02d", simplified/60, simplified%60)
+            }
+        }
     }
 }
 
 extension LINBubbleCell: LINAudioHelperPlayerDelegate {
     func audioHelperDidFinishPlaying() {
+        if let duration = trackingTimer!.userInfo as? NSTimeInterval {
+            let simplified = Int(duration + 0.5)
+            durationLabel?.text = String(format: "%02d:%02d", simplified/60, simplified%60)
+        }
+
         playButton?.selected = false
+        trackingTimer?.invalidate()
+        voiceProgressBar?.progress = 0
+        progress = 0
     }
 }

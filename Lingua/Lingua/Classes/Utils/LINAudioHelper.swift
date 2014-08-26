@@ -53,9 +53,14 @@ class LINAudioHelper: NSObject {
     }
 
     func startRecording() {
-        AudioServicesPlaySystemSound(UInt32(kSystemSoundID_Vibrate))
-        AVAudioSession.sharedInstance().setActive(true, error: nil)
-        recorder.record()
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+            AudioServicesPlaySystemSound(UInt32(kSystemSoundID_Vibrate))
+            let delay: dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, 1 * Int64(NSEC_PER_SEC))
+            dispatch_after(delay, dispatch_get_main_queue(), {
+                AVAudioSession.sharedInstance().setActive(true, error: nil)
+                self.recorder.record()
+            })
+        })
     }
 
     func stopRecording() {
@@ -71,6 +76,7 @@ class LINAudioHelper: NSObject {
         var error: NSError?
         player = AVAudioPlayer(data: data, error: &error)
         player?.delegate = self
+        player?.volume = 1
         if error != nil {
             println(error)
         }
@@ -81,6 +87,21 @@ class LINAudioHelper: NSObject {
 
     func stopPlaying() {
         player?.stop()
+        playerDelegate?.audioHelperDidFinishPlaying()
+    }
+
+    func isPlaying() -> Bool {
+        return player?.playing ?? false
+    }
+
+    func getDurationFromData(data: NSData) -> NSTimeInterval {
+        var error: NSError?
+        player = AVAudioPlayer(data: data, error: &error)
+        if error != nil {
+            println(error)
+            return 0
+        }
+        return player?.duration ?? 0
     }
 }
 

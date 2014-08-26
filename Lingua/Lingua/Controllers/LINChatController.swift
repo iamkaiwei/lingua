@@ -164,6 +164,7 @@ extension LINChatController: LINBubbleCellDelegate {
         if let data = message.content as? NSData {
             LINAudioHelper.sharedInstance.playerDelegate = bubbleCell
             LINAudioHelper.sharedInstance.startPlaying(message.content as NSData)
+            bubbleCell.trackForDuration(message.duration)
         }
     }
     
