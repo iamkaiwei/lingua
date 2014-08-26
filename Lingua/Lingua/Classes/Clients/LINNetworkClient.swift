@@ -427,4 +427,20 @@ extension LINNetworkClient {
                 }
         }
     }
+
+    func downloadFile(url: String, completion: (data: NSData?, error: NSError?) -> Void) {
+        let operation = AFHTTPRequestOperation(request: NSURLRequest(URL: NSURL(string: url)))
+        operation.setCompletionBlockWithSuccess({ (operation, data) in
+            if let tmpData = data as? NSData {
+                completion(data: tmpData, error: nil)
+            }
+            else {
+                completion(data: nil, error: nil)
+            }
+        }, failure: { (operation, error) in
+            println("*** Failed to download the file")
+            completion(data: nil, error: error)
+        })
+        operation.start()
+    }
 }

@@ -20,7 +20,7 @@ enum LINFileType {
                 tmpMimeType = "image/jpeg"
             case Audio:
                 tmpFileName += ".caf"
-                tmpMimeType = "caf"
+                tmpMimeType = "audio/caf"
             default:
                 break
         }

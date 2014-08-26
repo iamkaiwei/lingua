@@ -31,7 +31,7 @@ class LINChatController: UIViewController {
     @IBOutlet weak var flagButton:UIButton!
     
     private var pullRefreshControl: UIRefreshControl = UIRefreshControl()
-    private var messagesDataArray = [LINMessage]()
+    private var messageArray = [LINMessage]()
     private var dataSource: LINArrayDataSource?
     private let cellIdentifier = "kLINBubbleCell"
 
@@ -122,18 +122,18 @@ extension LINChatController {
     }
 
     private func setupTableView() {
-        let configureClosure: TableViewCellConfigureClosure = { (bubbleCell, messageData, indexPath) -> Void in
+        let configureClosure: TableViewCellConfigureClosure = { (bubbleCell, message, indexPath) -> Void in
             let bubbleCell = (bubbleCell as LINBubbleCell)
             bubbleCell.delegate = self
-            bubbleCell.configureCellWithMessageData(messageData as LINMessage)
+            bubbleCell.configureCellWithMessage(message as LINMessage)
             
             // Cache height for textview
-            let message = messageData as (LINMessage)
+            let message = message as (LINMessage)
             message.height = CGRectGetHeight(bubbleCell.contentTextView.frame)
-            self.messagesDataArray[indexPath.row] = message
+            self.messageArray[indexPath.row] = message
         }
         
-        dataSource = LINArrayDataSource(items: messagesDataArray, cellIdentifier: cellIdentifier, configureClosure: configureClosure)
+        dataSource = LINArrayDataSource(items: messageArray, cellIdentifier: cellIdentifier, configureClosure: configureClosure)
         tableView.dataSource = dataSource
         tableView.delegate = self
         
@@ -143,11 +143,11 @@ extension LINChatController {
 }
 
 extension LINChatController: LINBubbleCellDelegate {
-    func bubbleCell(bubbleCell: LINBubbleCell, updatePhotoWithMessageData messageData: LINMessage) {
+    func bubbleCell(bubbleCell: LINBubbleCell, updatePhotoWithMessage message: LINMessage) {
         let indexPath: NSIndexPath? = tableView.indexPathForRowAtPoint(bubbleCell.center)
-        if indexPath != nil && messageData.content != nil {
+        if indexPath != nil && message.content != nil {
             println("Resize height for cell at row \(indexPath!.row)")
-            messagesDataArray[indexPath!.row] = messageData
+            messageArray[indexPath!.row] = message
            reloadRowsAtIndexPaths([indexPath!])
         }
     }
@@ -160,7 +160,7 @@ extension LINChatController: LINBubbleCellDelegate {
 
     func bubbleCellDidStartPlayingRecord(bubbleCell: LINBubbleCell) {
         let indexPath = tableView.indexPathForCell(bubbleCell)
-        let message = messagesDataArray[indexPath.row]
+        let message = messageArray[indexPath.row]
         if let data = message.content as? NSData {
             LINAudioHelper.sharedInstance.playerDelegate = bubbleCell
             LINAudioHelper.sharedInstance.startPlaying(message.content as NSData)
@@ -176,7 +176,7 @@ extension LINChatController: LINComposeBarViewDelegate {
     //MARK: LINComposeBarViewDelegate
     func composeBar(composeBar: LINComposeBarView, sendMessage text: String) {
         let message = LINMessage(incoming: false, sendDate: NSDate(), content: text, type: .Text)
-        addBubbleViewCellWithMessageData(message)
+        addBubbleViewCellWithMessage(message)
         replyWithMessage(message)
     }
     
@@ -199,7 +199,7 @@ extension LINChatController: LINComposeBarViewDelegate {
 
     func composeBar(composeBar: LINComposeBarView, didPickPhoto photo: UIImage) {
         let message = LINMessage(incoming: false, sendDate: NSDate(), content: photo, type: .Photo)
-        addBubbleViewCellWithMessageData(message)
+        addBubbleViewCellWithMessage(message)
     }
     
     func composeBar(composeBar: LINComposeBarView, didUploadPhoto imageURL: String) {
@@ -209,7 +209,7 @@ extension LINChatController: LINComposeBarViewDelegate {
 
     func composeBar(composeBar: LINComposeBarView, didRecord data: NSData) {
         let message = LINMessage(incoming: false, sendDate: NSDate(), content: data, type: .Voice)
-        addBubbleViewCellWithMessageData(message)
+        addBubbleViewCellWithMessage(message)
     }
 
     func composeBar(composeBar: LINComposeBarView, didUploadRecord url: String) {
@@ -400,13 +400,13 @@ extension LINChatController {
         }
     }
     
-    private func addBubbleViewCellWithMessageData(messageData: LINMessage) {
+    private func addBubbleViewCellWithMessage(message: LINMessage) {
         // Update data source
-        messagesDataArray.append(messageData)
-        dataSource!.items = messagesDataArray
+        messageArray.append(message)
+        dataSource!.items = messageArray
         tableView.dataSource = dataSource
         
-        let indexPaths = [NSIndexPath(forRow: messagesDataArray.count - 1, inSection: 0)]
+        let indexPaths = [NSIndexPath(forRow: messageArray.count - 1, inSection: 0)]
         
         tableView.beginUpdates()
         tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.Bottom)
@@ -444,18 +444,18 @@ extension LINChatController {
     
     private func heightForCellAtIndexPath(indexPath: NSIndexPath) -> CGFloat {
         var height: CGFloat = 0.0
-        let messageData = messagesDataArray[indexPath.row]
+        let message = messageArray[indexPath.row]
 
-        switch(messageData.type) {
+        switch(message.type) {
             case .Text:
-                if messageData.height != nil {
-                    height = messageData.height!
+                if message.height != nil {
+                    height = message.height!
                 } else {
-                    height = (messageData.content! as String).sizeOfStringUseTextStorage().height
+                    height = (message.content! as String).sizeOfStringUseTextStorage().height
                 }
                 height += kBubbleCellHeightPadding
             case .Photo:
-                if let tmpPhoto = messageData.content as? UIImage {
+                if let tmpPhoto = message.content as? UIImage {
                     let imageSize = tmpPhoto.size
                     height = imageSize.height / (imageSize.width / kPhotoMessageMaxWidth) + 30
                 } else {
@@ -490,13 +490,13 @@ extension LINChatController {
                                                   sendDate: NSDateFormatter.iSODateFormatter().dateFromString(reply.createdAt)!,
                                                   content: reply.content,
                                                   type: MessageType.fromRaw(reply.messageTypeId)!)
-                        self.messagesDataArray.insert(aMessage, atIndex: 0)
+                        self.messageArray.insert(aMessage, atIndex: 0)
                     }
                     
                     dispatch_async(dispatch_get_main_queue()) {
                         () -> Void in
                         if tmpRepliesArray.count > 0 {
-                            self.dataSource!.items = self.messagesDataArray
+                            self.dataSource!.items = self.messageArray
                             self.tableView.dataSource = self.dataSource
                             
                             if self.currentPageIndex == kChatHistoryBeginPageIndex {
@@ -520,7 +520,7 @@ extension LINChatController {
     }
     
     private func scrollBubbleTableViewToBottomAnimated(animated: Bool) {
-        let lastRowIdx = messagesDataArray.count - 1
+        let lastRowIdx = messageArray.count - 1
         if lastRowIdx >= 0 {
             tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: lastRowIdx, inSection: 0), atScrollPosition: UITableViewScrollPosition.Bottom, animated: animated)
         }
@@ -539,7 +539,7 @@ extension LINChatController {
             let type = MessageType.fromRaw(replyData.type)
             var aMessage = LINMessage(incoming: true, sendDate: replyData.sendDate, content: replyData.text, type: type!)
             
-            self.addBubbleViewCellWithMessageData(aMessage)
+            self.addBubbleViewCellWithMessage(aMessage)
         })
     }
     

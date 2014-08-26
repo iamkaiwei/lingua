@@ -18,7 +18,7 @@ let kSideMargin: CGFloat = 10
 let kBubbleCellHeightPadding: CGFloat = 5
 
 protocol LINBubbleCellDelegate {
-    func bubbleCell(bubbleCell: LINBubbleCell, updatePhotoWithMessageData messageData: LINMessage)
+    func bubbleCell(bubbleCell: LINBubbleCell, updatePhotoWithMessage message: LINMessage)
     func bubbleCellDidStartPlayingRecord(bubbleCell: LINBubbleCell)
     func bubbleCellDidStopPlayingRecord(bubbleCell: LINBubbleCell)
 }
@@ -81,14 +81,14 @@ class LINBubbleCell: UITableViewCell {
         durationLabel?.removeFromSuperview()
     }
     
-    func configureCellWithMessageData(messageData: LINMessage) {
-        switch(messageData.type) {
+    func configureCellWithMessage(message: LINMessage) {
+        switch(message.type) {
             case .Text:
-                configureWithTextMessage(messageData)
+                configureWithTextMessage(message)
             case .Photo:
-                configureWithPhotoMessage(messageData)
+                configureWithPhotoMessage(message)
             case .Voice:
-                configureWithVoiceMessage(messageData)
+                configureWithVoiceMessage(message)
             default:
                 break
         }
@@ -96,12 +96,12 @@ class LINBubbleCell: UITableViewCell {
     
     // MARK: Send texts, photos, voices message
     
-    private func configureWithTextMessage(messageData: LINMessage) {
-        emoticonsTextStorage.setAttributedString(NSAttributedString(string: messageData.content as String))
+    private func configureWithTextMessage(message: LINMessage) {
+        emoticonsTextStorage.setAttributedString(NSAttributedString(string: message.content as String))
         
         let size = contentTextView.sizeThatFits(CGSize(width: kTextMessageMaxWidth, height: kTextMessageMaxHeight))
-        let insets = (messageData.incoming == false ? textInsetsMine : textInsetsSomeone)
-        let offsetX = (messageData.incoming == true ? 0 : frame.size.width  - size.width - insets.left - insets.right)
+        let insets = (message.incoming == false ? textInsetsMine : textInsetsSomeone)
+        let offsetX = (message.incoming == true ? 0 : frame.size.width  - size.width - insets.left - insets.right)
         
         contentTextView.frame = CGRectMake(offsetX + insets.left, insets.top, size.width, size.height)
         addSubview(contentTextView)
@@ -111,7 +111,7 @@ class LINBubbleCell: UITableViewCell {
                                        width: contentTextView.frame.size.width + 10,
                                        height: contentTextView.frame.size.height)
         
-        calcTimeFrameWithContentFrame(contentTextView.frame, messageData: messageData)
+        calcTimeFrameWithContentFrame(contentTextView.frame, message: message)
     }
     
     private func configureWithPhotoMessage(message: LINMessage) {
@@ -123,10 +123,10 @@ class LINBubbleCell: UITableViewCell {
                 if let tmpImage = image {
                     println("Finish downloading photo message.")
                     message.content = tmpImage
-                    self.addPhotoToBubbleCellWithMessageData(message)
+                    self.addPhotoToBubbleCellWithMessage(message)
                     
                     // Save photo to memory
-                    self.delegate?.bubbleCell(self, updatePhotoWithMessageData: message)
+                    self.delegate?.bubbleCell(self, updatePhotoWithMessage: message)
                     
                     // Save photo to camera roll
                     // UIImageWriteToSavedPhotosAlbum(tmpImage, nil, nil, nil)
@@ -134,15 +134,24 @@ class LINBubbleCell: UITableViewCell {
             }
         } else {
             // Add photo to cell by image
-            self.addPhotoToBubbleCellWithMessageData(message)
+            self.addPhotoToBubbleCellWithMessage(message)
         }
     }
     
-    private func configureWithVoiceMessage(messageData: LINMessage) {
+    private func configureWithVoiceMessage(message: LINMessage) {
+        if message.content == nil && message.url != nil {
+            LINNetworkClient.sharedInstance.downloadFile(message.url!, completion: { (data, error) in
+                if data != nil {
+                    println("Downloaded voice record successfully")
+                    message.content = data
+                }
+            })
+        }
+
         // Bubble imageview
-        let x = messageData.incoming == true ? kSideMargin : CGRectGetWidth(frame) - kVoiceMessageMaxWidth - kSideMargin/2
+        let x = message.incoming == true ? kSideMargin : CGRectGetWidth(frame) - kVoiceMessageMaxWidth - kSideMargin/2
         bubbleImageView.frame = CGRectMake(x, 5,  kVoiceMessageMaxWidth,  kVoiceMessageMaxHeight)
-        calcTimeFrameWithContentFrame(bubbleImageView.frame, messageData: messageData)
+        calcTimeFrameWithContentFrame(bubbleImageView.frame, message: message)
         
         //Set up other UIs
         playButton = UIButton(frame: CGRectMake(x, 10, kVoiceMessageMaxHeight, kVoiceMessageMaxHeight))
@@ -166,19 +175,19 @@ class LINBubbleCell: UITableViewCell {
         addSubview(durationLabel!)
     }
     
-    private func addPhotoToBubbleCellWithMessageData(messageData: LINMessage) {
-        var imageSize = (messageData.content as UIImage).size
+    private func addPhotoToBubbleCellWithMessage(message: LINMessage) {
+        var imageSize = (message.content as UIImage).size
         if imageSize.width > kPhotoMessageMaxWidth {
             imageSize.height /= imageSize.width / kPhotoMessageMaxWidth
             imageSize.width = CGFloat(kPhotoMessageMaxWidth)
         }
         
-        photoImgView.image = messageData.content as UIImage
+        photoImgView.image = message.content as UIImage
         photoImgView.layer.cornerRadius = 5.0
         photoImgView.layer.masksToBounds = true
         
-        let insets = (messageData.incoming == false ? textInsetsMine : textInsetsSomeone)
-        let offsetX = (messageData.incoming == true ? 0 : frame.size.width  - imageSize.width - insets.left - insets.right - 5)
+        let insets = (message.incoming == false ? textInsetsMine : textInsetsSomeone)
+        let offsetX = (message.incoming == true ? 0 : frame.size.width  - imageSize.width - insets.left - insets.right - 5)
         
         photoImgView.frame = CGRect(x: offsetX + insets.left + 2,
                                     y: insets.top + 15,
@@ -192,16 +201,16 @@ class LINBubbleCell: UITableViewCell {
                                        width: imageSize.width + 17,
                                        height: imageSize.height + 30)
         
-        calcTimeFrameWithContentFrame(bubbleImageView.frame, messageData: messageData)
+        calcTimeFrameWithContentFrame(bubbleImageView.frame, message: message)
         
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("openPhotoPreviewWithGesture:"))
         photoImgView.addGestureRecognizer(gestureRecognizer)
     }
     
-    private func calcTimeFrameWithContentFrame(contentFrame: CGRect, messageData: LINMessage) {
+    private func calcTimeFrameWithContentFrame(contentFrame: CGRect, message: LINMessage) {
         // Bubble imageview
         let bubbleCapInsets = UIEdgeInsetsMake(20, 10, 10, 10)
-        if messageData.incoming {
+        if message.incoming {
             bubbleImageView.image = UIImage(named: "ChatBoxLeft").resizableImageWithCapInsets(bubbleCapInsets)
         } else {
             bubbleImageView.image = UIImage(named: "ChatBoxRight").resizableImageWithCapInsets(bubbleCapInsets)
@@ -209,13 +218,13 @@ class LINBubbleCell: UITableViewCell {
         
         // Time label
         let contentFrame = contentFrame
-        let offsetXCreateAtLabel = (messageData.incoming == true ? (contentFrame.origin.x + contentFrame.size.width + 20) :
+        let offsetXCreateAtLabel = (message.incoming == true ? (contentFrame.origin.x + contentFrame.size.width + 20) :
             (contentFrame.origin.x - 60))
         createAtLabel.frame = CGRect(x: offsetXCreateAtLabel,
                                      y: contentFrame.origin.y + contentFrame.size.height / 2 - 10,
                                      width: 100,
                                      height: 20)
-        createAtLabel.text = NSDateFormatter.hourDateFormatter().stringFromDate(messageData.sendDate).lowercaseString
+        createAtLabel.text = NSDateFormatter.hourDateFormatter().stringFromDate(message.sendDate).lowercaseString
     }
     
     func openPhotoPreviewWithGesture(recognizer: UITapGestureRecognizer) {
