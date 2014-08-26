@@ -51,7 +51,6 @@ class LINFriendListController: UIViewController, UITableViewDataSource, UITableV
             chatController.delegate = self
             chatController.conversation = self.conversationList[indexPath.row]
             chatController.transitioningDelegate = self
-            
         }
     }
     
@@ -89,7 +88,6 @@ class LINFriendListController: UIViewController, UITableViewDataSource, UITableV
             var selectedCell:LINConversationCell = tableView.cellForRowAtIndexPath(indexPath) as LINConversationCell
             selectedCell.updateHighlightedCell(false)
         }
-        performSegueWithIdentifier("kLINChatControllerIdentifier", sender: self)
     }
     
     // MARK: UIViewControllerTransitioningDelegate

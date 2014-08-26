@@ -57,6 +57,7 @@ class LINComposeBarView: UIView {
         contentView.frame = bounds
         addSubview(contentView)
         textView.layer.cornerRadius = 10
+        speakButton.exclusiveTouch = true
 
         // emoticonsTextStorage.addLayoutManager(textView.layoutManager)
         LINAudioHelper.sharedInstance.recorderDelegate = self

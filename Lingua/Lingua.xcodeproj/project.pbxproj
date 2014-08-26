@@ -70,7 +70,7 @@
 		926D831D19AB5D9F00F1F0A7 /* LINString+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926D831C19AB5D9F00F1F0A7 /* LINString+Extensions.swift */; };
 		92781D47199FBF0B00FAAFBB /* LINReply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92781D46199FBF0B00FAAFBB /* LINReply.swift */; };
 		92894CAF1996156D00824A3B /* LINConversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92894CAE1996156D00824A3B /* LINConversation.swift */; };
-		929824EC199B7BB300C56819 /*  LINFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929824EB199B7BB300C56819 /*  LINFile.swift */; };
+		929824EC199B7BB300C56819 /* LINFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929824EB199B7BB300C56819 /* LINFile.swift */; };
 		92BC4B3419A58CB40046DED6 /* Emoticons.plist in Resources */ = {isa = PBXBuildFile; fileRef = 92BC4B3319A58CB40046DED6 /* Emoticons.plist */; };
 		92BC4B3719A58D100046DED6 /* LINParsingEmoticonsTextStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BC4B3619A58D100046DED6 /* LINParsingEmoticonsTextStorage.swift */; };
 		92C2A4AC1982146500ABF826 /* LINFacebookManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C2A4AB1982146500ABF826 /* LINFacebookManager.swift */; };
@@ -208,7 +208,7 @@
 		926D831C19AB5D9F00F1F0A7 /* LINString+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LINString+Extensions.swift"; sourceTree = "<group>"; };
 		92781D46199FBF0B00FAAFBB /* LINReply.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINReply.swift; sourceTree = "<group>"; };
 		92894CAE1996156D00824A3B /* LINConversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINConversation.swift; sourceTree = "<group>"; };
-		929824EB199B7BB300C56819 /*  LINFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = " LINFile.swift"; sourceTree = "<group>"; };
+		929824EB199B7BB300C56819 /* LINFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINFile.swift; sourceTree = "<group>"; };
 		929F38AB196C7C0F009A7E6A /* libPods-libPusher.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-libPusher.a"; path = "Pods/build/Debug-iphoneos/libPods-libPusher.a"; sourceTree = "<group>"; };
 		92BC4B3319A58CB40046DED6 /* Emoticons.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Emoticons.plist; sourceTree = "<group>"; };
 		92BC4B3619A58D100046DED6 /* LINParsingEmoticonsTextStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINParsingEmoticonsTextStorage.swift; sourceTree = "<group>"; };
@@ -504,7 +504,7 @@
 				92894CAE1996156D00824A3B /* LINConversation.swift */,
 				20BF6A3C19948EF300C384BC /* LINLanguage.swift */,
 				2062686E199B5A7500E8D09E /* LINProficiency.swift */,
-				929824EB199B7BB300C56819 /*  LINFile.swift */,
+				929824EB199B7BB300C56819 /* LINFile.swift */,
 				92781D46199FBF0B00FAAFBB /* LINReply.swift */,
 			);
 			path = Models;
@@ -748,7 +748,7 @@
 				9222F8C41997782D005420EC /* LINEmoticonCell.swift in Sources */,
 				20473E201966D5C200EDF620 /* SZTextView.m in Sources */,
 				20F5835819931E6D00DE77A6 /* LINPopPresentAnimationController.swift in Sources */,
-				929824EC199B7BB300C56819 /*  LINFile.swift in Sources */,
+				929824EC199B7BB300C56819 /* LINFile.swift in Sources */,
 				9268B6C01984E73300D526AA /* LINNetworkClient.swift in Sources */,
 				9222F8C219972EA6005420EC /* LINEmoticonsView.swift in Sources */,
 				2043DFD7196550F8005905B9 /* LINViewController.swift in Sources */,

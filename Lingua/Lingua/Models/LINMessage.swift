@@ -31,6 +31,7 @@ class LINMessage {
     let sendDate: NSDate
     var content: AnyObject?
     var url: String?
+    var duration: NSTimeInterval = 0  //in seconds, reserved for type voice record.
     var type: MessageType
     
     // Cache height for emoticons textview
