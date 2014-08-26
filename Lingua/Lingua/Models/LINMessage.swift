@@ -32,31 +32,19 @@ class LINMessage {
     var content: AnyObject?
     var url: String?
     var type: MessageType
+    
+    // Cache height for emoticons textview
     var height: CGFloat?
     
-    init(incoming: Bool, sendDate: NSDate, content: AnyObject) {
-        self.incoming = incoming
-        self.content = content
-        self.sendDate = sendDate
-        
-        if content is String {
-            self.type = .Text
-        }
-        else if content is UIImage {
-            self.type = .Photo
-        }
-        else if content is NSData {
-            self.type = .Voice
-        }
-        else {
-            self.type = .Text
-            println("There is something wrong...")
-        }
-    }
-    
-    init(incoming: Bool, sendDate: NSDate, type: MessageType) {
+    init(incoming: Bool, sendDate: NSDate, content: AnyObject, type: MessageType) {
         self.incoming = incoming
         self.sendDate = sendDate
         self.type = type
+        self.content = content
+        
+        if type != .Text && content is String {
+            self.url = (content as String)
+            self.content = nil
+        }
     }
 }
