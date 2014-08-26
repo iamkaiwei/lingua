@@ -72,7 +72,7 @@ class LINNetworkClient: OVCHTTPSessionManager {
                 kLINMatchUser: LINUser.self,
                 kLINLanguagePath: LINLanguage.self,
                 kLINConversationsPath: LINConversation.self,
-                kLINUploadPath: LINPhoto.self,
+                kLINUploadPath: LINFile.self,
                 kLINMessagesPath: LINReply.self
         ]
     }
@@ -407,44 +407,24 @@ extension LINNetworkClient {
 extension LINNetworkClient {
     // MARK: Photos, Voices
     
-    func uploadImage(image: UIImage,
-                     completion: (imageURL: String?, error: NSError?) -> Void) {
-            let imageData = UIImageJPEGRepresentation(image, 0.8) as NSData
-            let fileName = "\(NSDate().timeIntervalSince1970).jpg"
-            
-            self.POST(kLINUploadPath, parameters: nil, constructingBodyWithBlock: { (formData) -> Void in
-                formData.appendPartWithFileData(imageData, name: "image", fileName: fileName, mimeType: "image/jpeg")
-                }) { (response, error) -> Void in
-                    if error != nil {
-                        println("Upload image has some errors: \(error!.description)")
-                        completion(imageURL: nil, error: error!)
-                        return
-                    }
-                    
-                    if let tmpImage = (response as OVCResponse).result as? LINPhoto {
-                        println("Image URL: \(tmpImage.imageURL)")
-                        completion(imageURL: tmpImage.imageURL, error: nil)
-                    }
-            }
-    }
-
-    func uploadVoiceRecord(data: NSData,
-                     completion: (url: String?, error: NSError?) -> Void) {
-            let fileName = "\(NSDate().timeIntervalSince1970).caf"
-            
-            self.POST(kLINUploadPath, parameters: nil, constructingBodyWithBlock: { (formData) -> Void in
-                formData.appendPartWithFileData(data, name: "voiceRecord", fileName: fileName, mimeType: "caf")
-                }) { (response, error) -> Void in
-                    if error != nil {
-                        println("Upload voice record has some errors: \(error!.description)")
-                        completion(url: nil, error: error!)
-                        return
-                    }
-                    
-                    if let tmpImage = (response as OVCResponse).result as? LINPhoto {
-                        println("Voice record URL: \(tmpImage.imageURL)")
-                        completion(url: tmpImage.imageURL, error: nil)
-                    }
-            }
+    func uploadFile(data: NSData,
+                    fileType: LINFileType,
+                    completion: (fileURL: String?, error: NSError?) -> Void) {
+        let fileInfo = fileType.getFileInfo()
+        
+        self.POST(kLINUploadPath, parameters: nil, constructingBodyWithBlock: { (formData) -> Void in
+            formData.appendPartWithFileData(data, name: "file", fileName: fileInfo.fileName, mimeType: fileInfo.mimeType)
+        }) { (response, error) -> Void in
+                if error != nil {
+                    println("Upload file has some errors: \(error!.description)")
+                    completion(fileURL: nil, error: error!)
+                    return
+                }
+                
+                if let tmpFile = (response as OVCResponse).result as? LINFile {
+                    println("File URL: \(tmpFile.fileURL)")
+                    completion(fileURL: tmpFile.fileURL, error: nil)
+                }
+        }
     }
 }
