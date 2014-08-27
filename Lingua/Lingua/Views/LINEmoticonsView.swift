@@ -22,6 +22,7 @@ class LINEmoticonsView: UIView {
     var isHidden: Bool = true
     var delegate: LINEmoticonsViewDelegate? {
         didSet {
+            collectionView.contentInset = UIEdgeInsetsMake(10, 0, 0, 5)
             collectionView.delegate = self
             collectionView.dataSource = self
             collectionView.registerClass(LINEmoticonCell.self, forCellWithReuseIdentifier: "EmoticonCellIdentifier")
@@ -95,12 +96,12 @@ extension LINEmoticonsView: UICollectionViewDataSource, UICollectionViewDelegate
     }
     
     func collectionView(collectionView: UICollectionView!, numberOfItemsInSection section: Int) -> Int {
-        return 30
+        return 31
     }
     
     func collectionView(collectionView: UICollectionView!, cellForItemAtIndexPath indexPath: NSIndexPath!) -> UICollectionViewCell! {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("EmoticonCellIdentifier", forIndexPath: indexPath) as LINEmoticonCell
-        cell.imageView.image = UIImage(named: "emoticon_\(indexPath.row + 1)")
+        cell.configureAtIndexPath(indexPath)
         return cell
     }
     
