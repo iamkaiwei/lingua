@@ -11,11 +11,12 @@ import Foundation
 let kTextMessageMaxWidth: CGFloat = 233
 let kTextMessageMaxHeight: CGFloat = 9999
 let kPhotoMessageMaxWidth: CGFloat = 200
-let kPhotoMessageMaxHeight: CGFloat = 200
+let kPhotoMessageMaxHeight: CGFloat = 230
 let kVoiceMessageMaxWidth: CGFloat = 233
 let kVoiceMessageMaxHeight: CGFloat = 55
 let kSideMargin: CGFloat = 10
-let kBubbleCellHeightPadding: CGFloat = 5
+let kTextCellHeightPadding: CGFloat = 5
+let kPhotoCellHeightPadding: CGFloat = 30
 
 protocol LINBubbleCellDelegate {
     func bubbleCell(bubbleCell: LINBubbleCell, updatePhotoWithMessage message: LINMessage)
@@ -28,6 +29,7 @@ class LINBubbleCell: UITableViewCell {
     var bubbleImageView: UIImageView = UIImageView()
     var createAtLabel: UILabel = UILabel()
     var photoImgView: UIImageView = UIImageView()
+    let placeholderImage = UIImage(named: "placeholder")
     
     //Voice message
     private var playButton: UIButton?
@@ -52,7 +54,7 @@ class LINBubbleCell: UITableViewCell {
         
         // Enable touch event to photo imageview
         photoImgView.userInteractionEnabled = true
-        
+
         // Bubble imageview
         addSubview(bubbleImageView)
         
@@ -118,16 +120,22 @@ class LINBubbleCell: UITableViewCell {
     
     private func configureWithPhotoMessage(message: LINMessage) {
         if message.content == nil {
-            println("Downloading photo message.")
+            message.content = placeholderImage
+            addPhotoToBubbleCellWithMessage(message)
+
             // Add photo to cell by image URL
-            photoImgView.sd_setImageWithURL(NSURL(string: message.url!)) {
+            photoImgView.sd_setImageWithURL(NSURL(string: message.url!),
+                                            placeholderImage: placeholderImage) {
               (image, error, cacheType, imageURL) in
+                if error != nil {
+                    println("Download image has some errors \(error!.description)")
+                    return
+                }
+
                 if let tmpImage = image {
-                    println("Finish downloading photo message.")
                     message.content = tmpImage
-                    self.addPhotoToBubbleCellWithMessage(message)
-                    
-                    // Save photo to memory
+
+                    // Resize height for photo message
                     self.delegate?.bubbleCell(self, updatePhotoWithMessage: message)
                     
                     // Save photo to camera roll
@@ -182,12 +190,8 @@ class LINBubbleCell: UITableViewCell {
     }
     
     private func addPhotoToBubbleCellWithMessage(message: LINMessage) {
-        var imageSize = (message.content as UIImage).size
-        if imageSize.width > kPhotoMessageMaxWidth {
-            imageSize.height /= imageSize.width / kPhotoMessageMaxWidth
-            imageSize.width = CGFloat(kPhotoMessageMaxWidth)
-        }
-        
+        var imageSize = (message.content as UIImage).scaleSize()
+
         photoImgView.image = message.content as UIImage
         photoImgView.layer.cornerRadius = 5.0
         photoImgView.layer.masksToBounds = true
@@ -200,7 +204,7 @@ class LINBubbleCell: UITableViewCell {
                                     width: imageSize.width,
                                     height: imageSize.height)
         addSubview(photoImgView)
-        
+
         // Bubble imageview
         bubbleImageView.frame = CGRect(x: offsetX + insets.left - 5,
                                        y: 0,
