@@ -26,16 +26,16 @@ enum MessageType: Int {
     }
 }
 
-class LINMessage {
-    let incoming: Bool
-    let sendDate: NSDate
+class LINMessage:NSObject , NSCoding{
+    let incoming: Bool = false
+    let sendDate: NSDate = NSDate()
     var content: AnyObject?
     var url: String?
     var duration: NSTimeInterval = 0  //in seconds, reserved for type voice record.
-    var type: MessageType
+    var type: MessageType = MessageType.Text
     
     // Cache height for emoticons textview
-    var height: CGFloat?
+    var height: CGFloat = 0
     
     init(incoming: Bool, sendDate: NSDate, content: AnyObject, type: MessageType) {
         self.incoming = incoming
@@ -46,6 +46,31 @@ class LINMessage {
         if type != .Text && content is String {
             self.url = (content as String)
             self.content = nil
+        }
+    }
+    
+    //NSCoding protocol
+    required init(coder aDecoder: NSCoder) {
+        self.incoming = aDecoder.decodeBoolForKey("incoming")
+        self.sendDate = aDecoder.decodeObjectForKey("sendDate") as NSDate
+        self.content  = aDecoder.decodeObjectForKey("content")
+        self.url      = aDecoder.decodeObjectForKey("url") as? String
+        self.height   = CGFloat(aDecoder.decodeFloatForKey("height"))
+        self.duration = aDecoder.decodeObjectForKey("duration") as NSTimeInterval
+        self.type     = MessageType.fromRaw(aDecoder.decodeIntegerForKey("type"))!
+    }
+    
+    func encodeWithCoder(encoder: NSCoder){
+        encoder.encodeBool(incoming, forKey: "incoming")
+        encoder.encodeObject(sendDate, forKey: "sendDate")
+        encoder.encodeObject(duration, forKey:"duration")
+        encoder.encodeInteger(type.toRaw(), forKey: "type")
+        encoder.encodeFloat(Float(height), forKey: "height")
+        if content != nil {
+            encoder.encodeObject(content!, forKey: "content")
+        }
+        if url != nil {
+            encoder.encodeObject(url!, forKey: "url")
         }
     }
 }

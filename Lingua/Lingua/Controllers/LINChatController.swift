@@ -75,7 +75,13 @@ class LINChatController: UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "appDidEnterBackground", name: kNotificationAppDidEnterBackground, object: nil)
         
         setupTableView()
-        loadListLastestMessages()
+
+        if LINNetworkHelper.isReachable() {
+            loadListLastestMessages()
+        }
+        else {
+            loadingCachedChatHistory()
+        }
                 
         self.topNavigationView.registerForNetworkStatusNotification(lostConnection: kNotificationAppDidLostConnection, restoreConnection: kNotificationAppDidRestoreConnection)
         self.tableView.registerForNetworkStatusNotification(lossConnection: kNotificationAppDidLostConnection, restoreConnection: kNotificationAppDidRestoreConnection)
@@ -103,6 +109,7 @@ class LINChatController: UIViewController {
         leaveConversation()
         currentChannel.unsubscribe()
         postMessagesToServer()
+        cachingChatHistoryData()
 
         //Call previous view controller to re-arrange the order
         if self.conversationChanged {
@@ -464,8 +471,8 @@ extension LINChatController {
 
         switch(message.type) {
             case .Text:
-                if message.height != nil {
-                    height = message.height!
+                if message.height != 0 {
+                    height = message.height
                 } else {
                     height = (message.content! as String).sizeOfStringUseTextStorage().height
                 }
@@ -481,7 +488,6 @@ extension LINChatController {
             default:
                break
         }
-
         return height
     }
     
@@ -520,16 +526,54 @@ extension LINChatController {
                             } else {
                                 self.addListBubbleCellsWithCount(tmpRepliesArray.count)
                             }
-                            
                             self.currentPageIndex++
+                            if page == 1 {
+                                self.cachingChatHistoryData()
+                            }
                         }
                         self.pullRefreshControl.endRefreshing()
                     }
                 }
         }
-        
+    }
+
+    func reloadChatTableContent() {
+        self.dataSource!.items = self.messageArray
+        self.tableView.dataSource = self.dataSource
+        self.tableView.reloadData()
+    }
+
+    func getLastestMessages() -> [LINMessage]? {
+        var numberOfMessage = min(self.messageArray.count,kChatHistoryMaxLenght)
+        if numberOfMessage == 0 {
+            return nil
+        }
+        var messageCount = self.messageArray.count
+        var startIndex:Int = messageCount - messageCount
+        var endIndex:Int = messageCount - 1
+        var lastestMessages = Array(self.messageArray[startIndex...endIndex]) as [LINMessage]
+        return lastestMessages
+    }
+
+    func cachingChatHistoryData() {
+        //Caching only first page (20 latest message)
+        var lastestMessages = self.getLastestMessages()
+        if lastestMessages != nil {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { () -> Void in
+                var chatHistoryData = NSKeyedArchiver.archivedDataWithRootObject(lastestMessages!)
+                LINResourceHelper.cachingChatHistoryData(self.conversationId, data: chatHistoryData)
+            })
+        }
     }
     
+    func loadingCachedChatHistory() {
+        let cachedData = LINResourceHelper.retrievingChatHistoryData(self.conversationId)
+        if cachedData != nil {
+            self.messageArray = NSKeyedUnarchiver.unarchiveObjectWithData(cachedData!) as [LINMessage]
+            self.reloadChatTableContent()
+        }
+    }
+
     func loadOlderMessages() {
         loadChatHistoryWithLenght(kChatHistoryMaxLenght, page: currentPageIndex)
     }

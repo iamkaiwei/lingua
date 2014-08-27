@@ -36,3 +36,4 @@ let kNotificationAppReceivedNewMessage       = "kNotificationAppReceivedNewMessa
 let kNotificationAppDidOpenChatViewFromHUD   = "kNotificationAppDidOpenChatViewFromHUD"
 // External resources
 let kCachedConversationDataFile = "conversations_data.lingua"
+let kLinguaResourceExtension = "lingua"
