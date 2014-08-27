@@ -559,8 +559,10 @@ extension LINChatController {
         //Caching only first page (20 latest message)
         var lastestMessages = self.getLastestMessages()
         if lastestMessages != nil {
-            var chatHistoryData = NSKeyedArchiver.archivedDataWithRootObject(lastestMessages!)
-            LINResourceHelper.cachingChatHistoryData(self.conversationId, data: chatHistoryData)
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { () -> Void in
+                var chatHistoryData = NSKeyedArchiver.archivedDataWithRootObject(lastestMessages!)
+                LINResourceHelper.cachingChatHistoryData(self.conversationId, data: chatHistoryData)
+            })
         }
     }
     
