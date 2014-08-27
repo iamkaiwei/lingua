@@ -160,7 +160,10 @@ class LINFriendListController: UIViewController, UITableViewDataSource, UITableV
             if conversationsArray != nil {
                 self.conversationList = conversationsArray!
                 self.tableView.reloadData()
-                self.cachingConversationData()
+                //Caching in sub-thread
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { () -> Void in
+                    self.cachingConversationData()
+                })
             }
         }
     }
