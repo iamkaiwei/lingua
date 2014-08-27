@@ -94,6 +94,10 @@ class LINChatController: UIViewController {
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         
+        let imageCache = SDWebImageManager.sharedManager().imageCache
+        imageCache.clearMemory()
+        imageCache.clearDisk()
+
         NSNotificationCenter.defaultCenter().removeObserver(self)
         
         leaveConversation()
@@ -143,13 +147,24 @@ extension LINChatController {
 }
 
 extension LINChatController: LINBubbleCellDelegate {
-    func bubbleCell(bubbleCell: LINBubbleCell, updatePhotoWithMessage message: LINMessage) {
-        let indexPath: NSIndexPath? = tableView.indexPathForRowAtPoint(bubbleCell.center)
-        if indexPath != nil && message.content != nil {
-            println("Resize height for cell at row \(indexPath!.row)")
-            messageArray[indexPath!.row] = message
-           reloadRowsAtIndexPaths([indexPath!])
+    func bubbleCell(bubbleCell: LINBubbleCell, updatePhotoWithMessage messageData: LINMessage) {
+        let row = getMessageByImageURL(messageData.url!)
+        if row >= 0 {
+            messageArray[row] = messageData
+            reloadRowsAtIndexPaths([NSIndexPath(forRow: row, inSection: 0)])
         }
+    }
+    
+    private func getMessageByImageURL(imageURL: String) -> Int {
+        for i in 0..<messageArray.count {
+            let message = messageArray[i]
+            if let tmpURL = message.url {
+                if tmpURL == imageURL {
+                    return i
+                }
+            }
+        }
+        return -1
     }
 
     private func reloadRowsAtIndexPaths(indexPaths: [NSIndexPath]) {
@@ -454,14 +469,13 @@ extension LINChatController {
                 } else {
                     height = (message.content! as String).sizeOfStringUseTextStorage().height
                 }
-                height += kBubbleCellHeightPadding
+                height += kTextCellHeightPadding
             case .Photo:
                 if let tmpPhoto = message.content as? UIImage {
-                    let imageSize = tmpPhoto.size
-                    height = imageSize.height / (imageSize.width / kPhotoMessageMaxWidth) + 30
-                } else {
-                    height = kPhotoMessageMaxHeight
+                    let imageSize = tmpPhoto.scaleSize()
+                    return imageSize.height + kPhotoCellHeightPadding
                 }
+                height = kPhotoMessageMaxHeight
                 case .Voice:
                     height = kVoiceMessageMaxHeight
             default:
