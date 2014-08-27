@@ -187,8 +187,10 @@ class LINFriendListController: UIViewController, UITableViewDataSource, UITableV
     
     func loadCachedConversationData() {
         let cachedData = LINResourceHelper.retrievingCachedConversation()
-        self.conversationList = NSKeyedUnarchiver.unarchiveObjectWithData(cachedData) as [LINConversation]
-        self.tableView.reloadData()
+        if cachedData != nil {
+            self.conversationList = NSKeyedUnarchiver.unarchiveObjectWithData(cachedData!) as [LINConversation]
+            self.tableView.reloadData()
+        }
     }
     
     func getConversationWithID(conversationId:String) -> LINConversation? {
