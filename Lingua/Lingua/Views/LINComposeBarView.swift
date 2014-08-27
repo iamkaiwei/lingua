@@ -212,8 +212,21 @@ extension LINComposeBarView: LINEmoticonsViewDelegate {
     }
     
     func emoticonsView(emoticonsView: LINEmoticonsView, didSelectEmoticonAtIndex index: Int) {
-        let tmpKey = LINParsingEmoticonsTextStorage.serchEmoticonKeyByName("emoticon_\(index + 1)")
-        textView.text = textView.text.stringByAppendingString(tmpKey)
+        if index == kEmoticonsViewCancelButtonIndex {
+            let selectedRange = textView.selectedRange
+            if selectedRange.location >= 1 {
+                let removedRange = NSMakeRange(selectedRange.location - 1, 1)
+                textView.text = (textView.text as NSString).stringByReplacingCharactersInRange(removedRange, withString: "")
+                textView.selectedRange = NSMakeRange(removedRange.location, 0)
+            }
+        } else {
+            var row = index
+            if index < kEmoticonsViewCancelButtonIndex {
+                row += 1
+            }
+            let tmpKey = LINParsingEmoticonsTextStorage.serchEmoticonKeyByName("emoticon_\(row)")
+            textView.text = textView.text.stringByAppendingString(tmpKey)
+        }
         textViewDidChange(textView)
     }
 }

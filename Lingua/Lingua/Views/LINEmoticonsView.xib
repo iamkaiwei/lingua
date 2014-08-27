@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6205" systemVersion="14A299l" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6206.8" systemVersion="14A299l" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6198"/>
+        <deployment defaultVersion="1808" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7026.1"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="RobotoSlab-Light.ttf">
@@ -87,7 +88,7 @@
                     </constraints>
                 </view>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="dIL-s6-IaF">
-                    <rect key="frame" x="68" y="0.0" width="252" height="216"/>
+                    <rect key="frame" x="76" y="0.0" width="244" height="216"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="3" id="fE9-0a-tj3">
                         <size key="itemSize" width="40" height="40"/>
@@ -102,7 +103,7 @@
                 <constraint firstAttribute="bottom" secondItem="Z1S-m3-OQN" secondAttribute="bottom" id="0lV-p8-46z"/>
                 <constraint firstAttribute="trailing" secondItem="dIL-s6-IaF" secondAttribute="trailing" id="JNV-9B-izq"/>
                 <constraint firstItem="Z1S-m3-OQN" firstAttribute="leading" secondItem="Hm2-Zv-cQU" secondAttribute="leading" id="Jiu-Yy-sAX"/>
-                <constraint firstItem="dIL-s6-IaF" firstAttribute="leading" secondItem="Z1S-m3-OQN" secondAttribute="trailing" id="KgU-hE-FPU"/>
+                <constraint firstItem="dIL-s6-IaF" firstAttribute="leading" secondItem="Z1S-m3-OQN" secondAttribute="trailing" constant="8" id="KgU-hE-FPU"/>
                 <constraint firstItem="dIL-s6-IaF" firstAttribute="top" secondItem="Hm2-Zv-cQU" secondAttribute="top" id="Kzf-Nn-mnp"/>
                 <constraint firstItem="Z1S-m3-OQN" firstAttribute="top" secondItem="Hm2-Zv-cQU" secondAttribute="top" id="cMs-pz-Xqa"/>
                 <constraint firstAttribute="bottom" secondItem="dIL-s6-IaF" secondAttribute="bottom" id="duM-oJ-MMW"/>
@@ -111,10 +112,15 @@
             <nil key="simulatedStatusBarMetrics"/>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="yoz-sj-tSG"/>
+                </mask>
+            </variation>
             <connections>
                 <outlet property="collectionView" destination="dIL-s6-IaF" id="Hjm-9x-K3y"/>
             </connections>
-            <point key="canvasLocation" x="1777" y="261"/>
+            <point key="canvasLocation" x="1442" y="319"/>
         </view>
     </objects>
     <resources>
