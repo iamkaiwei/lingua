@@ -59,6 +59,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func setupAppearance() {
         UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: false)
+        UINavigationBar.appearance().setBackgroundImage(UIImage.navigationBarBackgroundImage(), forBarMetrics:UIBarMetrics.Default)
+        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
     }
     
     class func sharedDelegate() -> AppDelegate {
