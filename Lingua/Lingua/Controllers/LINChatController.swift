@@ -117,6 +117,9 @@ class LINChatController: UIViewController {
                 self.delegate?.shouldMoveConversationToTheTop(conversationId)
             }
         }
+
+        //Stop audio helper
+        LINAudioHelper.sharedInstance.stopPlaying()
     }
 }
 
@@ -232,7 +235,12 @@ extension LINChatController: LINComposeBarViewDelegate {
 
     func composeBar(composeBar: LINComposeBarView, didRecord data: NSData) {
         let message = LINMessage(incoming: false, sendDate: NSDate(), content: data, type: .Voice)
+        message.duration = LINAudioHelper.sharedInstance.getDurationFromData(data)
         addBubbleViewCellWithMessage(message)
+    }
+
+    func composeBar(composeBar: LINComposeBarView, didFailToRecord error: NSError) {
+        SVProgressHUD.showErrorWithStatus("\(error.localizedDescription) Please try again.")
     }
 
     func composeBar(composeBar: LINComposeBarView, didUploadRecord url: String) {

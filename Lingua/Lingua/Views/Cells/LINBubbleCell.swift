@@ -249,10 +249,7 @@ class LINBubbleCell: UITableViewCell {
     // MARK: Actions
     
     func toggleAudioButton(playButton: UIButton) {
-        if LINAudioHelper.sharedInstance.isPlaying() {
-            LINAudioHelper.sharedInstance.stopPlaying()
-        }
-
+        LINAudioHelper.sharedInstance.stopPlaying()
         playButton.selected = !playButton.selected
         playButton.selected ? delegate?.bubbleCellDidStartPlayingRecord(self) : delegate?.bubbleCellDidStopPlayingRecord(self)
     }
