@@ -12,6 +12,7 @@ import AudioToolbox
 
 protocol LINAudioHelperRecorderDelegate {
     func audioHelperDidComposeVoice(voice: NSData)
+    func audioHelperDidFailToComposeVoice(error: NSError)
 }
 
 protocol LINAudioHelperPlayerDelegate {
@@ -21,9 +22,17 @@ protocol LINAudioHelperPlayerDelegate {
 class LINAudioHelper: NSObject {
     
     private let recorder: AVAudioRecorder
-    private var player: AVAudioPlayer?
+    private var player: AVAudioPlayer
     var recorderDelegate: LINAudioHelperRecorderDelegate?
     var playerDelegate: LINAudioHelperPlayerDelegate?
+
+    /*  Before user starts recording, the device should vibrate for approximately
+        1 sec, so the audio helper delays for the same amount of time to avoid
+        accidently recording the vibration sound, there may be a chance that they
+        cancel recording before recorder even started but the recorder keep starting
+        anyways..
+    */
+    private var readyToRecord = true
 
     class var sharedInstance: LINAudioHelper {
     struct Static {
@@ -42,6 +51,7 @@ class LINAudioHelper: NSObject {
         if error != nil {
             println(error)
         }
+        player = AVAudioPlayer(data: nil, error: nil)
         super.init()
         recorder.meteringEnabled = true
         recorder.delegate = self
@@ -53,19 +63,30 @@ class LINAudioHelper: NSObject {
     }
 
     func startRecording() {
+        readyToRecord = true
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
             AudioServicesPlaySystemSound(UInt32(kSystemSoundID_Vibrate))
             let delay: dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, 1 * Int64(NSEC_PER_SEC))
             dispatch_after(delay, dispatch_get_main_queue(), {
-                AVAudioSession.sharedInstance().setActive(true, error: nil)
-                self.recorder.record()
+                if self.readyToRecord {
+                    AVAudioSession.sharedInstance().setActive(true, error: nil)
+                    self.recorder.record()
+                }
+                else {
+                    let userInfo = [NSLocalizedDescriptionKey: "The record is too short."]
+                    let error = NSError(domain: "Lingua", code: 0, userInfo: userInfo)
+                    self.recorderDelegate?.audioHelperDidFailToComposeVoice(error)
+                }
             })
         })
     }
 
     func stopRecording() {
-        recorder.stop()
-        AVAudioSession.sharedInstance().setActive(false, error: nil)
+        readyToRecord = false
+        if recorder.recording {
+            recorder.stop()
+            AVAudioSession.sharedInstance().setActive(false, error: nil)
+        }
     }
 
     func isRecording() -> Bool {
@@ -73,25 +94,30 @@ class LINAudioHelper: NSObject {
     }
 
     func startPlaying(data: NSData) {
+        //Stop previous channel if any.
+        stopPlaying()
+
         var error: NSError?
         player = AVAudioPlayer(data: data, error: &error)
-        player?.delegate = self
-        player?.volume = 1
+        player.delegate = self
+        player.volume = 1
         if error != nil {
             println(error)
         }
         else {
-            player?.play()
+            player.play()
         }
     }
 
     func stopPlaying() {
-        player?.stop()
-        playerDelegate?.audioHelperDidFinishPlaying()
+        if player.playing {
+            player.stop()
+            playerDelegate?.audioHelperDidFinishPlaying()
+        }
     }
 
     func isPlaying() -> Bool {
-        return player?.playing ?? false
+        return player.playing ?? false
     }
 
     func getDurationFromData(data: NSData) -> NSTimeInterval {
@@ -101,7 +127,7 @@ class LINAudioHelper: NSObject {
             println(error)
             return 0
         }
-        return player?.duration ?? 0
+        return player.duration
     }
 }
 
@@ -115,9 +141,18 @@ extension LINAudioHelper: AVAudioRecorderDelegate {
         let voiceData = NSData(contentsOfURL: recorder.url, options: .DataReadingMappedIfSafe, error: &error)
         if error != nil {
             println(error)
+            recorderDelegate?.audioHelperDidFailToComposeVoice(error!)
             return
         }
         
+        if getDurationFromData(voiceData) <= 1 {
+            let userInfo = [NSLocalizedDescriptionKey: "The record is too short."]
+            let error = NSError(domain: "Lingua", code: 0, userInfo: userInfo)
+            self.recorderDelegate?.audioHelperDidFailToComposeVoice(error)
+            recorderDelegate?.audioHelperDidFailToComposeVoice(error)
+            return
+        }
+
         recorderDelegate?.audioHelperDidComposeVoice(voiceData)
     }
 

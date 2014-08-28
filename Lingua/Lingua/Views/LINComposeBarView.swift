@@ -17,6 +17,7 @@ protocol LINComposeBarViewDelegate {
     func composeBar(composeBar: LINComposeBarView, didPickPhoto photo: UIImage)
     func composeBar(composeBar: LINComposeBarView, didUploadPhoto imageURL: String)
     func composeBar(composeBar: LINComposeBarView, didRecord data: NSData)
+    func composeBar(composeBar: LINComposeBarView, didFailToRecord error: NSError)
     func composeBar(composeBar: LINComposeBarView, didUploadRecord url: String)
 }
 
@@ -247,6 +248,10 @@ extension LINComposeBarView: LINAudioHelperRecorderDelegate {
                 }
            })
         }
+    }
+
+    func audioHelperDidFailToComposeVoice(error: NSError) {
+        delegate?.composeBar(self, didFailToRecord: error)
     }
 }
 
