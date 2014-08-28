@@ -46,7 +46,6 @@ extension NSDateFormatter {
     
     class func convertToUTC(date:NSDate) -> NSDate {
         var dateString:String = NSDateFormatter.iSODateFormatter().stringFromDate(date)
-        var ds:String = NSDateFormatter.utcDateFormatter().stringFromDate(date)
         return NSDateFormatter.utcDateFormatter().dateFromString(dateString)!
     }
 

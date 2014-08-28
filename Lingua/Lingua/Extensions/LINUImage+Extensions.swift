@@ -18,7 +18,6 @@ extension UIImage {
         return newSize
     }
 
-        
     class func navigationBarBackgroundImage() -> UIImage {
         return imageWithColor(UIColor.appTealColor())
     }
