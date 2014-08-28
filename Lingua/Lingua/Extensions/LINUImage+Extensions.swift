@@ -17,4 +17,19 @@ extension UIImage {
         }
         return newSize
     }
+
+    class func navigationBarBackgroundImage() -> UIImage {
+        return imageWithColor(UIColor.appTealColor())
+    }
+
+    class func imageWithColor(color:UIColor) -> UIImage {
+        var rect = CGRect(x: 0, y: 0, width: 1, height: 1)
+        UIGraphicsBeginImageContext(rect.size)
+        var context:CGContextRef = UIGraphicsGetCurrentContext()
+        CGContextSetFillColorWithColor(context, color.CGColor)
+        CGContextFillRect(context, rect)
+        var image:UIImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
 }

@@ -32,6 +32,23 @@ extension NSDateFormatter {
         return Static.iSODateFormatter!
     }
     
+    class func utcDateFormatter() -> NSDateFormatter {
+        struct Static {
+            static var utcDateFormatter:NSDateFormatter? = nil
+        }
+        if Static.utcDateFormatter == nil {
+            Static.utcDateFormatter = NSDateFormatter()
+            Static.utcDateFormatter?.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+            Static.utcDateFormatter?.timeZone = NSTimeZone(name: "UTC")
+        }
+        return Static.utcDateFormatter!
+    }
+    
+    class func convertToUTC(date:NSDate) -> NSDate {
+        var dateString:String = NSDateFormatter.iSODateFormatter().stringFromDate(date)
+        return NSDateFormatter.utcDateFormatter().dateFromString(dateString)!
+    }
+
     class func conversationDateFormatter() -> NSDateFormatter {
         struct Static {
             static var conversationDateFormatter:NSDateFormatter? = nil
