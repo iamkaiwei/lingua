@@ -197,11 +197,15 @@ class LINComposeBarView: UIView {
 
     // MARK: Keyboards
     func handleKeyboardWillShowNotification(notification: NSNotification) {
+        sendButton.hidden = false
+        speakButton.hidden = true
         let keyboardInfo = getKeyboardInfoWithNotification(notification)
         delegate?.composeBar(self, willShowKeyBoard: keyboardInfo.rect, duration: keyboardInfo.duration)
     }
     
     func handleKeyboardWillHideNotification(notification: NSNotification) {
+        sendButton.hidden = true
+        speakButton.hidden = false
         let keyboardInfo = getKeyboardInfoWithNotification(notification)
         delegate?.composeBar(self, willHideKeyBoard: keyboardInfo.rect, duration: keyboardInfo.duration)
     }
@@ -287,14 +291,7 @@ extension LINComposeBarView: UITextViewDelegate {
     }
 
     func textViewDidChange(tv: UITextView!) {
-        if tv.text.utf16Count > 0 {
-            sendButton.hidden = false
-            speakButton.hidden = true
-        }
-        else {
-            sendButton.hidden = true
-            speakButton.hidden = false
-        }
+        sendButton.enabled = tv.text.utf16Count > 0
         
 //        let newSize = textView.sizeThatFits(CGSizeMake(textView.frame.size.width, CGFloat(MAXFLOAT)))
 //        if newSize.height > kTextViewMaxContentHeight {
