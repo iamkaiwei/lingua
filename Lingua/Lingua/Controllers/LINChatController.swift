@@ -26,7 +26,6 @@ class LINChatController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var topNavigationView:LINTopNavigationView!
-    @IBOutlet weak var composeBarBottomLayoutGuideConstraint: NSLayoutConstraint!
     @IBOutlet weak var likeButton:UIButton!
     @IBOutlet weak var flagButton:UIButton!
     
@@ -52,6 +51,10 @@ class LINChatController: UIViewController {
     private var repliesArray = [AnyObject]()
     private var currentPageIndex = kChatHistoryBeginPageIndex
     private var currentChatMode = LINChatMode.Offline
+
+    // Layout contraints
+    @IBOutlet weak var composeBarBottomLayoutGuideConstraint: NSLayoutConstraint!
+    @IBOutlet weak var composeBarHeightConstraint: NSLayoutConstraint!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -200,6 +203,12 @@ extension LINChatController: LINBubbleCellDelegate {
 
 extension LINChatController: LINComposeBarViewDelegate {
     //MARK: LINComposeBarViewDelegate
+
+    func composeBar(composeBar: LINComposeBarView, willChangeHeight height: CGFloat) {
+        composeBarHeightConstraint.constant += height
+        scrollBubbleTableViewToBottomAnimated(false)
+    }
+
     func composeBar(composeBar: LINComposeBarView, sendMessage text: String) {
         let message = LINMessage(incoming: false, sendDate: NSDate(), content: text, type: .Text)
         addBubbleViewCellWithMessage(message)

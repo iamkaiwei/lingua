@@ -1021,6 +1021,7 @@
                     <connections>
                         <outlet property="composeBar" destination="tP5-sg-AVJ" id="Lsp-hB-fw6"/>
                         <outlet property="composeBarBottomLayoutGuideConstraint" destination="VXJ-ee-asL" id="XBu-qU-nQk"/>
+                        <outlet property="composeBarHeightConstraint" destination="yH4-Lq-WP1" id="OvQ-Ay-3ea"/>
                         <outlet property="flagButton" destination="DrB-zs-EIC" id="1hb-WG-qC1"/>
                         <outlet property="likeButton" destination="P3i-L5-4qA" id="TfK-lE-msI"/>
                         <outlet property="nameLabel" destination="sII-sl-pw1" id="3rE-0Z-ull"/>

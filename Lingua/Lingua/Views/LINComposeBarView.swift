@@ -8,6 +8,7 @@
 
 import UIKit
 
+let kTextViewMaxContentHeight: CGFloat = 100
 
 protocol LINComposeBarViewDelegate {
     func composeBar(composeBar: LINComposeBarView, sendMessage text: String)
@@ -19,6 +20,7 @@ protocol LINComposeBarViewDelegate {
     func composeBar(composeBar: LINComposeBarView, didRecord data: NSData)
     func composeBar(composeBar: LINComposeBarView, didFailToRecord error: NSError)
     func composeBar(composeBar: LINComposeBarView, didUploadRecord url: String)
+    func composeBar(composeBar: LINComposeBarView, willChangeHeight height: CGFloat)
 }
 
 class LINComposeBarView: UIView {
@@ -42,6 +44,7 @@ class LINComposeBarView: UIView {
     
     // Parsing emoticons
     private var emoticonsTextStorage = LINParsingEmoticonsTextStorage()
+    private var currentContentHeight: CGFloat = 0
 
     func commonInit() {
         //Keyboards
@@ -58,6 +61,9 @@ class LINComposeBarView: UIView {
         contentView.frame = bounds
         addSubview(contentView)
         textView.layer.cornerRadius = 10
+        textView.contentInset = UIEdgeInsetsZero
+        let size = textView.sizeThatFits(CGSizeMake(textView.frame.size.width, CGFloat(MAXFLOAT)))
+        currentContentHeight = size.height
         speakButton.exclusiveTouch = true
 
         // emoticonsTextStorage.addLayoutManager(textView.layoutManager)
@@ -272,6 +278,17 @@ extension LINComposeBarView: UITextViewDelegate {
         else {
             sendButton.hidden = true
             speakButton.hidden = false
+        }
+        
+        let newSize = textView.sizeThatFits(CGSizeMake(textView.frame.size.width, CGFloat(MAXFLOAT)))
+        if newSize.height > kTextViewMaxContentHeight {
+            return
+        }
+
+        if newSize.height != currentContentHeight {
+            let diff = newSize.height - currentContentHeight
+            currentContentHeight = newSize.height
+            delegate?.composeBar(self, willChangeHeight: diff)
         }
     }
 }
