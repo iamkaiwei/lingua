@@ -130,13 +130,13 @@ class LINComposeBarView: UIView {
     }
 
     @IBAction func stopSpeaking(sender: UIButton) {
-        recordingTimer?.invalidate()
-        recordingDuration = 0
-        durationLabel.text = String(format: "%02d:%02d", recordingDuration/60, recordingDuration%60)
-        LINAudioHelper.sharedInstance.stopRecording()
-        slideBack.center.x = CGRectGetMidX(self.initialFrameForSlideImage)
-        voicePanelView.hidden = true
-        moreButton.setImage(UIImage(named: "Icn_add"), forState: UIControlState.Normal)
+        if shouldCancelRecording {
+            shouldCancelRecording = false
+            LINAudioHelper.sharedInstance.cancelRecording()
+        }
+        else {
+            LINAudioHelper.sharedInstance.finishRecording()
+        }
     }
 
     func timerTick(timer: NSTimer) {
@@ -262,22 +262,32 @@ extension LINComposeBarView: LINAudioHelperRecorderDelegate {
     
     func audioHelperDidComposeVoice(voice: NSData) {
         println(voice.length)
-        if shouldCancelRecording {
-            shouldCancelRecording = false
-        }
-        else {
-            delegate?.composeBar(self, didRecord: voice)
-            // Upload record to server
-            LINNetworkClient.sharedInstance.uploadFile(voice, fileType: LINFileType.Audio, completion: { (fileURL, error) -> Void in
-                if let tmpFileURL = fileURL {
-                    self.delegate?.composeBar(self, didUploadRecord: tmpFileURL)
-                }
-           })
-        }
+        resetUI()
+        delegate?.composeBar(self, didRecord: voice)
+        // Upload record to server
+        LINNetworkClient.sharedInstance.uploadFile(voice, fileType: LINFileType.Audio, completion: { (fileURL, error) -> Void in
+            if let tmpFileURL = fileURL {
+                self.delegate?.composeBar(self, didUploadRecord: tmpFileURL)
+            }
+        })
     }
 
     func audioHelperDidFailToComposeVoice(error: NSError) {
         delegate?.composeBar(self, didFailToRecord: error)
+    }
+
+    func audioHelperDidCancelRecording() {
+        resetUI()
+    }
+
+    func resetUI() {
+        recordingTimer?.invalidate()
+        recordingDuration = 0
+        durationLabel.text = "00:00"
+        durationLabel.alpha = 1
+        slideBack.center.x = CGRectGetMidX(self.initialFrameForSlideImage)
+        voicePanelView.hidden = true
+        moreButton.setImage(UIImage(named: "Icn_add"), forState: UIControlState.Normal)
     }
 }
 

@@ -394,6 +394,7 @@ extension LINChatController {
     func appDidBecomActive() {
         subcribeToPresenceChannel()
         loadListLastestMessages()
+        LINAudioHelper.sharedInstance.cancelRecording()
     }
     
     private func pushNotificationWithMessage(message: LINMessage) {

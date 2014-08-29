@@ -12,6 +12,7 @@ import AudioToolbox
 
 protocol LINAudioHelperRecorderDelegate {
     func audioHelperDidComposeVoice(voice: NSData)
+    func audioHelperDidCancelRecording()
     func audioHelperDidFailToComposeVoice(error: NSError)
 }
 
@@ -33,6 +34,7 @@ class LINAudioHelper: NSObject {
         anyways..
     */
     private var readyToRecord = true
+    private var shouldCancelRecording = false
 
     class var sharedInstance: LINAudioHelper {
     struct Static {
@@ -81,9 +83,17 @@ class LINAudioHelper: NSObject {
         })
     }
 
-    func stopRecording() {
-        readyToRecord = false
+    func finishRecording() {
         if recorder.recording {
+            readyToRecord = false
+            recorder.stop()
+            AVAudioSession.sharedInstance().setActive(false, error: nil)
+        }
+    }
+
+    func cancelRecording() {
+        if recorder.recording {
+            shouldCancelRecording = true
             recorder.stop()
             AVAudioSession.sharedInstance().setActive(false, error: nil)
         }
@@ -134,6 +144,12 @@ class LINAudioHelper: NSObject {
 extension LINAudioHelper: AVAudioRecorderDelegate {
     func audioRecorderDidFinishRecording(recorder: AVAudioRecorder!, successfully flag: Bool) {
         if !flag {
+            return
+        }
+
+        if shouldCancelRecording {
+            shouldCancelRecording = false
+            self.recorderDelegate?.audioHelperDidCancelRecording()
             return
         }
         
