@@ -68,6 +68,22 @@ class LINComposeBarView: UIView {
 
         // emoticonsTextStorage.addLayoutManager(textView.layoutManager)
         LINAudioHelper.sharedInstance.recorderDelegate = self
+        self.textView.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.New, context: nil)
+    }
+
+    override func observeValueForKeyPath(keyPath: String!, ofObject object: AnyObject!, change: [NSObject : AnyObject]!, context: UnsafeMutablePointer<Void>) {
+        if keyPath == "contentSize" {
+            let newSize = textView.sizeThatFits(CGSizeMake(textView.frame.size.width, CGFloat(MAXFLOAT)))
+            if newSize.height > kTextViewMaxContentHeight {
+                return
+            }
+
+            if newSize.height != currentContentHeight {
+                let diff = newSize.height - currentContentHeight
+                currentContentHeight = newSize.height
+                delegate?.composeBar(self, willChangeHeight: diff)
+            }
+        }
     }
 
     override init() {
@@ -280,15 +296,15 @@ extension LINComposeBarView: UITextViewDelegate {
             speakButton.hidden = false
         }
         
-        let newSize = textView.sizeThatFits(CGSizeMake(textView.frame.size.width, CGFloat(MAXFLOAT)))
-        if newSize.height > kTextViewMaxContentHeight {
-            return
-        }
-
-        if newSize.height != currentContentHeight {
-            let diff = newSize.height - currentContentHeight
-            currentContentHeight = newSize.height
-            delegate?.composeBar(self, willChangeHeight: diff)
-        }
+//        let newSize = textView.sizeThatFits(CGSizeMake(textView.frame.size.width, CGFloat(MAXFLOAT)))
+//        if newSize.height > kTextViewMaxContentHeight {
+//            return
+//        }
+//
+//        if newSize.height != currentContentHeight {
+//            let diff = newSize.height - currentContentHeight
+//            currentContentHeight = newSize.height
+//            delegate?.composeBar(self, willChangeHeight: diff)
+//        }
     }
 }
