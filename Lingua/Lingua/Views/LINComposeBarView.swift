@@ -130,13 +130,13 @@ class LINComposeBarView: UIView {
     }
 
     @IBAction func stopSpeaking(sender: UIButton) {
-        recordingTimer?.invalidate()
-        recordingDuration = 0
-        durationLabel.text = String(format: "%02d:%02d", recordingDuration/60, recordingDuration%60)
-        LINAudioHelper.sharedInstance.stopRecording()
-        slideBack.center.x = CGRectGetMidX(self.initialFrameForSlideImage)
-        voicePanelView.hidden = true
-        moreButton.setImage(UIImage(named: "Icn_add"), forState: UIControlState.Normal)
+        if shouldCancelRecording {
+            shouldCancelRecording = false
+            LINAudioHelper.sharedInstance.cancelRecording()
+        }
+        else {
+            LINAudioHelper.sharedInstance.finishRecording()
+        }
     }
 
     func timerTick(timer: NSTimer) {
@@ -197,11 +197,15 @@ class LINComposeBarView: UIView {
 
     // MARK: Keyboards
     func handleKeyboardWillShowNotification(notification: NSNotification) {
+        sendButton.hidden = false
+        speakButton.hidden = true
         let keyboardInfo = getKeyboardInfoWithNotification(notification)
         delegate?.composeBar(self, willShowKeyBoard: keyboardInfo.rect, duration: keyboardInfo.duration)
     }
     
     func handleKeyboardWillHideNotification(notification: NSNotification) {
+        sendButton.hidden = true
+        speakButton.hidden = false
         let keyboardInfo = getKeyboardInfoWithNotification(notification)
         delegate?.composeBar(self, willHideKeyBoard: keyboardInfo.rect, duration: keyboardInfo.duration)
     }
@@ -258,22 +262,32 @@ extension LINComposeBarView: LINAudioHelperRecorderDelegate {
     
     func audioHelperDidComposeVoice(voice: NSData) {
         println(voice.length)
-        if shouldCancelRecording {
-            shouldCancelRecording = false
-        }
-        else {
-            delegate?.composeBar(self, didRecord: voice)
-            // Upload record to server
-            LINNetworkClient.sharedInstance.uploadFile(voice, fileType: LINFileType.Audio, completion: { (fileURL, error) -> Void in
-                if let tmpFileURL = fileURL {
-                    self.delegate?.composeBar(self, didUploadRecord: tmpFileURL)
-                }
-           })
-        }
+        resetUI()
+        delegate?.composeBar(self, didRecord: voice)
+        // Upload record to server
+        LINNetworkClient.sharedInstance.uploadFile(voice, fileType: LINFileType.Audio, completion: { (fileURL, error) -> Void in
+            if let tmpFileURL = fileURL {
+                self.delegate?.composeBar(self, didUploadRecord: tmpFileURL)
+            }
+        })
     }
 
     func audioHelperDidFailToComposeVoice(error: NSError) {
         delegate?.composeBar(self, didFailToRecord: error)
+    }
+
+    func audioHelperDidCancelRecording() {
+        resetUI()
+    }
+
+    func resetUI() {
+        recordingTimer?.invalidate()
+        recordingDuration = 0
+        durationLabel.text = "00:00"
+        durationLabel.alpha = 1
+        slideBack.center.x = CGRectGetMidX(self.initialFrameForSlideImage)
+        voicePanelView.hidden = true
+        moreButton.setImage(UIImage(named: "Icn_add"), forState: UIControlState.Normal)
     }
 }
 
@@ -287,14 +301,7 @@ extension LINComposeBarView: UITextViewDelegate {
     }
 
     func textViewDidChange(tv: UITextView!) {
-        if tv.text.utf16Count > 0 {
-            sendButton.hidden = false
-            speakButton.hidden = true
-        }
-        else {
-            sendButton.hidden = true
-            speakButton.hidden = false
-        }
+        sendButton.enabled = tv.text.utf16Count > 0
         
 //        let newSize = textView.sizeThatFits(CGSizeMake(textView.frame.size.width, CGFloat(MAXFLOAT)))
 //        if newSize.height > kTextViewMaxContentHeight {

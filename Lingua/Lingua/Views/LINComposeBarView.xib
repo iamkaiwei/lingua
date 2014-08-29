@@ -58,7 +58,7 @@
                         <outletCollection property="gestureRecognizers" destination="a09-F9-EYU" appends="YES" id="Abg-oQ-gzI"/>
                     </connections>
                 </button>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l7h-ha-uRB">
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l7h-ha-uRB">
                     <rect key="frame" x="445" y="0.0" width="55" height="45"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="55" id="BQD-jh-JiC"/>
