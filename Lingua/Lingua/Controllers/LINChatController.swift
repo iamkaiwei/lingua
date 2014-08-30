@@ -206,7 +206,7 @@ extension LINChatController: LINComposeBarViewDelegate {
 
     func composeBar(composeBar: LINComposeBarView, willChangeHeight height: CGFloat) {
         composeBarHeightConstraint.constant += height
-        scrollBubbleTableViewToBottomAnimated(false)
+        scrollBubbleTableViewToBottomAnimated(true)
     }
 
     func composeBar(composeBar: LINComposeBarView, sendMessage text: String) {

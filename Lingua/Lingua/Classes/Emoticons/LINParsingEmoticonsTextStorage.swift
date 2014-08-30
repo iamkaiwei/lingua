@@ -49,7 +49,6 @@ class LINParsingEmoticonsTextStorage: NSTextStorage {
     
     override func processEditing() {
         let matches = expression.matchesInString(self.string, options: NSMatchingOptions(0), range: NSMakeRange(0, self.string.utf16Count))
-        
         for result in matches.reverse() {
             let matchRange = result.range
             let captureRange = result.rangeAtIndex(0)
@@ -57,9 +56,10 @@ class LINParsingEmoticonsTextStorage: NSTextStorage {
             let emoticonKey = (self.string as NSString).substringWithRange(captureRange) as String
             let emoticonName = dict[emoticonKey.lowercaseString] as? String
             if emoticonName != nil {
-                let textAttactment = NSTextAttachment()
+                let textAttactment = EmoticonTextAttachment()
                 textAttactment.image = UIImage(named: emoticonName!)
                 textAttactment.bounds = CGRectMake(0, -5, 20, 20)
+                textAttactment.emoticonKey = emoticonKey
 
                 let replacementString = NSAttributedString(attachment: textAttactment)
                 replaceCharactersInRange(matchRange, withAttributedString: replacementString)
@@ -69,6 +69,19 @@ class LINParsingEmoticonsTextStorage: NSTextStorage {
         imp.addAttribute(NSFontAttributeName, value: UIFont.appRegularFontWithSize(14), range: NSMakeRange(0, self.string.utf16Count))
         super.processEditing()
     }
+    
+    func getOriginalText() -> String {
+        var result = imp.mutableCopy() as NSMutableAttributedString
+        result.enumerateAttribute(NSAttachmentAttributeName, inRange: NSMakeRange(0, self.string.utf16Count), options:NSAttributedStringEnumerationOptions(0), usingBlock: {
+            (value, range, stop) -> Void in
+                if value != nil {
+                    let textAttactment = value! as EmoticonTextAttachment
+                    result.replaceCharactersInRange(range, withString: textAttactment.emoticonKey)
+                }
+        })
+
+       return result.string
+   }
 }
 
 extension LINParsingEmoticonsTextStorage {

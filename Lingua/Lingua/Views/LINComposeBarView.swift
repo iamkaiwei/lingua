@@ -66,7 +66,7 @@ class LINComposeBarView: UIView {
         currentContentHeight = size.height
         speakButton.exclusiveTouch = true
 
-        // emoticonsTextStorage.addLayoutManager(textView.layoutManager)
+        emoticonsTextStorage.addLayoutManager(textView.layoutManager)
         LINAudioHelper.sharedInstance.recorderDelegate = self
         self.textView.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.New, context: nil)
     }
@@ -104,9 +104,10 @@ class LINComposeBarView: UIView {
     }
     
     @IBAction func sendMessage(sender: UIButton) {
-        if textView.text.utf16Count > 0 {
-            delegate?.composeBar(self, sendMessage: textView.text)
-            textView.text = ""
+        if emoticonsTextStorage.string.utf16Count > 0 {
+            delegate?.composeBar(self, sendMessage: emoticonsTextStorage.getOriginalText())
+            emoticonsTextStorage.setAttributedString(NSAttributedString(string: ""))
+            textView.selectedRange = NSMakeRange(0, 0)
             textViewDidChange(textView)
         }
     }
@@ -239,11 +240,11 @@ extension LINComposeBarView: LINEmoticonsViewDelegate {
     }
     
     func emoticonsView(emoticonsView: LINEmoticonsView, didSelectEmoticonAtIndex index: Int) {
+        let selectedRange = textView.selectedRange
         if index == kEmoticonsViewCancelButtonIndex {
-            let selectedRange = textView.selectedRange
             if selectedRange.location >= 1 {
                 let removedRange = NSMakeRange(selectedRange.location - 1, 1)
-                textView.text = (textView.text as NSString).stringByReplacingCharactersInRange(removedRange, withString: "")
+                emoticonsTextStorage.replaceCharactersInRange(removedRange, withString: "")
                 textView.selectedRange = NSMakeRange(removedRange.location, 0)
             }
         } else {
@@ -252,7 +253,9 @@ extension LINComposeBarView: LINEmoticonsViewDelegate {
                 row += 1
             }
             let tmpKey = LINParsingEmoticonsTextStorage.serchEmoticonKeyByName("emoticon_\(row)")
-            textView.text = textView.text.stringByAppendingString(tmpKey)
+            
+            emoticonsTextStorage.insertAttributedString(NSAttributedString(string: tmpKey), atIndex: selectedRange.location)
+            textView.selectedRange = NSMakeRange(selectedRange.location + 1, 0)
         }
         textViewDidChange(textView)
     }
@@ -300,18 +303,8 @@ extension LINComposeBarView: UITextViewDelegate {
         return true
     }
 
+
     func textViewDidChange(tv: UITextView!) {
-        sendButton.enabled = tv.text.utf16Count > 0
-        
-//        let newSize = textView.sizeThatFits(CGSizeMake(textView.frame.size.width, CGFloat(MAXFLOAT)))
-//        if newSize.height > kTextViewMaxContentHeight {
-//            return
-//        }
-//
-//        if newSize.height != currentContentHeight {
-//            let diff = newSize.height - currentContentHeight
-//            currentContentHeight = newSize.height
-//            delegate?.composeBar(self, willChangeHeight: diff)
-//        }
+        sendButton.enabled = emoticonsTextStorage.string.utf16Count > 0
     }
 }

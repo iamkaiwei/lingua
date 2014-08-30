@@ -71,6 +71,7 @@
 		92781D47199FBF0B00FAAFBB /* LINReply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92781D46199FBF0B00FAAFBB /* LINReply.swift */; };
 		92894CAF1996156D00824A3B /* LINConversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92894CAE1996156D00824A3B /* LINConversation.swift */; };
 		929824EC199B7BB300C56819 /* LINFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929824EB199B7BB300C56819 /* LINFile.swift */; };
+		92A3238919B181BF004FA6D5 /* EmoticonTextAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A3238819B181BF004FA6D5 /* EmoticonTextAttachment.swift */; };
 		92BC4B3419A58CB40046DED6 /* Emoticons.plist in Resources */ = {isa = PBXBuildFile; fileRef = 92BC4B3319A58CB40046DED6 /* Emoticons.plist */; };
 		92BC4B3719A58D100046DED6 /* LINParsingEmoticonsTextStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BC4B3619A58D100046DED6 /* LINParsingEmoticonsTextStorage.swift */; };
 		92C2A4AC1982146500ABF826 /* LINFacebookManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C2A4AB1982146500ABF826 /* LINFacebookManager.swift */; };
@@ -211,6 +212,7 @@
 		92894CAE1996156D00824A3B /* LINConversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINConversation.swift; sourceTree = "<group>"; };
 		929824EB199B7BB300C56819 /* LINFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINFile.swift; sourceTree = "<group>"; };
 		929F38AB196C7C0F009A7E6A /* libPods-libPusher.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-libPusher.a"; path = "Pods/build/Debug-iphoneos/libPods-libPusher.a"; sourceTree = "<group>"; };
+		92A3238819B181BF004FA6D5 /* EmoticonTextAttachment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmoticonTextAttachment.swift; sourceTree = "<group>"; };
 		92BC4B3319A58CB40046DED6 /* Emoticons.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Emoticons.plist; sourceTree = "<group>"; };
 		92BC4B3619A58D100046DED6 /* LINParsingEmoticonsTextStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINParsingEmoticonsTextStorage.swift; sourceTree = "<group>"; };
 		92C2A4AB1982146500ABF826 /* LINFacebookManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINFacebookManager.swift; sourceTree = "<group>"; };
@@ -517,6 +519,7 @@
 			isa = PBXGroup;
 			children = (
 				92BC4B3619A58D100046DED6 /* LINParsingEmoticonsTextStorage.swift */,
+				92A3238819B181BF004FA6D5 /* EmoticonTextAttachment.swift */,
 			);
 			path = Emoticons;
 			sourceTree = "<group>";
@@ -747,6 +750,7 @@
 				92F316801962AB75002005B9 /* LINPusherManager.swift in Sources */,
 				20BF3FAB1957ECA700963B1F /* LINFriendListController.swift in Sources */,
 				20DC6566197BEA4F008DA659 /* LINBadgeCell.swift in Sources */,
+				92A3238919B181BF004FA6D5 /* EmoticonTextAttachment.swift in Sources */,
 				92DFBE8019ADBC620011F071 /* LINUImage+Extensions.swift in Sources */,
 				97A824B119A19D3200C03CC5 /* LINNetworkHelper.swift in Sources */,
 				9222F8C41997782D005420EC /* LINEmoticonCell.swift in Sources */,
