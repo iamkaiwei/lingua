@@ -74,6 +74,7 @@ class LINComposeBarView: UIView {
     override func observeValueForKeyPath(keyPath: String!, ofObject object: AnyObject!, change: [NSObject : AnyObject]!, context: UnsafeMutablePointer<Void>) {
         if keyPath == "contentSize" {
             let newSize = textView.sizeThatFits(CGSizeMake(textView.frame.size.width, CGFloat(MAXFLOAT)))
+            textView.scrollToCaret()
             if newSize.height > kTextViewMaxContentHeight {
                 return
             }
@@ -302,7 +303,6 @@ extension LINComposeBarView: UITextViewDelegate {
         }
         return true
     }
-
 
     func textViewDidChange(tv: UITextView!) {
         sendButton.enabled = emoticonsTextStorage.string.utf16Count > 0
