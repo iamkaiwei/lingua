@@ -82,6 +82,7 @@
 		92F0BF401993417400608803 /* LINMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F0BF3F1993417400608803 /* LINMessageView.swift */; };
 		92F0BF421993449E00608803 /* LINMessageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F0BF411993449E00608803 /* LINMessageHelper.swift */; };
 		92F316801962AB75002005B9 /* LINPusherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F3167F1962AB75002005B9 /* LINPusherManager.swift */; };
+		973250C419B351A900938844 /* UITextView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973250C319B351A900938844 /* UITextView+Extensions.swift */; };
 		973CD716199B2AD600F01EB3 /* LINConversationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973CD715199B2AD600F01EB3 /* LINConversationCell.swift */; };
 		97A824B119A19D3200C03CC5 /* LINNetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A824B019A19D3200C03CC5 /* LINNetworkHelper.swift */; };
 		97CCA2DC19A2F3E700455D1D /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CCA2DB19A2F3E700455D1D /* UITableView+Extensions.swift */; };
@@ -223,6 +224,7 @@
 		92F0BF3F1993417400608803 /* LINMessageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINMessageView.swift; sourceTree = "<group>"; };
 		92F0BF411993449E00608803 /* LINMessageHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINMessageHelper.swift; sourceTree = "<group>"; };
 		92F3167F1962AB75002005B9 /* LINPusherManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINPusherManager.swift; sourceTree = "<group>"; };
+		973250C319B351A900938844 /* UITextView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+Extensions.swift"; sourceTree = "<group>"; };
 		973CD715199B2AD600F01EB3 /* LINConversationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINConversationCell.swift; sourceTree = "<group>"; };
 		97A824B019A19D3200C03CC5 /* LINNetworkHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINNetworkHelper.swift; sourceTree = "<group>"; };
 		97CCA2DB19A2F3E700455D1D /* UITableView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
@@ -358,6 +360,7 @@
 				97CCA2DB19A2F3E700455D1D /* UITableView+Extensions.swift */,
 				926D831C19AB5D9F00F1F0A7 /* LINString+Extensions.swift */,
 				92DFBE7F19ADBC620011F071 /* LINUImage+Extensions.swift */,
+				973250C319B351A900938844 /* UITextView+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -716,6 +719,7 @@
 				92CA2A4E198FA05D00367DB2 /* NSDateFormatter+Extensions.swift in Sources */,
 				92052F3F199522A900EA773B /* LINNotificationHelper.swift in Sources */,
 				92F0BF421993449E00608803 /* LINMessageHelper.swift in Sources */,
+				973250C419B351A900938844 /* UITextView+Extensions.swift in Sources */,
 				2082DEF5195762E8009ADF45 /* LINHomeController.swift in Sources */,
 				92257FC51993DC2E0000B37C /* UIImageView+Extensions.swift in Sources */,
 				92CA2A4C198F9DA800367DB2 /* LINConstants.swift in Sources */,
