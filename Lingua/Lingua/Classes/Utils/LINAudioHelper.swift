@@ -20,7 +20,7 @@ protocol LINAudioHelperPlayerDelegate {
     func audioHelperDidFinishPlaying()
 }
 
-class LINAudioHelper: NSObject {
+class LINAudioHelper: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     
     private let recorder: AVAudioRecorder
     private var player: AVAudioPlayer
@@ -35,7 +35,7 @@ class LINAudioHelper: NSObject {
     */
     private var readyToRecord = true
     private var shouldCancelRecording = false
-
+    
     class var sharedInstance: LINAudioHelper {
     struct Static {
         static let instance: LINAudioHelper = LINAudioHelper()
@@ -58,10 +58,6 @@ class LINAudioHelper: NSObject {
         recorder.meteringEnabled = true
         recorder.delegate = self
         recorder.prepareToRecord()
-        AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, error: &error)
-        if error != nil {
-            println(error)
-        }
     }
 
     func startRecording() {
@@ -71,6 +67,13 @@ class LINAudioHelper: NSObject {
             let delay: dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, 1 * Int64(NSEC_PER_SEC))
             dispatch_after(delay, dispatch_get_main_queue(), {
                 if self.readyToRecord {
+                    var error: NSError?
+                    AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryRecord, error: &error)
+                    if error != nil {
+                        println(error)
+                        self.recorderDelegate?.audioHelperDidFailToComposeVoice(error!)
+                        return
+                    }
                     AVAudioSession.sharedInstance().setActive(true, error: nil)
                     self.recorder.record()
                 }
@@ -113,16 +116,24 @@ class LINAudioHelper: NSObject {
         player.volume = 1
         if error != nil {
             println(error)
+            return
         }
-        else {
-            player.play()
+        
+        AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, error: &error)
+        if error != nil {
+            println(error)
+            self.recorderDelegate?.audioHelperDidFailToComposeVoice(error!)
+            return
         }
+        AVAudioSession.sharedInstance().setActive(true, error: nil)
+        player.play()
     }
 
     func stopPlaying() {
         if player.playing {
             player.stop()
             playerDelegate?.audioHelperDidFinishPlaying()
+            AVAudioSession.sharedInstance().setActive(false, error: nil)
         }
     }
 
@@ -139,9 +150,9 @@ class LINAudioHelper: NSObject {
         }
         return player.duration
     }
-}
 
-extension LINAudioHelper: AVAudioRecorderDelegate {
+    // MARK: AVAudioRecorderDelegate
+
     func audioRecorderDidFinishRecording(recorder: AVAudioRecorder!, successfully flag: Bool) {
         if !flag {
             return
@@ -175,9 +186,8 @@ extension LINAudioHelper: AVAudioRecorderDelegate {
     func audioRecorderEncodeErrorDidOccur(recorder: AVAudioRecorder!, error: NSError!) {
         println(error)
     }
-}
 
-extension LINAudioHelper: AVAudioPlayerDelegate {
+    // MARK: AVAudioRecorderDelegate
 
     func audioPlayerDidFinishPlaying(player: AVAudioPlayer!, successfully flag: Bool) {
         playerDelegate?.audioHelperDidFinishPlaying()
