@@ -74,8 +74,8 @@ class LINComposeBarView: UIView {
     override func observeValueForKeyPath(keyPath: String!, ofObject object: AnyObject!, change: [NSObject : AnyObject]!, context: UnsafeMutablePointer<Void>) {
         if keyPath == "contentSize" {
             let newSize = textView.sizeThatFits(CGSizeMake(textView.frame.size.width, CGFloat(MAXFLOAT)))
-            textView.scrollToCaret()
             if newSize.height > kTextViewMaxContentHeight {
+                textView.scrollToCaret()
                 return
             }
 
@@ -245,8 +245,8 @@ extension LINComposeBarView: LINEmoticonsViewDelegate {
         if index == kEmoticonsViewCancelButtonIndex {
             if selectedRange.location >= 1 {
                 let removedRange = NSMakeRange(selectedRange.location - 1, 1)
-                emoticonsTextStorage.replaceCharactersInRange(removedRange, withString: "")
                 textView.selectedRange = NSMakeRange(removedRange.location, 0)
+                emoticonsTextStorage.replaceCharactersInRange(removedRange, withString: "")
             }
         } else {
             var row = index
