@@ -102,10 +102,6 @@ class LINChatController: UIViewController {
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        
-        let imageCache = SDWebImageManager.sharedManager().imageCache
-        imageCache.clearMemory()
-        imageCache.clearDisk()
 
         NSNotificationCenter.defaultCenter().removeObserver(self)
         
@@ -143,11 +139,6 @@ extension LINChatController {
             let bubbleCell = (bubbleCell as LINBubbleCell)
             bubbleCell.delegate = self
             bubbleCell.configureCellWithMessage(message as LINMessage)
-            
-            // Cache height for textview
-            let message = message as (LINMessage)
-            message.height = CGRectGetHeight(bubbleCell.contentTextView.frame)
-            self.messageArray[indexPath.row] = message
         }
         
         dataSource = LINArrayDataSource(items: messageArray, cellIdentifier: cellIdentifier, configureClosure: configureClosure)
@@ -160,32 +151,6 @@ extension LINChatController {
 }
 
 extension LINChatController: LINBubbleCellDelegate {
-    func bubbleCell(bubbleCell: LINBubbleCell, updatePhotoWithMessage messageData: LINMessage) {
-        let row = getMessageByImageURL(messageData.url!)
-        if row >= 0 {
-            messageArray[row] = messageData
-            reloadRowsAtIndexPaths([NSIndexPath(forRow: row, inSection: 0)])
-        }
-    }
-    
-    private func getMessageByImageURL(imageURL: String) -> Int {
-        for i in 0..<messageArray.count {
-            let message = messageArray[i]
-            if let tmpURL = message.url {
-                if tmpURL == imageURL {
-                    return i
-                }
-            }
-        }
-        return -1
-    }
-
-    private func reloadRowsAtIndexPaths(indexPaths: [NSIndexPath]) {
-        tableView.beginUpdates()
-        tableView.reloadRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.None)
-        tableView.endUpdates()
-    }
-
     func bubbleCellDidStartPlayingRecord(bubbleCell: LINBubbleCell) {
         let indexPath = tableView.indexPathForCell(bubbleCell)
         let message = messageArray[indexPath.row]
@@ -496,11 +461,13 @@ extension LINChatController {
                 }
                 height += kTextCellHeightPadding
             case .Photo:
+                var imageSize = CGSize()
                 if let tmpPhoto = message.content as? UIImage {
-                    let imageSize = tmpPhoto.scaleSize()
-                    return imageSize.height + kPhotoCellHeightPadding
+                    imageSize = tmpPhoto.size.scaledSize()
+                } else {
+                    imageSize = CGSize.getSizeFromImageURL(message.url! as String).scaledSize()
                 }
-                height = kPhotoMessageMaxHeight
+                height = imageSize.height + kPhotoCellHeightPadding
                 case .Voice:
                     height = kVoiceMessageMaxHeight
             default:
@@ -508,7 +475,7 @@ extension LINChatController {
         }
         return height
     }
-    
+
     private func loadListLastestMessages() {
         loadChatHistoryWithLenght(kChatHistoryMaxLenght, page: currentPageIndex)
     }

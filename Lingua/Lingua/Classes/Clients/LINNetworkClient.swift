@@ -421,7 +421,8 @@ extension LINNetworkClient {
                     return
                 }
                 
-                if let tmpFile = (response as OVCResponse).result as? LINFile {
+                if var tmpFile = (response as OVCResponse).result as? LINFile {
+                    tmpFile.fileURL += "?width=\(tmpFile.width)&height=\(tmpFile.height)"
                     println("File URL: \(tmpFile.fileURL)")
                     completion(fileURL: tmpFile.fileURL, error: nil)
                 }

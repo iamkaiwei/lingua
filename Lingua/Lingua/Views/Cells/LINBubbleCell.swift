@@ -19,7 +19,6 @@ let kTextCellHeightPadding: CGFloat = 5
 let kPhotoCellHeightPadding: CGFloat = 30
 
 protocol LINBubbleCellDelegate {
-    func bubbleCell(bubbleCell: LINBubbleCell, updatePhotoWithMessage message: LINMessage)
     func bubbleCellDidStartPlayingRecord(bubbleCell: LINBubbleCell)
     func bubbleCellDidStopPlayingRecord(bubbleCell: LINBubbleCell)
 }
@@ -120,8 +119,10 @@ class LINBubbleCell: UITableViewCell {
     
     private func configureWithPhotoMessage(message: LINMessage) {
         if message.content == nil {
-            message.content = placeholderImage
-            addPhotoToBubbleCellWithMessage(message)
+            // Resize place holder image
+            let newSize = CGSize.getSizeFromImageURL(message.url! as String).scaledSize()
+             message.content = placeholderImage.resizableImageWithNewSize(newSize)
+             addPhotoToBubbleCellWithMessage(message)
 
             // Add photo to cell by image URL
             photoImgView.sd_setImageWithURL(NSURL(string: message.url!),
@@ -134,10 +135,8 @@ class LINBubbleCell: UITableViewCell {
 
                 if let tmpImage = image {
                     message.content = tmpImage
-
-                    // Resize height for photo message
-                    self.delegate?.bubbleCell(self, updatePhotoWithMessage: message)
-                    
+                    self.addPhotoToBubbleCellWithMessage(message)
+                                      
                     // Save photo to camera roll
                     // UIImageWriteToSavedPhotosAlbum(tmpImage, nil, nil, nil)
                 }
@@ -190,7 +189,7 @@ class LINBubbleCell: UITableViewCell {
     }
     
     private func addPhotoToBubbleCellWithMessage(message: LINMessage) {
-        var imageSize = (message.content as UIImage).scaleSize()
+        var imageSize = (message.content as UIImage).size.scaledSize()
 
         photoImgView.image = message.content as UIImage
         photoImgView.layer.cornerRadius = 5.0
