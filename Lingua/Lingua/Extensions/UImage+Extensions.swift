@@ -1,5 +1,5 @@
 //
-//  LINUImage+Extensions.swift
+//  UImage+Extensions.swift
 //  Lingua
 //
 //  Created by Kiet Nguyen on 8/27/14.
@@ -9,15 +9,6 @@
 import Foundation
 
 extension UIImage {
-    func scaleSize() -> CGSize {
-        var newSize = self.size
-        if self.size.width > kPhotoMessageMaxWidth {
-            newSize.height /= self.size.width / kPhotoMessageMaxWidth
-            newSize.width = kPhotoMessageMaxWidth
-        }
-        return newSize
-    }
-
     class func navigationBarBackgroundImage() -> UIImage {
         return imageWithColor(UIColor.appTealColor())
     }
@@ -31,5 +22,13 @@ extension UIImage {
         var image:UIImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return image
+    }
+
+    func resizableImageWithNewSize(newSize: CGSize) -> UIImage {
+        UIGraphicsBeginImageContext(newSize)
+        self.drawInRect(CGRectMake(0, 0, newSize.width, newSize.height))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage
     }
 }
