@@ -30,8 +30,13 @@ enum LINFileType {
 
 class LINFile: MTLModel, MTLJSONSerializing {
     var fileURL: String = ""
+    var width: CGFloat = 0
+    var height: CGFloat = 0
     
     class func JSONKeyPathsByPropertyKey() -> [NSObject : AnyObject]! {
-        return ["fileURL": "file_url"]
+        return ["fileURL": "file_url",
+                "width": "dimensions.width",
+                "height": "dimensions.height"
+        ]
     }
 }

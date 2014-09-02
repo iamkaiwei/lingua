@@ -1,5 +1,5 @@
 //
-//  LINString+Extensions.swift
+//  String+Extensions.swift
 //  Lingua
 //
 //  Created by Kiet Nguyen on 8/25/14.
