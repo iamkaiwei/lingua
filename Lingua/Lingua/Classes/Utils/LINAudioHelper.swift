@@ -61,6 +61,9 @@ class LINAudioHelper: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     }
 
     func startRecording() {
+        //Stop player if any
+        stopPlaying()
+        
         readyToRecord = true
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
             AudioServicesPlaySystemSound(UInt32(kSystemSoundID_Vibrate))
@@ -87,14 +90,15 @@ class LINAudioHelper: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     }
 
     func finishRecording() {
+        readyToRecord = false
         if recorder.recording {
-            readyToRecord = false
             recorder.stop()
             AVAudioSession.sharedInstance().setActive(false, error: nil)
         }
     }
 
     func cancelRecording() {
+        readyToRecord = false
         if recorder.recording {
             shouldCancelRecording = true
             recorder.stop()
@@ -107,9 +111,10 @@ class LINAudioHelper: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     }
 
     func startPlaying(data: NSData) {
-        //Stop previous channel if any.
+        //Stop previous channel/recorder if any.
         stopPlaying()
-
+        cancelRecording()
+        
         var error: NSError?
         player = AVAudioPlayer(data: data, error: &error)
         player.delegate = self

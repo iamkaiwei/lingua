@@ -279,7 +279,7 @@ class LINComposeBarView: UIView, LINEmoticonsViewDelegate, LINAudioHelperRecorde
 
     func audioHelperDidComposeVoice(voice: NSData) {
         println(voice.length)
-        resetUI()
+        resetStateForNextRecord()
         delegate?.composeBar(self, didRecord: voice)
         // Upload record to server
         LINNetworkClient.sharedInstance.uploadFile(voice, fileType: LINFileType.Audio, completion: { (fileURL, error) -> Void in
@@ -291,13 +291,14 @@ class LINComposeBarView: UIView, LINEmoticonsViewDelegate, LINAudioHelperRecorde
 
     func audioHelperDidFailToComposeVoice(error: NSError) {
         delegate?.composeBar(self, didFailToRecord: error)
+        resetStateForNextRecord()
     }
 
     func audioHelperDidCancelRecording() {
-        resetUI()
+        resetStateForNextRecord()
     }
 
-    func resetUI() {
+    func resetStateForNextRecord() {
         recordingTimer?.invalidate()
         recordingDuration = 0
         durationLabel.text = "00:00"
