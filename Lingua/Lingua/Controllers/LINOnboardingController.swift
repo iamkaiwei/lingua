@@ -94,11 +94,20 @@ extension LINOnboardingController: LINLoginViewDelegate {
                 else {
                     self.performSegueWithIdentifier("kPickLearningViewControllerSegue", sender: self)
                 }
-            } else {
-                SVProgressHUD.dismiss()
-                UIAlertView(title: "Login Failed", message: "Facebook login unsuccessful. Please try again!", delegate: nil, cancelButtonTitle: "OK").show()
+                return
             }
+            
+            self.loginFacebookFailed()
         })
+    }
+    
+    func facebookLoginFailed(facebookManager: LINFacebookManager) {
+        loginFacebookFailed()
+    }
+    
+    private func loginFacebookFailed() {
+        SVProgressHUD.dismiss()
+        UIAlertView(title: "Login Failed", message: "Facebook login unsuccessful. Please try again!", delegate: nil, cancelButtonTitle: "OK").show()
     }
     
     func showHomeScreen() {
