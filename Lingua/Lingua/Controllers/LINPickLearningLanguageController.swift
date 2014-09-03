@@ -58,14 +58,14 @@ class LINPickLearningLanguageController: LINViewController {
 
 extension LINPickLearningLanguageController: UITableViewDataSource, UITableViewDelegate {
     
-    func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (selectedSectionIndex == section) ? proficiencies.count : 0
     }
     
-    func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = self.tableView.dequeueReusableCellWithIdentifier("CellIdentifier") as LINProficiencyCell
-        cell.textLabel.text = proficiencies[indexPath.row]
-        cell.imageView.image = accessoryImages[indexPath.row]
+        cell.textLabel?.text = proficiencies[indexPath.row]
+        cell.imageView?.image = accessoryImages[indexPath.row]
         return cell
     }
     
@@ -73,7 +73,7 @@ extension LINPickLearningLanguageController: UITableViewDataSource, UITableViewD
         return LINLanguagePickingHeaderView.totalSection()
     }
     
-    func tableView(tableView: UITableView!, viewForHeaderInSection section: Int) -> UIView! {
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView! {
         let header = tableView.dequeueReusableHeaderFooterViewWithIdentifier("HeaderIdentifier") as LINLanguagePickingHeaderView
         header.accessoryViewType = (section == 0) ? .Label : .Image
         header.titleLabel.text = subjects[section]
@@ -127,7 +127,7 @@ extension LINPickLearningLanguageController: UITableViewDataSource, UITableViewD
 
         //Update header UI
         let header = tableView.headerViewForSection(indexPath.section) as LINLanguagePickingHeaderView
-        header.updateAccessoryViewWith(cell.imageView.image)
+        header.updateAccessoryViewWith(cell.imageView!.image!)
     }
 }
 
@@ -135,7 +135,7 @@ extension LINPickLearningLanguageController: LINLanguagePickingHeaderViewDelegat
     
     func didTapHeader(header: LINLanguagePickingHeaderView) {
         if header.index == 0 {
-            let viewController = storyboard.instantiateViewControllerWithIdentifier("kLINLanguagePickerController") as LINLanguagePickerController
+            let viewController = storyboard!.instantiateViewControllerWithIdentifier("kLINLanguagePickerController") as LINLanguagePickerController
             viewController.delegate = self
             navigationController?.pushViewController(viewController, animated: true)
             return;
@@ -192,6 +192,6 @@ extension LINPickLearningLanguageController: LINLanguagePickerControllerDelegate
         let header = tableView.headerViewForSection(0) as LINLanguagePickingHeaderView
         LINUserManager.sharedInstance.currentUser?.learningLanguage = language
         header.updateAccessoryViewWith(language.languageName)
-        navigationController.popToViewController(self, animated: true)
+        navigationController?.popToViewController(self, animated: true)
     }
 }

@@ -9,12 +9,12 @@
 import UIKit
 
 class LINCountryCell: UITableViewCell {
-
-    override init(style: UITableViewCellStyle, reuseIdentifier: String) {
+    
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         selectedBackgroundView = UIView(frame: frame)
         selectedBackgroundView.backgroundColor = UIColor.appTealColor()
-        textLabel.font = UIFont.appThinFontWithSize(14)
+        textLabel?.font = UIFont.appThinFontWithSize(14)
     }
     
     required init(coder aDecoder: NSCoder) {

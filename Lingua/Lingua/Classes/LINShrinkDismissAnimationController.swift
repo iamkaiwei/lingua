@@ -9,23 +9,23 @@
 import Foundation
 
 class LINShrinkDismissAnimationController : NSObject, UIViewControllerAnimatedTransitioning {
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning!) -> NSTimeInterval {
+    func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -> NSTimeInterval {
         return 0.5
     }
     
-    func animateTransition(transitionContext: UIViewControllerContextTransitioning!) {
+    func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
         let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)
         let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)
-        let finalFrame = transitionContext.finalFrameForViewController(toViewController)
+        let finalFrame = transitionContext.finalFrameForViewController(toViewController!)
         let containerView = transitionContext.containerView()
         
-        toViewController.view.frame = finalFrame
-        containerView.addSubview(toViewController.view)
+        toViewController?.view.frame = finalFrame
+        containerView.addSubview(toViewController!.view)
         
         let screenBounds = UIScreen.mainScreen().bounds
-        let intermediateView = fromViewController.view.snapshotViewAfterScreenUpdates(false)
+        let intermediateView = fromViewController!.view.snapshotViewAfterScreenUpdates(false)
         containerView.addSubview(intermediateView)
-        fromViewController.view.removeFromSuperview()
+        fromViewController?.view.removeFromSuperview()
         let duration = transitionDuration(transitionContext)
         
         UIView.animateWithDuration(duration,

@@ -26,11 +26,11 @@ class LINBadgeFlowLayout: UICollectionViewFlowLayout {
         headerReferenceSize = CGSizeMake(0, 20)
         
         var sectionStartingY: CGFloat = 0
-        let fixedWidth = CGRectGetWidth(collectionView.frame)
+        let fixedWidth = CGRectGetWidth(collectionView!.frame)
         let maximumNumberOfItemsPerLine = (fixedWidth + minimumInteritemSpacing - sectionInset.left - sectionInset.right) / (itemSize.width + minimumInteritemSpacing)
         let fixedInteritemSpacing = (fixedWidth - maximumNumberOfItemsPerLine * itemSize.width - sectionInset.left - sectionInset.right) / (maximumNumberOfItemsPerLine - 1)
         
-        for (var sectionIndex = 0; sectionIndex < collectionView.numberOfSections() ; sectionIndex++) {
+        for (var sectionIndex = 0; sectionIndex < collectionView!.numberOfSections() ; sectionIndex++) {
             let section = addSection()
             section.headerFrame = CGRectMake(0, sectionStartingY, fixedWidth, headerReferenceSize.height)
             
@@ -38,7 +38,7 @@ class LINBadgeFlowLayout: UICollectionViewFlowLayout {
             var rowStartingY = CGRectGetMaxY(section.headerFrame) + sectionInset.top
             var isOddRow = true
             
-            for (var rowIndex = 0; rowIndex < collectionView.numberOfItemsInSection(sectionIndex); rowIndex++) {
+            for (var rowIndex = 0; rowIndex < collectionView!.numberOfItemsInSection(sectionIndex); rowIndex++) {
                 let row = section.addRow()
                 row.frame = CGRectMake(rowStartingX, rowStartingY, itemSize.width, itemSize.height)
                 rowStartingX += itemSize.width + fixedInteritemSpacing
@@ -55,7 +55,7 @@ class LINBadgeFlowLayout: UICollectionViewFlowLayout {
                 }
             }
             
-            if collectionView.numberOfItemsInSection(sectionIndex) > 0 {
+            if collectionView!.numberOfItemsInSection(sectionIndex) > 0 {
                 section.frame = CGRectMake(0, sectionStartingY, fixedWidth, rowStartingY + itemSize.height + sectionInset.bottom - sectionStartingY)
             }
             else {
@@ -66,7 +66,7 @@ class LINBadgeFlowLayout: UICollectionViewFlowLayout {
         contentSize = CGSizeMake(fixedWidth, sectionStartingY)
     }
     
-    override func layoutAttributesForElementsInRect(rect: CGRect) -> [AnyObject]! {
+    override func layoutAttributesForElementsInRect(rect: CGRect) -> [AnyObject] {
         var layoutAttributes = [UICollectionViewLayoutAttributes]()
         for (var sectionIndex = 0 ; sectionIndex < sections.count; sectionIndex++) {
             let section = sections[sectionIndex]
@@ -89,7 +89,7 @@ class LINBadgeFlowLayout: UICollectionViewFlowLayout {
         return layoutAttributes
     }
     
-    override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath!) -> UICollectionViewLayoutAttributes! {
+    override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes {
         let attributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: indexPath)
         let section = sections[indexPath.section]
         let row = section.rows[indexPath.row]

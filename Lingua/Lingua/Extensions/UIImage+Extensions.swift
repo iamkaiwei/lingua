@@ -1,5 +1,5 @@
 //
-//  UImage+Extensions.swift
+//  UIImage+Extensions.swift
 //  Lingua
 //
 //  Created by Kiet Nguyen on 8/27/14.

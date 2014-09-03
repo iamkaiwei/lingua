@@ -119,6 +119,6 @@ extension LINOnboardingController: GPPSignInDelegate {
     }
 
     func presentSignInViewController(viewController: UIViewController!) {
-        navigationController.pushViewController(viewController, animated: true)
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }

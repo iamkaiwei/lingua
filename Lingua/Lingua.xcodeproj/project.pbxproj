@@ -79,7 +79,7 @@
 		92C2A4AC1982146500ABF826 /* LINFacebookManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C2A4AB1982146500ABF826 /* LINFacebookManager.swift */; };
 		92CA2A4C198F9DA800367DB2 /* LINConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92CA2A4B198F9DA800367DB2 /* LINConstants.swift */; };
 		92CA2A4E198FA05D00367DB2 /* NSDateFormatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92CA2A4D198FA05D00367DB2 /* NSDateFormatter+Extensions.swift */; };
-		92DFBE8019ADBC620011F071 /* UImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DFBE7F19ADBC620011F071 /* UImage+Extensions.swift */; };
+		92DFBE8019ADBC620011F071 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DFBE7F19ADBC620011F071 /* UIImage+Extensions.swift */; };
 		92F0BF3E19933DC600608803 /* LINMessageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92F0BF3D19933DC600608803 /* LINMessageView.xib */; };
 		92F0BF401993417400608803 /* LINMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F0BF3F1993417400608803 /* LINMessageView.swift */; };
 		92F0BF421993449E00608803 /* LINMessageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F0BF411993449E00608803 /* LINMessageHelper.swift */; };
@@ -223,7 +223,7 @@
 		92C2A4AB1982146500ABF826 /* LINFacebookManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINFacebookManager.swift; sourceTree = "<group>"; };
 		92CA2A4B198F9DA800367DB2 /* LINConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINConstants.swift; sourceTree = "<group>"; };
 		92CA2A4D198FA05D00367DB2 /* NSDateFormatter+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDateFormatter+Extensions.swift"; sourceTree = "<group>"; };
-		92DFBE7F19ADBC620011F071 /* UImage+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UImage+Extensions.swift"; sourceTree = "<group>"; };
+		92DFBE7F19ADBC620011F071 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		92F0BF3D19933DC600608803 /* LINMessageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LINMessageView.xib; sourceTree = "<group>"; };
 		92F0BF3F1993417400608803 /* LINMessageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINMessageView.swift; sourceTree = "<group>"; };
 		92F0BF411993449E00608803 /* LINMessageHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINMessageHelper.swift; sourceTree = "<group>"; };
@@ -363,7 +363,7 @@
 				92257FC41993DC2E0000B37C /* UIImageView+Extensions.swift */,
 				97CCA2DB19A2F3E700455D1D /* UITableView+Extensions.swift */,
 				926D831C19AB5D9F00F1F0A7 /* String+Extensions.swift */,
-				92DFBE7F19ADBC620011F071 /* UImage+Extensions.swift */,
+				92DFBE7F19ADBC620011F071 /* UIImage+Extensions.swift */,
 				973250C319B351A900938844 /* UITextView+Extensions.swift */,
 				9265867A19B5784E00D89288 /* NSURL+Extensions.swift */,
 				9265867C19B57D6400D89288 /* CGSize+Extensions.swift */,
@@ -762,7 +762,7 @@
 				20BF3FAB1957ECA700963B1F /* LINFriendListController.swift in Sources */,
 				20DC6566197BEA4F008DA659 /* LINBadgeCell.swift in Sources */,
 				92A3238919B181BF004FA6D5 /* EmoticonTextAttachment.swift in Sources */,
-				92DFBE8019ADBC620011F071 /* UImage+Extensions.swift in Sources */,
+				92DFBE8019ADBC620011F071 /* UIImage+Extensions.swift in Sources */,
 				97A824B119A19D3200C03CC5 /* LINNetworkHelper.swift in Sources */,
 				9222F8C41997782D005420EC /* LINEmoticonCell.swift in Sources */,
 				20473E201966D5C200EDF620 /* SZTextView.m in Sources */,
@@ -941,7 +941,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "35355366-5112-44B8-9B45-8F92EF31F1B7";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Lingua/Lingua-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -962,7 +962,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "35355366-5112-44B8-9B45-8F92EF31F1B7";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Lingua/Lingua-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;

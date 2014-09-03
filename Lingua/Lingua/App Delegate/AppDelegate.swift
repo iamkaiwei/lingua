@@ -53,7 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             showOnboardingScreen()
         }
-        LINNetworkHelper.setupWithDefaultViewController(window!.rootViewController)
+        LINNetworkHelper.setupWithDefaultViewController(window!.rootViewController!)
         return true
     }
 
@@ -157,7 +157,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var managedObjectModel: NSManagedObjectModel {
         if _managedObjectModel == nil {
             let modelURL = NSBundle.mainBundle().URLForResource("Lingua", withExtension: "momd")
-            _managedObjectModel = NSManagedObjectModel(contentsOfURL: modelURL)
+            _managedObjectModel = NSManagedObjectModel(contentsOfURL: modelURL!)
         }
         return _managedObjectModel!
     }

@@ -43,13 +43,13 @@ class LINFriendListController: UIViewController, UITableViewDataSource, UITableV
         // Dispose of any resources that can be recreated.
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "kLINChatControllerIdentifier" {
-            let indexPath: NSIndexPath = tableView.indexPathForSelectedRow()
+            let indexPath: NSIndexPath? = tableView.indexPathForSelectedRow()!
             let chatController = segue.destinationViewController as LINChatController
             
             chatController.delegate = self
-            chatController.conversation = self.conversationList[indexPath.row]
+            chatController.conversation = self.conversationList[indexPath!.row]
             chatController.transitioningDelegate = self
         }
     }
@@ -61,15 +61,15 @@ class LINFriendListController: UIViewController, UITableViewDataSource, UITableV
     
     // MARK: UITableView Datasource
     
-    func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return conversationList.count
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView!) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCellWithIdentifier("kConversationCellIdentifier") as LINConversationCell
     
         let conversation = conversationList[indexPath.row]
@@ -77,7 +77,7 @@ class LINFriendListController: UIViewController, UITableViewDataSource, UITableV
         return cell
     }
     
-    func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         var conversation = self.conversationList[indexPath.row] as LINConversation
         if(conversation.haveNewMessage){
             conversation.haveNewMessage = false

@@ -27,7 +27,7 @@ class LINPickNativeLanguageController: LINViewController {
         arrowImageView.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
         subtitle1.font = UIFont.appRegularFontWithSize(17)
         subtitle2.font = UIFont.appThinFontWithSize(14)
-        saveButton.titleLabel.font = UIFont.appRegularFontWithSize(21)
+        saveButton.titleLabel?.font = UIFont.appRegularFontWithSize(21)
         textView.tintColor = UIColor.appTealColor()
         textView.font = UIFont.appLightFontWithSize(14)
         textView.placeholder = "Write an introduction about yourself in your native language. This will help other users find you."
@@ -66,7 +66,7 @@ class LINPickNativeLanguageController: LINViewController {
     }
     
     @IBAction func showCountryList(sender: UITapGestureRecognizer) {
-        let viewController = storyboard.instantiateViewControllerWithIdentifier("kLINLanguagePickerController") as LINLanguagePickerController
+        let viewController = storyboard?.instantiateViewControllerWithIdentifier("kLINLanguagePickerController") as LINLanguagePickerController
         viewController.delegate = self
         navigationController!.pushViewController(viewController, animated: true)
     }
@@ -87,6 +87,6 @@ extension LINPickNativeLanguageController: LINLanguagePickerControllerDelegate {
         
         LINUserManager.sharedInstance.currentUser?.nativeLanguage = language
         subtitle2.text = language.languageName
-        navigationController.popToViewController(self, animated: true)
+        navigationController?.popToViewController(self, animated: true)
     }
 }

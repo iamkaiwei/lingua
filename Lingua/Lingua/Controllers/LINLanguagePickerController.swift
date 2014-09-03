@@ -42,30 +42,30 @@ class LINLanguagePickerController: LINViewController {
 
 extension LINLanguagePickerController: UITableViewDataSource, UITableViewDelegate {
     
-    func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return languages[section].count
     }
     
-    func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = self.tableView.dequeueReusableCellWithIdentifier("CellIdentifier") as UITableViewCell
         let language = languages[indexPath.section][indexPath.row]
-        cell.textLabel.text = language.languageName
+        cell.textLabel?.text = language.languageName
         return cell
     }
     
-    func sectionIndexTitlesForTableView(tableView: UITableView!) -> [AnyObject]! {
+    func sectionIndexTitlesForTableView(tableView: UITableView) -> [AnyObject] {
         return headers
     }
     
-    func tableView(tableView: UITableView!, sectionForSectionIndexTitle title: String!, atIndex index: Int) -> Int {
+    func tableView(tableView: UITableView, sectionForSectionIndexTitle title: String, atIndex index: Int) -> Int {
         return index;
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView!) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return headers.count
     }
     
-    func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         delegate?.controller(self, didSelectLanguage: languages[indexPath.section][indexPath.row])
     }
