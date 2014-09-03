@@ -105,8 +105,15 @@ class LINComposeBarView: UIView {
     }
     
     @IBAction func sendMessage(sender: UIButton) {
-        if emoticonsTextStorage.string.utf16Count > 0 {
-            delegate?.composeBar(self, sendMessage: emoticonsTextStorage.getOriginalText())
+        // Remove white space from both ends of a string
+        var text = emoticonsTextStorage.getOriginalText()
+        text = text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+
+        if text.utf16Count > 0 {
+            // Send message
+            delegate?.composeBar(self, sendMessage: text)
+            
+            // Clear text
             emoticonsTextStorage.setAttributedString(NSAttributedString(string: ""))
             textView.selectedRange = NSMakeRange(0, 0)
             textViewDidChange(textView)
