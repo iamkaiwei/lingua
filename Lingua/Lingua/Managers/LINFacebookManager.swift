@@ -8,9 +8,9 @@
 
 import Foundation
 
-@objc protocol LINFacebookManagerDelegate {
+protocol LINFacebookManagerDelegate {
     func facebookLoginSuccessed(facebookManager: LINFacebookManager)
-    optional func facebookLoginFailed(facebookManager: LINFacebookManager)
+    func facebookLoginFailed(facebookManager: LINFacebookManager)
 }
 
 class LINFacebookManager: NSObject {
@@ -55,11 +55,9 @@ class LINFacebookManager: NSObject {
         switch(state) {
         case FBSessionState.Open:
             delegate?.facebookLoginSuccessed(self)
-            break
         case FBSessionState.Closed, FBSessionState.ClosedLoginFailed:
             FBSession.activeSession().closeAndClearTokenInformation()
-            delegate?.facebookLoginFailed!(self)
-            break
+            delegate?.facebookLoginFailed(self)
         default:
             break
         }
