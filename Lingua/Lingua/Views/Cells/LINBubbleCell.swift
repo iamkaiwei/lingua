@@ -190,7 +190,7 @@ class LINBubbleCell: UITableViewCell, LINAudioHelperPlayerDelegate {
     private func addPhotoToBubbleCellWithMessage(message: LINMessage) {
         var imageSize = (message.content as UIImage).size.scaledSize()
 
-        photoImgView.image = message.content as UIImage
+        photoImgView.image = message.content as? UIImage
         photoImgView.layer.cornerRadius = 5.0
         photoImgView.layer.masksToBounds = true
         
