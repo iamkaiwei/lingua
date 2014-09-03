@@ -19,6 +19,6 @@ class LINViewController: UIViewController {
     }
     
     @IBAction func dismiss(sender: UIButton) {
-        navigationController.popViewControllerAnimated(true)
+        navigationController?.popViewControllerAnimated(true)
     }
 }

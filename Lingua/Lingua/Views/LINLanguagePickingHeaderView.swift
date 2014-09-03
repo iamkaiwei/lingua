@@ -93,12 +93,12 @@ class LINLanguagePickingHeaderView: UITableViewHeaderFooterView {
         if (data is String && accessoryViewType == .Label) || (data is UIImage && accessoryViewType == .Image) {
             if data is String {
                 let label = accessoryView as UILabel
-                label.text = data as String
+                label.text = data as? String
                 label.sizeToFit()
             } else {
                 let imageView = accessoryView as UIImageView
-                imageView.image = data as UIImage
-                imageView.frame = CGRect(origin: CGPointZero, size: imageView.image.size)
+                imageView.image = data as? UIImage
+                imageView.frame = CGRect(origin: CGPointZero, size: imageView.image!.size)
             }
             
             let origin = CGPointMake(CGRectGetMinX(accessoryImage.frame) - CGRectGetWidth(accessoryView!.frame) - 5, CGRectGetHeight(self.frame)/2 - CGRectGetHeight(accessoryView!.frame)/2)

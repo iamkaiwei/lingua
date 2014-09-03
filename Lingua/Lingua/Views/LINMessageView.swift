@@ -79,6 +79,6 @@ extension LINMessageView {
     func openChatScreenWithGesture(recognizer: UITapGestureRecognizer) {
         hideNotification()
         NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAppDidOpenChatViewFromHUD, object: conversationId!)
-        LINNotificationHelper.openChatScreenWithUserId(userId!, name: nameLabel.text, conversationId: conversationId!)
+        LINNotificationHelper.openChatScreenWithUserId(userId!, name: nameLabel.text!, conversationId: conversationId!)
     }
 }

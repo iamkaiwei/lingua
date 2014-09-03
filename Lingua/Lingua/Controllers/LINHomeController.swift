@@ -116,7 +116,7 @@ class LINHomeController: LINViewController, UIViewControllerTransitioningDelegat
     }
     
     func startChatViewController(conversation: LINConversation) {
-        let chatVC = storyboard.instantiateViewControllerWithIdentifier("kLINChatController") as LINChatController
+        let chatVC = storyboard!.instantiateViewControllerWithIdentifier("kLINChatController") as LINChatController
         chatVC.conversation = conversation
         chatVC.transitioningDelegate = self
         presentViewController(chatVC, animated: true, completion: nil)

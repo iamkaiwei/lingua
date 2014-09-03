@@ -152,12 +152,14 @@ extension LINChatController {
 
 extension LINChatController: LINBubbleCellDelegate {
     func bubbleCellDidStartPlayingRecord(bubbleCell: LINBubbleCell) {
-        let indexPath = tableView.indexPathForCell(bubbleCell)
-        let message = messageArray[indexPath.row]
-        if let data = message.content as? NSData {
-            LINAudioHelper.sharedInstance.playerDelegate = bubbleCell
-            LINAudioHelper.sharedInstance.startPlaying(message.content as NSData)
-            bubbleCell.trackForDuration(message.duration)
+        let indexPath: NSIndexPath? = tableView.indexPathForCell(bubbleCell)
+        if let tmpIndexPath = indexPath {
+            let message = messageArray[tmpIndexPath.row]
+            if let data = message.content as? NSData {
+                LINAudioHelper.sharedInstance.playerDelegate = bubbleCell
+                LINAudioHelper.sharedInstance.startPlaying(message.content as NSData)
+                bubbleCell.trackForDuration(message.duration)
+            }
         }
     }
     

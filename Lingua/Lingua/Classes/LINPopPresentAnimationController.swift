@@ -10,17 +10,17 @@ import Foundation
 
 class LINPopPresentAnimationController: NSObject, UIViewControllerAnimatedTransitioning {
     
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning!) -> NSTimeInterval {
+    func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -> NSTimeInterval {
         return 0.5
     }
     
-    func animateTransition(transitionContext: UIViewControllerContextTransitioning!) {
+    func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
         let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)
-        let finalFrame = transitionContext.finalFrameForViewController(toViewController)
+        let finalFrame = transitionContext.finalFrameForViewController(toViewController!)
         let containerView = transitionContext.containerView()
         
         let screenBounds = UIScreen.mainScreen().bounds
-        let intermediateView = toViewController.view.snapshotViewAfterScreenUpdates(true)
+        let intermediateView = toViewController!.view.snapshotViewAfterScreenUpdates(true)
         intermediateView.frame = CGRectInset(screenBounds, 50, 50)
         containerView.addSubview(intermediateView)
         
@@ -33,8 +33,8 @@ class LINPopPresentAnimationController: NSObject, UIViewControllerAnimatedTransi
             animations: { intermediateView.frame = finalFrame },
             completion: { _ in
                 intermediateView.removeFromSuperview()
-                toViewController.view.frame = finalFrame
-                containerView.addSubview(toViewController.view)
+                toViewController!.view.frame = finalFrame
+                containerView.addSubview(toViewController!.view)
                 transitionContext.completeTransition(true)
             })
     }
