@@ -36,7 +36,7 @@ class LINParsingEmoticonsTextStorage: NSTextStorage {
     
     // MARK: Text editing
     
-    override func replaceCharactersInRange(range: NSRange, withString str: String!) {
+    override func replaceCharactersInRange(range: NSRange, withString str: String) {
         imp.replaceCharactersInRange(range, withString: str)
         edited(NSTextStorageEditActions.EditedCharacters, range: range, changeInLength: str.utf16Count - range.length)
     }

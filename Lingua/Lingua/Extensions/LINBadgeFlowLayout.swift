@@ -97,7 +97,7 @@ class LINBadgeFlowLayout: UICollectionViewFlowLayout {
         return attributes
     }
     
-    override func layoutAttributesForSupplementaryViewOfKind(elementKind: String!, atIndexPath indexPath: NSIndexPath!) -> UICollectionViewLayoutAttributes! {
+    override func layoutAttributesForSupplementaryViewOfKind(elementKind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes! {
         let attributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: elementKind, withIndexPath: indexPath)
         let section = self.sections[indexPath.section]
         attributes.frame = section.headerFrame

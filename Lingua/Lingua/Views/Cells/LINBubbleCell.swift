@@ -20,10 +20,9 @@ let kPhotoCellHeightPadding: CGFloat = 30
 
 protocol LINBubbleCellDelegate {
     func bubbleCellDidStartPlayingRecord(bubbleCell: LINBubbleCell)
-    func bubbleCellDidStopPlayingRecord(bubbleCell: LINBubbleCell)
 }
 
-class LINBubbleCell: UITableViewCell {
+class LINBubbleCell: UITableViewCell, LINAudioHelperPlayerDelegate {
     var contentTextView: UITextView = UITextView()
     var bubbleImageView: UIImageView = UIImageView()
     var createAtLabel: UILabel = UILabel()
@@ -162,19 +161,19 @@ class LINBubbleCell: UITableViewCell {
 
         // Bubble imageview
         let x = message.incoming == true ? kSideMargin : CGRectGetWidth(frame) - kVoiceMessageMaxWidth - kSideMargin/2
-        bubbleImageView.frame = CGRectMake(x, 5,  kVoiceMessageMaxWidth,  kVoiceMessageMaxHeight)
+        bubbleImageView.frame = CGRectMake(x, 0,  kVoiceMessageMaxWidth - 7,  kVoiceMessageMaxHeight - 5)
         calcTimeFrameWithContentFrame(bubbleImageView.frame, message: message)
         
         //Set up other UIs
-        playButton = UIButton(frame: CGRectMake(x, 10, kVoiceMessageMaxHeight, kVoiceMessageMaxHeight))
+        playButton = UIButton(frame: CGRectMake(x, 5, kVoiceMessageMaxHeight, kVoiceMessageMaxHeight))
         playButton?.setImage(UIImage(named: "PlayButton"), forState: .Normal)
         playButton?.setImage(UIImage(named: "PauseButton"), forState: .Selected)
         playButton?.addTarget(self, action: "toggleAudioButton:", forControlEvents: .TouchUpInside)
         addSubview(playButton!)
         
-        voiceProgressBar = UIProgressView(frame: CGRectMake(CGRectGetMaxX(playButton!.frame) - 5, kVoiceMessageMaxHeight/2 + kSideMargin - 2, kVoiceMessageMaxWidth - CGRectGetWidth(playButton!.frame)*2, 2))
-        voiceProgressBar?.progressTintColor = UIColor.lightGrayColor()
-        voiceProgressBar?.trackTintColor = UIColor.appTealColor()
+        voiceProgressBar = UIProgressView(frame: CGRectMake(CGRectGetMaxX(playButton!.frame) - 7, kVoiceMessageMaxHeight/2 + kSideMargin - 7, kVoiceMessageMaxWidth - CGRectGetWidth(playButton!.frame)*2, 2))
+        voiceProgressBar?.progressTintColor = UIColor.appTealColor()
+        voiceProgressBar?.trackTintColor = UIColor.lightGrayColor()
         addSubview(voiceProgressBar!)
         
         durationLabel = UILabel()
@@ -184,14 +183,14 @@ class LINBubbleCell: UITableViewCell {
         durationLabel?.text = String(format: "%02d:%02d", simplified/60, simplified%60)
         durationLabel?.numberOfLines = 0
         durationLabel?.sizeToFit()
-        durationLabel?.frame.origin = CGPointMake(CGRectGetMaxX(voiceProgressBar!.frame) + kSideMargin, kVoiceMessageMaxHeight/2)
+        durationLabel?.frame.origin = CGPointMake(CGRectGetMaxX(voiceProgressBar!.frame) + kSideMargin, kVoiceMessageMaxHeight/2 - 5)
         addSubview(durationLabel!)
     }
     
     private func addPhotoToBubbleCellWithMessage(message: LINMessage) {
         var imageSize = (message.content as UIImage).size.scaledSize()
 
-        photoImgView.image = message.content as UIImage
+        photoImgView.image = message.content as? UIImage
         photoImgView.layer.cornerRadius = 5.0
         photoImgView.layer.masksToBounds = true
         
@@ -248,9 +247,14 @@ class LINBubbleCell: UITableViewCell {
     // MARK: Actions
     
     func toggleAudioButton(playButton: UIButton) {
-        LINAudioHelper.sharedInstance.stopPlaying()
-        playButton.selected = !playButton.selected
-        playButton.selected ? delegate?.bubbleCellDidStartPlayingRecord(self) : delegate?.bubbleCellDidStopPlayingRecord(self)
+        if playButton.selected {
+            playButton.selected = false
+            LINAudioHelper.sharedInstance.stopPlaying()
+        }
+        else {
+            playButton.selected = true
+            delegate?.bubbleCellDidStartPlayingRecord(self)
+        }
     }
 
     func trackForDuration(duration: NSTimeInterval) {
@@ -269,12 +273,13 @@ class LINBubbleCell: UITableViewCell {
             if Int(duration - progress - 0.1) < Int(duration - progress) {
                 let simplified = Int(duration - progress)
                 self.durationLabel?.text = String(format: "%02d:%02d", simplified/60, simplified%60)
+                println(self.durationLabel!.text)
             }
         }
     }
-}
-
-extension LINBubbleCell: LINAudioHelperPlayerDelegate {
+    
+    //MARK: LINAudioHelperPlayerDelegate
+    
     func audioHelperDidFinishPlaying() {
         if let duration = trackingTimer!.userInfo as? NSTimeInterval {
             let simplified = Int(duration + 0.5)

@@ -23,7 +23,7 @@ protocol LINComposeBarViewDelegate {
     func composeBar(composeBar: LINComposeBarView, willChangeHeight height: CGFloat)
 }
 
-class LINComposeBarView: UIView {
+class LINComposeBarView: UIView, LINEmoticonsViewDelegate, LINAudioHelperRecorderDelegate, UITextViewDelegate {
 
     @IBOutlet weak var moreButton: UIButton!
     @IBOutlet weak var speakButton: UIButton!
@@ -151,6 +151,15 @@ class LINComposeBarView: UIView {
     func timerTick(timer: NSTimer) {
         recordingDuration++
         durationLabel.text = String(format: "%02d:%02d", recordingDuration/60, recordingDuration%60)
+
+        //Add blinking effect
+        if shouldCancelRecording {
+            return
+        }
+        
+        UIView.animateWithDuration(0, animations: { self.moreButton.alpha = 0 }, completion: { _ in
+            UIView.animateWithDuration(0, delay: 0.5, options: .BeginFromCurrentState, animations: { self.moreButton.alpha = 1 }, completion: nil)
+        })
     }
 
     @IBAction func startPanning(sender: UIPanGestureRecognizer) {
@@ -225,9 +234,7 @@ class LINComposeBarView: UIView {
         let duration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as NSNumber).doubleValue
         return (keyboardRect, duration)
     }
-}
- 
-extension LINComposeBarView: LINEmoticonsViewDelegate {
+
     // MAKR: EmoticonsViewDelegate
     
     func emoticonsView(emoticonsView: LINEmoticonsView, startPickingMediaWithPickerViewController picker: UIImagePickerController) {
@@ -267,13 +274,12 @@ extension LINComposeBarView: LINEmoticonsViewDelegate {
         }
         textViewDidChange(textView)
     }
-}
 
-extension LINComposeBarView: LINAudioHelperRecorderDelegate {
-    
+    // MAKR: LINAudioHelperRecorderDelegate
+
     func audioHelperDidComposeVoice(voice: NSData) {
         println(voice.length)
-        resetUI()
+        resetStateForNextRecord()
         delegate?.composeBar(self, didRecord: voice)
         // Upload record to server
         LINNetworkClient.sharedInstance.uploadFile(voice, fileType: LINFileType.Audio, completion: { (fileURL, error) -> Void in
@@ -285,24 +291,25 @@ extension LINComposeBarView: LINAudioHelperRecorderDelegate {
 
     func audioHelperDidFailToComposeVoice(error: NSError) {
         delegate?.composeBar(self, didFailToRecord: error)
+        resetStateForNextRecord()
     }
 
     func audioHelperDidCancelRecording() {
-        resetUI()
+        resetStateForNextRecord()
     }
 
-    func resetUI() {
+    func resetStateForNextRecord() {
         recordingTimer?.invalidate()
         recordingDuration = 0
         durationLabel.text = "00:00"
         durationLabel.alpha = 1
         slideBack.center.x = CGRectGetMidX(self.initialFrameForSlideImage)
         voicePanelView.hidden = true
+        moreButton.hidden = false
         moreButton.setImage(UIImage(named: "Icn_add"), forState: UIControlState.Normal)
     }
-}
 
-extension LINComposeBarView: UITextViewDelegate {
+    // MAKR: UITextViewDelegate
 
     func textViewShouldBeginEditing(textView: UITextView!) -> Bool {
         if !emoticonsView!.isHidden {

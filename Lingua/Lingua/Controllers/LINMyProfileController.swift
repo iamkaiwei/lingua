@@ -32,6 +32,15 @@ class LINMyProfileController: LINViewController {
         avatarImageView.layer.cornerRadius = CGRectGetWidth(avatarImageView.frame)/2
         avatarImageView.layer.borderWidth = 2
         avatarImageView.layer.borderColor = UIColor.whiteColor().CGColor
+        if let url = LINUserManager.sharedInstance.currentUser?.avatarURL {
+            avatarImageView.sd_setImageWithURL(NSURL(string: ""),
+                placeholderImage: avatarImageView.image) {
+                    (image, error, cacheType, imageURL) in
+                    if let tmpImage = image {
+                        self.avatarImageView.image = tmpImage
+                    }
+            }
+        }
         introductionView.delegate = self;
         if let introduction = LINUserManager.sharedInstance.currentUser?.introduction {
             introductionView.introduction = introduction

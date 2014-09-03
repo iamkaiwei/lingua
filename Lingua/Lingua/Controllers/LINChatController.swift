@@ -156,15 +156,12 @@ extension LINChatController: LINBubbleCellDelegate {
         if let tmpIndexPath = indexPath {
             let message = messageArray[tmpIndexPath.row]
             if let data = message.content as? NSData {
+                LINAudioHelper.sharedInstance.stopPlaying()
                 LINAudioHelper.sharedInstance.playerDelegate = bubbleCell
                 LINAudioHelper.sharedInstance.startPlaying(message.content as NSData)
                 bubbleCell.trackForDuration(message.duration)
             }
         }
-    }
-    
-    func bubbleCellDidStopPlayingRecord(bubbleCell: LINBubbleCell) {
-        LINAudioHelper.sharedInstance.stopPlaying()
     }
 }
 
