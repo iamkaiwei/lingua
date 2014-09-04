@@ -33,7 +33,7 @@ class LINMyProfileController: LINViewController {
         avatarImageView.layer.borderWidth = 2
         avatarImageView.layer.borderColor = UIColor.whiteColor().CGColor
         if let url = LINUserManager.sharedInstance.currentUser?.avatarURL {
-            avatarImageView.sd_setImageWithURL(NSURL(string: ""),
+            avatarImageView.sd_setImageWithURL(NSURL(string: url),
                 placeholderImage: avatarImageView.image) {
                     (image, error, cacheType, imageURL) in
                     if let tmpImage = image {

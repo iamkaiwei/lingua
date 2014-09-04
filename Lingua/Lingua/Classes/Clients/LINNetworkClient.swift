@@ -37,6 +37,20 @@ enum LINActionType{
     case LINActionTypeUnLike
 }
 
+enum LINPartnerRole {
+    case Teacher
+    case Learner
+    case Fallback
+    
+    func stringFromRole() -> String {
+        switch self {
+        case Teacher: return "teacher"
+        case Learner: return "learner"
+        default: return "fallback"
+        }
+    }
+}
+
 class LINNetworkClient: OVCHTTPSessionManager {
     class var sharedInstance: LINNetworkClient {
     struct Static {
@@ -250,10 +264,11 @@ extension LINNetworkClient {
         })
     }
     
-    func matchUser(success: (arrUsers: [LINUser]) -> Void, failture: (error: NSError?) -> Void) {
+    func matchUser(partnerRole: LINPartnerRole, success: (arrUsers: [LINUser]) -> Void, failture: (error: NSError?) -> Void) {
         setAuthorizedRequest()
         
-        self.GET(kLINMatchUser, parameters: nil, completion: { (response: AnyObject?, error: NSError?) -> Void in
+        let parameters = ["partner_role": partnerRole.stringFromRole()]
+        self.GET(kLINMatchUser, parameters: parameters, completion: { (response: AnyObject?, error: NSError?) -> Void in
             if error != nil {
                 failture(error: error)
                 return

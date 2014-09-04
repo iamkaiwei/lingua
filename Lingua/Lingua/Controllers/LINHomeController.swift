@@ -96,7 +96,7 @@ class LINHomeController: LINViewController, UIViewControllerTransitioningDelegat
         if loadingImageView.isAnimating() { return }
         
         loadingImageView.startAnimating()
-        LINNetworkClient.sharedInstance.matchUser({ (arrUsers: [LINUser]) -> Void in
+        LINNetworkClient.sharedInstance.matchUser(.Learner, { (arrUsers: [LINUser]) -> Void in
             self.loadingImageView.stopAnimating()
             if arrUsers.count <= 0 {
                 return
