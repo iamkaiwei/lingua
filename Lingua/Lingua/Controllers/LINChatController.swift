@@ -33,7 +33,8 @@ class LINChatController: UIViewController {
     private var messageArray = [LINMessage]()
     private var dataSource: LINArrayDataSource?
     private let cellIdentifier = "kLINBubbleCell"
-
+    private var onPlayVoiceMessage: LINMessage?
+    
     private var currentChannel = PTPusherPresenceChannel()
     private var conversationChanged : Bool = false
     var delegate:LINChatControllerDelegate?
@@ -139,6 +140,11 @@ extension LINChatController {
             let bubbleCell = (bubbleCell as LINBubbleCell)
             bubbleCell.delegate = self
             bubbleCell.configureCellWithMessage(message as LINMessage)
+            if let tempMessage = self.onPlayVoiceMessage {
+                if message === tempMessage {
+                    LINAudioHelper.sharedInstance.playerDelegate = bubbleCell
+                }
+            }
         }
         
         dataSource = LINArrayDataSource(items: messageArray, cellIdentifier: cellIdentifier, configureClosure: configureClosure)
@@ -152,16 +158,18 @@ extension LINChatController {
 
 extension LINChatController: LINBubbleCellDelegate {
     func bubbleCellDidStartPlayingRecord(bubbleCell: LINBubbleCell) {
-        let indexPath: NSIndexPath? = tableView.indexPathForCell(bubbleCell)
-        if let tmpIndexPath = indexPath {
-            let message = messageArray[tmpIndexPath.row]
-            if let data = message.content as? NSData {
+        if let indexPath = tableView.indexPathForCell(bubbleCell) {
+            onPlayVoiceMessage = messageArray[indexPath.row]
+            if let data = onPlayVoiceMessage!.content as? NSData {
                 LINAudioHelper.sharedInstance.stopPlaying()
                 LINAudioHelper.sharedInstance.playerDelegate = bubbleCell
-                LINAudioHelper.sharedInstance.startPlaying(message.content as NSData)
-                bubbleCell.trackForDuration(message.duration)
+                LINAudioHelper.sharedInstance.startPlaying(data)
             }
         }
+    }
+    
+    func bubbleCellDidStopPlayingRecord(bubbleCell: LINBubbleCell) {
+        onPlayVoiceMessage = nil
     }
 }
 
