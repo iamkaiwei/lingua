@@ -33,8 +33,6 @@ class LINBubbleCell: UITableViewCell, LINAudioHelperPlayerDelegate {
     private var playButton: UIButton?
     private var voiceProgressBar: UIProgressView?
     private var durationLabel: UILabel?
-    private var trackingTimer: NSTimer?
-    private var progress: NSTimeInterval = 0
 
     private let textInsetsMine = UIEdgeInsetsMake(5, 10, 7, 17)
     private let textInsetsSomeone = UIEdgeInsetsMake(5, 15, 7, 10)
@@ -81,6 +79,11 @@ class LINBubbleCell: UITableViewCell, LINAudioHelperPlayerDelegate {
         playButton?.removeFromSuperview()
         voiceProgressBar?.removeFromSuperview()
         durationLabel?.removeFromSuperview()
+        if let playerDelegate = LINAudioHelper.sharedInstance.playerDelegate as? LINBubbleCell {
+            if playerDelegate == self {
+                LINAudioHelper.sharedInstance.playerDelegate = nil
+            }
+        }
     }
     
     func configureCellWithMessage(message: LINMessage) {
@@ -176,14 +179,11 @@ class LINBubbleCell: UITableViewCell, LINAudioHelperPlayerDelegate {
         voiceProgressBar?.trackTintColor = UIColor.lightGrayColor()
         addSubview(voiceProgressBar!)
         
-        durationLabel = UILabel()
+        durationLabel = UILabel(frame: CGRectMake(CGRectGetMaxX(voiceProgressBar!.frame) + kSideMargin, kVoiceMessageMaxHeight/2 - kSideMargin/2, 50, 20))
         durationLabel?.font = UIFont.appLightFontWithSize(14)
-        durationLabel?.textAlignment = .Center
         let simplified = Int(message.duration + 0.5)
         durationLabel?.text = String(format: "%02d:%02d", simplified/60, simplified%60)
         durationLabel?.numberOfLines = 0
-        durationLabel?.sizeToFit()
-        durationLabel?.frame.origin = CGPointMake(CGRectGetMaxX(voiceProgressBar!.frame) + kSideMargin, kVoiceMessageMaxHeight/2 - 5)
         addSubview(durationLabel!)
     }
     
@@ -256,39 +256,25 @@ class LINBubbleCell: UITableViewCell, LINAudioHelperPlayerDelegate {
             delegate?.bubbleCellDidStartPlayingRecord(self)
         }
     }
-
-    func trackForDuration(duration: NSTimeInterval) {
-        if voiceProgressBar == nil {
-            return //Apparently this is not type .Voice
-        }
-
-        trackingTimer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "updateProgressBar:", userInfo: duration, repeats: true)
-    }
-
-    func updateProgressBar(timer: NSTimer) {
-        if let duration = timer.userInfo as? NSTimeInterval {
-            progress += 0.1
-            voiceProgressBar?.progress = Float(progress/duration)
-            
-            if Int(duration - progress - 0.1) < Int(duration - progress) {
-                let simplified = Int(duration - progress)
-                self.durationLabel?.text = String(format: "%02d:%02d", simplified/60, simplified%60)
-                println(self.durationLabel!.text)
-            }
-        }
-    }
     
     //MARK: LINAudioHelperPlayerDelegate
     
-    func audioHelperDidFinishPlaying() {
-        if let duration = trackingTimer!.userInfo as? NSTimeInterval {
-            let simplified = Int(duration + 0.5)
-            durationLabel?.text = String(format: "%02d:%02d", simplified/60, simplified%60)
-        }
-
+    func audioHelperDidFinishPlaying(duration: NSTimeInterval) {
+        let simplified = Int(duration + 0.5)
+        durationLabel?.text = String(format: "%02d:%02d", simplified/60, simplified%60)
         playButton?.selected = false
-        trackingTimer?.invalidate()
         voiceProgressBar?.progress = 0
-        progress = 0
+    }
+
+    func audioHelperDidUpdateProgress(progress: NSTimeInterval, duration: NSTimeInterval) {
+        if playButton?.selected == false {
+            playButton?.selected = true
+        }
+        
+        voiceProgressBar?.progress = Float(progress/duration)
+        if Int(duration - progress - 0.1) < Int(duration - progress) {
+            let simplified = Int(duration - progress)
+            self.durationLabel?.text = String(format: "%02d:%02d", simplified/60, simplified%60)
+        }
     }
 }

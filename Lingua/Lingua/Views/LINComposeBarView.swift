@@ -117,6 +117,12 @@ class LINComposeBarView: UIView, LINEmoticonsViewDelegate, LINAudioHelperRecorde
             emoticonsTextStorage.setAttributedString(NSAttributedString(string: ""))
             textView.selectedRange = NSMakeRange(0, 0)
             textViewDidChange(textView)
+            
+            // Toggle send/speak buttons
+            if !textView.isFirstResponder() {
+                sendButton.hidden = true
+                speakButton.hidden = false
+            }
         }
     }
     
@@ -222,8 +228,10 @@ class LINComposeBarView: UIView, LINEmoticonsViewDelegate, LINAudioHelperRecorde
     }
     
     func handleKeyboardWillHideNotification(notification: NSNotification) {
-        sendButton.hidden = true
-        speakButton.hidden = false
+        if emoticonsTextStorage.string.utf16Count < 1 {
+            sendButton.hidden = true
+            speakButton.hidden = false
+        }
         let keyboardInfo = getKeyboardInfoWithNotification(notification)
         delegate?.composeBar(self, willHideKeyBoard: keyboardInfo.rect, duration: keyboardInfo.duration)
     }

@@ -17,7 +17,8 @@ protocol LINAudioHelperRecorderDelegate {
 }
 
 protocol LINAudioHelperPlayerDelegate {
-    func audioHelperDidFinishPlaying()
+    func audioHelperDidUpdateProgress(progress: NSTimeInterval, duration: NSTimeInterval)
+    func audioHelperDidFinishPlaying(duration: NSTimeInterval)
 }
 
 class LINAudioHelper: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
@@ -26,7 +27,8 @@ class LINAudioHelper: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     private var player: AVAudioPlayer
     var recorderDelegate: LINAudioHelperRecorderDelegate?
     var playerDelegate: LINAudioHelperPlayerDelegate?
-
+    var currentPlayingTime: NSTimeInterval { return player.currentTime }
+    
     /*  Before user starts recording, the device should vibrate for approximately
         1 sec, so the audio helper delays for the same amount of time to avoid
         accidently recording the vibration sound, there may be a chance that they
@@ -35,6 +37,7 @@ class LINAudioHelper: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     */
     private var readyToRecord = true
     private var shouldCancelRecording = false
+    private var trackingTimer: NSTimer?
     
     class var sharedInstance: LINAudioHelper {
     struct Static {
@@ -127,17 +130,18 @@ class LINAudioHelper: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
         AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, error: &error)
         if error != nil {
             println(error)
-            self.recorderDelegate?.audioHelperDidFailToComposeVoice(error!)
             return
         }
         AVAudioSession.sharedInstance().setActive(true, error: nil)
         player.play()
+        trackingTimer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "timeTick:", userInfo: nil, repeats: true)
     }
 
     func stopPlaying() {
         if player.playing {
             player.stop()
-            playerDelegate?.audioHelperDidFinishPlaying()
+            trackingTimer?.invalidate()
+            playerDelegate?.audioHelperDidFinishPlaying(player.duration)
             AVAudioSession.sharedInstance().setActive(false, error: nil)
         }
     }
@@ -156,6 +160,10 @@ class LINAudioHelper: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
         return player.duration
     }
 
+    func timeTick(timer: NSTimer) {
+        playerDelegate?.audioHelperDidUpdateProgress(player.currentTime, duration: player.duration)
+    }
+    
     // MARK: AVAudioRecorderDelegate
 
     func audioRecorderDidFinishRecording(recorder: AVAudioRecorder!, successfully flag: Bool) {
@@ -195,7 +203,8 @@ class LINAudioHelper: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     // MARK: AVAudioRecorderDelegate
 
     func audioPlayerDidFinishPlaying(player: AVAudioPlayer!, successfully flag: Bool) {
-        playerDelegate?.audioHelperDidFinishPlaying()
+        trackingTimer?.invalidate()
+        playerDelegate?.audioHelperDidFinishPlaying(player.duration)
     }
 
     func audioPlayerDecodeErrorDidOccur(player: AVAudioPlayer!, error: NSError!) {
