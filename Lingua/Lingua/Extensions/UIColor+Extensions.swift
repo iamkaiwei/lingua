@@ -28,4 +28,8 @@ extension UIColor {
     class func messageBadgeColor() -> UIColor {
         return UIColor(red:255.0/255 , green : 160.0/255 , blue : 141.0/255 , alpha: 1)
     }
+    
+    class func mainAppColor() -> UIColor {
+        return UIColor(red: 0.00, green: 0.63, blue: 0.68, alpha: 1)
+    }
 }

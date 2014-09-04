@@ -12,7 +12,8 @@ class LINParsingEmoticonsTextStorage: NSTextStorage {
     private var imp = NSMutableAttributedString()
     private var dict = NSDictionary()
     private var expression = NSRegularExpression()
-
+    private var enablePlaceHolderText = false
+    
     override init() {
         super.init()
         
@@ -65,8 +66,13 @@ class LINParsingEmoticonsTextStorage: NSTextStorage {
                 replaceCharactersInRange(matchRange, withAttributedString: replacementString)
             }
         }
-
-        imp.addAttribute(NSFontAttributeName, value: UIFont.appRegularFontWithSize(14), range: NSMakeRange(0, self.string.utf16Count))
+        
+        let wholeRange = NSMakeRange(0, self.string.utf16Count)
+        imp.addAttribute(NSFontAttributeName, value: UIFont.appRegularFontWithSize(14), range: wholeRange)
+        if !enablePlaceHolderText {
+            imp.addAttribute(NSForegroundColorAttributeName, value: UIColor.blackColor(), range: wholeRange)
+        }
+        
         super.processEditing()
     }
     
@@ -80,8 +86,24 @@ class LINParsingEmoticonsTextStorage: NSTextStorage {
                 }
         })
 
-       return result.string
+       return result.string.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
    }
+    
+    func addPlaceHolderForTextViewWithText(text: String) {
+       enablePlaceHolderText = true
+       setContentForTextViewWithText(text, color: UIColor.lightGrayColor())
+    }
+    
+    func clearPlaceHolderForTextView() {
+       enablePlaceHolderText = false
+       setContentForTextViewWithText("", color: UIColor.blackColor())
+    }
+    
+    private func setContentForTextViewWithText(text: String, color: UIColor) {
+        let placeHolderText = NSMutableAttributedString(string: text)
+        placeHolderText.addAttribute(NSForegroundColorAttributeName, value: color, range: NSMakeRange(0, text.utf16Count))
+        self.setAttributedString(placeHolderText)
+    }
 }
 
 extension LINParsingEmoticonsTextStorage {

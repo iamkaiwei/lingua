@@ -9,6 +9,7 @@
 import UIKit
 
 let kTextViewMaxContentHeight: CGFloat = 100
+let kTextViewPlaceHolderText = "Type a message"
 
 protocol LINComposeBarViewDelegate {
     func composeBar(composeBar: LINComposeBarView, sendMessage text: String)
@@ -60,13 +61,16 @@ class LINComposeBarView: UIView, LINEmoticonsViewDelegate, LINAudioHelperRecorde
         let contentView = UINib(nibName: "LINComposeBarView", bundle: nil).instantiateWithOwner(self, options: nil)[0] as UIView
         contentView.frame = bounds
         addSubview(contentView)
+        // Textview
+        emoticonsTextStorage.addLayoutManager(textView.layoutManager)
         textView.layer.cornerRadius = 10
-        textView.contentInset = UIEdgeInsetsZero
+        textView.contentInset = UIEdgeInsetsMake(0, 0, 2, 0)
+        textView.textColor = UIColor.lightGrayColor()
+        emoticonsTextStorage.addPlaceHolderForTextViewWithText(kTextViewPlaceHolderText)
         let size = textView.sizeThatFits(CGSizeMake(textView.frame.size.width, CGFloat(MAXFLOAT)))
         currentContentHeight = size.height
         speakButton.exclusiveTouch = true
 
-        emoticonsTextStorage.addLayoutManager(textView.layoutManager)
         LINAudioHelper.sharedInstance.recorderDelegate = self
         self.textView.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.New, context: nil)
     }
@@ -106,17 +110,12 @@ class LINComposeBarView: UIView, LINEmoticonsViewDelegate, LINAudioHelperRecorde
     
     @IBAction func sendMessage(sender: UIButton) {
         // Remove white space from both ends of a string
-        var text = emoticonsTextStorage.getOriginalText()
-        text = text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-
+        let text = emoticonsTextStorage.getOriginalText()
         if text.utf16Count > 0 {
             // Send message
             delegate?.composeBar(self, sendMessage: text)
-            
-            // Clear text
-            emoticonsTextStorage.setAttributedString(NSAttributedString(string: ""))
-            textView.selectedRange = NSMakeRange(0, 0)
-            textViewDidChange(textView)
+
+             clearTextView()
             
             // Toggle send/speak buttons
             if !textView.isFirstResponder() {
@@ -124,6 +123,12 @@ class LINComposeBarView: UIView, LINEmoticonsViewDelegate, LINAudioHelperRecorde
                 speakButton.hidden = false
             }
         }
+    }
+    
+    private func clearTextView() {
+        emoticonsTextStorage.clearPlaceHolderForTextView()
+        textView.selectedRange = NSMakeRange(0, 0)
+        textViewDidChange(textView)
     }
     
     @IBAction func expandOptions(sender: UIButton) {
@@ -327,6 +332,19 @@ class LINComposeBarView: UIView, LINEmoticonsViewDelegate, LINAudioHelperRecorde
     }
 
     func textViewDidChange(tv: UITextView!) {
-        sendButton.enabled = emoticonsTextStorage.string.utf16Count > 0
+        sendButton.enabled = emoticonsTextStorage.getOriginalText().utf16Count > 0
+        sendButton.setTitleColor(sendButton.enabled ? UIColor.mainAppColor() : UIColor.lightGrayColor(), forState: UIControlState.Normal)
+    }
+    
+    func textViewDidBeginEditing(textView: UITextView) {
+        if emoticonsTextStorage.getOriginalText() == kTextViewPlaceHolderText {
+            clearTextView()
+        }
+    }
+    
+    func textViewDidEndEditing(textView: UITextView) {
+        if emoticonsTextStorage.getOriginalText() == "" {
+            emoticonsTextStorage.addPlaceHolderForTextViewWithText(kTextViewPlaceHolderText)
+        }
     }
 }
