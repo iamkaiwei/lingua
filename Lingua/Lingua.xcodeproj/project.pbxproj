@@ -87,6 +87,7 @@
 		973250C419B351A900938844 /* UITextView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973250C319B351A900938844 /* UITextView+Extensions.swift */; };
 		973CD716199B2AD600F01EB3 /* LINConversationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973CD715199B2AD600F01EB3 /* LINConversationCell.swift */; };
 		97A824B119A19D3200C03CC5 /* LINNetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A824B019A19D3200C03CC5 /* LINNetworkHelper.swift */; };
+		97ACE58F19B9727400C823DB /* default.m4r in Resources */ = {isa = PBXBuildFile; fileRef = 97ACE58E19B9727400C823DB /* default.m4r */; };
 		97CCA2DC19A2F3E700455D1D /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CCA2DB19A2F3E700455D1D /* UITableView+Extensions.swift */; };
 		97CCA2E019A32E0D00455D1D /* LINTopNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CCA2DF19A32E0D00455D1D /* LINTopNavigationView.swift */; };
 /* End PBXBuildFile section */
@@ -231,6 +232,7 @@
 		973250C319B351A900938844 /* UITextView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+Extensions.swift"; sourceTree = "<group>"; };
 		973CD715199B2AD600F01EB3 /* LINConversationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINConversationCell.swift; sourceTree = "<group>"; };
 		97A824B019A19D3200C03CC5 /* LINNetworkHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINNetworkHelper.swift; sourceTree = "<group>"; };
+		97ACE58E19B9727400C823DB /* default.m4r */ = {isa = PBXFileReference; lastKnownFileType = file; path = default.m4r; sourceTree = "<group>"; };
 		97CCA2DB19A2F3E700455D1D /* UITableView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
 		97CCA2DF19A32E0D00455D1D /* LINTopNavigationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINTopNavigationView.swift; sourceTree = "<group>"; };
 		C8726A87F4DA410EA300A2B5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
@@ -420,6 +422,7 @@
 		20D5BA3D196F31C100DD8158 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				97ACE58D19B9727400C823DB /* Sounds */,
 				92313492197E4EAA003BD927 /* Files */,
 				92313489197E4E26003BD927 /* Fonts */,
 			);
@@ -551,6 +554,14 @@
 			path = Managers;
 			sourceTree = "<group>";
 		};
+		97ACE58D19B9727400C823DB /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				97ACE58E19B9727400C823DB /* default.m4r */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
 		CFFA1F0014D9434085221D84 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -656,6 +667,7 @@
 				92313494197E4EAA003BD927 /* Quotes.txt in Resources */,
 				92313490197E4E26003BD927 /* RobotoSlab-Regular.ttf in Resources */,
 				92313491197E4E26003BD927 /* RobotoSlab-Thin.ttf in Resources */,
+				97ACE58F19B9727400C823DB /* default.m4r in Resources */,
 				20EE47C519A35165000EB6A6 /* LINComposeBarView.xib in Resources */,
 				9231348F197E4E26003BD927 /* RobotoSlab-Light.ttf in Resources */,
 				20448A871954301A00AC639A /* Main.storyboard in Resources */,

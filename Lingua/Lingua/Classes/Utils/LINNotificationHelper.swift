@@ -26,6 +26,7 @@ class LINNotificationHelper {
                 
                 //Post notification for FriendListViewController to update new message counter
                 NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAppReceivedNewMessage, object: conversationId)
+                LINAudioHelper.sharedInstance.playAlertSound()
             }
         } else if applicationState == .Background || applicationState == .Inactive {
             openChatScreenWithUserId(userId!, name: firstName!, conversationId: conversationId!)

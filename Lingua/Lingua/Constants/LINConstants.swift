@@ -37,3 +37,6 @@ let kNotificationAppDidOpenChatViewFromHUD   = "kNotificationAppDidOpenChatViewF
 // External resources
 let kCachedConversationDataFile = "conversations_data.lingua"
 let kLinguaResourceExtension = "lingua"
+
+let kAlertSoundFileName = "default"
+let kAlertSoundExtension = "m4r"
