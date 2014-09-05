@@ -89,6 +89,8 @@ class LINChatController: UIViewController {
                 
         self.topNavigationView.registerForNetworkStatusNotification(lostConnection: kNotificationAppDidLostConnection, restoreConnection: kNotificationAppDidRestoreConnection)
         self.tableView.registerForNetworkStatusNotification(lossConnection: kNotificationAppDidLostConnection, restoreConnection: kNotificationAppDidRestoreConnection)
+        
+        LINPusherManager.sharedInstance.delegate = self
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -98,7 +100,7 @@ class LINChatController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        subcribeToPresenceChannel()
+        subscribeToPresenceChannel()
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -364,7 +366,7 @@ extension LINChatController {
     }
     
     func appDidBecomActive() {
-        subcribeToPresenceChannel()
+        subscribeToPresenceChannel()
         loadListLastestMessages()
         LINAudioHelper.sharedInstance.cancelRecording()
     }
@@ -577,15 +579,13 @@ extension LINChatController {
         }
     }
     
-    private func subcribeToPresenceChannel() {
+    private func subscribeToPresenceChannel() {
         let channelName = generateUniqueChannelNameFromUserId(currentUser.userId, toUserId: userChat.userId)
         currentChannel.unsubscribe()
         currentChannel = LINPusherManager.sharedInstance.subscribeToPresenceChannelNamed(channelName, delegate: self)
         
         // Bind to event to receive data
         currentChannel.bindToEventNamed(kPusherEventNameNewMessage, handleWithBlock: { channelEvent in
-            println("Channel event data: \(channelEvent.data)")
-            
             let replyData = channelEvent.getReplyData()
             let type = MessageType.fromRaw(replyData.type)
             var aMessage = LINMessage(incoming: true, sendDate: replyData.sendDate, content: replyData.text, type: type!)
@@ -634,5 +634,12 @@ extension LINChatController: PTPusherPresenceChannelDelegate {
         currentChatMode = LINChatMode.Offline
         
         postMessagesToServer()
+    }
+}
+
+extension LINChatController: LINPusherManagerDelegate {
+    func pusherManager(pusherManager: LINPusherManager, didFailToSubscribeToChannel channel: PTPusherChannel) {
+        println("Auto re-subscribe to channel: \(channel.name)")
+        subscribeToPresenceChannel()
     }
 }

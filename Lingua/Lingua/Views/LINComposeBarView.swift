@@ -9,7 +9,7 @@
 import UIKit
 
 let kTextViewMaxContentHeight: CGFloat = 100
-let kTextViewPlaceHolderText = "Type a message"
+let kTextViewPlaceHolderText = "Type a message..."
 
 protocol LINComposeBarViewDelegate {
     func composeBar(composeBar: LINComposeBarView, sendMessage text: String)

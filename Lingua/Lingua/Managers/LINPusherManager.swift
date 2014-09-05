@@ -15,8 +15,13 @@ let kPusherAPISecret = "b0d277089fc2d751fb8a"
 let kPuserAuthorizationURL = "http://pusher-chat-server.herokuapp.com/pusher/auth"
 
 
+protocol LINPusherManagerDelegate {
+    func pusherManager(pusherManager: LINPusherManager, didFailToSubscribeToChannel channel: PTPusherChannel)
+}
+
 class LINPusherManager : NSObject, PTPusherDelegate {
     var pusherClient : PTPusher = PTPusher()
+    var delegate: LINPusherManagerDelegate?
     
     class var sharedInstance : LINPusherManager {
         struct Static {
@@ -91,7 +96,7 @@ class LINPusherManager : NSObject, PTPusherDelegate {
     func pusher(pusher: PTPusher, didFailToSubscribeToChannel channel: PTPusherChannel, withError error: NSError?) {
         println("[pusher-\(pusher.connection.socketID)] Authorization failed for channel \(channel) with error: \(error?.description)")
         
-        UIAlertView(title: "Authorization Failed", message: "Client could not be authorized to join channel \(channel.name)", delegate: nil, cancelButtonTitle: "OK").show()
+        delegate?.pusherManager(self, didFailToSubscribeToChannel: channel)
     }
     
     func pusher(pusher: PTPusher, willAuthorizeChannel channel: PTPusherChannel, withRequest request: NSMutableURLRequest) {
