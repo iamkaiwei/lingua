@@ -112,6 +112,8 @@ class LINFriendListController: UIViewController, UITableViewDataSource, UITableV
 
     func appDidEnterBackground() {
         cachingConversationData()
+        //Set the badge number on the app icon
+        UIApplication.sharedApplication().applicationIconBadgeNumber = self.newMessageCount
     }
     
     func appDidBecomeActive() {
