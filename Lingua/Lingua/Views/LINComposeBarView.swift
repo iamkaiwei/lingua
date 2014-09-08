@@ -9,7 +9,8 @@
 import UIKit
 
 let kTextViewMaxContentHeight: CGFloat = 100
-let kTextViewPlaceHolderText = "Type a message..."
+let kTextViewPlaceHolderText = "Type a message"
+let kTextViewOuterMargin: CGFloat = 15
 
 protocol LINComposeBarViewDelegate {
     func composeBar(composeBar: LINComposeBarView, sendMessage text: String)
@@ -77,17 +78,7 @@ class LINComposeBarView: UIView, LINEmoticonsViewDelegate, LINAudioHelperRecorde
 
     override func observeValueForKeyPath(keyPath: String!, ofObject object: AnyObject!, change: [NSObject : AnyObject]!, context: UnsafeMutablePointer<Void>) {
         if keyPath == "contentSize" {
-            let newSize = textView.sizeThatFits(CGSizeMake(textView.frame.size.width, CGFloat(MAXFLOAT)))
-            if newSize.height > kTextViewMaxContentHeight {
-                textView.scrollToCaret()
-                return
-            }
-
-            if newSize.height != currentContentHeight {
-                let diff = newSize.height - currentContentHeight
-                currentContentHeight = newSize.height
-                delegate?.composeBar(self, willChangeHeight: diff)
-            }
+            adjustTextViewFrameWithText("")
         }
     }
 
@@ -346,5 +337,22 @@ class LINComposeBarView: UIView, LINEmoticonsViewDelegate, LINAudioHelperRecorde
         if emoticonsTextStorage.getOriginalText() == "" {
             emoticonsTextStorage.addPlaceHolderForTextViewWithText(kTextViewPlaceHolderText)
         }
+    }
+    
+    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+        if text.utf16Count > 1 {
+            //if the replacement text count > 1 char that mean user paste a bulk of text
+            //Call the text view to re-adjust it manually
+            adjustTextViewFrameWithText(text)
+        }
+        return true
+    }
+    
+    func adjustTextViewFrameWithText(newInputText:String) {
+        var fullText:String = emoticonsTextStorage.getOriginalText().stringByAppendingString(newInputText)
+        let newSize = fullText.sizeOfStringUseTextStorage()
+        textView.scrollToCaret()
+        let newHeight = min(newSize.height,kTextViewMaxContentHeight) + kTextViewOuterMargin
+        delegate?.composeBar(self, willChangeHeight: newHeight)
     }
 }
