@@ -138,9 +138,6 @@ class LINBubbleCell: UITableViewCell, LINAudioHelperPlayerDelegate {
                 if let tmpImage = image {
                     message.content = tmpImage
                     self.addPhotoToBubbleCellWithMessage(message)
-                                      
-                    // Save photo to camera roll
-                    // UIImageWriteToSavedPhotosAlbum(tmpImage, nil, nil, nil)
                 }
             }
         } else {
