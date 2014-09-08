@@ -178,8 +178,8 @@ extension LINChatController: LINBubbleCellDelegate {
 extension LINChatController: LINComposeBarViewDelegate {
     //MARK: LINComposeBarViewDelegate
 
-    func composeBar(composeBar: LINComposeBarView, willChangeHeight height: CGFloat) {
-        composeBarHeightConstraint.constant += height
+    func composeBar(composeBar: LINComposeBarView, willChangeHeight newHeight: CGFloat) {
+        composeBarHeightConstraint.constant = newHeight
         scrollBubbleTableViewToBottomAnimated(true)
     }
 
