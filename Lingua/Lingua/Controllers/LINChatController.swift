@@ -114,10 +114,8 @@ class LINChatController: UIViewController {
         cachingChatHistoryData()
 
         //Call previous view controller to re-arrange the order
-        if self.conversationChanged {
-            if self.delegate != nil {
-                self.delegate?.shouldMoveConversationToTheTop(conversationId)
-            }
+        if conversationChanged {
+            self.delegate?.shouldMoveConversationToTheTop(conversationId)
         }
 
         //Stop audio helper
@@ -142,6 +140,7 @@ extension LINChatController {
             let bubbleCell = (bubbleCell as LINBubbleCell)
             bubbleCell.delegate = self
             bubbleCell.configureCellWithMessage(message as LINMessage)
+            
             if let tempMessage = self.onPlayVoiceMessage {
                 if message === tempMessage {
                     LINAudioHelper.sharedInstance.playerDelegate = bubbleCell
@@ -432,29 +431,17 @@ extension LINChatController {
     
     private func addListBubbleCellsWithCount(count: Int) {
         var contentOffset = self.tableView.contentOffset
+        tableView.reloadData()
         
-        UIView.setAnimationsEnabled(false)
-        
-        var indexPaths = [NSIndexPath]()
         var heightForNewRows: CGFloat = 0
-        
         for var i = 0; i < count; i++ {
-            let indexPath = NSIndexPath(forRow: i, inSection: 0)
-            indexPaths.append(indexPath)
-            
-            heightForNewRows += heightForCellAtIndexPath(indexPath)
+            heightForNewRows += heightForCellAtIndexPath(NSIndexPath(forRow: i, inSection: 0))
         }
-        
+    
         contentOffset.y += heightForNewRows
         
-        tableView.beginUpdates()
-        tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.None)
-        tableView.endUpdates()
-        
-        UIView.setAnimationsEnabled(true)
-        
         // Keep uitableview static when inserting rows at the top
-        self.tableView.setContentOffset(contentOffset, animated: false)
+        tableView.setContentOffset(contentOffset, animated: false)
     }
     
     private func heightForCellAtIndexPath(indexPath: NSIndexPath) -> CGFloat {
@@ -471,13 +458,13 @@ extension LINChatController {
                 height += kTextCellHeightPadding
             case .Photo:
                 var imageSize = CGSize()
-                if let tmpPhoto = message.content as? UIImage {
-                    imageSize = tmpPhoto.size.scaledSize()
+                if let tmpImageURL = message.url {
+                    imageSize = CGSize.getSizeFromImageURL(tmpImageURL).scaledSize()
                 } else {
-                    imageSize = CGSize.getSizeFromImageURL(message.url! as String).scaledSize()
+                    imageSize = (message.content as UIImage).size.scaledSize()
                 }
                 height = imageSize.height + kPhotoCellHeightPadding
-                case .Voice:
+            case .Voice:
                     height = kVoiceMessageMaxHeight
             default:
                break
