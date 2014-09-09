@@ -66,7 +66,6 @@ class LINComposeBarView: UIView, LINEmoticonsViewDelegate, LINAudioHelperRecorde
         emoticonsTextStorage.addLayoutManager(textView.layoutManager)
         textView.layer.cornerRadius = 10
         textView.contentInset = UIEdgeInsetsMake(0, 0, 2, 0)
-        textView.textColor = UIColor.lightGrayColor()
         emoticonsTextStorage.addPlaceHolderForTextViewWithText(kTextViewPlaceHolderText)
         let size = textView.sizeThatFits(CGSizeMake(textView.frame.size.width, CGFloat(MAXFLOAT)))
         currentContentHeight = size.height
@@ -132,6 +131,7 @@ class LINComposeBarView: UIView, LINEmoticonsViewDelegate, LINAudioHelperRecorde
     }
 
     @IBAction func startSpeaking(sender: UIButton) {
+        clearTextView()
         hide()
         initialFrameForSlideImage = slideBack.frame
         moreButton.setImage(UIImage(named: "Recording"), forState: UIControlState.Normal)
@@ -149,7 +149,7 @@ class LINComposeBarView: UIView, LINEmoticonsViewDelegate, LINAudioHelperRecorde
             LINAudioHelper.sharedInstance.finishRecording()
         }
     }
-
+    
     func timerTick(timer: NSTimer) {
         recordingDuration++
         durationLabel.text = String(format: "%02d:%02d", recordingDuration/60, recordingDuration%60)
@@ -311,6 +311,7 @@ class LINComposeBarView: UIView, LINEmoticonsViewDelegate, LINAudioHelperRecorde
         voicePanelView.hidden = true
         moreButton.hidden = false
         moreButton.setImage(UIImage(named: "Icn_add"), forState: UIControlState.Normal)
+        emoticonsTextStorage.addPlaceHolderForTextViewWithText(kTextViewPlaceHolderText)
     }
 
     // MAKR: UITextViewDelegate
