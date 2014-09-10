@@ -11,6 +11,7 @@ import Foundation
 class LINProficiency: MTLModel, MTLJSONSerializing {
     var proficiencyID: Int = 1
     var proficiencyName: String = ""
+    var value: Int { return proficiencyID } // Currently proficiency ID order on server are the same with 'proficiencies' standards
     
     override init() {
         super.init()

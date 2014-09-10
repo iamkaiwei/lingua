@@ -27,12 +27,18 @@ class LINMyProfileController: LINViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        
+        let me = LINUserManager.sharedInstance.currentUser
+        
+        //User name
         nameLabel.font = UIFont.appRegularFontWithSize(17)
-        nameLabel.text = LINUserManager.sharedInstance.currentUser?.firstName
+        nameLabel.text = me?.firstName
+        
+        //User profile picture
         avatarImageView.layer.cornerRadius = CGRectGetWidth(avatarImageView.frame)/2
         avatarImageView.layer.borderWidth = 2
         avatarImageView.layer.borderColor = UIColor.whiteColor().CGColor
-        if let url = LINUserManager.sharedInstance.currentUser?.avatarURL {
+        if let url = me?.avatarURL {
             avatarImageView.sd_setImageWithURL(NSURL(string: url),
                 placeholderImage: avatarImageView.image) {
                     (image, error, cacheType, imageURL) in
@@ -41,10 +47,22 @@ class LINMyProfileController: LINViewController {
                     }
             }
         }
+        
+        //User about
         introductionView.delegate = self;
-        if let introduction = LINUserManager.sharedInstance.currentUser?.introduction {
+        if let introduction = me?.introduction {
             introductionView.introduction = introduction
         }
+        
+        //User average proficiency (writing and speaking)
+        let meSpeakingProficiency = me?.speakingProficiency?.value ?? 1
+        let meWritingProficiency = me?.writingProficiency?.value ?? 1
+        let averageProficiency: Int = (meSpeakingProficiency + meWritingProficiency)/2.0 + 0.5
+        let imageNames = ["Proficiency0", "Proficiency1", "Proficiency2", "Proficiency3", "Proficiency4"]
+        if averageProficiency <= imageNames.count {
+            proficiencyImageView.image = UIImage(named: imageNames[averageProficiency])
+        }
+        
         collectionView.registerClass(LINBadgeCell.self, forCellWithReuseIdentifier: "BadgeCellIdentifier")
         collectionView.registerClass(LINBadgeHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "BadgeHeaderIdentifier")
     }
