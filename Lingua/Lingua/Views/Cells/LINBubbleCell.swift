@@ -23,11 +23,12 @@ protocol LINBubbleCellDelegate {
 }
 
 class LINBubbleCell: UITableViewCell, LINAudioHelperPlayerDelegate {
-    var contentTextView: UITextView = UITextView()
-    var bubbleImageView: UIImageView = UIImageView()
-    var createAtLabel: UILabel = UILabel()
-    var photoImgView: UIImageView = UIImageView()
-    let placeholderImage = UIImage(named: "placeholder")
+    private var contentTextView = UITextView()
+    private var bubbleImageView = UIImageView()
+    private var createAtLabel = UILabel()
+    private var photoImgView = UIImageView()
+    private let placeholderImage = UIImage(named: "placeholder")
+    private var overlayView = UIImageView()
     
     //Voice message
     private var playButton: UIButton?
@@ -79,6 +80,8 @@ class LINBubbleCell: UITableViewCell, LINAudioHelperPlayerDelegate {
         playButton?.removeFromSuperview()
         voiceProgressBar?.removeFromSuperview()
         durationLabel?.removeFromSuperview()
+        overlayView.removeFromSuperview()
+        
         if let playerDelegate = LINAudioHelper.sharedInstance.playerDelegate as? LINBubbleCell {
             if playerDelegate == self {
                 LINAudioHelper.sharedInstance.playerDelegate = nil
@@ -116,7 +119,7 @@ class LINBubbleCell: UITableViewCell, LINAudioHelperPlayerDelegate {
                                        width: contentTextView.frame.size.width + 10,
                                        height: contentTextView.frame.size.height)
         
-        calcTimeFrameWithContentFrame(contentTextView.frame, message: message)
+        addOtherViewsToBubbleCellWithMessage(message)
     }
     
     private func configureWithPhotoMessage(message: LINMessage) {
@@ -159,10 +162,7 @@ class LINBubbleCell: UITableViewCell, LINAudioHelperPlayerDelegate {
             })
         }
 
-        // Bubble imageview
         let x = message.incoming == true ? kSideMargin : CGRectGetWidth(frame) - kVoiceMessageMaxWidth - kSideMargin/2
-        bubbleImageView.frame = CGRectMake(x, 0,  kVoiceMessageMaxWidth - 7,  kVoiceMessageMaxHeight - 5)
-        calcTimeFrameWithContentFrame(bubbleImageView.frame, message: message)
         
         //Set up other UIs
         playButton = UIButton(frame: CGRectMake(x, 5, kVoiceMessageMaxHeight, kVoiceMessageMaxHeight))
@@ -182,6 +182,10 @@ class LINBubbleCell: UITableViewCell, LINAudioHelperPlayerDelegate {
         durationLabel?.text = String(format: "%02d:%02d", simplified/60, simplified%60)
         durationLabel?.numberOfLines = 0
         addSubview(durationLabel!)
+        
+        // Bubble imageview
+        bubbleImageView.frame = CGRectMake(x, 0,  kVoiceMessageMaxWidth - 7,  kVoiceMessageMaxHeight - 5)
+        addOtherViewsToBubbleCellWithMessage(message)
     }
     
     private func addPhotoToBubbleCellWithMessage(message: LINMessage) {
@@ -206,30 +210,58 @@ class LINBubbleCell: UITableViewCell, LINAudioHelperPlayerDelegate {
                                        width: imageSize.width + 17,
                                        height: imageSize.height + 30)
         
-        calcTimeFrameWithContentFrame(bubbleImageView.frame, message: message)
+        addOtherViewsToBubbleCellWithMessage(message)
         
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("openPhotoPreviewWithGesture:"))
         photoImgView.addGestureRecognizer(gestureRecognizer)
     }
     
-    private func calcTimeFrameWithContentFrame(contentFrame: CGRect, message: LINMessage) {
-        // Bubble imageview
+    private func addOtherViewsToBubbleCellWithMessage(message: LINMessage) {
+        addOverlayViewWithMessage(message)
+        addBubbleViewWithMessage(message)
+        addTimeViewWithMessage(message)
+    }
+    
+    private func addBubbleViewWithMessage(message: LINMessage) {
         let bubbleCapInsets = UIEdgeInsetsMake(20, 10, 10, 10)
+        var bubbleImg: UIImage?
         if message.incoming {
-            bubbleImageView.image = UIImage(named: "ChatBoxLeft").resizableImageWithCapInsets(bubbleCapInsets)
+            bubbleImg = UIImage(named: "ChatBoxLeft").resizableImageWithCapInsets(bubbleCapInsets)
         } else {
-            bubbleImageView.image = UIImage(named: "ChatBoxRight").resizableImageWithCapInsets(bubbleCapInsets)
+            bubbleImg = UIImage(named: "ChatBoxRight").resizableImageWithCapInsets(bubbleCapInsets)
         }
         
-        // Time label
-        let contentFrame = contentFrame
-        let offsetXCreateAtLabel = (message.incoming == true ? (contentFrame.origin.x + contentFrame.size.width + 20) :
-            (contentFrame.origin.x - 60))
+        bubbleImageView.image = bubbleImg
+    }
+    
+    private func addTimeViewWithMessage(message: LINMessage) {
+        let contentFrame = bubbleImageView.frame
+        let offsetXCreateAtLabel = (message.incoming == true ? (contentFrame.origin.x + contentFrame.size.width + 20) : (contentFrame.origin.x - 60))
         createAtLabel.frame = CGRect(x: offsetXCreateAtLabel,
                                      y: contentFrame.origin.y + contentFrame.size.height / 2 - 10,
                                      width: 100,
                                      height: 20)
         createAtLabel.text = NSDateFormatter.hourDateFormatter().stringFromDate(message.sendDate).lowercaseString
+    }
+    
+    private func addOverlayViewWithMessage(message: LINMessage) {
+        if message.state == MessageState.Submitted {
+            let bubbleCapInsets = UIEdgeInsetsMake(20, 10, 10, 10)
+            var overlayImg: UIImage?
+            if message.incoming {
+                overlayImg = UIImage(named: "Box_chat_left_opacity").resizableImageWithCapInsets(bubbleCapInsets)
+            } else {
+                overlayImg = UIImage(named: "Box_chat_right_opacity").resizableImageWithCapInsets(bubbleCapInsets)
+            }
+
+            overlayView.frame = bubbleImageView.frame
+            overlayView.image = overlayImg
+            addSubview(overlayView)
+        }
+    }
+    
+    func removeOverlayView() {
+        overlayView.removeFromSuperview()
     }
     
     func openPhotoPreviewWithGesture(recognizer: UITapGestureRecognizer) {
