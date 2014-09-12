@@ -217,12 +217,14 @@ extension LINChatController: LINComposeBarViewDelegate {
         replyWithMessage(message)
         
         // Remove overlay view for message cell
-        updateMessageStateWithMessageId(messageId)
+        updateMessageWithNewState(MessageState.Sent, messageId: messageId)
     }
 
-    func composeBar(composeBar: LINComposeBarView, didRecord data: NSData) {
+    func composeBar(composeBar: LINComposeBarView, didRecord data: NSData, messageId: String) {
         let message = LINMessage(incoming: false, sendDate: NSDate(), content: data, type: .Voice)
         message.duration = LINAudioHelper.sharedInstance.getDurationFromData(data)
+        message.messageId = messageId
+        
         addBubbleViewCellWithMessage(message)
     }
 
@@ -230,9 +232,12 @@ extension LINChatController: LINComposeBarViewDelegate {
         SVProgressHUD.showErrorWithStatus("\(error.localizedDescription) Please try again.")
     }
 
-    func composeBar(composeBar: LINComposeBarView, didUploadRecord url: String) {
+    func composeBar(composeBar: LINComposeBarView, didUploadRecord url: String, messageId: String) {
         let message  = LINMessage(incoming: false, sendDate: NSDate(), content: url, type: .Voice)
         replyWithMessage(message)
+        
+        // Remove overlay view for message cell
+        updateMessageWithNewState(MessageState.Sent, messageId: messageId)
     }
 
     private func moveComposeBarViewUpOrDown(isUp: Bool, rect: CGRect, duration: NSTimeInterval) {
@@ -436,10 +441,10 @@ extension LINChatController {
         scrollBubbleTableViewToBottomAnimated(true)
     }
     
-    private func updateMessageStateWithMessageId(messageId: String) {
+    private func updateMessageWithNewState(state: MessageState, messageId: String) {
         for (index, message) in enumerate(messageArray) {
             if message.messageId == messageId {
-                message.state = MessageState.Sent
+                message.state = state
                 
                 let bubbleCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: 0)) as? LINBubbleCell
                 bubbleCell?.removeOverlayView()

@@ -19,9 +19,9 @@ protocol LINComposeBarViewDelegate {
     func composeBar(composeBar: LINComposeBarView, startPickingMediaWithPickerViewController picker: UIImagePickerController)
     func composeBar(composeBar: LINComposeBarView, didPickPhoto photo: UIImage, messageId: String)
     func composeBar(composeBar: LINComposeBarView, didUploadPhoto imageURL: String, messageId: String)
-    func composeBar(composeBar: LINComposeBarView, didRecord data: NSData)
+    func composeBar(composeBar: LINComposeBarView, didRecord data: NSData, messageId: String)
     func composeBar(composeBar: LINComposeBarView, didFailToRecord error: NSError)
-    func composeBar(composeBar: LINComposeBarView, didUploadRecord url: String)
+    func composeBar(composeBar: LINComposeBarView, didUploadRecord url: String, messageId: String)
     func composeBar(composeBar: LINComposeBarView, willChangeHeight height: CGFloat)
 }
 
@@ -284,11 +284,16 @@ class LINComposeBarView: UIView, LINEmoticonsViewDelegate, LINAudioHelperRecorde
     func audioHelperDidComposeVoice(voice: NSData) {
         println(voice.length)
         resetStateForNextRecord()
-        delegate?.composeBar(self, didRecord: voice)
+        
+        // Generate a message id
+        let messageId = NSUUID.UUID().UUIDString
+
+        delegate?.composeBar(self, didRecord: voice, messageId: messageId)
+        
         // Upload record to server
         LINNetworkClient.sharedInstance.uploadFile(voice, fileType: LINFileType.Audio, completion: { (fileURL, error) -> Void in
             if let tmpFileURL = fileURL {
-                self.delegate?.composeBar(self, didUploadRecord: tmpFileURL)
+                self.delegate?.composeBar(self, didUploadRecord: tmpFileURL, messageId: messageId)
             }
         })
     }
