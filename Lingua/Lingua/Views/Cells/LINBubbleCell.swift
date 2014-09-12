@@ -17,6 +17,12 @@ let kVoiceMessageMaxHeight: CGFloat = 55
 let kSideMargin: CGFloat = 10
 let kTextCellHeightPadding: CGFloat = 5
 let kPhotoCellHeightPadding: CGFloat = 30
+let kTimeLabelMaxWidth: CGFloat = 100
+let kTimeLabelMaxHeight: CGFloat = 20
+
+// Resend message
+let kResendButtonWidth: CGFloat = 20
+let kResendButtonHeight: CGFloat = 20
 
 protocol LINBubbleCellDelegate {
     func bubbleCellDidStartPlayingRecord(bubbleCell: LINBubbleCell)
@@ -28,7 +34,10 @@ class LINBubbleCell: UITableViewCell, LINAudioHelperPlayerDelegate {
     private var createAtLabel = UILabel()
     private var photoImgView = UIImageView()
     private let placeholderImage = UIImage(named: "placeholder")
+    
+    // Message status
     private var overlayView = UIImageView()
+    private var resendButton: UIButton?
     
     //Voice message
     private var playButton: UIButton?
@@ -37,6 +46,7 @@ class LINBubbleCell: UITableViewCell, LINAudioHelperPlayerDelegate {
 
     private let textInsetsMine = UIEdgeInsetsMake(5, 10, 7, 17)
     private let textInsetsSomeone = UIEdgeInsetsMake(5, 15, 7, 10)
+    private let resendButtonInsets = UIEdgeInsetsMake(0, 5, 0, 5)
     
     var delegate: LINBubbleCellDelegate?
    
@@ -63,7 +73,7 @@ class LINBubbleCell: UITableViewCell, LINAudioHelperPlayerDelegate {
         contentTextView.font = UIFont.appRegularFontWithSize(14)
         
         // CreateAt label
-        createAtLabel.font = UIFont.appRegularFontWithSize(10)
+        createAtLabel.font = UIFont.appRegularFontWithSize(8)
         createAtLabel.textColor =  UIColor(red: 153/255.0, green: 153/255.0, blue: 153/255.0, alpha: 1.0)
         addSubview(createAtLabel)
 
@@ -81,6 +91,7 @@ class LINBubbleCell: UITableViewCell, LINAudioHelperPlayerDelegate {
         voiceProgressBar?.removeFromSuperview()
         durationLabel?.removeFromSuperview()
         overlayView.removeFromSuperview()
+        resendButton?.removeFromSuperview()
         
         if let playerDelegate = LINAudioHelper.sharedInstance.playerDelegate as? LINBubbleCell {
             if playerDelegate == self {
@@ -220,42 +231,63 @@ class LINBubbleCell: UITableViewCell, LINAudioHelperPlayerDelegate {
         addOverlayViewWithMessage(message)
         addBubbleViewWithMessage(message)
         addTimeViewWithMessage(message)
+        addResendButtonWithMessage(message)
     }
     
     private func addBubbleViewWithMessage(message: LINMessage) {
         let bubbleCapInsets = UIEdgeInsetsMake(20, 10, 10, 10)
-        var bubbleImg: UIImage?
+        var boxImgName: String?
         if message.incoming {
-            bubbleImg = UIImage(named: "ChatBoxLeft").resizableImageWithCapInsets(bubbleCapInsets)
+            boxImgName = (message.state == MessageState.UnSent ? "box_resend_left" : "ChatBoxLeft")
         } else {
-            bubbleImg = UIImage(named: "ChatBoxRight").resizableImageWithCapInsets(bubbleCapInsets)
+            boxImgName = (message.state == MessageState.UnSent ? "box_resend_right" : "ChatBoxRight")
         }
         
-        bubbleImageView.image = bubbleImg
+        bubbleImageView.image = UIImage(named: boxImgName!).resizableImageWithCapInsets(bubbleCapInsets)
     }
     
     private func addTimeViewWithMessage(message: LINMessage) {
-        let contentFrame = bubbleImageView.frame
-        let offsetXCreateAtLabel = (message.incoming == true ? (contentFrame.origin.x + contentFrame.size.width + 20) : (contentFrame.origin.x - 60))
-        createAtLabel.frame = CGRect(x: offsetXCreateAtLabel,
-                                     y: contentFrame.origin.y + contentFrame.size.height / 2 - 10,
-                                     width: 100,
-                                     height: 20)
-        createAtLabel.text = NSDateFormatter.hourDateFormatter().stringFromDate(message.sendDate).lowercaseString
+        let timeValue = NSDateFormatter.hourDateFormatter().stringFromDate(message.sendDate).lowercaseString
+        
+        // Size for time value
+        let bubbleViewFrame = bubbleImageView.frame
+        let delta: CGFloat = (message.state == MessageState.UnSent ? (resendButtonInsets.right + kResendButtonWidth) : 0)
+        let sizeTimeLabel = (timeValue as NSString).boundingRectWithSize(CGSizeMake(kTimeLabelMaxWidth, kTimeLabelMaxHeight), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: [NSFontAttributeName: createAtLabel.font], context: nil).size
+        
+        // (x, y) for time label
+        let offsetX = (message.incoming == true ? (bubbleViewFrame.origin.x + bubbleViewFrame.size.width + resendButtonInsets.right + delta) : (bubbleViewFrame.origin.x - (5 + sizeTimeLabel.width + delta)))
+        let offsetY = bubbleViewFrame.origin.y + bubbleViewFrame.size.height / 2 - resendButtonInsets.right
+        
+        createAtLabel.frame = CGRect(x: offsetX, y: offsetY, width: sizeTimeLabel.width, height: kTimeLabelMaxHeight)
+        createAtLabel.text = timeValue
+    }
+    
+    private func addResendButtonWithMessage(message: LINMessage) {
+        if message.state == MessageState.UnSent {
+            let bubbleViewFrame = bubbleImageView.frame
+            let offsetX = (message.incoming == true ? (bubbleViewFrame.origin.x + bubbleViewFrame.size.width + resendButtonInsets.right) : (bubbleViewFrame.origin.x - (resendButtonInsets.right + kResendButtonWidth)))
+            let offsetY = createAtLabel.frame.origin.y
+            
+            resendButton?.removeFromSuperview()
+            resendButton = UIButton(frame: CGRectMake(offsetX, offsetY, kResendButtonWidth, kResendButtonHeight))
+            resendButton?.setImage(UIImage(named: "icn_resend"), forState: .Normal)
+            resendButton?.addTarget(self, action: "resendButtonTouched:", forControlEvents: .TouchUpInside)
+            addSubview(resendButton!)
+        }
     }
     
     private func addOverlayViewWithMessage(message: LINMessage) {
         if message.state == MessageState.Submitted {
             let bubbleCapInsets = UIEdgeInsetsMake(20, 10, 10, 10)
-            var overlayImg: UIImage?
+            var overlayImgName: String?
             if message.incoming {
-                overlayImg = UIImage(named: "Box_chat_left_opacity").resizableImageWithCapInsets(bubbleCapInsets)
+                overlayImgName = "Box_chat_left_opacity"
             } else {
-                overlayImg = UIImage(named: "Box_chat_right_opacity").resizableImageWithCapInsets(bubbleCapInsets)
+                overlayImgName = "Box_chat_right_opacity"
             }
 
             overlayView.frame = bubbleImageView.frame
-            overlayView.image = overlayImg
+            overlayView.image = UIImage(named: overlayImgName!).resizableImageWithCapInsets(bubbleCapInsets)
             addSubview(overlayView)
         }
     }
@@ -274,6 +306,10 @@ class LINBubbleCell: UITableViewCell, LINAudioHelperPlayerDelegate {
     }
     
     // MARK: Actions
+    
+    func resendButtonTouched(sender: UIButton) {
+        // KTODO: Resend this message
+    }
     
     func toggleAudioButton(playButton: UIButton) {
         if playButton.selected {

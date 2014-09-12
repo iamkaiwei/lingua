@@ -34,8 +34,8 @@ enum MessageState: Int {
 
 class LINMessage:NSObject , NSCoding {
     var messageId: String?
-    let incoming: Bool = false
-    let sendDate: NSDate = NSDate()
+    var incoming: Bool = false
+    var sendDate: NSDate = NSDate()
     var content: AnyObject?
     var url: String?
     var duration: NSTimeInterval = 0  //in seconds, reserved for type voice record.
