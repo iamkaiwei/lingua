@@ -181,7 +181,7 @@ extension LINChatController: LINComposeBarViewDelegate {
         composeBarHeightConstraint.constant = newHeight
         scrollBubbleTableViewToBottomAnimated(true)
     }
-
+    
     func composeBar(composeBar: LINComposeBarView, sendMessage text: String) {
         let message = LINMessage(incoming: false, sendDate: NSDate(), content: text, type: .Text)
         addBubbleViewCellWithMessage(message)
@@ -205,14 +205,19 @@ extension LINChatController: LINComposeBarViewDelegate {
         presentViewController(picker, animated: true, completion: nil)
     }
 
-    func composeBar(composeBar: LINComposeBarView, didPickPhoto photo: UIImage) {
+    func composeBar(composeBar: LINComposeBarView, didPickPhoto photo: UIImage, messageId: String) {
         let message = LINMessage(incoming: false, sendDate: NSDate(), content: photo, type: .Photo)
+        message.messageId = messageId
+        
         addBubbleViewCellWithMessage(message)
     }
     
-    func composeBar(composeBar: LINComposeBarView, didUploadPhoto imageURL: String) {
+    func composeBar(composeBar: LINComposeBarView, didUploadPhoto imageURL: String, messageId: String) {
         let message  = LINMessage(incoming: false, sendDate: NSDate(), content: imageURL, type: .Photo)
         replyWithMessage(message)
+        
+        // Remove overlay view for message cell
+        updateMessageStateWithMessageId(messageId)
     }
 
     func composeBar(composeBar: LINComposeBarView, didRecord data: NSData) {
@@ -288,7 +293,9 @@ extension LINChatController: LINComposeBarViewDelegate {
             }
         } else {
             let tmpRepliesArray = [replyDict]
+            
             // KTODO: No internet --> Add this message to replies array
+            
             LINNetworkClient.sharedInstance.creatBulkWithConversationId(conversationId, messagesArray: tmpRepliesArray) {
                 (success) -> Void in
             }
@@ -429,6 +436,18 @@ extension LINChatController {
         scrollBubbleTableViewToBottomAnimated(true)
     }
     
+    private func updateMessageStateWithMessageId(messageId: String) {
+        for (index, message) in enumerate(messageArray) {
+            if message.messageId == messageId {
+                message.state = MessageState.Sent
+                
+                let bubbleCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: 0)) as? LINBubbleCell
+                bubbleCell?.removeOverlayView()
+                break
+            }
+        }
+    }
+    
     private func addListBubbleCellsWithCount(count: Int) {
         var contentOffset = self.tableView.contentOffset
         tableView.reloadData()
@@ -492,6 +511,7 @@ extension LINChatController {
                                                   sendDate: NSDateFormatter.iSODateFormatter().dateFromString(reply.createdAt)!,
                                                   content: reply.content,
                                                   type: MessageType.fromRaw(reply.messageTypeId)!)
+                        aMessage.state = MessageState.Sent
                         self.messageArray.insert(aMessage, atIndex: 0)
                     }
                     

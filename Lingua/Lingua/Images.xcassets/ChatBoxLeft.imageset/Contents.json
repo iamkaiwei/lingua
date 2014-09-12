@@ -40,6 +40,10 @@
       "idiom" : "universal",
       "filename" : "Box_chat_left@2x.png",
       "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {

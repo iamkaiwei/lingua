@@ -10,8 +10,8 @@ import Foundation
 
 protocol LINEmoticonsViewDelegate {
     func emoticonsView(emoticonsView: LINEmoticonsView, startPickingMediaWithPickerViewController picker: UIImagePickerController)
-    func emoticonsView(emoticonsView: LINEmoticonsView, didPickPhoto photo: UIImage)
-    func emoticonsView(emoticonsView: LINEmoticonsView, didUploadPhoto imageURL: String)
+    func emoticonsView(emoticonsView: LINEmoticonsView, didPickPhoto photo: UIImage, messageId: String)
+    func emoticonsView(emoticonsView: LINEmoticonsView, didUploadPhoto imageURL: String, messageId: String)
     func emoticonsView(emoticonsView: LINEmoticonsView, didCancelWithPickerController picker: UIImagePickerController)
     func emoticonsView(emoticonsView: LINEmoticonsView, didSelectEmoticonAtIndex index: Int)
 }
@@ -62,14 +62,17 @@ extension LINEmoticonsView {
 
 extension LINEmoticonsView: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(picker: UIImagePickerController!, didFinishPickingMediaWithInfo info: NSDictionary!) {
+        // Generate a message id
+        let messageId = NSUUID.UUID().UUIDString
+        
         let chooseImage = info[UIImagePickerControllerEditedImage] as UIImage
-        delegate?.emoticonsView(self, didPickPhoto: chooseImage)
+        delegate?.emoticonsView(self, didPickPhoto: chooseImage, messageId: messageId)
         
         // Upload photo to server
         let imageData = UIImageJPEGRepresentation(chooseImage, 0.8) as NSData
         LINNetworkClient.sharedInstance.uploadFile(imageData, fileType: LINFileType.Image, completion: { (fileURL, error) -> Void in
             if let tmpFileURL = fileURL {
-                self.delegate?.emoticonsView(self, didUploadPhoto: tmpFileURL)
+                self.delegate?.emoticonsView(self, didUploadPhoto: tmpFileURL, messageId: messageId)
             }
         })
         

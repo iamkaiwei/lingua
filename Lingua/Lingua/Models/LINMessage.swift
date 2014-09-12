@@ -26,13 +26,21 @@ enum MessageType: Int {
     }
 }
 
-class LINMessage:NSObject , NSCoding{
+enum MessageState: Int {
+    case Submitted = 1 // The message is waiting to be sent.
+    case Sent // The message has sent.
+    case UnSent // The message has not been sent.
+}
+
+class LINMessage:NSObject , NSCoding {
+    var messageId: String?
     let incoming: Bool = false
     let sendDate: NSDate = NSDate()
     var content: AnyObject?
     var url: String?
     var duration: NSTimeInterval = 0  //in seconds, reserved for type voice record.
     var type: MessageType = MessageType.Text
+    var state: MessageState = MessageState.Submitted
     
     // Cache height for emoticons textview
     var height: CGFloat = 0
