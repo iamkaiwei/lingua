@@ -224,7 +224,7 @@ class LINComposeBarView: UIView, LINEmoticonsViewDelegate, LINAudioHelperRecorde
     }
     
     func handleKeyboardWillHideNotification(notification: NSNotification) {
-        if emoticonsTextStorage.string.utf16Count < 1 {
+        if emoticonsTextStorage.getOriginalText().utf16Count < 1 {
             sendButton.hidden = true
             speakButton.hidden = false
         }
