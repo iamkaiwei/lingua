@@ -217,6 +217,7 @@ class LINChatController: UIViewController {
         leaveConversation()
         currentChannel.unsubscribe()
         postMessagesToServer()
+        cachingChatHistoryData()
     }
     
     func appDidBecomActive() {
@@ -393,14 +394,14 @@ class LINChatController: UIViewController {
     }
     
     func getLastestMessages() -> [LINMessage]? {
-        var numberOfMessage = min(self.messageArray.count,kChatHistoryMaxLenght)
+        let numberOfMessage = min(self.messageArray.count,kChatHistoryMaxLenght)
         if numberOfMessage == 0 {
             return nil
         }
-        var messageCount = self.messageArray.count
-        var startIndex:Int = messageCount - messageCount
-        var endIndex:Int = messageCount - 1
-        var lastestMessages = Array(self.messageArray[startIndex...endIndex]) as [LINMessage]
+        let messageCount = self.messageArray.count
+        let startIndex:Int = abs(messageCount - numberOfMessage)
+        let endIndex:Int = messageCount - 1
+        let lastestMessages = Array(self.messageArray[startIndex...endIndex]) as [LINMessage]
         return lastestMessages
     }
     
@@ -561,6 +562,10 @@ extension LINChatController: LINComposeBarViewDelegate {
     }
 
     private func replyWithMessage(message: LINMessage) {
+        if !LINNetworkHelper.isReachable() {
+            return
+        }
+        
         self.conversationChanged = true
         let sendDate = NSDateFormatter.iSODateFormatter().stringFromDate(NSDate())
         
@@ -613,7 +618,7 @@ extension LINChatController: LINComposeBarViewDelegate {
         }
         
         // Check if message has sent or not
-        if LINNetworkHelper.isReachable() && message.messageId != nil {
+        if message.messageId != nil {
             if message.type == MessageType.Text {
                 NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "timerFireUpdateTextMessageHasSent:",
                                                        userInfo: message.messageId!, repeats: false)
