@@ -526,6 +526,10 @@ extension LINChatController: LINComposeBarViewDelegate {
         replyWithMessage(message)
     }
 
+    func composeBar(composeBar: LINComposeBarView, didFailToUploadFile error: NSError?, messageId: String) {
+        // KTODO: Hanlde fail to upload file (photo, voice)
+    }
+    
     func composeBar(composeBar: LINComposeBarView, didRecord data: NSData, messageId: String) {
         let message = LINMessage(incoming: false, sendDate: NSDate(), content: data, type: .Voice)
         message.duration = LINAudioHelper.sharedInstance.getDurationFromData(data)
