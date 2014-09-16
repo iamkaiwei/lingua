@@ -285,13 +285,37 @@ class LINChatController: UIViewController {
         scrollBubbleTableViewToBottomAnimated(true)
     }
     
+    private func moveBubbleCellToBottomAtIndexPath(indexPath: NSIndexPath) {
+        let message = messageArray[indexPath.row]
+        message.state = MessageState.Submitted
+        message.sendDate = NSDate()
+        
+        // Update data source
+        messageArray.removeAtIndex(indexPath.row)
+        messageArray.append(message)
+        dataSource!.items = messageArray
+        tableView.dataSource = dataSource
+        
+        let toIndexPath = NSIndexPath(forRow: messageArray.count - 1, inSection: 0)
+        
+        tableView.beginUpdates()
+        tableView.moveRowAtIndexPath(indexPath, toIndexPath: toIndexPath)
+        tableView.endUpdates()
+        
+        tableView.reloadRowsAtIndexPaths([toIndexPath], withRowAnimation: UITableViewRowAnimation.None)
+        scrollBubbleTableViewToBottomAnimated(true)
+    }
+    
     private func updateMessageWithNewState(state: MessageState, messageId: String) {
         for (index, message) in enumerate(messageArray) {
             if message.messageId == messageId {
                 message.state = state
                 
-                let bubbleCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: 0)) as? LINBubbleCell
-                bubbleCell?.removeOverlayView()
+                let indexPaths = [NSIndexPath(forRow: index, inSection: 0)]
+                
+                tableView.beginUpdates()
+                tableView.reloadRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.None)
+                tableView.endUpdates()
                 break
             }
         }
@@ -469,6 +493,103 @@ class LINChatController: UIViewController {
         }
         return nil
     }
+    
+    private func replyWithMessage(message: LINMessage) {
+        if !LINNetworkHelper.isReachable() {
+            updateMessageWithNewState(MessageState.UnSent, messageId: message.messageId!)
+            return
+        }
+        
+        self.conversationChanged = true
+        let sendDate = NSDateFormatter.iSODateFormatter().stringFromDate(NSDate())
+        
+        var content: String?
+        if message.type == MessageType.Text {
+            content = message.content as? String
+        } else {
+            content = message.url
+        }
+        
+        let replyDict = ["sender_id": currentUser.userId,
+            "message_type_id": message.type.toRaw(),
+            "content": content!,
+            "created_at": sendDate]
+        
+        if currentChatMode == LINChatMode.Online {
+            currentChannel.triggerEventNamed(kPusherEventNameNewMessage,
+                data: [kUserIdKey: currentUser.userId,
+                    kFirstName: currentUser.firstName,
+                    kAvatarURL: currentUser.avatarURL,
+                    kMessageTextKey: content!,
+                    kMessageSendDateKey: sendDate,
+                    kMessageTypeKey: message.type.toRaw()
+                ])
+            
+            repliesArray.append(replyDict)
+            
+            if repliesArray.count == 20 {
+                postMessagesToServer()
+            }
+        } else {
+            let tmpRepliesArray = [replyDict]
+            
+            // KTODO: No internet --> Add this message to replies array
+            
+            LINNetworkClient.sharedInstance.creatBulkWithConversationId(conversationId, messagesArray: tmpRepliesArray) {
+                (success) -> Void in
+            }
+            
+            pushNotificationWithMessage(message)
+        }
+        
+        // Check if message has sent or not
+        if message.messageId != nil {
+            if message.type == MessageType.Text {
+                NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "timerFireUpdateTextMessageHasSent:",
+                    userInfo: message.messageId!, repeats: false)
+            } else {
+                updateMessageWithNewState(MessageState.Sent, messageId: message.messageId!)
+            }
+        }
+        
+        println("pusher] Count channel members: \(self.currentChannel.members.count)");
+    }
+    
+    func timerFireUpdateTextMessageHasSent(timer: NSTimer) {
+        let messageId = timer.userInfo as String
+        updateMessageWithNewState(MessageState.Sent, messageId: messageId)
+    }
+    
+    private func resendThisMessage(message: LINMessage) {
+        if message.type == MessageType.Text || message.url != nil {
+            replyWithMessage(message)
+            return
+        }
+        
+        if message.content == nil {
+            self.updateMessageWithNewState(MessageState.UnSent, messageId: message.messageId!)
+            return
+        }
+        
+        var data: NSData?
+        var fileType = LINFileType.Audio
+        if message.type == MessageType.Photo {
+            data = UIImageJPEGRepresentation(message.content as UIImage, 0.8)
+            fileType = LINFileType.Image
+        } else {
+            data = message.content as? NSData
+        }
+        
+        LINNetworkClient.sharedInstance.uploadFile(data!, fileType: fileType, completion: { (fileURL, error) -> Void in
+            if let tmpFileURL = fileURL {
+                message.url = fileURL
+                self.replyWithMessage(message)
+                return
+            }
+            
+            self.updateMessageWithNewState(MessageState.UnSent, messageId: message.messageId!)
+        })
+    }
 }
 
 extension LINChatController: LINBubbleCellDelegate {
@@ -485,6 +606,16 @@ extension LINChatController: LINBubbleCellDelegate {
     
     func bubbleCellDidStopPlayingRecord(bubbleCell: LINBubbleCell) {
         onPlayVoiceMessage = nil
+    }
+    
+    func bubbleCellDidStartResendMessage(bubbleCell: LINBubbleCell) {
+        if let indexPath = tableView.indexPathForCell(bubbleCell) {
+            // Move selected cell to bottom
+            moveBubbleCellToBottomAtIndexPath(indexPath)
+            
+            // Try to resend this message
+            resendThisMessage(messageArray.last!)
+        }
     }
 }
 
@@ -536,7 +667,7 @@ extension LINChatController: LINComposeBarViewDelegate {
     }
 
     func composeBar(composeBar: LINComposeBarView, didFailToUploadFile error: NSError?, messageId: String) {
-        // KTODO: Hanlde fail to upload file (photo, voice)
+        updateMessageWithNewState(MessageState.UnSent, messageId: messageId)
     }
     
     func composeBar(composeBar: LINComposeBarView, didRecord data: NSData, messageId: String) {
@@ -565,71 +696,6 @@ extension LINChatController: LINComposeBarViewDelegate {
             self.composeBar.frame = composeBarFrame
             self.tableView.frame = tableFrame
         })
-    }
-
-    private func replyWithMessage(message: LINMessage) {
-        if !LINNetworkHelper.isReachable() {
-            return
-        }
-        
-        self.conversationChanged = true
-        let sendDate = NSDateFormatter.iSODateFormatter().stringFromDate(NSDate())
-        
-        var content: String?
-        if message.type == MessageType.Text {
-            content = message.content as? String
-        } else {
-            content = message.url
-        }
-        
-        let replyDict = ["sender_id": currentUser.userId,
-                         "message_type_id": message.type.toRaw(),
-                         "content": content!,
-                         "created_at": sendDate]
-        
-        if currentChatMode == LINChatMode.Online {
-            currentChannel.triggerEventNamed(kPusherEventNameNewMessage,
-                data: [kUserIdKey: currentUser.userId,
-                       kFirstName: currentUser.firstName,
-                       kAvatarURL: currentUser.avatarURL,
-                       kMessageTextKey: content!,
-                       kMessageSendDateKey: sendDate,
-                       kMessageTypeKey: message.type.toRaw()
-                ])
-            
-            repliesArray.append(replyDict)
-            
-            if repliesArray.count == 20 {
-                postMessagesToServer()
-            }
-        } else {
-            let tmpRepliesArray = [replyDict]
-            
-            // KTODO: No internet --> Add this message to replies array
-            
-            LINNetworkClient.sharedInstance.creatBulkWithConversationId(conversationId, messagesArray: tmpRepliesArray) {
-                (success) -> Void in
-            }
-            
-            pushNotificationWithMessage(message)
-        }
-        
-        // Check if message has sent or not
-        if message.messageId != nil {
-            if message.type == MessageType.Text {
-                NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "timerFireUpdateTextMessageHasSent:",
-                                                       userInfo: message.messageId!, repeats: false)
-            } else {
-                updateMessageWithNewState(MessageState.Sent, messageId: message.messageId!)
-            }
-        }
-        
-        println("pusher] Count channel members: \(self.currentChannel.members.count)");
-    }
-    
-    func timerFireUpdateTextMessageHasSent(timer: NSTimer) {
-        let messageId = timer.userInfo as String
-        updateMessageWithNewState(MessageState.Sent, messageId: messageId)
     }
 }
 
