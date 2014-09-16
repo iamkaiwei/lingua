@@ -12,7 +12,7 @@ class LINParsingEmoticonsTextStorage: NSTextStorage {
     private var imp = NSMutableAttributedString()
     private var dict = NSDictionary()
     private var expression = NSRegularExpression()
-    private var enablePlaceHolderText = false
+    var enablePlaceHolderText = false
     
     override init() {
         super.init()

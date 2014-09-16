@@ -66,6 +66,7 @@ class LINMessage:NSObject , NSCoding {
         self.height   = CGFloat(aDecoder.decodeFloatForKey("height"))
         self.duration = aDecoder.decodeObjectForKey("duration") as NSTimeInterval
         self.type     = MessageType.fromRaw(aDecoder.decodeIntegerForKey("type"))!
+        self.state     = MessageState.fromRaw(aDecoder.decodeIntegerForKey("state"))!
     }
     
     func encodeWithCoder(encoder: NSCoder){
@@ -73,7 +74,9 @@ class LINMessage:NSObject , NSCoding {
         encoder.encodeObject(sendDate, forKey: "sendDate")
         encoder.encodeObject(duration, forKey:"duration")
         encoder.encodeInteger(type.toRaw(), forKey: "type")
+        encoder.encodeInteger(state.toRaw(), forKey: "state")
         encoder.encodeFloat(Float(height), forKey: "height")
+        
         if content != nil {
             encoder.encodeObject(content!, forKey: "content")
         }

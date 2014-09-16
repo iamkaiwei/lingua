@@ -26,6 +26,7 @@ let kResendButtonHeight: CGFloat = 20
 
 protocol LINBubbleCellDelegate {
     func bubbleCellDidStartPlayingRecord(bubbleCell: LINBubbleCell)
+    func bubbleCellDidStartResendMessage(bubbleCell: LINBubbleCell)
 }
 
 class LINBubbleCell: UITableViewCell, LINAudioHelperPlayerDelegate {
@@ -292,10 +293,6 @@ class LINBubbleCell: UITableViewCell, LINAudioHelperPlayerDelegate {
         }
     }
     
-    func removeOverlayView() {
-        overlayView.removeFromSuperview()
-    }
-    
     func openPhotoPreviewWithGesture(recognizer: UITapGestureRecognizer) {
         let appDelegate = AppDelegate.sharedDelegate()
         let photoPreviewController = appDelegate.storyboard.instantiateViewControllerWithIdentifier("kLINPhotoPreviewController") as LINPhotoPreviewController
@@ -308,7 +305,7 @@ class LINBubbleCell: UITableViewCell, LINAudioHelperPlayerDelegate {
     // MARK: Actions
     
     func resendButtonTouched(sender: UIButton) {
-        // KTODO: Resend this message
+        delegate?.bubbleCellDidStartResendMessage(self)
     }
     
     func toggleAudioButton(playButton: UIButton) {

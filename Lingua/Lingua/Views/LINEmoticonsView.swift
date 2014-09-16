@@ -12,6 +12,7 @@ protocol LINEmoticonsViewDelegate {
     func emoticonsView(emoticonsView: LINEmoticonsView, startPickingMediaWithPickerViewController picker: UIImagePickerController)
     func emoticonsView(emoticonsView: LINEmoticonsView, didPickPhoto photo: UIImage, messageId: String)
     func emoticonsView(emoticonsView: LINEmoticonsView, didUploadPhoto imageURL: String, messageId: String)
+    func emoticonsView(emoticonsView: LINEmoticonsView, didFailToUploadPhoto error: NSError?, messageId: String)
     func emoticonsView(emoticonsView: LINEmoticonsView, didCancelWithPickerController picker: UIImagePickerController)
     func emoticonsView(emoticonsView: LINEmoticonsView, didSelectEmoticonAtIndex index: Int)
 }
@@ -73,7 +74,10 @@ extension LINEmoticonsView: UIImagePickerControllerDelegate, UINavigationControl
         LINNetworkClient.sharedInstance.uploadFile(imageData, fileType: LINFileType.Image, completion: { (fileURL, error) -> Void in
             if let tmpFileURL = fileURL {
                 self.delegate?.emoticonsView(self, didUploadPhoto: tmpFileURL, messageId: messageId)
+                return
             }
+            
+            self.delegate?.emoticonsView(self, didFailToUploadPhoto: error, messageId: messageId)
         })
         
         hidePhotosScreenWithPickerViewController(picker)
