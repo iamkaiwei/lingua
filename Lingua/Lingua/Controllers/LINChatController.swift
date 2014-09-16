@@ -460,6 +460,15 @@ class LINChatController: UIViewController {
         
         return channelName
     }
+    
+    private func getMessageById(messageId: String) -> LINMessage? {
+        for message in messageArray {
+            if message.messageId == messageId {
+                return message
+            }
+        }
+        return nil
+    }
 }
 
 extension LINChatController: LINBubbleCellDelegate {
@@ -518,12 +527,12 @@ extension LINChatController: LINComposeBarViewDelegate {
         
         addBubbleViewCellWithMessage(message)
     }
-    
-    func composeBar(composeBar: LINComposeBarView, didUploadPhoto imageURL: String, messageId: String) {
-        let message  = LINMessage(incoming: false, sendDate: NSDate(), content: imageURL, type: .Photo)
-        message.messageId = messageId
         
-        replyWithMessage(message)
+    func composeBar(composeBar: LINComposeBarView, didUploadFile url: String, messageId: String) {
+        let message = getMessageById(messageId)
+        message?.url = url
+        
+        replyWithMessage(message!)
     }
 
     func composeBar(composeBar: LINComposeBarView, didFailToUploadFile error: NSError?, messageId: String) {
@@ -540,13 +549,6 @@ extension LINChatController: LINComposeBarViewDelegate {
 
     func composeBar(composeBar: LINComposeBarView, didFailToRecord error: NSError) {
         SVProgressHUD.showErrorWithStatus("\(error.localizedDescription) Please try again.")
-    }
-
-    func composeBar(composeBar: LINComposeBarView, didUploadRecord url: String, messageId: String) {
-        let message  = LINMessage(incoming: false, sendDate: NSDate(), content: url, type: .Voice)
-        message.messageId = messageId
-        
-        replyWithMessage(message)
     }
 
     private func moveComposeBarViewUpOrDown(isUp: Bool, rect: CGRect, duration: NSTimeInterval) {
@@ -574,21 +576,12 @@ extension LINChatController: LINComposeBarViewDelegate {
         let sendDate = NSDateFormatter.iSODateFormatter().stringFromDate(NSDate())
         
         var content: String?
-        if message.url != nil {
+        if message.type == MessageType.Text {
+            content = message.content as? String
+        } else {
             content = message.url
         }
-        else if message.content != nil {
-            if let tempContent = message.content as? String {
-                content = tempContent
-            }
-            else {
-                return
-            }
-        }
-        else {
-            return //Nothing to send here...
-        }
-
+        
         let replyDict = ["sender_id": currentUser.userId,
                          "message_type_id": message.type.toRaw(),
                          "content": content!,
