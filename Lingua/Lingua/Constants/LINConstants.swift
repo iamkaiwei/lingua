@@ -34,9 +34,11 @@ let kNotificationAppDidRestoreConnection      = "kNotificationAppDidRestoreConne
 let kNotificationShouldUpdateNewMessageCount = "kNotificationShouldUpdateNewMessageCount"
 let kNotificationAppReceivedNewMessage       = "kNotificationAppReceivedNewMessage"
 let kNotificationAppDidOpenChatViewFromHUD   = "kNotificationAppDidOpenChatViewFromHUD"
+
 // External resources
 let kCachedConversationDataFile = "conversations_data.lingua"
 let kLinguaResourceExtension = "lingua"
+let kUnsentChatPrefixName = "unsent_chat"
 
 let kAlertSoundFileName = "default"
 let kAlertSoundExtension = "m4r"

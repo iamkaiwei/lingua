@@ -25,40 +25,56 @@ class LINResourceHelper: NSObject {
         return (quotes, authors)
     }
     
-    class func cachingConversationOfflineData(data:NSData) {
-        var fullFilePath = getDocumentPathForFile(kCachedConversationDataFile)
-        data.writeToFile(fullFilePath, atomically: true)
+    class func cachingConversationOfflineData(data: NSData) {
+        cachingOfflineData(data, filePath: kCachedConversationDataFile)
     }
     
     class func retrievingCachedConversation() -> NSData? {
-        var fullFilePath:String = getDocumentPathForFile(kCachedConversationDataFile)
-        return dataFromCachedFile(fullFilePath)
+        return retrievingOfflineDataWithFilePath(kCachedConversationDataFile)
     }
     
-    class func cachingChatHistoryData(conversationId:String , data:NSData) {
-        var filePath:String = String("\(conversationId).\(kLinguaResourceExtension)")
-        var fullFilePath = getDocumentPathForFile(filePath)
+    class func cachingChatHistoryData(conversationId: String, data: NSData) {
+        let filePath = String("\(conversationId).\(kLinguaResourceExtension)")
+        cachingOfflineData(data, filePath: filePath)
+    }
+    
+    class func retrievingChatHistoryData(conversationId: String) -> NSData? {
+        let filePath = String("\(conversationId).\(kLinguaResourceExtension)")
+        return retrievingOfflineDataWithFilePath(filePath)
+    }
+    
+    class func cachingUnsentChatData(conversationId: String, data: NSData) {
+        let filePath = String("\(kUnsentChatPrefixName)_\(conversationId).\(kLinguaResourceExtension)")
+        cachingOfflineData(data, filePath: filePath)
+    }
+    
+    class func retrievingUnsentChatData(conversationId: String) -> NSData? {
+        let filePath = String("\(kUnsentChatPrefixName)_\(conversationId).\(kLinguaResourceExtension)")
+        return retrievingOfflineDataWithFilePath(filePath)
+    }
+    
+    // MARK: Helpers
+    
+    class func cachingOfflineData(data: NSData, filePath: String) {
+        let fullFilePath = getDocumentPathForFile(filePath)
         data.writeToFile(fullFilePath, atomically: true)
     }
     
-    class func retrievingChatHistoryData(conversationId:String) -> NSData? {
-        var filePath:String = String("\(conversationId).\(kLinguaResourceExtension)")
-        var fullFilePath = getDocumentPathForFile(filePath)
+    class func retrievingOfflineDataWithFilePath(filePath: String) -> NSData? {
+        let fullFilePath = getDocumentPathForFile(filePath)
         return dataFromCachedFile(fullFilePath)
     }
     
-    //Helper
-    class func dataFromCachedFile(fullFilePath:String) -> NSData? {
+    class func dataFromCachedFile(fullFilePath: String) -> NSData? {
         if NSFileManager.defaultManager().fileExistsAtPath(fullFilePath) {
             return NSData.dataWithContentsOfFile(fullFilePath, options: NSDataReadingOptions.UncachedRead, error: nil)
         }
-        else {
-            return nil
-        }
+        
+        return nil
     }
     
-    class func getDocumentPathForFile(filePath:String) ->  String {
-        var documentPath:String = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+    class func getDocumentPathForFile(filePath: String) ->  String {
+        let documentPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
         return "\(documentPath)/\(filePath)"
     }
 }

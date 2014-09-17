@@ -46,12 +46,15 @@ class LINChatController: UIViewController {
         }
     }
     var conversationId: String = ""
+    var userChat = LINUser()
     
     private var currentUser = LINUser()
-    var userChat = LINUser()
     private var repliesArray = [AnyObject]()
     private var currentPageIndex = kChatHistoryBeginPageIndex
     private var currentChatMode = LINChatMode.Offline
+    
+    // Unsent messages
+    private var unsentMessagesArray = [LINMessage]()
 
     // Layout contraints
     @IBOutlet weak var composeBarBottomLayoutGuideConstraint: NSLayoutConstraint!
@@ -80,13 +83,15 @@ class LINChatController: UIViewController {
         
         setupTableView()
 
+        loadCachedUnsentChatData()
+        
         if LINNetworkHelper.isReachable() {
             loadListLastestMessages()
         }
         else {
             loadingCachedChatHistory()
         }
-                
+        
         self.topNavigationView.registerForNetworkStatusNotification(lostConnection: kNotificationAppDidLostConnection, restoreConnection: kNotificationAppDidRestoreConnection)
         self.tableView.registerForNetworkStatusNotification(lossConnection: kNotificationAppDidLostConnection, restoreConnection: kNotificationAppDidRestoreConnection)
         
@@ -112,6 +117,7 @@ class LINChatController: UIViewController {
         currentChannel.unsubscribe()
         postMessagesToServer()
         cachingChatHistoryData()
+        cachingUnsentChatData()
 
         //Call previous view controller to re-arrange the order
         if conversationChanged {
@@ -218,6 +224,7 @@ class LINChatController: UIViewController {
         currentChannel.unsubscribe()
         postMessagesToServer()
         cachingChatHistoryData()
+        cachingUnsentChatData()
     }
     
     func appDidBecomActive() {
@@ -257,9 +264,6 @@ class LINChatController: UIViewController {
         if repliesArray.count <= 0 {
             return
         }
-        
-        // KTODO: Check status of internet connection
-        // If no internet --> return
         
         LINNetworkClient.sharedInstance.creatBulkWithConversationId(conversationId,
             messagesArray: repliesArray) {
@@ -316,6 +320,13 @@ class LINChatController: UIViewController {
                 tableView.beginUpdates()
                 tableView.reloadRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.None)
                 tableView.endUpdates()
+                
+                // Add un-sent message to an array
+                if state == MessageState.UnSent {
+                    addToUnsentMessagesArrayWithMessage(message)
+                } else if state == MessageState.Sent && unsentMessagesArray.count > 0 {
+                    removeMessageFromUnsentMessagesArrayWithMessageId(messageId)
+                }
                 break
             }
         }
@@ -427,25 +438,6 @@ class LINChatController: UIViewController {
         let endIndex:Int = messageCount - 1
         let lastestMessages = Array(self.messageArray[startIndex...endIndex]) as [LINMessage]
         return lastestMessages
-    }
-    
-    func cachingChatHistoryData() {
-        //Caching only first page (20 latest message)
-        var lastestMessages = self.getLastestMessages()
-        if lastestMessages != nil {
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { () -> Void in
-                var chatHistoryData = NSKeyedArchiver.archivedDataWithRootObject(lastestMessages!)
-                LINResourceHelper.cachingChatHistoryData(self.conversationId, data: chatHistoryData)
-            })
-        }
-    }
-    
-    func loadingCachedChatHistory() {
-        let cachedData = LINResourceHelper.retrievingChatHistoryData(self.conversationId)
-        if cachedData != nil {
-            self.messageArray = NSKeyedUnarchiver.unarchiveObjectWithData(cachedData!) as [LINMessage]
-            self.reloadChatTableContent()
-        }
     }
     
     func loadOlderMessages() {
@@ -589,6 +581,70 @@ class LINChatController: UIViewController {
             
             self.updateMessageWithNewState(MessageState.UnSent, messageId: message.messageId!)
         })
+    }
+    
+    // MARK: Resend messages
+    
+    private func addToUnsentMessagesArrayWithMessage(message: LINMessage) {
+        let index = getMessageInTempArrayWithMessageId(message.messageId)
+        if index >= 0 {
+            unsentMessagesArray.removeAtIndex(index)
+        }
+        
+        unsentMessagesArray.append(message)
+    }
+    
+    private func removeMessageFromUnsentMessagesArrayWithMessageId(messageId: String?) {
+        let index = getMessageInTempArrayWithMessageId(messageId)
+        if index >= 0 {
+            unsentMessagesArray.removeAtIndex(index)
+        }
+    }
+    
+    private func getMessageInTempArrayWithMessageId(messageId: String?) -> Int {
+        for (index, message) in enumerate(unsentMessagesArray) {
+            if message.messageId == messageId {
+                return index
+            }
+        }
+        
+        return -1
+    }
+    
+    // MARK: Caching offline data
+    
+    func cachingChatHistoryData() {
+        //Caching only first page (20 latest message)
+        let lastestMessages = self.getLastestMessages()
+        if lastestMessages != nil {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { () -> Void in
+                let chatHistoryData = NSKeyedArchiver.archivedDataWithRootObject(lastestMessages!)
+                LINResourceHelper.cachingChatHistoryData(self.conversationId, data: chatHistoryData)
+            })
+        }
+    }
+    
+    func loadingCachedChatHistory() {
+        let cachedData = LINResourceHelper.retrievingChatHistoryData(self.conversationId)
+        if cachedData != nil {
+            self.messageArray = NSKeyedUnarchiver.unarchiveObjectWithData(cachedData!) as [LINMessage]
+            self.reloadChatTableContent()
+        }
+    }
+    
+    func cachingUnsentChatData() {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { () -> Void in
+            let data = NSKeyedArchiver.archivedDataWithRootObject(self.unsentMessagesArray)
+            LINResourceHelper.cachingUnsentChatData(self.conversationId, data: data)
+        })
+    }
+    
+    func loadCachedUnsentChatData() {
+        let cachedData = LINResourceHelper.retrievingUnsentChatData(self.conversationId)
+        if cachedData != nil {
+            self.unsentMessagesArray = NSKeyedUnarchiver.unarchiveObjectWithData(cachedData!) as [LINMessage]
+            println("You have \(self.unsentMessagesArray.count) un-sent messages.")
+        }
     }
 }
 
