@@ -472,7 +472,8 @@ class LINChatController: UIViewController {
         currentChannel.bindToEventNamed(kPusherEventNameNewMessage, handleWithBlock: { channelEvent in
             let replyData = channelEvent.getReplyData()
             let type = MessageType.fromRaw(replyData.type)
-            var aMessage = LINMessage(incoming: true, sendDate: replyData.sendDate, content: replyData.text, type: type!)
+            let aMessage = LINMessage(incoming: true, sendDate: replyData.sendDate, content: replyData.text, type: type!)
+            aMessage.state = MessageState.Sent
             
             self.addBubbleViewCellWithMessage(aMessage)
         })
