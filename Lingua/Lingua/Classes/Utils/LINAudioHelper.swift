@@ -39,7 +39,7 @@ class LINAudioHelper: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     private var shouldCancelRecording = false
     private var trackingTimer: NSTimer?
     //1004 is default system sound ID
-    private var messageAlertSoundID:SystemSoundID = 1004
+    private var messageAlertSoundID: SystemSoundID = 1004
     
     class var sharedInstance: LINAudioHelper {
     struct Static {
@@ -64,9 +64,9 @@ class LINAudioHelper: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
         recorder.delegate = self
         recorder.prepareToRecord()
         
-        var soundPath:String? = NSBundle.mainBundle().pathForResource(kAlertSoundFileName, ofType: kAlertSoundExtension)
+        let soundPath = NSBundle.mainBundle().pathForResource(kAlertSoundFileName, ofType: kAlertSoundExtension)
         if soundPath != nil {
-            AudioServicesCreateSystemSoundID(NSURL(fileURLWithPath:soundPath!) as CFURL, &messageAlertSoundID)
+            AudioServicesCreateSystemSoundID(NSURL(fileURLWithPath: soundPath!) as CFURL, &messageAlertSoundID)
         }
     }
     

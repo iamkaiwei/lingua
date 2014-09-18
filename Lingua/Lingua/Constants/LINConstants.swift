@@ -39,6 +39,5 @@ let kNotificationAppDidOpenChatViewFromHUD   = "kNotificationAppDidOpenChatViewF
 let kCachedConversationDataFile = "conversations_data.lingua"
 let kLinguaResourceExtension = "lingua"
 let kUnsentChatPrefixName = "unsent_chat"
-
 let kAlertSoundFileName = "default"
 let kAlertSoundExtension = "m4r"
