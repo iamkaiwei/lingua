@@ -392,9 +392,9 @@ class LINChatController: UIViewController {
                         }
                         
                         let aMessage = LINMessage(incoming: incoming,
-                            sendDate: NSDateFormatter.iSODateFormatter().dateFromString(reply.createdAt)!,
-                            content: reply.content,
-                            type: MessageType.fromRaw(reply.messageTypeId)!)
+                                                  sendDate: NSDateFormatter.iSODateFormatter().dateFromString(reply.createdAt)!,
+                                                  content: reply.content,
+                                                  type: MessageType.fromRaw(reply.messageTypeId)!)
                         aMessage.state = MessageState.Sent
                         self.messageArray.insert(aMessage, atIndex: 0)
                     }
@@ -402,6 +402,16 @@ class LINChatController: UIViewController {
                     dispatch_async(dispatch_get_main_queue()) {
                         () -> Void in
                         if tmpRepliesArray.count > 0 {
+                            // Load un-sents chat
+                            let maxSendDate = NSDateFormatter.iSODateFormatter().dateFromString(tmpRepliesArray.first!.createdAt)
+                            let minSendDate = NSDateFormatter.iSODateFormatter().dateFromString(tmpRepliesArray.last!.createdAt)
+                            let unsentsChatTemp = self.getListUnsentsChatWithMinSendDate(minSendDate!, maxSendDate: maxSendDate!)
+                            if unsentsChatTemp.count > 0 {
+                                self.messageArray += unsentsChatTemp
+                                self.sortMessagesArrayAccordingToSendDate()
+                            }
+                            
+                            // Update data source and reload tableview
                             self.dataSource!.items = self.messageArray
                             self.tableView.dataSource = self.dataSource
                             
@@ -411,8 +421,10 @@ class LINChatController: UIViewController {
                             } else {
                                 self.addListBubbleCellsWithCount(tmpRepliesArray.count)
                             }
+                            
                             self.currentPageIndex++
-                            if page == 1 {
+                            
+                            if page == kChatHistoryBeginPageIndex {
                                 self.cachingChatHistoryData()
                             }
                         }
@@ -503,9 +515,9 @@ class LINChatController: UIViewController {
         }
         
         let replyDict = ["sender_id": currentUser.userId,
-            "message_type_id": message.type.toRaw(),
-            "content": content!,
-            "created_at": sendDate]
+                         "message_type_id": message.type.toRaw(),
+                         "content": content!,
+                         "created_at": sendDate]
         
         if currentChatMode == LINChatMode.Online {
             currentChannel.triggerEventNamed(kPusherEventNameNewMessage,
@@ -581,6 +593,30 @@ class LINChatController: UIViewController {
             
             self.updateMessageWithNewState(MessageState.UnSent, messageId: message.messageId!)
         })
+    }
+    
+    // MARK: Load un-sent messages
+    
+    private func getListUnsentsChatWithMinSendDate(minSendDate: NSDate, maxSendDate: NSDate) -> [LINMessage] {
+        var unsentsChatTemp = [LINMessage]()
+        for message in unsentMessagesArray {
+            let timeInterval = message.sendDate.timeIntervalSince1970
+            
+            if self.currentPageIndex == kChatHistoryBeginPageIndex {
+                if timeInterval > minSendDate.timeIntervalSince1970 {
+                    unsentsChatTemp.append(message)
+                }
+            } else {
+                if timeInterval > minSendDate.timeIntervalSince1970 && timeInterval < maxSendDate.timeIntervalSince1970 {
+                    unsentsChatTemp.append(message)
+                }
+            }
+        }
+        return unsentsChatTemp
+    }
+    
+    private func sortMessagesArrayAccordingToSendDate() {
+        messageArray.sort{ $0.sendDate.timeIntervalSince1970 < $1.sendDate.timeIntervalSince1970 }
     }
     
     // MARK: Resend messages
