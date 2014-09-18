@@ -59,14 +59,15 @@ class LINMessage:NSObject , NSCoding {
     
     //NSCoding protocol
     required init(coder aDecoder: NSCoder) {
+        self.messageId = aDecoder.decodeObjectForKey("messageId") as? String
         self.incoming = aDecoder.decodeBoolForKey("incoming")
         self.sendDate = aDecoder.decodeObjectForKey("sendDate") as NSDate
-        self.content  = aDecoder.decodeObjectForKey("content")
-        self.url      = aDecoder.decodeObjectForKey("url") as? String
-        self.height   = CGFloat(aDecoder.decodeFloatForKey("height"))
+        self.content = aDecoder.decodeObjectForKey("content")
+        self.url = aDecoder.decodeObjectForKey("url") as? String
+        self.height = CGFloat(aDecoder.decodeFloatForKey("height"))
         self.duration = aDecoder.decodeObjectForKey("duration") as NSTimeInterval
-        self.type     = MessageType.fromRaw(aDecoder.decodeIntegerForKey("type"))!
-        self.state     = MessageState.fromRaw(aDecoder.decodeIntegerForKey("state"))!
+        self.type = MessageType.fromRaw(aDecoder.decodeIntegerForKey("type"))!
+        self.state = MessageState.fromRaw(aDecoder.decodeIntegerForKey("state"))!
     }
     
     func encodeWithCoder(encoder: NSCoder){
@@ -80,8 +81,13 @@ class LINMessage:NSObject , NSCoding {
         if content != nil {
             encoder.encodeObject(content!, forKey: "content")
         }
+        
         if url != nil {
             encoder.encodeObject(url!, forKey: "url")
+        }
+        
+        if messageId != nil {
+            encoder.encodeObject(messageId!, forKey: "messageId")
         }
     }
 }
