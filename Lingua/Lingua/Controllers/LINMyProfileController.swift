@@ -73,9 +73,22 @@ class LINMyProfileController: LINViewController {
     }
     
     @IBAction func editProfile(sender: UIButton) {
-        
+        let editProfileVC = storyboard!.instantiateViewControllerWithIdentifier("kLINEditProfileController") as LINEditProfileController
+        editProfileVC.transitioningDelegate = self
+        presentViewController(editProfileVC, animated: true, completion: nil)
     }
 }
+
+extension LINMyProfileController: UIViewControllerTransitioningDelegate {
+    func animationControllerForPresentedController(presented: UIViewController!, presentingController presenting: UIViewController!, sourceController source: UIViewController!) -> UIViewControllerAnimatedTransitioning! {
+        return LINPopPresentAnimationController()
+    }
+    
+    func animationControllerForDismissedController(dismissed: UIViewController!) -> UIViewControllerAnimatedTransitioning! {
+        return LINShrinkDismissAnimationController()
+    }
+}
+
 
 extension LINMyProfileController: UICollectionViewDataSource {
     
