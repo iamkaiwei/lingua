@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6206.9" systemVersion="14A343f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14A343f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7026.1"/>
+        <deployment defaultVersion="1808" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="RobotoSlab-Light.ttf">
@@ -802,26 +803,18 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ff0-BB-hPN" id="pIi-1v-Xud">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Yesterday" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CCa-Gv-m22">
-                                                    <rect key="frame" x="485" y="10" width="100" height="20"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="Yesterday" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CCa-Gv-m22">
+                                                    <rect key="frame" x="521" y="12" width="69" height="20"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="100" id="H6c-Ak-zz8"/>
+                                                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="69" id="64s-XT-oMc"/>
                                                         <constraint firstAttribute="height" constant="20" id="R2c-Jh-yZN"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="RobotoSlab-Light" family="Roboto Slab" pointSize="13"/>
                                                     <color key="textColor" red="0.24878698587417603" green="0.61424487829208374" blue="0.68069750070571899" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kenny" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uCf-jK-8tc">
-                                                    <rect key="frame" x="77" y="5" width="388" height="25"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="25" id="gVC-Ki-HbB"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="RobotoSlab-Regular" family="Roboto Slab" pointSize="17"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Teaching English" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vZE-UA-lmc">
-                                                    <rect key="frame" x="77" y="30" width="250" height="15"/>
+                                                    <rect key="frame" x="77" y="32" width="250" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="15" id="ei5-sy-TdW"/>
                                                         <constraint firstAttribute="width" constant="250" id="ijM-TP-fPk"/>
@@ -831,32 +824,41 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Avatar_1" translatesAutoresizingMaskIntoConstraints="NO" id="Gkq-RF-lFc">
-                                                    <rect key="frame" x="20" y="10" width="50" height="50"/>
+                                                    <rect key="frame" x="20" y="12" width="50" height="50"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="50" id="6pb-QO-PBZ"/>
                                                         <constraint firstAttribute="width" constant="50" id="aCq-MO-sxo"/>
                                                     </constraints>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DotImage" translatesAutoresizingMaskIntoConstraints="NO" id="nOj-TP-3v3">
-                                                    <rect key="frame" x="577" y="39" width="8" height="8"/>
+                                                    <rect key="frame" x="577" y="41" width="8" height="8"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="8" id="gcS-52-4Vc"/>
                                                         <constraint firstAttribute="height" constant="8" id="yRk-fc-Ose"/>
                                                     </constraints>
                                                 </imageView>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kenny" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uCf-jK-8tc">
+                                                    <rect key="frame" x="77" y="7" width="439" height="25"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="439" id="eww-4B-th8"/>
+                                                        <constraint firstAttribute="height" constant="25" id="gVC-Ki-HbB"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="RobotoSlab-Regular" family="Roboto Slab" pointSize="17"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="Gkq-RF-lFc" firstAttribute="leading" secondItem="pIi-1v-Xud" secondAttribute="leading" constant="20" id="4Ot-sc-nA9"/>
                                                 <constraint firstItem="vZE-UA-lmc" firstAttribute="leading" secondItem="Gkq-RF-lFc" secondAttribute="trailing" constant="7" id="MK0-0J-YIe"/>
-                                                <constraint firstItem="uCf-jK-8tc" firstAttribute="top" secondItem="pIi-1v-Xud" secondAttribute="top" constant="5" id="Qg6-XE-2D2"/>
+                                                <constraint firstItem="uCf-jK-8tc" firstAttribute="top" secondItem="pIi-1v-Xud" secondAttribute="top" constant="7" id="Qg6-XE-2D2"/>
                                                 <constraint firstAttribute="trailing" secondItem="nOj-TP-3v3" secondAttribute="trailing" constant="15" id="UIC-EW-07e"/>
                                                 <constraint firstItem="nOj-TP-3v3" firstAttribute="top" secondItem="CCa-Gv-m22" secondAttribute="bottom" constant="9" id="b4Z-XL-BvK"/>
-                                                <constraint firstItem="CCa-Gv-m22" firstAttribute="leading" secondItem="uCf-jK-8tc" secondAttribute="trailing" constant="20" id="bp5-gh-7Sw"/>
+                                                <constraint firstItem="CCa-Gv-m22" firstAttribute="leading" secondItem="uCf-jK-8tc" secondAttribute="trailing" constant="5" id="bp5-gh-7Sw"/>
                                                 <constraint firstItem="uCf-jK-8tc" firstAttribute="leading" secondItem="Gkq-RF-lFc" secondAttribute="trailing" constant="7" id="gOa-Wo-Auo"/>
-                                                <constraint firstItem="Gkq-RF-lFc" firstAttribute="top" secondItem="pIi-1v-Xud" secondAttribute="top" constant="10" id="i8I-03-PUK"/>
+                                                <constraint firstItem="Gkq-RF-lFc" firstAttribute="top" secondItem="pIi-1v-Xud" secondAttribute="top" constant="12" id="i8I-03-PUK"/>
                                                 <constraint firstItem="vZE-UA-lmc" firstAttribute="top" secondItem="uCf-jK-8tc" secondAttribute="bottom" id="mJI-dM-7V0"/>
-                                                <constraint firstAttribute="trailing" secondItem="CCa-Gv-m22" secondAttribute="trailing" constant="15" id="wK9-N6-4qj"/>
-                                                <constraint firstItem="CCa-Gv-m22" firstAttribute="top" secondItem="pIi-1v-Xud" secondAttribute="top" constant="10" id="yGW-gB-9JS"/>
+                                                <constraint firstAttribute="trailing" secondItem="CCa-Gv-m22" secondAttribute="trailing" constant="10" id="wK9-N6-4qj"/>
+                                                <constraint firstItem="CCa-Gv-m22" firstAttribute="top" secondItem="pIi-1v-Xud" secondAttribute="top" constant="12" id="yGW-gB-9JS"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -893,7 +895,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ey2-hD-VP2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2765" y="1066"/>
+            <point key="canvasLocation" x="2791" y="1039"/>
         </scene>
         <!--Chat Controller-->
         <scene sceneID="MCs-yX-gYb">
@@ -1149,6 +1151,6 @@
         <image name="loading_elip_0" width="150" height="150"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="eLM-I3-Bqx"/>
+        <segue reference="1of-Ig-ulf"/>
     </inferredMetricsTieBreakers>
 </document>
