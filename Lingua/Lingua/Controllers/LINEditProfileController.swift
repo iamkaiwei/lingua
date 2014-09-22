@@ -21,4 +21,9 @@ class LINEditProfileController: LINViewController {
     @IBAction func close(sender: UIButton) {
         dismissViewControllerAnimated(true, completion: nil)
     }
+    
+    @IBAction func aboutYou(sender: UITapGestureRecognizer) {
+        let aboutMeVC = storyboard!.instantiateViewControllerWithIdentifier("kLINAboutMeController") as LINAboutMeController
+        navigationController?.pushViewController(aboutMeVC, animated: true)
+    }
 }

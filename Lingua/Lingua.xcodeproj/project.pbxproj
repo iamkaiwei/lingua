@@ -26,6 +26,7 @@
 		2082DEEF1957123E009ADF45 /* LINLanguagePickingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2082DEEE1957123E009ADF45 /* LINLanguagePickingHeaderView.swift */; };
 		2082DEF11957127F009ADF45 /* LINLanguagePickingHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2082DEF01957127F009ADF45 /* LINLanguagePickingHeaderView.xib */; };
 		2082DEF5195762E8009ADF45 /* LINHomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2082DEF4195762E8009ADF45 /* LINHomeController.swift */; };
+		2083827E19D04981007A1ED9 /* LINAboutMeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2083827D19D04981007A1ED9 /* LINAboutMeController.swift */; };
 		20974985196FCCC00070E8C3 /* LINLanguagePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20974984196FCCC00070E8C3 /* LINLanguagePickerController.swift */; };
 		20B27FB4196D3D7B003BFFB6 /* LINBadgeFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B27FB3196D3D7B003BFFB6 /* LINBadgeFlowLayout.swift */; };
 		20B943ED19CBEE07000CDF28 /* LINEditProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B943EC19CBEE07000CDF28 /* LINEditProfileController.swift */; };
@@ -169,6 +170,7 @@
 		2082DEF01957127F009ADF45 /* LINLanguagePickingHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LINLanguagePickingHeaderView.xib; sourceTree = "<group>"; };
 		2082DEF219575A55009ADF45 /* LINPickNativeLanguageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINPickNativeLanguageController.swift; sourceTree = "<group>"; };
 		2082DEF4195762E8009ADF45 /* LINHomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINHomeController.swift; sourceTree = "<group>"; };
+		2083827D19D04981007A1ED9 /* LINAboutMeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINAboutMeController.swift; sourceTree = "<group>"; };
 		2089A57D196C01C0001E5FB7 /* Lingua-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Lingua-Bridging-Header.h"; sourceTree = "<group>"; };
 		20974984196FCCC00070E8C3 /* LINLanguagePickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINLanguagePickerController.swift; sourceTree = "<group>"; };
 		20B27FB3196D3D7B003BFFB6 /* LINBadgeFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINBadgeFlowLayout.swift; sourceTree = "<group>"; };
@@ -411,6 +413,7 @@
 				925E002919740C06001D75D4 /* LINChatController.swift */,
 				920A9C08199CAA3900940693 /* LINPhotoPreviewController.swift */,
 				20B943EC19CBEE07000CDF28 /* LINEditProfileController.swift */,
+				2083827D19D04981007A1ED9 /* LINAboutMeController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -742,6 +745,7 @@
 				20B943ED19CBEE07000CDF28 /* LINEditProfileController.swift in Sources */,
 				92CA2A4E198FA05D00367DB2 /* NSDateFormatter+Extensions.swift in Sources */,
 				92052F3F199522A900EA773B /* LINNotificationHelper.swift in Sources */,
+				2083827E19D04981007A1ED9 /* LINAboutMeController.swift in Sources */,
 				92F0BF421993449E00608803 /* LINMessageHelper.swift in Sources */,
 				973250C419B351A900938844 /* UITextView+Extensions.swift in Sources */,
 				2082DEF5195762E8009ADF45 /* LINHomeController.swift in Sources */,

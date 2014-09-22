@@ -74,8 +74,10 @@ class LINMyProfileController: LINViewController {
     
     @IBAction func editProfile(sender: UIButton) {
         let editProfileVC = storyboard!.instantiateViewControllerWithIdentifier("kLINEditProfileController") as LINEditProfileController
-        editProfileVC.transitioningDelegate = self
-        presentViewController(editProfileVC, animated: true, completion: nil)
+        let navigationController = UINavigationController(rootViewController: editProfileVC)
+        navigationController.navigationBarHidden = true
+        navigationController.transitioningDelegate = self
+        presentViewController(navigationController, animated: true, completion: nil)
     }
 }
 
