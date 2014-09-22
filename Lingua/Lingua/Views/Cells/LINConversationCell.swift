@@ -16,29 +16,31 @@ class LINConversationCell: UITableViewCell {
     @IBOutlet weak var dotView:UIImageView!
     
     func configureWithConversation(conversation:LINConversation) {
-        var opponentDetail = conversation.getOpponentDetail()
+        let opponentDetail = conversation.getOpponentDetail()
         nameLabel.text = opponentDetail.firstName
         roleName.text = opponentDetail.role
+        
         // set avatar
         avatarImgView.sd_setImageWithURL(NSURL(string: opponentDetail.avatar),
             placeholderImage: UIImage(named: "avatar_holder"))
         avatarImgView.addRoundedCorner()
         
         // set conversation date
-        var conversationDate : NSDate? = nil
+        var conversationDate: NSDate? = nil
         
         if let tempDate = NSDateFormatter.iSODateFormatter().dateFromString(conversation.lastestUpdate) {
             conversationDate = tempDate as NSDate
             dateLabel.text = NSDateFormatter.getConversationTimeStringFromDate(conversationDate!)
         }
+        
         updateHighlightedCell(conversation.haveNewMessage)
     }
     
-    func updateHighlightedCell(containNewMessage:Bool){
+    func updateHighlightedCell(containNewMessage: Bool){
         if containNewMessage {
             self.dotView.hidden = false
         }
-        else{
+        else {
             self.dotView.hidden = true
         }
     }
