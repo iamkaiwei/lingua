@@ -50,13 +50,14 @@ class LINBubbleCell: UITableViewCell, LINAudioHelperPlayerDelegate {
     private let resendButtonInsets = UIEdgeInsetsMake(0, 5, 0, 5)
     
     var delegate: LINBubbleCellDelegate?
-   
+    
     // Textkit
     private var emoticonsTextStorage = LINParsingEmoticonsTextStorage()
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String!) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
+        clipsToBounds = true
         selectionStyle = .None
         backgroundColor = UIColor.clearColor()
         
@@ -100,7 +101,7 @@ class LINBubbleCell: UITableViewCell, LINAudioHelperPlayerDelegate {
             }
         }
     }
-    
+
     func configureCellWithMessage(message: LINMessage) {
         switch(message.type) {
             case .Text:
@@ -135,11 +136,11 @@ class LINBubbleCell: UITableViewCell, LINAudioHelperPlayerDelegate {
     }
     
     private func configureWithPhotoMessage(message: LINMessage) {
-        if message.content == nil {
+        if message.content == nil && message.url != nil {
             // Resize place holder image
             let newSize = CGSize.getSizeFromImageURL(message.url! as String).scaledSize()
-             message.content = placeholderImage.resizableImageWithNewSize(newSize)
-             addPhotoToBubbleCellWithMessage(message)
+            message.content = placeholderImage.resizableImageWithNewSize(newSize)
+            addPhotoToBubbleCellWithMessage(message)
 
             // Add photo to cell by image URL
             photoImgView.sd_setImageWithURL(NSURL(string: message.url!),
@@ -150,10 +151,7 @@ class LINBubbleCell: UITableViewCell, LINAudioHelperPlayerDelegate {
                     return
                 }
 
-                if let tmpImage = image {
-                    message.content = tmpImage
-                    self.addPhotoToBubbleCellWithMessage(message)
-                }
+                message.content = image
             }
         } else {
             // Add photo to cell by image
