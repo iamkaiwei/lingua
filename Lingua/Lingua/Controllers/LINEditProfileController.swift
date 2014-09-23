@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LINEditProfileController: LINViewController, LINAboutMeControllerDelegate, LINLanguagePickerControllerDelegate {
+class LINEditProfileController: LINViewController, LINAboutMeControllerDelegate, LINLanguagePickerControllerDelegate, LINProficiencyControllerDelegate {
     @IBOutlet weak var firstName: UITextField!
     @IBOutlet weak var lastName: UITextField!
     @IBOutlet weak var gender: UILabel!
@@ -67,6 +67,20 @@ class LINEditProfileController: LINViewController, LINAboutMeControllerDelegate,
         navigationController?.pushViewController(viewController, animated: true)
     }
     
+    @IBAction func writingProficiencyPick(sender: UITapGestureRecognizer) {
+        let viewController = storyboard!.instantiateViewControllerWithIdentifier("kLINProficiencyController") as LINProficiencyController
+        viewController.delegate = self
+        viewController.titleText = "Writing Proficiency"
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+    @IBAction func speakingProficiencyPick(sender: UITapGestureRecognizer) {
+        let viewController = storyboard!.instantiateViewControllerWithIdentifier("kLINProficiencyController") as LINProficiencyController
+        viewController.delegate = self
+        viewController.titleText = "Speaking Proficiency"
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+    
     //MARK: UITextFieldDelegate
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
@@ -88,5 +102,19 @@ class LINEditProfileController: LINViewController, LINAboutMeControllerDelegate,
             newLearningLanguage = language
             learningLanguage.text = language.languageName
         }
+        navigationController?.popToViewController(self, animated: true)
+    }
+    
+    //MARK: LINProficiencyControllerDelegate
+    func controller(controller: LINProficiencyController, didSelectProficiency proficiency: LINProficiency) {
+        if controller.titleLabel?.text == "Writing Proficiency" {
+            newWritingProficiency = proficiency
+            writingProficiency.image = UIImage(named: "Proficiency\(proficiency.proficiencyID - 1)")
+        }
+        else {
+            newSpeakingProficiency = proficiency
+            speakingProficiency.image = UIImage(named: "Proficiency\(proficiency.proficiencyID - 1)")
+        }
+        navigationController?.popToViewController(self, animated: true)
     }
 }
