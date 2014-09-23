@@ -710,6 +710,18 @@ extension LINChatController: LINBubbleCellDelegate {
             resendThisMessage(messageArray.last!)
         }
     }
+    
+    func bubbleCellDidOpenPhotoPreview(bubbleCell: LINBubbleCell) {
+        if let indexPath = tableView.indexPathForCell(bubbleCell) {
+            let message = messageArray[indexPath.row]
+            if let photo = message.content as? UIImage {
+                let photoPreviewController = storyboard?.instantiateViewControllerWithIdentifier("kLINPhotoPreviewController") as LINPhotoPreviewController
+                photoPreviewController.photo = photo
+                
+                presentViewController(photoPreviewController, animated: true, completion: nil)
+            }
+        }
+    }
 }
 
 extension LINChatController: LINComposeBarViewDelegate {
