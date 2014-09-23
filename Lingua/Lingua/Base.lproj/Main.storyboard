@@ -161,7 +161,7 @@
                     </view>
                     <connections>
                         <outlet property="tableView" destination="Q37-FG-r1w" id="ihn-rz-ODr"/>
-                        <outlet property="titleLabel" destination="qkB-9y-ncr" id="y5f-BT-777"/>
+                        <outlet property="titleLabel" destination="qkB-9y-ncr" id="bKN-MI-XUa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TzT-8O-Ukf" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -871,24 +871,26 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nvJ-wz-hO7">
-                                        <rect key="frame" x="390" y="10" width="200" height="22"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="-" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6af-3S-ATY">
+                                        <rect key="frame" x="390" y="10" width="200" height="21"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="22" id="VEY-sE-7hG"/>
-                                            <constraint firstAttribute="width" constant="200" id="Xdz-d0-KX6"/>
+                                            <constraint firstAttribute="width" constant="200" id="6eI-ZL-2BT"/>
+                                            <constraint firstAttribute="height" constant="21" id="EME-S3-lU0"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="RobotoSlab-Thin" family="Roboto Slab" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="4q9-vU-YM0" id="5Pi-Ls-AFN"/>
+                                        </connections>
+                                    </textField>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="99Z-4H-Zye" firstAttribute="top" secondItem="PxK-pu-Zds" secondAttribute="top" constant="10" id="6Oe-pl-m94"/>
                                     <constraint firstItem="99Z-4H-Zye" firstAttribute="leading" secondItem="PxK-pu-Zds" secondAttribute="leading" constant="10" id="Bdf-IY-WNB"/>
-                                    <constraint firstAttribute="trailing" secondItem="nvJ-wz-hO7" secondAttribute="trailing" constant="10" id="GQj-B3-c1x"/>
                                     <constraint firstAttribute="height" constant="44" id="U2k-xk-4Cu"/>
-                                    <constraint firstItem="nvJ-wz-hO7" firstAttribute="top" secondItem="PxK-pu-Zds" secondAttribute="top" constant="10" id="aHb-ws-6KI"/>
+                                    <constraint firstAttribute="trailing" secondItem="6af-3S-ATY" secondAttribute="trailing" constant="10" id="dD3-cT-Kf3"/>
+                                    <constraint firstItem="6af-3S-ATY" firstAttribute="top" secondItem="PxK-pu-Zds" secondAttribute="top" constant="10" id="vf8-jv-8mj"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tsl-LG-j51" userLabel="Last Name View">
@@ -904,24 +906,26 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E82-9Q-tSn">
-                                        <rect key="frame" x="390" y="10" width="200" height="22"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="-" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fCj-BM-ZFh">
+                                        <rect key="frame" x="390" y="10" width="200" height="21"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="200" id="MGS-bQ-hRf"/>
-                                            <constraint firstAttribute="height" constant="22" id="n5T-N7-21Z"/>
+                                            <constraint firstAttribute="width" constant="200" id="C8O-ig-0oi"/>
+                                            <constraint firstAttribute="height" constant="21" id="tX8-ur-a25"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="RobotoSlab-Thin" family="Roboto Slab" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="4q9-vU-YM0" id="Sk1-FH-3cF"/>
+                                        </connections>
+                                    </textField>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="fCj-BM-ZFh" secondAttribute="trailing" constant="10" id="3qq-x3-zaj"/>
                                     <constraint firstAttribute="height" constant="44" id="6AP-33-oOi"/>
                                     <constraint firstItem="GpL-QM-J4m" firstAttribute="top" secondItem="tsl-LG-j51" secondAttribute="top" constant="10" id="J0N-rq-q5z"/>
-                                    <constraint firstItem="E82-9Q-tSn" firstAttribute="top" secondItem="tsl-LG-j51" secondAttribute="top" constant="10" id="Xeo-NT-yQp"/>
+                                    <constraint firstItem="fCj-BM-ZFh" firstAttribute="top" secondItem="tsl-LG-j51" secondAttribute="top" constant="10" id="L4y-nN-0xI"/>
                                     <constraint firstItem="GpL-QM-J4m" firstAttribute="leading" secondItem="tsl-LG-j51" secondAttribute="leading" constant="10" id="cx6-E5-b9e"/>
-                                    <constraint firstAttribute="trailing" secondItem="E82-9Q-tSn" secondAttribute="trailing" constant="10" id="ybX-vi-lCT"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9NZ-Hl-fKx" userLabel="Gender View">
@@ -933,8 +937,9 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vfR-Ug-Wv5">
+                                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vfR-Ug-Wv5">
                                         <rect key="frame" x="390" y="10" width="200" height="22"/>
+                                        <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="22" id="KSs-TA-8dE"/>
                                             <constraint firstAttribute="width" constant="200" id="v6Y-8P-ybC"/>
@@ -942,6 +947,9 @@
                                         <fontDescription key="fontDescription" name="RobotoSlab-Thin" family="Roboto Slab" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="keq-dh-BC6" appends="YES" id="2PA-lY-ILP"/>
+                                        </connections>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1013,6 +1021,7 @@
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstItem="u18-Eq-Wbb" firstAttribute="leading" secondItem="gDc-IX-2RZ" secondAttribute="trailing" id="Aki-e6-2ae"/>
                                     <constraint firstAttribute="trailing" secondItem="u18-Eq-Wbb" secondAttribute="trailing" constant="8" id="BKa-u7-7d5"/>
@@ -1022,8 +1031,11 @@
                                     <constraint firstItem="gDc-IX-2RZ" firstAttribute="top" secondItem="5wj-nI-rIW" secondAttribute="top" constant="10" id="uVW-E8-DgI"/>
                                     <constraint firstItem="u18-Eq-Wbb" firstAttribute="top" relation="greaterThanOrEqual" secondItem="5wj-nI-rIW" secondAttribute="top" constant="11" id="wIu-PF-JwD"/>
                                 </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="LBi-Aa-tuf" appends="YES" id="N2O-ig-aRa"/>
+                                </connections>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="czW-Ht-9gG" userLabel="Learning View">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="czW-Ht-9gG" userLabel="Learning Language View">
                                 <rect key="frame" x="0.0" y="374" width="600" height="44"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Learning Language" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vMM-oG-7IX">
@@ -1053,6 +1065,7 @@
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstItem="sdv-FC-HQP" firstAttribute="leading" secondItem="ZN6-8V-3Rn" secondAttribute="trailing" id="8nX-Sc-qc7"/>
                                     <constraint firstAttribute="trailing" secondItem="sdv-FC-HQP" secondAttribute="trailing" constant="8" id="Ugd-AM-AtP"/>
@@ -1062,6 +1075,9 @@
                                     <constraint firstItem="ZN6-8V-3Rn" firstAttribute="top" secondItem="czW-Ht-9gG" secondAttribute="top" constant="10" id="t2G-vb-MiP"/>
                                     <constraint firstAttribute="height" constant="44" id="ugi-FS-qKz"/>
                                 </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="Wr4-MS-e60" appends="YES" id="gRZ-Uj-bYi"/>
+                                </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xn2-oy-Eb5" userLabel="Writing View">
                                 <rect key="frame" x="0.0" y="419" width="600" height="44"/>
@@ -1191,13 +1207,35 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="firstName" destination="6af-3S-ATY" id="9Nn-aB-kQ1"/>
+                        <outlet property="gender" destination="vfR-Ug-Wv5" id="qBl-z2-kz6"/>
+                        <outlet property="lastName" destination="fCj-BM-ZFh" id="eJh-t4-l63"/>
+                        <outlet property="learningLanguage" destination="ZN6-8V-3Rn" id="V4c-UE-jG0"/>
+                        <outlet property="nativeLanguage" destination="gDc-IX-2RZ" id="Nqq-BV-tMz"/>
+                        <outlet property="speakingProficiency" destination="wcz-1Q-AK6" id="xYq-fp-ncJ"/>
                         <outlet property="titleLabel" destination="Yt0-Rd-V9P" id="YVg-9h-ceH"/>
+                        <outlet property="writingProficiency" destination="GV1-fT-Z35" id="MKY-1w-fsn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Doe-3p-hZD" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="c20-L3-uqz" userLabel="About You Tap Gesture Recognizer">
                     <connections>
                         <action selector="aboutYou:" destination="4q9-vU-YM0" id="75J-4D-A2h"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="keq-dh-BC6" userLabel="Gender Toggle Tap Gesture Recognizer">
+                    <connections>
+                        <action selector="genderToggle:" destination="4q9-vU-YM0" id="lqg-cv-4cu"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="LBi-Aa-tuf" userLabel="Native Language Tap Gesture Recognizer">
+                    <connections>
+                        <action selector="nativeLanguagePick:" destination="4q9-vU-YM0" id="WZ7-TY-dbP"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="Wr4-MS-e60" userLabel="Learning Language Tap Gesture Recognizer">
+                    <connections>
+                        <action selector="learningLanguagePick:" destination="4q9-vU-YM0" id="kkT-6S-Z2L"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -1287,7 +1325,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="aboutMe" destination="hv0-4a-WF0" id="cG3-KZ-Hdm"/>
+                        <outlet property="aboutMeTextView" destination="hv0-4a-WF0" id="hpa-D3-CHa"/>
                         <outlet property="titleLabel" destination="RIL-HY-jKL" id="BNU-zK-CeL"/>
                     </connections>
                 </viewController>

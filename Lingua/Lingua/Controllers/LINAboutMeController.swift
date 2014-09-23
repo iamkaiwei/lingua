@@ -13,15 +13,23 @@ protocol LINAboutMeControllerDelegate {
 }
 
 class LINAboutMeController: LINViewController {
-    @IBOutlet weak var aboutMe: UITextView!
+    @IBOutlet private weak var aboutMeTextView: UITextView!
     var delegate: LINAboutMeControllerDelegate?
+    var aboutMe: String = "" {
+        willSet(newAboutMe) {
+            if aboutMeTextView != nil {
+                aboutMeTextView.text = newAboutMe
+            }
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        aboutMe.becomeFirstResponder()
+        aboutMeTextView.text = aboutMe
+        aboutMeTextView.becomeFirstResponder()
     }
     
     @IBAction func done(sender: UIButton) {
-        delegate?.controller(self, didUpdateInfo: aboutMe.text)
+        delegate?.controller(self, didUpdateInfo: aboutMeTextView.text)
         navigationController?.popViewControllerAnimated(true)
     }
 }

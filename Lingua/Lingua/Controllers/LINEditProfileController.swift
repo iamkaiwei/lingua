@@ -8,14 +8,33 @@
 
 import UIKit
 
-class LINEditProfileController: LINViewController {
-    @IBOutlet weak var firstname: UITextField!
-    @IBOutlet weak var lastname: UITextField!
+class LINEditProfileController: LINViewController, LINAboutMeControllerDelegate, LINLanguagePickerControllerDelegate {
+    @IBOutlet weak var firstName: UITextField!
+    @IBOutlet weak var lastName: UITextField!
+    @IBOutlet weak var gender: UILabel!
+    @IBOutlet weak var nativeLanguage: UILabel!
+    @IBOutlet weak var learningLanguage: UILabel!
+    @IBOutlet weak var writingProficiency: UIImageView!
+    @IBOutlet weak var speakingProficiency: UIImageView!
+    
+    private var me: LINUser?
+    private var newAboutMe: String?
+    private var newNativeLanguage: LINLanguage?
+    private var newLearningLanguage: LINLanguage?
+    private var newWritingProficiency: LINProficiency?
+    private var newSpeakingProficiency: LINProficiency?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        me = LINUserManager.sharedInstance.currentUser
+        firstName.text = me?.firstName
+        lastName.text = me?.lastName
+        gender.text = me?.gender.capitalizedString
+        nativeLanguage.text = me?.nativeLanguage?.languageName
+        learningLanguage.text = me?.learningLanguage?.languageName
+        writingProficiency.image = UIImage(named: "Proficiency\((me?.writingProficiency?.proficiencyID ?? 1) - 1)")
+        speakingProficiency.image = UIImage(named: "Proficiency\((me?.speakingProficiency?.proficiencyID ?? 1) - 1)")
     }
     
     @IBAction func close(sender: UIButton) {
@@ -24,6 +43,50 @@ class LINEditProfileController: LINViewController {
     
     @IBAction func aboutYou(sender: UITapGestureRecognizer) {
         let aboutMeVC = storyboard!.instantiateViewControllerWithIdentifier("kLINAboutMeController") as LINAboutMeController
+        aboutMeVC.delegate = self
+        aboutMeVC.aboutMe = me?.introduction ?? ""
         navigationController?.pushViewController(aboutMeVC, animated: true)
+    }
+    
+    @IBAction func genderToggle(sender: UITapGestureRecognizer) {
+        gender.text = (gender.text == "Male") ? "Female" : "Male"
+        
+    }
+    
+    @IBAction func nativeLanguagePick(sender: UITapGestureRecognizer) {
+        let viewController = storyboard!.instantiateViewControllerWithIdentifier("kLINLanguagePickerController") as LINLanguagePickerController
+        viewController.delegate = self
+        viewController.titleText = "Native Language"
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+    @IBAction func learningLanguagePick(sender: UITapGestureRecognizer) {
+        let viewController = storyboard!.instantiateViewControllerWithIdentifier("kLINLanguagePickerController") as LINLanguagePickerController
+        viewController.delegate = self
+        viewController.titleText = "Learning Language"
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+    //MARK: UITextFieldDelegate
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return false
+    }
+    
+    //MARK: LINAboutMeControllerDelegate
+    func controller(controller: LINAboutMeController, didUpdateInfo info: String) {
+        newAboutMe = info
+    }
+    
+    //MARK: LINLanguagePickerControllerDelegate
+    func controller(controller: LINLanguagePickerController, didSelectLanguage language: LINLanguage) {
+        if controller.titleLabel?.text == "Native Language" {
+            newNativeLanguage = language
+            nativeLanguage.text = language.languageName
+        }
+        else {
+            newLearningLanguage = language
+            learningLanguage.text = language.languageName
+        }
     }
 }
