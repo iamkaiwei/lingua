@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LINFriendListController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate,LINChatControllerDelegate {
+class LINFriendListController: LINViewController, UITableViewDataSource, UITableViewDelegate, LINChatControllerDelegate {
     @IBOutlet weak var tableView: UITableView!
     var arrFriends = [LINUser]()
     var newMessageCount:Int = 0
@@ -88,15 +88,6 @@ class LINFriendListController: UIViewController, UITableViewDataSource, UITableV
             var selectedCell:LINConversationCell = tableView.cellForRowAtIndexPath(indexPath) as LINConversationCell
             selectedCell.updateHighlightedCell(false)
         }
-    }
-    
-    // MARK: UIViewControllerTransitioningDelegate
-    func animationControllerForPresentedController(presented: UIViewController!, presentingController presenting: UIViewController!, sourceController source: UIViewController!) -> UIViewControllerAnimatedTransitioning! {
-        return LINPopPresentAnimationController()
-    }
-    
-    func animationControllerForDismissedController(dismissed: UIViewController!) -> UIViewControllerAnimatedTransitioning! {
-        return LINShrinkDismissAnimationController()
     }
     
     // MARK: Local Notification

@@ -81,17 +81,6 @@ class LINMyProfileController: LINViewController {
     }
 }
 
-extension LINMyProfileController: UIViewControllerTransitioningDelegate {
-    func animationControllerForPresentedController(presented: UIViewController!, presentingController presenting: UIViewController!, sourceController source: UIViewController!) -> UIViewControllerAnimatedTransitioning! {
-        return LINPopPresentAnimationController()
-    }
-    
-    func animationControllerForDismissedController(dismissed: UIViewController!) -> UIViewControllerAnimatedTransitioning! {
-        return LINShrinkDismissAnimationController()
-    }
-}
-
-
 extension LINMyProfileController: UICollectionViewDataSource {
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
