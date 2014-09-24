@@ -20,10 +20,12 @@ class LINLanguagePickerController: LINViewController {
     private var headers = [String]()
     var delegate: LINLanguagePickerControllerDelegate?
     private var loadingView = LINLoadingView()
+    var titleText: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareTableView()
+        titleLabel?.text = titleText
         loadingView.showInView(self.view)
         LINLanguage.getLanguages({
             self.languages = $0
