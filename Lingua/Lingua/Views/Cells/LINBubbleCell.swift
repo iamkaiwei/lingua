@@ -27,6 +27,7 @@ let kResendButtonHeight: CGFloat = 20
 protocol LINBubbleCellDelegate {
     func bubbleCellDidStartPlayingRecord(bubbleCell: LINBubbleCell)
     func bubbleCellDidStartResendMessage(bubbleCell: LINBubbleCell)
+    func bubbleCellDidOpenPhotoPreview(bubbleCell: LINBubbleCell)
 }
 
 class LINBubbleCell: UITableViewCell, LINAudioHelperPlayerDelegate {
@@ -292,12 +293,7 @@ class LINBubbleCell: UITableViewCell, LINAudioHelperPlayerDelegate {
     }
     
     func openPhotoPreviewWithGesture(recognizer: UITapGestureRecognizer) {
-        let appDelegate = AppDelegate.sharedDelegate()
-        let photoPreviewController = appDelegate.storyboard.instantiateViewControllerWithIdentifier("kLINPhotoPreviewController") as LINPhotoPreviewController
-        photoPreviewController.photo = photoImgView.image
-        
-        let chatController = appDelegate.drawerController.presentedViewController as LINChatController
-        chatController.presentViewController(photoPreviewController, animated: true, completion: nil)
+        delegate?.bubbleCellDidOpenPhotoPreview(self)
     }
     
     // MARK: Actions
