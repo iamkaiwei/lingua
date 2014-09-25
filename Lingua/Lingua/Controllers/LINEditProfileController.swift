@@ -81,6 +81,12 @@ class LINEditProfileController: LINViewController, LINAboutMeControllerDelegate,
         navigationController?.pushViewController(viewController, animated: true)
     }
     
+    @IBAction func logOut(sender: UITapGestureRecognizer) {
+        dismissViewControllerAnimated(true, completion: nil)
+        AppDelegate.sharedDelegate().showOnboardingScreen()
+        LINFacebookManager.sharedInstance.logout()
+    }
+    
     //MARK: UITextFieldDelegate
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()

@@ -23,6 +23,11 @@ class LINOnboardingController: LINViewController, LINFacebookManagerDelegate {
         configureGoogleLogin()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        onboardingView.scrollRectToVisible(onboardingView.frame, animated: false)
+    }
+    
     func prepareOnboarding() {
         var frame = view.frame
         for index in 0...2 {
@@ -115,7 +120,7 @@ extension LINOnboardingController: LINLoginViewDelegate {
     }
     
     func showHomeScreen() {
-         AppDelegate.sharedDelegate().showHomeScreenWithNavigationController(navigationController)
+         AppDelegate.sharedDelegate().showHomeScreen(true)
          //Post this notification to make sure that ConversationList will be refreshed after logged-in
          NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAppDidBecomActive, object: nil)
     }

@@ -15,7 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var storyboard = UIStoryboard()
     var drawerController = MMDrawerController()
-    
+    var mainNavigationController: UINavigationController?
+
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: NSDictionary?) -> Bool {
         setupAppearance()
         // Register to use Parse Server
@@ -41,14 +42,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let userInfo = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? NSDictionary
        
         storyboard = UIStoryboard(name: "Main", bundle: nil)
+        mainNavigationController = storyboard.instantiateViewControllerWithIdentifier("kRootNavigationController") as? UINavigationController
+        window!.rootViewController = mainNavigationController
+        
         if LINUserManager.sharedInstance.isLoggedIn() && LINUserManager.sharedInstance.currentUser?.learningLanguage != nil {
-            showHomeScreenWithNavigationController(nil)
+            showHomeScreen(false)
             if userInfo != nil {
                 // App launched via push notification
                 LINNotificationHelper.handlePushNotificationWithUserInfo(userInfo!, applicationState: application.applicationState)
             }
-        } else {
-            showOnboardingScreen()
         }
         LINNetworkHelper.setupWithDefaultViewController(window!.rootViewController!)
         return true
@@ -65,7 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return UIApplication.sharedApplication().delegate! as AppDelegate
     }
     
-    func showHomeScreenWithNavigationController(navigationController: UINavigationController?) {
+    func showHomeScreen(animated: Bool) {
         let leftDrawer = storyboard.instantiateViewControllerWithIdentifier("kLINMyProfileController") as LINMyProfileController
         let center = storyboard.instantiateViewControllerWithIdentifier("kLINHomeController") as LINHomeController
         let rightDrawer = storyboard.instantiateViewControllerWithIdentifier("kLINFriendListController") as LINFriendListController
@@ -73,17 +75,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         drawerController = MMDrawerController(centerViewController: center, leftDrawerViewController: leftDrawer, rightDrawerViewController: rightDrawer)
         drawerController.closeDrawerGestureModeMask = MMCloseDrawerGestureMode.PanningCenterView
         drawerController.openDrawerGestureModeMask = MMOpenDrawerGestureMode.PanningCenterView | MMOpenDrawerGestureMode.PanningNavigationBar
+
+        mainNavigationController!.pushViewController(drawerController, animated: animated)
+        //
         
-        if navigationController != nil {
-            navigationController!.pushViewController(drawerController, animated: true)
-        } else {
-            window!.rootViewController = drawerController
-        }
     }
     
     func showOnboardingScreen() {
-        let navigationController = storyboard.instantiateViewControllerWithIdentifier("kRootNavigationController") as UINavigationController
-         window!.rootViewController = navigationController
+        mainNavigationController?.popToRootViewControllerAnimated(true)
     }
     
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
