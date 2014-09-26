@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LINHomeController: LINViewController, UIViewControllerTransitioningDelegate {
+class LINHomeController: LINViewController {
     
     @IBOutlet weak var profileButton: UIButton!
     @IBOutlet weak var messageButton: UIButton!
@@ -120,14 +120,5 @@ class LINHomeController: LINViewController, UIViewControllerTransitioningDelegat
         chatVC.conversation = conversation
         chatVC.transitioningDelegate = self
         presentViewController(chatVC, animated: true, completion: nil)
-    }
-    
-    // MARK: UIViewControllerTransitioningDelegate
-    func animationControllerForPresentedController(presented: UIViewController!, presentingController presenting: UIViewController!, sourceController source: UIViewController!) -> UIViewControllerAnimatedTransitioning! {
-        return LINPopPresentAnimationController()
-    }
-    
-    func animationControllerForDismissedController(dismissed: UIViewController!) -> UIViewControllerAnimatedTransitioning! {
-        return LINShrinkDismissAnimationController()
     }
 }

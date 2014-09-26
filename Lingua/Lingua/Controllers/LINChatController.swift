@@ -21,7 +21,7 @@ protocol LINChatControllerDelegate {
     func shouldMoveConversationToTheTop(conversationId:String) -> Void
 }
 
-class LINChatController: UIViewController {
+class LINChatController: LINViewController {
     @IBOutlet weak var composeBar: LINComposeBarView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -717,6 +717,7 @@ extension LINChatController: LINBubbleCellDelegate {
             if let photo = message.content as? UIImage {
                 let photoPreviewController = storyboard?.instantiateViewControllerWithIdentifier("kLINPhotoPreviewController") as LINPhotoPreviewController
                 photoPreviewController.photo = photo
+                photoPreviewController.transitioningDelegate = self
                 
                 presentViewController(photoPreviewController, animated: true, completion: nil)
             }

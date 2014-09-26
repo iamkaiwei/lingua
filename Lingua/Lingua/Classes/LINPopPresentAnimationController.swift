@@ -11,7 +11,7 @@ import Foundation
 class LINPopPresentAnimationController: NSObject, UIViewControllerAnimatedTransitioning {
     
     func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -> NSTimeInterval {
-        return 0.5
+        return 1.0
     }
     
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
@@ -27,7 +27,7 @@ class LINPopPresentAnimationController: NSObject, UIViewControllerAnimatedTransi
         let duration = transitionDuration(transitionContext)
         UIView.animateWithDuration(duration,
             delay: 0.0,
-            usingSpringWithDamping: 0.6,
+            usingSpringWithDamping: 0.7,
             initialSpringVelocity: 0.0,
             options: UIViewAnimationOptions.CurveLinear,
             animations: { intermediateView.frame = finalFrame },

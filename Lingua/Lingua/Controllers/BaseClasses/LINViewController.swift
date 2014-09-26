@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LINViewController: UIViewController {
+class LINViewController: UIViewController, UIViewControllerTransitioningDelegate {
 
     @IBOutlet weak var titleLabel: UILabel?
 
@@ -20,5 +20,15 @@ class LINViewController: UIViewController {
     
     @IBAction func dismiss(sender: UIButton) {
         navigationController?.popViewControllerAnimated(true)
+    }
+    
+    // MARK: UIViewControllerTransitioningDelegate
+    
+    func animationControllerForPresentedController(presented: UIViewController!, presentingController presenting: UIViewController!, sourceController source: UIViewController!) -> UIViewControllerAnimatedTransitioning! {
+        return LINPopPresentAnimationController()
+    }
+    
+    func animationControllerForDismissedController(dismissed: UIViewController!) -> UIViewControllerAnimatedTransitioning! {
+        return LINShrinkDismissAnimationController()
     }
 }
