@@ -20,9 +20,7 @@ class LINMessageView: UIView {
     @IBAction func closeButtonTouched(sender: UIButton) {
         hideNotification()
     }
-}
-
-extension LINMessageView {
+    
     func hideNotification() {
         UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: UIStatusBarAnimation.Fade)
         
@@ -56,9 +54,7 @@ extension LINMessageView {
         
         timer = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: Selector("hideNotification"), userInfo: nil, repeats: false)
     }
-}
-
-extension LINMessageView {
+    
     func configureWithUserId(userId: String, name: String, text: String, avatarURL: String, type: Int, conversationId: String) {
         self.userId = userId
         self.conversationId = conversationId

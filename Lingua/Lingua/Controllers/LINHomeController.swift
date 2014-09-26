@@ -9,7 +9,6 @@
 import UIKit
 
 class LINHomeController: LINViewController {
-    
     @IBOutlet weak var profileButton: UIButton!
     @IBOutlet weak var messageButton: UIButton!
     @IBOutlet weak var loadingImageView: UIImageView!
@@ -120,5 +119,19 @@ class LINHomeController: LINViewController {
         chatVC.conversation = conversation
         chatVC.transitioningDelegate = self
         presentViewController(chatVC, animated: true, completion: nil)
+    }
+    
+    // MARK: Utility methods
+    
+    func openChatScreenWithUserId(userId: String, name: String, conversationId: String) {
+        dismissViewControllerAnimated(false, completion: nil)
+        
+        // Show chat screen
+        let chatController = storyboard?.instantiateViewControllerWithIdentifier("kLINChatController") as LINChatController
+        let user = LINUser(userId: userId, firstName: name)
+        chatController.userChat = user
+        chatController.conversationId = conversationId
+        chatController.transitioningDelegate = self
+        presentViewController(chatController, animated: true, completion: nil)
     }
 }

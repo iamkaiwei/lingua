@@ -34,15 +34,8 @@ class LINNotificationHelper {
     }
     
     class func openChatScreenWithUserId(userId: String, name: String, conversationId: String) {
-        if let centerViewController = AppDelegate.sharedDelegate().drawerController.centerViewController {
-            centerViewController.dismissViewControllerAnimated(false, completion: nil)
-            
-            // Show chat screen
-            let chatController = AppDelegate.sharedDelegate().storyboard.instantiateViewControllerWithIdentifier("kLINChatController") as LINChatController
-            let user = LINUser(userId: userId, firstName: name)
-            chatController.userChat = user
-            chatController.conversationId = conversationId
-            centerViewController.presentViewController(chatController, animated: true, completion: nil)
+        if let homeVC = AppDelegate.sharedDelegate().drawerController.centerViewController as? LINHomeController {
+            homeVC.openChatScreenWithUserId(userId, name: name, conversationId: conversationId)
         }
     }
 }

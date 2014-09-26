@@ -11,7 +11,7 @@ import Foundation
 class LINPopPresentAnimationController: NSObject, UIViewControllerAnimatedTransitioning {
     
     func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -> NSTimeInterval {
-        return 1.0
+        return 0.5
     }
     
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
