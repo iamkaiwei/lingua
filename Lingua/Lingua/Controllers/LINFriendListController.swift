@@ -22,8 +22,12 @@ class LINFriendListController: LINViewController, UITableViewDataSource, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = 70
+        
         //remove redundant row separator
         tableView.tableFooterView = UIView(frame:CGRectZero)
+        
+        loadCachedConversationData()
+        
         //Register notification
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "appDidEnterBackground", name: kNotificationAppDidEnterBackground, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "appDidBecomeActive", name: kNotificationAppDidBecomActive, object: nil)
