@@ -717,6 +717,7 @@ extension LINChatController: LINBubbleCellDelegate {
             if let photo = message.content as? UIImage {
                 let photoPreviewController = storyboard?.instantiateViewControllerWithIdentifier("kLINPhotoPreviewController") as LINPhotoPreviewController
                 photoPreviewController.photo = photo
+                photoPreviewController.downloaded = message.downloaded
                 photoPreviewController.transitioningDelegate = self
                 
                 presentViewController(photoPreviewController, animated: true, completion: nil)

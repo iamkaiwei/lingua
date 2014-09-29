@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14A343f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
+        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -1592,9 +1593,9 @@
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WkW-A1-JpN">
-                                                <rect key="frame" x="15" y="20" width="80" height="40"/>
+                                                <rect key="frame" x="15" y="20" width="50" height="40"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="80" id="9EX-pl-yeR"/>
+                                                    <constraint firstAttribute="width" constant="50" id="9EX-pl-yeR"/>
                                                     <constraint firstAttribute="height" constant="40" id="JPP-6s-qQ0"/>
                                                 </constraints>
                                                 <state key="normal" image="WhiteBackArrow">
@@ -1758,10 +1759,10 @@
                                     <constraint firstItem="sH1-c6-669" firstAttribute="top" secondItem="4fs-Ru-hxH" secondAttribute="top" constant="26" id="SQ1-Jm-Y8A"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9vF-7O-HQD">
-                                <rect key="frame" x="0.0" y="20" width="45" height="40"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9vF-7O-HQD">
+                                <rect key="frame" x="15" y="20" width="50" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="45" id="ele-Rf-JQf"/>
+                                    <constraint firstAttribute="width" constant="50" id="ele-Rf-JQf"/>
                                     <constraint firstAttribute="height" constant="40" id="oXe-i1-aRc"/>
                                 </constraints>
                                 <state key="normal" image="WhiteBackArrow">
@@ -1782,19 +1783,13 @@
                             <constraint firstItem="CkY-sS-uQl" firstAttribute="leading" secondItem="web-Rt-N07" secondAttribute="leading" id="0IA-4i-24z"/>
                             <constraint firstAttribute="trailing" secondItem="4fs-Ru-hxH" secondAttribute="trailing" id="2Qv-ta-yJ6"/>
                             <constraint firstItem="UjS-bg-LJo" firstAttribute="top" secondItem="CkY-sS-uQl" secondAttribute="bottom" id="52G-d6-8zz"/>
-                            <constraint firstItem="9vF-7O-HQD" firstAttribute="top" secondItem="5Tm-0Y-Tds" secondAttribute="bottom" id="KHu-HF-LPH"/>
                             <constraint firstItem="4fs-Ru-hxH" firstAttribute="leading" secondItem="web-Rt-N07" secondAttribute="leading" id="bnd-21-lpi"/>
                             <constraint firstAttribute="trailing" secondItem="CkY-sS-uQl" secondAttribute="trailing" id="cxW-vV-kTC"/>
+                            <constraint firstItem="9vF-7O-HQD" firstAttribute="top" secondItem="5Tm-0Y-Tds" secondAttribute="bottom" id="guF-9A-ydd"/>
                             <constraint firstItem="CkY-sS-uQl" firstAttribute="top" secondItem="4fs-Ru-hxH" secondAttribute="bottom" id="i0j-Tf-Nus"/>
-                            <constraint firstItem="CkY-sS-uQl" firstAttribute="top" secondItem="4fs-Ru-hxH" secondAttribute="bottom" id="kVB-Xq-AM1"/>
                             <constraint firstItem="4fs-Ru-hxH" firstAttribute="top" secondItem="web-Rt-N07" secondAttribute="top" id="mHb-t7-6Nd"/>
-                            <constraint firstItem="9vF-7O-HQD" firstAttribute="leading" secondItem="web-Rt-N07" secondAttribute="leading" id="tNX-bZ-ZRf"/>
+                            <constraint firstItem="9vF-7O-HQD" firstAttribute="leading" secondItem="web-Rt-N07" secondAttribute="leading" constant="15" id="tNX-bZ-ZRf"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="kVB-Xq-AM1"/>
-                            </mask>
-                        </variation>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -1806,7 +1801,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lgz-bw-C9B" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4396" y="1026"/>
+            <point key="canvasLocation" x="4393" y="1066"/>
         </scene>
     </scenes>
     <resources>

@@ -11,8 +11,10 @@ import UIKit
 class LINPhotoPreviewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var navigationView: UIView!
+    
     var photoImgView: UIImageView!
     var photo: UIImage?
+    var downloaded: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,11 +61,13 @@ class LINPhotoPreviewController: UIViewController, UIScrollViewDelegate {
     // MARK: Gesture Actions
     
     func scrollViewDoubleTapped(recognizer: UITapGestureRecognizer) {
-        let pointInView = recognizer.locationInView(photoImgView)
-        let newZoomScale = (scrollView.zoomScale ==  scrollView.maximumZoomScale ? scrollView.minimumZoomScale : scrollView.maximumZoomScale)
-        let zoomRect = zoomRectForScale(newZoomScale, center: pointInView)
-        
-        scrollView.zoomToRect(zoomRect, animated: true)
+        if downloaded {
+            let pointInView = recognizer.locationInView(photoImgView)
+            let newZoomScale = (scrollView.zoomScale ==  scrollView.maximumZoomScale ? scrollView.minimumZoomScale : scrollView.maximumZoomScale)
+            let zoomRect = zoomRectForScale(newZoomScale, center: pointInView)
+            
+            scrollView.zoomToRect(zoomRect, animated: true)
+        }
     }
     
     func scrollViewDidZoom(scrollView: UIScrollView) {

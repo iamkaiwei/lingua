@@ -137,7 +137,9 @@ class LINBubbleCell: UITableViewCell, LINAudioHelperPlayerDelegate {
     }
     
     private func configureWithPhotoMessage(message: LINMessage) {
-        if message.content == nil && message.url != nil {
+        if (message.content == nil && message.url != nil) ||
+           (message.content != nil && !message.downloaded && message.url != nil) {
+            
             // Resize place holder image
             let newSize = CGSize.getSizeFromImageURL(message.url! as String).scaledSize()
             message.content = placeholderImage.resizableImageWithNewSize(newSize)
@@ -152,10 +154,12 @@ class LINBubbleCell: UITableViewCell, LINAudioHelperPlayerDelegate {
                     return
                 }
 
+                message.downloaded = true
                 message.content = image
             }
         } else {
             // Add photo to cell by image
+            message.downloaded = true
             self.addPhotoToBubbleCellWithMessage(message)
         }
     }

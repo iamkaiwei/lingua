@@ -41,6 +41,7 @@ class LINMessage:NSObject , NSCoding {
     var duration: NSTimeInterval = 0  //in seconds, reserved for type voice record.
     var type: MessageType = MessageType.Text
     var state: MessageState = MessageState.Submitted
+    var downloaded: Bool = false // To know If photo downloaded
     
     // Cache height for emoticons textview
     var height: CGFloat = 0
