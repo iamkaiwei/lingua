@@ -242,7 +242,7 @@ class LINChatController: LINViewController {
         let alertTitle = "\(currentUser.firstName): \(content)"
         
         let push = PFPush()
-        push.setData(["aps": ["alert": alertTitle, "sound": "defaut"],
+        push.setData(["aps": ["alert": alertTitle, "sound": "default.m4r"],
                      kUserIdKey: currentUser.userId,
                      kFirstName: currentUser.firstName,
                      kAvatarURL: currentUser.avatarURL,

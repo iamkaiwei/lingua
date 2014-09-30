@@ -28,15 +28,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
        
         LINPusherManager.sharedInstance.connectToPusher()
         
-        application.registerForRemoteNotificationTypes(.Alert | .Badge | .Sound)
-        
-        // NOTE: This code will work in future betas, please don't remove it
-        /*if application.respondsToSelector(Selector("registerUserNotificationSettings:")) {
+        if application.respondsToSelector(Selector("registerUserNotificationSettings:")) {
             application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: .Alert | .Badge | .Sound, categories: nil))
             application.registerForRemoteNotifications()
         } else {
             application.registerForRemoteNotificationTypes(.Alert | .Badge | .Sound)
-        }*/
+        }
         
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         window!.makeKeyAndVisible()
