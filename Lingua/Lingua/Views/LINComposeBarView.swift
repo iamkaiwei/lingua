@@ -216,6 +216,7 @@ class LINComposeBarView: UIView, LINEmoticonsViewDelegate, LINAudioHelperRecorde
     }
 
     // MARK: Keyboards
+    
     func handleKeyboardWillShowNotification(notification: NSNotification) {
         sendButton.hidden = false
         speakButton.hidden = true

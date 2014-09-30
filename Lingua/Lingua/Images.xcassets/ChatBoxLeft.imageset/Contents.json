@@ -7,14 +7,14 @@
       "resizing" : {
         "mode" : "9-part",
         "center" : {
-          "mode" : "fill",
+          "mode" : "stretch",
           "width" : 1,
           "height" : 1
         },
         "capInsets" : {
-          "bottom" : 12,
-          "top" : 26,
-          "right" : 10,
+          "bottom" : 19,
+          "top" : 19,
+          "right" : 13,
           "left" : 13
         }
       },
@@ -26,7 +26,7 @@
       "resizing" : {
         "mode" : "9-part",
         "center" : {
-          "mode" : "fill",
+          "mode" : "stretch",
           "width" : 1,
           "height" : 1
         },

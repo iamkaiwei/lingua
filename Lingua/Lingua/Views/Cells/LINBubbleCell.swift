@@ -213,7 +213,7 @@ class LINBubbleCell: UITableViewCell, LINAudioHelperPlayerDelegate {
         let insets = (message.incoming == false ? textInsetsMine : textInsetsSomeone)
         let offsetX = (message.incoming == true ? 0 : frame.size.width  - imageSize.width - insets.left - insets.right - 5)
         
-        photoImgView.frame = CGRect(x: offsetX + insets.left + 2,
+        photoImgView.frame = CGRect(x: offsetX + insets.left + (message.incoming == true ? 3 : 4),
                                     y: insets.top + 15,
                                     width: imageSize.width,
                                     height: imageSize.height)
@@ -223,7 +223,7 @@ class LINBubbleCell: UITableViewCell, LINAudioHelperPlayerDelegate {
         bubbleImageView.frame = CGRect(x: offsetX + insets.left - 5,
                                        y: 0,
                                        width: imageSize.width + 17,
-                                       height: imageSize.height + 30)
+                                       height: imageSize.height + 28)
         
         addOtherViewsToBubbleCellWithMessage(message)
         
@@ -239,7 +239,6 @@ class LINBubbleCell: UITableViewCell, LINAudioHelperPlayerDelegate {
     }
     
     private func addBubbleViewWithMessage(message: LINMessage) {
-        let bubbleCapInsets = UIEdgeInsetsMake(20, 10, 10, 10)
         var boxImgName: String?
         if message.incoming {
             boxImgName = (message.state == MessageState.UnSent ? "box_resend_left" : "ChatBoxLeft")
@@ -247,7 +246,7 @@ class LINBubbleCell: UITableViewCell, LINAudioHelperPlayerDelegate {
             boxImgName = (message.state == MessageState.UnSent ? "box_resend_right" : "ChatBoxRight")
         }
         
-        bubbleImageView.image = UIImage(named: boxImgName!).resizableImageWithCapInsets(bubbleCapInsets)
+        bubbleImageView.image = UIImage(named: boxImgName!)
     }
     
     private func addTimeViewWithMessage(message: LINMessage) {
@@ -282,7 +281,6 @@ class LINBubbleCell: UITableViewCell, LINAudioHelperPlayerDelegate {
     
     private func addOverlayViewWithMessage(message: LINMessage) {
         if message.state == MessageState.Submitted {
-            let bubbleCapInsets = UIEdgeInsetsMake(20, 10, 10, 10)
             var overlayImgName: String?
             if message.incoming {
                 overlayImgName = "Box_chat_left_opacity"
@@ -291,7 +289,7 @@ class LINBubbleCell: UITableViewCell, LINAudioHelperPlayerDelegate {
             }
 
             overlayView.frame = bubbleImageView.frame
-            overlayView.image = UIImage(named: overlayImgName!).resizableImageWithCapInsets(bubbleCapInsets)
+            overlayView.image = UIImage(named: overlayImgName!)
             addSubview(overlayView)
         }
     }

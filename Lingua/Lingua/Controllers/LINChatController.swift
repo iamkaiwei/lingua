@@ -242,7 +242,7 @@ class LINChatController: LINViewController {
         let alertTitle = "\(currentUser.firstName): \(content)"
         
         let push = PFPush()
-        push.setData(["aps": ["alert": alertTitle, "sound": "defaut"],
+        push.setData(["aps": ["alert": alertTitle, "sound": "default.m4r"],
                      kUserIdKey: currentUser.userId,
                      kFirstName: currentUser.firstName,
                      kAvatarURL: currentUser.avatarURL,
@@ -743,16 +743,11 @@ extension LINChatController: LINComposeBarViewDelegate {
     }
     
     func composeBar(composeBar: LINComposeBarView, willShowKeyBoard rect: CGRect, duration: NSTimeInterval) {
-        if composeBarBottomLayoutGuideConstraint.constant == 0 {
-            moveComposeBarViewUpOrDown(true, rect: rect, duration: duration)
-            scrollBubbleTableViewToBottomAnimated(true)
-        }
+        moveComposeBarViewUpOrDown(true, rect: rect, duration: duration)
     }
 
     func composeBar(composeBar: LINComposeBarView, willHideKeyBoard rect: CGRect, duration: NSTimeInterval) {
-        if composeBarBottomLayoutGuideConstraint.constant > 0 {
-            moveComposeBarViewUpOrDown(false, rect: rect, duration: duration)
-        }
+        moveComposeBarViewUpOrDown(false, rect: rect, duration: duration)
     }
    
     func composeBar(composeBar: LINComposeBarView, startPickingMediaWithPickerViewController picker: UIImagePickerController) {
@@ -791,21 +786,16 @@ extension LINChatController: LINComposeBarViewDelegate {
 
     private func moveComposeBarViewUpOrDown(isUp: Bool, rect: CGRect, duration: NSTimeInterval) {
         let keyboardHeight = rect.size.height
-        self.composeBarBottomLayoutGuideConstraint.constant = (isUp == false ? 0 : keyboardHeight)
-       
-        var composeBarFrame = composeBar.frame
-        var tableFrame = tableView.frame
-        let tmpHeight = (isUp == true ? -keyboardHeight : keyboardHeight)
-        composeBarFrame.origin.y += tmpHeight
-        tableFrame.size.height += tmpHeight
-       
-        UIView.animateWithDuration(duration, animations: {
-            self.composeBar.frame = composeBarFrame
-            self.tableView.frame = tableFrame
-        })
+        
+        UIView.animateWithDuration(duration, animations: { () -> Void in
+            self.composeBarBottomLayoutGuideConstraint.constant = (isUp == false ? 0 : keyboardHeight)
+        }) { (_) -> Void in
+            if isUp {
+                self.scrollBubbleTableViewToBottomAnimated(true)
+            }
+        }
     }
 }
-
 
 extension LINChatController: UITableViewDelegate {
     // MARK: UITableviewDelegate
