@@ -8,17 +8,16 @@
 
 import Foundation
 
-let kTextMessageMaxWidth: CGFloat = 233
+
 let kTextMessageMaxHeight: CGFloat = 9999
-let kPhotoMessageMaxWidth: CGFloat = 200
 let kPhotoMessageMaxHeight: CGFloat = 230
-let kVoiceMessageMaxWidth: CGFloat = 233
 let kVoiceMessageMaxHeight: CGFloat = 55
+let kTimeLabelMaxWidth: CGFloat = 100
+let kTimeLabelMaxHeight: CGFloat = 20
+
 let kSideMargin: CGFloat = 10
 let kTextCellHeightPadding: CGFloat = 5
 let kPhotoCellHeightPadding: CGFloat = 30
-let kTimeLabelMaxWidth: CGFloat = 100
-let kTimeLabelMaxHeight: CGFloat = 20
 
 // Resend message
 let kResendButtonWidth: CGFloat = 20
@@ -121,9 +120,9 @@ class LINBubbleCell: UITableViewCell, LINAudioHelperPlayerDelegate {
     private func configureWithTextMessage(message: LINMessage) {
         emoticonsTextStorage.setAttributedString(NSAttributedString(string: message.content as String))
         
-        let size = contentTextView.sizeThatFits(CGSize(width: kTextMessageMaxWidth, height: kTextMessageMaxHeight))
+        let size = contentTextView.sizeThatFits(CGSize(width: LINBubbleCell.maxWidthOfMessage(), height: kTextMessageMaxHeight))
         let insets = (message.incoming == false ? textInsetsMine : textInsetsSomeone)
-        let offsetX = (message.incoming == true ? 0 : frame.size.width  - size.width - insets.left - insets.right)
+        let offsetX = (message.incoming == true ? 0 : UIScreen.mainScreen().bounds.size.width - size.width - insets.left - insets.right)
         
         contentTextView.frame = CGRectMake(offsetX + insets.left, insets.top, size.width, size.height)
         addSubview(contentTextView)
@@ -177,16 +176,17 @@ class LINBubbleCell: UITableViewCell, LINAudioHelperPlayerDelegate {
             })
         }
 
-        let x = message.incoming == true ? kSideMargin : CGRectGetWidth(frame) - kVoiceMessageMaxWidth - kSideMargin/2
+        let voiceMessageMaxWidth = LINBubbleCell.maxWidthOfMessage()
+        let x = message.incoming == true ? kSideMargin : UIScreen.mainScreen().bounds.size.width - voiceMessageMaxWidth - kSideMargin/2
         
-        //Set up other UIs
+        // Set up other UIs
         playButton = UIButton(frame: CGRectMake(x, 5, kVoiceMessageMaxHeight, kVoiceMessageMaxHeight))
         playButton?.setImage(UIImage(named: "PlayButton"), forState: .Normal)
         playButton?.setImage(UIImage(named: "PauseButton"), forState: .Selected)
         playButton?.addTarget(self, action: "toggleAudioButton:", forControlEvents: .TouchUpInside)
         addSubview(playButton!)
         
-        voiceProgressBar = UIProgressView(frame: CGRectMake(CGRectGetMaxX(playButton!.frame) - 7, kVoiceMessageMaxHeight/2 + kSideMargin - 7, kVoiceMessageMaxWidth - CGRectGetWidth(playButton!.frame)*2, 2))
+        voiceProgressBar = UIProgressView(frame: CGRectMake(CGRectGetMaxX(playButton!.frame) - 7, kVoiceMessageMaxHeight/2 + kSideMargin - 7, voiceMessageMaxWidth - CGRectGetWidth(playButton!.frame)*2, 2))
         voiceProgressBar?.progressTintColor = UIColor.appTealColor()
         voiceProgressBar?.trackTintColor = UIColor.lightGrayColor()
         addSubview(voiceProgressBar!)
@@ -199,7 +199,7 @@ class LINBubbleCell: UITableViewCell, LINAudioHelperPlayerDelegate {
         addSubview(durationLabel!)
         
         // Bubble imageview
-        bubbleImageView.frame = CGRectMake(x, 0,  kVoiceMessageMaxWidth - 7,  kVoiceMessageMaxHeight - 5)
+        bubbleImageView.frame = CGRectMake(x, 0,  voiceMessageMaxWidth - 7,  kVoiceMessageMaxHeight - 5)
         addOtherViewsToBubbleCellWithMessage(message)
     }
     
@@ -211,7 +211,7 @@ class LINBubbleCell: UITableViewCell, LINAudioHelperPlayerDelegate {
         photoImgView.layer.masksToBounds = true
         
         let insets = (message.incoming == false ? textInsetsMine : textInsetsSomeone)
-        let offsetX = (message.incoming == true ? 0 : frame.size.width  - imageSize.width - insets.left - insets.right - 5)
+        let offsetX = (message.incoming == true ? 0 : UIScreen.mainScreen().bounds.size.width - imageSize.width - insets.left - insets.right - 5)
         
         photoImgView.frame = CGRect(x: offsetX + insets.left + (message.incoming == true ? 3 : 4),
                                     y: insets.top + 15,
@@ -334,5 +334,15 @@ class LINBubbleCell: UITableViewCell, LINAudioHelperPlayerDelegate {
             let simplified = Int(duration - progress)
             self.durationLabel?.text = String(format: "%02d:%02d", simplified/60, simplified%60)
         }
+    }
+    
+    // MARK: Utility methods
+    
+    class func maxWidthOfMessage() -> CGFloat {
+        return UIScreen.mainScreen().bounds.size.width - 87
+    }
+    
+    class func maxWidthOfPhotoMessage() -> CGFloat {
+        return UIScreen.mainScreen().bounds.size.width - 100
     }
 }

@@ -18,9 +18,10 @@ extension CGSize {
 
     func scaledSize() -> CGSize {
         var newSize = self
-        if self.width > kPhotoMessageMaxWidth {
-            newSize.height /= self.width / kPhotoMessageMaxWidth
-            newSize.width = kPhotoMessageMaxWidth
+        let photoMessageMaxWidth = LINBubbleCell.maxWidthOfPhotoMessage()
+        if self.width > photoMessageMaxWidth {
+            newSize.height /= self.width / photoMessageMaxWidth
+            newSize.width = photoMessageMaxWidth
         }
         return newSize
     }
