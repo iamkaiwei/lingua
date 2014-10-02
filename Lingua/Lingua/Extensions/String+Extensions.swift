@@ -22,6 +22,6 @@ extension String {
         }
 
         Static.emoticonsTextStorage!.setAttributedString(NSAttributedString(string: self))
-        return Static.textView!.sizeThatFits(CGSize(width: kTextMessageMaxWidth, height: kTextMessageMaxHeight))
+        return Static.textView!.sizeThatFits(CGSize(width: LINBubbleCell.maxWidthOfMessage(), height: kTextMessageMaxHeight))
     }
 }
