@@ -76,6 +76,8 @@ class LINParsingEmoticonsTextStorage: NSTextStorage {
         super.processEditing()
     }
     
+    // MARK: Utility methods
+    
     func getOriginalText() -> String {
         var result = imp.mutableCopy() as NSMutableAttributedString
         result.enumerateAttribute(NSAttachmentAttributeName, inRange: NSMakeRange(0, self.string.utf16Count), options:NSAttributedStringEnumerationOptions(0), usingBlock: {
@@ -104,12 +106,7 @@ class LINParsingEmoticonsTextStorage: NSTextStorage {
         placeHolderText.addAttribute(NSForegroundColorAttributeName, value: color, range: NSMakeRange(0, text.utf16Count))
         self.setAttributedString(placeHolderText)
     }
-}
-
-extension LINParsingEmoticonsTextStorage {
-    // MARK: Class functions
-
-    // Get mapping keys
+    
     class func getMappingDict() -> NSDictionary {
         struct Static {
             static var dict: NSDictionary?
@@ -122,7 +119,6 @@ extension LINParsingEmoticonsTextStorage {
         return Static.dict!
     }
     
-    // Get regular expression
     class func getRegularExpression() -> NSRegularExpression {
         struct Static {
             static var expression: NSRegularExpression?
@@ -135,7 +131,7 @@ extension LINParsingEmoticonsTextStorage {
         }
         return Static.expression!
     }
-
+    
     class func serchEmoticonKeyByName(emoticonName: String) -> String {
         let dict = LINParsingEmoticonsTextStorage.getMappingDict()
         return dict.allKeysForObject(emoticonName)[0] as String

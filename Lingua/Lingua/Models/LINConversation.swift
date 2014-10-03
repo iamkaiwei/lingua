@@ -68,9 +68,9 @@ class LINConversation: MTLModel, MTLJSONSerializing {
             return "Learning \(language)"
         }
     }
-}
-
-extension LINConversation {
+    
+    // MARK: MTLJSONSerializing
+    
     class func teacherJSONTransformer()-> NSValueTransformer {
         return NSValueTransformer.mtl_JSONDictionaryTransformerWithModelClass(LINUser.self)
     }

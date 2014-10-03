@@ -90,9 +90,7 @@ class LINNetworkClient: OVCHTTPSessionManager {
                 kLINMessagesPath: LINReply.self
         ]
     }
-}
-
-extension LINNetworkClient {
+    
     // MARK: Shared
     
     func setAuthorizedRequest() {
@@ -103,10 +101,12 @@ extension LINNetworkClient {
             requestSerializer.setValue("Bearer \(accessToken!.accessToken)", forHTTPHeaderField: "Authorization")
         }
     }
+
 }
 
+// MARK: Oauth token
+
 extension LINNetworkClient {
-    // MARK: Oauth token
     
     func getServerTokenWithFacebookToken(facebookToken: String,
                                          completion: (success: Bool) -> Void) {
@@ -170,8 +170,9 @@ extension LINNetworkClient {
     }
 }
 
+// MARK: Users
+
 extension LINNetworkClient {
-    // MARK: Users
     
     func getCurrentUser(success: (user: LINUser?) -> Void,
                         failture: (error: NSError?) -> Void) {
@@ -307,8 +308,9 @@ extension LINNetworkClient {
     }
 }
 
+// MARK: Conversations
+
 extension LINNetworkClient {
-    // MARK: Conversations
     
     func createNewConversationWithTeacherId(teacherId: String, learnerId: String,
                                             success: (conversation: LINConversation) -> Void,
@@ -419,8 +421,9 @@ extension LINNetworkClient {
     }
 }
 
+// MARK: Photos, Voices
+
 extension LINNetworkClient {
-    // MARK: Photos, Voices
     
     func uploadFile(data: NSData,
                     fileType: LINFileType,
