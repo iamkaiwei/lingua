@@ -45,11 +45,11 @@
 		20DC6568197BEA4F008DA659 /* LINCountryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DC6563197BEA4F008DA659 /* LINCountryCell.swift */; };
 		20EE47C319A34F51000EB6A6 /* LINComposeBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EE47C219A34F51000EB6A6 /* LINComposeBarView.swift */; };
 		20EE47C519A35165000EB6A6 /* LINComposeBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 20EE47C419A35165000EB6A6 /* LINComposeBarView.xib */; };
-		20F5835819931E6D00DE77A6 /* LINPopPresentAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F5835719931E6D00DE77A6 /* LINPopPresentAnimationController.swift */; };
-		20F5835A1993456B00DE77A6 /* LINShrinkDismissAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F583591993456B00DE77A6 /* LINShrinkDismissAnimationController.swift */; };
 		3539D820182145359C2B8DA9 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 81D3DA7628DD45F7938E71F3 /* libPods.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		92052F3F199522A900EA773B /* LINNotificationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92052F3E199522A900EA773B /* LINNotificationHelper.swift */; };
 		920A9C09199CAA3900940693 /* LINPhotoPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 920A9C08199CAA3900940693 /* LINPhotoPreviewController.swift */; };
+		9214F01219DE8FFC00F786E4 /* LINPopPresentAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214F01019DE8FFC00F786E4 /* LINPopPresentAnimationController.swift */; };
+		9214F01319DE8FFC00F786E4 /* LINShrinkDismissAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214F01119DE8FFC00F786E4 /* LINShrinkDismissAnimationController.swift */; };
 		9222F8C019972AE6005420EC /* LINEmoticonsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9222F8BF19972AE6005420EC /* LINEmoticonsView.xib */; };
 		9222F8C219972EA6005420EC /* LINEmoticonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9222F8C119972EA6005420EC /* LINEmoticonsView.swift */; };
 		9222F8C41997782D005420EC /* LINEmoticonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9222F8C31997782D005420EC /* LINEmoticonCell.swift */; };
@@ -76,7 +76,6 @@
 		92781D47199FBF0B00FAAFBB /* LINReply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92781D46199FBF0B00FAAFBB /* LINReply.swift */; };
 		92894CAF1996156D00824A3B /* LINConversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92894CAE1996156D00824A3B /* LINConversation.swift */; };
 		929824EC199B7BB300C56819 /* LINFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929824EB199B7BB300C56819 /* LINFile.swift */; };
-		92A3238919B181BF004FA6D5 /* EmoticonTextAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A3238819B181BF004FA6D5 /* EmoticonTextAttachment.swift */; };
 		92BC4B3419A58CB40046DED6 /* Emoticons.plist in Resources */ = {isa = PBXBuildFile; fileRef = 92BC4B3319A58CB40046DED6 /* Emoticons.plist */; };
 		92BC4B3719A58D100046DED6 /* LINParsingEmoticonsTextStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BC4B3619A58D100046DED6 /* LINParsingEmoticonsTextStorage.swift */; };
 		92C2A4AC1982146500ABF826 /* LINFacebookManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C2A4AB1982146500ABF826 /* LINFacebookManager.swift */; };
@@ -191,11 +190,11 @@
 		20DC6563197BEA4F008DA659 /* LINCountryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINCountryCell.swift; sourceTree = "<group>"; };
 		20EE47C219A34F51000EB6A6 /* LINComposeBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINComposeBarView.swift; sourceTree = "<group>"; };
 		20EE47C419A35165000EB6A6 /* LINComposeBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LINComposeBarView.xib; sourceTree = "<group>"; };
-		20F5835719931E6D00DE77A6 /* LINPopPresentAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINPopPresentAnimationController.swift; sourceTree = "<group>"; };
-		20F583591993456B00DE77A6 /* LINShrinkDismissAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINShrinkDismissAnimationController.swift; sourceTree = "<group>"; };
 		81D3DA7628DD45F7938E71F3 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		92052F3E199522A900EA773B /* LINNotificationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINNotificationHelper.swift; sourceTree = "<group>"; };
 		920A9C08199CAA3900940693 /* LINPhotoPreviewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINPhotoPreviewController.swift; sourceTree = "<group>"; };
+		9214F01019DE8FFC00F786E4 /* LINPopPresentAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINPopPresentAnimationController.swift; sourceTree = "<group>"; };
+		9214F01119DE8FFC00F786E4 /* LINShrinkDismissAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINShrinkDismissAnimationController.swift; sourceTree = "<group>"; };
 		9222F8BF19972AE6005420EC /* LINEmoticonsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LINEmoticonsView.xib; sourceTree = "<group>"; };
 		9222F8C119972EA6005420EC /* LINEmoticonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINEmoticonsView.swift; sourceTree = "<group>"; };
 		9222F8C31997782D005420EC /* LINEmoticonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINEmoticonCell.swift; sourceTree = "<group>"; };
@@ -225,7 +224,6 @@
 		929824EB199B7BB300C56819 /* LINFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINFile.swift; sourceTree = "<group>"; };
 		929C45B119C0442900FEAEF7 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		929F38AB196C7C0F009A7E6A /* libPods-libPusher.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-libPusher.a"; path = "Pods/build/Debug-iphoneos/libPods-libPusher.a"; sourceTree = "<group>"; };
-		92A3238819B181BF004FA6D5 /* EmoticonTextAttachment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmoticonTextAttachment.swift; sourceTree = "<group>"; };
 		92BC4B3319A58CB40046DED6 /* Emoticons.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Emoticons.plist; sourceTree = "<group>"; };
 		92BC4B3619A58D100046DED6 /* LINParsingEmoticonsTextStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINParsingEmoticonsTextStorage.swift; sourceTree = "<group>"; };
 		92C2A4AB1982146500ABF826 /* LINFacebookManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINFacebookManager.swift; sourceTree = "<group>"; };
@@ -452,6 +450,15 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		9214F00F19DE8FD900F786E4 /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				9214F01019DE8FFC00F786E4 /* LINPopPresentAnimationController.swift */,
+				9214F01119DE8FFC00F786E4 /* LINShrinkDismissAnimationController.swift */,
+			);
+			path = Animations;
+			sourceTree = "<group>";
+		};
 		9224D47F197FB81200BE9EE4 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -459,8 +466,7 @@
 				9268B6BB1984E49F00D526AA /* Clients */,
 				9236A69C197FD5E100210EBE /* Utils */,
 				9268B6BC1984E4B400D526AA /* DataSources */,
-				20F5835719931E6D00DE77A6 /* LINPopPresentAnimationController.swift */,
-				20F583591993456B00DE77A6 /* LINShrinkDismissAnimationController.swift */,
+				9214F00F19DE8FD900F786E4 /* Animations */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -541,7 +547,6 @@
 			isa = PBXGroup;
 			children = (
 				92BC4B3619A58D100046DED6 /* LINParsingEmoticonsTextStorage.swift */,
-				92A3238819B181BF004FA6D5 /* EmoticonTextAttachment.swift */,
 			);
 			path = Emoticons;
 			sourceTree = "<group>";
@@ -749,6 +754,7 @@
 				92CA2A4E198FA05D00367DB2 /* NSDateFormatter+Extensions.swift in Sources */,
 				92052F3F199522A900EA773B /* LINNotificationHelper.swift in Sources */,
 				2083827E19D04981007A1ED9 /* LINAboutMeController.swift in Sources */,
+				9214F01319DE8FFC00F786E4 /* LINShrinkDismissAnimationController.swift in Sources */,
 				92F0BF421993449E00608803 /* LINMessageHelper.swift in Sources */,
 				973250C419B351A900938844 /* UITextView+Extensions.swift in Sources */,
 				2082DEF5195762E8009ADF45 /* LINHomeController.swift in Sources */,
@@ -776,8 +782,8 @@
 				9265867B19B5784E00D89288 /* NSURL+Extensions.swift in Sources */,
 				92781D47199FBF0B00FAAFBB /* LINReply.swift in Sources */,
 				2062686F199B5A7500E8D09E /* LINProficiency.swift in Sources */,
-				20F5835A1993456B00DE77A6 /* LINShrinkDismissAnimationController.swift in Sources */,
 				97CCA2DC19A2F3E700455D1D /* UITableView+Extensions.swift in Sources */,
+				9214F01219DE8FFC00F786E4 /* LINPopPresentAnimationController.swift in Sources */,
 				20C84ED61982683500259F81 /* LINProficiencyCell.swift in Sources */,
 				9247D62419926B590011FC85 /* PTPusherEvent+Extensions.swift in Sources */,
 				2082DEEF1957123E009ADF45 /* LINLanguagePickingHeaderView.swift in Sources */,
@@ -786,12 +792,10 @@
 				92F316801962AB75002005B9 /* LINPusherManager.swift in Sources */,
 				20BF3FAB1957ECA700963B1F /* LINFriendListController.swift in Sources */,
 				20DC6566197BEA4F008DA659 /* LINBadgeCell.swift in Sources */,
-				92A3238919B181BF004FA6D5 /* EmoticonTextAttachment.swift in Sources */,
 				92DFBE8019ADBC620011F071 /* UIImage+Extensions.swift in Sources */,
 				97A824B119A19D3200C03CC5 /* LINNetworkHelper.swift in Sources */,
 				9222F8C41997782D005420EC /* LINEmoticonCell.swift in Sources */,
 				20473E201966D5C200EDF620 /* SZTextView.m in Sources */,
-				20F5835819931E6D00DE77A6 /* LINPopPresentAnimationController.swift in Sources */,
 				929824EC199B7BB300C56819 /* LINFile.swift in Sources */,
 				9268B6C01984E73300D526AA /* LINNetworkClient.swift in Sources */,
 				20CDFA6E19D17B7A00EBB755 /* LINProficiencyController.swift in Sources */,
