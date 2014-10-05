@@ -9,21 +9,22 @@
 import Foundation
 
 // Requests
-let kLINBaseURL = "http://linguatheapp.herokuapp.com/"
-let kLINGetAccessTokenPath = "oauth/token"
-let kLINGetCurrentUserPath = "api/v1/users/me"
-let kLINUsersPath = "api/v1/users"
-let kLINSendNotification = "api/v1/users/send_notification"
-let kLINMatchUser = "api/v1/users/match"
-let kLINConversationsPath = "api/v1/conversations"
-let kLINLanguagePath = "api/v1/languages"
-let kLINUploadPath = "api/v1/upload"
-let kLINMessagesPath = "api/v1/conversations/*/messages"
-let kLINLeaveConversationPath = "/api/v1/conversations/*/leave_conversation"
-let kLINSetFlagPath = "/api/v1/users/*/flag"
-let kLINUnsetFlagPath = "/api/v1/users/*/unflag"
-let kLINLikePath = "/api/v1/users/*/like"
-let kLINUnlikePath = "/api/v1/users/*/unlike"
+let kLINBaseURL = "http://linguatheapp.herokuapp.com"
+let kLINAPIPath = "/api/v1"
+let kLINGetAccessTokenPath = "/oauth/token"
+let kLINGetCurrentUserPath = "/users/me"
+let kLINUsersPath = "/users"
+let kLINSendNotification = "/users/send_notification"
+let kLINMatchUser = "/users/match"
+let kLINConversationsPath = "/conversations"
+let kLINLanguagePath = "/languages"
+let kLINUploadPath = "/upload"
+let kLINMessagesPath = "/conversations/*/messages"
+let kLINLeaveConversationPath = "/conversations/*/leave_conversation"
+let kLINSetFlagPath = "/users/*/flag"
+let kLINUnsetFlagPath = "/users/*/unflag"
+let kLINLikePath = "/users/*/like"
+let kLINUnlikePath = "/users/*/unlike"
 
 // Storage
 let kLINAccessTokenKey = "kLINAccessTokenKey"
@@ -81,13 +82,13 @@ class LINNetworkClient: OVCHTTPSessionManager {
     
     override class func modelClassesByResourcePath() -> [NSObject : AnyObject]! {
         return [kLINGetAccessTokenPath: LINAccessToken.self,
-                kLINGetCurrentUserPath: LINUser.self,
-                kLINUsersPath: LINUser.self,
-                kLINMatchUser: LINUser.self,
-                kLINLanguagePath: LINLanguage.self,
-                kLINConversationsPath: LINConversation.self,
-                kLINUploadPath: LINFile.self,
-                kLINMessagesPath: LINReply.self
+                "\(kLINAPIPath)" + "\(kLINGetCurrentUserPath)": LINUser.self,
+                "\(kLINAPIPath)" + "\(kLINUsersPath)": LINUser.self,
+                "\(kLINAPIPath)" + "\(kLINMatchUser)": LINUser.self,
+                "\(kLINAPIPath)" + "\(kLINLanguagePath)": LINLanguage.self,
+                "\(kLINAPIPath)" + "\(kLINConversationsPath)": LINConversation.self,
+                "\(kLINAPIPath)" + "\(kLINUploadPath)": LINFile.self,
+                "\(kLINAPIPath)" + "\(kLINMessagesPath)": LINReply.self
         ]
     }
     
@@ -101,7 +102,6 @@ class LINNetworkClient: OVCHTTPSessionManager {
             requestSerializer.setValue("Bearer \(accessToken!.accessToken)", forHTTPHeaderField: "Authorization")
         }
     }
-
 }
 
 // MARK: Oauth token
@@ -158,7 +158,8 @@ extension LINNetworkClient {
     func isValidToken(completion: (success: Bool) -> Void) {
         setAuthorizedRequest()
         
-        self.GET(kLINGetCurrentUserPath, parameters: nil, completion: { (response: AnyObject?, error: NSError?) -> Void in
+        let path = "\(kLINAPIPath)" + "\(kLINGetCurrentUserPath)"
+        self.GET(path, parameters: nil, completion: { (response: AnyObject?, error: NSError?) -> Void in
             if error != nil {
                 println("Token is not valid.")
                 completion(success: false)
@@ -178,7 +179,8 @@ extension LINNetworkClient {
                         failture: (error: NSError?) -> Void) {
             setAuthorizedRequest()
             
-            self.GET(kLINGetCurrentUserPath, parameters: nil, completion: { (response: AnyObject?, error: NSError?) -> Void in
+            let path = "\(kLINAPIPath)" + "\(kLINGetCurrentUserPath)"
+            self.GET(path, parameters: nil, completion: { (response: AnyObject?, error: NSError?) -> Void in
                 if error != nil {
                     failture(error: error!)
                 } else {
@@ -198,7 +200,8 @@ extension LINNetworkClient {
             setAuthorizedRequest()
             
             var parameters = [String: AnyObject]()
-            var path = kLINUsersPath
+            var path = "\(kLINAPIPath)" + "\(kLINUsersPath)"
+                            
             if let currentUser = LINUserManager.sharedInstance.currentUser {
                 path = "\(path)/\(currentUser.userId)"
                 parameters = ["learn_language_id": currentUser.learningLanguage!.languageID,
@@ -225,7 +228,8 @@ extension LINNetworkClient {
                      failture: (error: NSError?) -> Void) {
             setAuthorizedRequest()
             
-            self.GET(kLINUsersPath, parameters: nil, completion: { (response: AnyObject?, error: NSError?) -> Void in
+            let path = "\(kLINAPIPath)" + "\(kLINUsersPath)"
+            self.GET(path, parameters: nil, completion: { (response: AnyObject?, error: NSError?) -> Void in
                 if error != nil {
                     failture(error: error!)
                 } else {
@@ -245,8 +249,9 @@ extension LINNetworkClient {
         let parameters = [kUserIdKey: userId,
                           "message": text,
                           "time_created": sendDate]
+        let path = "\(kLINAPIPath)" + "\(kLINSendNotification)"
         
-        self.POST(kLINSendNotification, parameters: parameters, completion: nil)
+        self.POST(path, parameters: parameters, completion: nil)
     }
     
     func updateDeviceTokenWithUserId(userId: String, deviceToken: String) {
@@ -254,7 +259,7 @@ extension LINNetworkClient {
         
         let parameters = [kUserIdKey: userId,
             kDeviceTokenKey: deviceToken]
-        let path = "\(kLINUsersPath)/\(userId)"
+        let path = "\(kLINAPIPath)" + "\(kLINUsersPath)/\(userId)"
 
         self.PUT(path, parameters: parameters, { (response: AnyObject?, error: NSError?) -> Void in
             if error != nil {
@@ -269,11 +274,14 @@ extension LINNetworkClient {
         setAuthorizedRequest()
         
         let parameters = ["partner_role": partnerRole.stringFromRole()]
-        self.GET(kLINMatchUser, parameters: parameters, completion: { (response: AnyObject?, error: NSError?) -> Void in
+        let path = "\(kLINAPIPath)" + "\(kLINMatchUser)"
+        
+        self.GET(path, parameters: parameters, completion: { (response: AnyObject?, error: NSError?) -> Void in
             if error != nil {
                 failture(error: error)
                 return
             }
+            
             println("Match users: \(response)")
             if let arrUsers = (response as OVCResponse).result as? [LINUser] {
                 success(arrUsers: arrUsers)
@@ -285,24 +293,24 @@ extension LINNetworkClient {
     }
 
     func callActionAPI(actionType:LINActionType, userId:String, completion:(error:NSError?) -> Void ) {
-        var apiPath:String
+        var path = "\(kLINAPIPath)"
 
         switch actionType {
             case .LINActionTypeFlag:
-                apiPath = kLINSetFlagPath
+                path += "\(kLINSetFlagPath)"
             case .LINActionTypeUnFlag:
-                apiPath = kLINUnsetFlagPath
+                path += "\(kLINUnsetFlagPath)"
             case .LINActionTypeLike:
-                apiPath = kLINLikePath
+                path += "\(kLINLikePath)"
             case .LINActionTypeUnLike:
-                apiPath = kLINUnlikePath
+                path += "\(kLINUnlikePath)"
             default:
                 break
             }
 
-        apiPath = apiPath.stringByReplacingOccurrencesOfString("*", withString: "\(userId)", options: nil, range: nil)
+        path = path.stringByReplacingOccurrencesOfString("*", withString: "\(userId)", options: nil, range: nil)
 
-        self.POST(apiPath, parameters: nil, { (response: AnyObject?, error: NSError?) -> Void in
+        self.POST(path, parameters: nil, { (response: AnyObject?, error: NSError?) -> Void in
             completion(error: error)
         })
     }
@@ -319,8 +327,9 @@ extension LINNetworkClient {
         
         let parameters = ["teacher_id": teacherId,
                           "learner_id": learnerId]
-        
-        self.POST(kLINConversationsPath, parameters: parameters, { (response: AnyObject?, error: NSError?) -> Void in
+        let path = "\(kLINAPIPath)" + "\(kLINConversationsPath)"
+                                                
+        self.POST(path, parameters: parameters, { (response: AnyObject?, error: NSError?) -> Void in
             if error != nil {
                 println("Create new conversation has some errors: \(error!.description)")
                 failure(error: error)
@@ -337,7 +346,8 @@ extension LINNetworkClient {
     func getAllConversations(completion:(conversationsArray: [LINConversation]? , error: NSError?) -> Void) {
         setAuthorizedRequest()
         
-        self.GET(kLINConversationsPath, parameters: nil, completion: { (response: AnyObject?, error: NSError?) -> Void in
+        let path = "\(kLINAPIPath)" + "\(kLINConversationsPath)"
+        self.GET(path, parameters: nil, completion: { (response: AnyObject?, error: NSError?) -> Void in
             if error != nil {
                 println("Get all conversations has some errors: \(error!.description)")
                 completion(conversationsArray: nil, error: error)
@@ -356,7 +366,7 @@ extension LINNetworkClient {
                                      completion: (success: Bool) -> Void) {
         setAuthorizedRequest()
         
-        let path = "\(kLINConversationsPath)/\(conversationId)/messages"
+        let path = "\(kLINAPIPath)" + "\(kLINConversationsPath)/\(conversationId)/messages"
         
         var error: NSError?
         let jsonData  = NSJSONSerialization.dataWithJSONObject(messagesArray, options: NSJSONWritingOptions(0), error: &error)
@@ -387,7 +397,8 @@ extension LINNetworkClient {
         let parameters = ["conversation_id": conversationId,
                           "length": length,
                           "page": page]
-        let path = kLINMessagesPath.stringByReplacingOccurrencesOfString("*", withString: "\(conversationId)", options: nil, range: nil)
+        var path = "\(kLINAPIPath)" + "\(kLINMessagesPath)"
+        path = path.stringByReplacingOccurrencesOfString("*", withString: "\(conversationId)", options: nil, range: nil)
         
         self.GET(path, parameters: parameters) { (response, error) -> Void in
             if error != nil {
@@ -406,7 +417,8 @@ extension LINNetworkClient {
     func leaveConversationWithConversationId(conversationId: String, completion: (success: Bool) -> Void){
         setAuthorizedRequest()
         
-        let path = kLINLeaveConversationPath.stringByReplacingOccurrencesOfString("*", withString: "\(conversationId)", options: nil, range: nil)
+        var path = "\(kLINAPIPath)" + "\(kLINLeaveConversationPath)"
+        path = path.stringByReplacingOccurrencesOfString("*", withString: "\(conversationId)", options: nil, range: nil)
         
         self.PUT(path, parameters: nil) { (response, error) -> Void in
             if error != nil {
@@ -429,8 +441,9 @@ extension LINNetworkClient {
                     fileType: LINFileType,
                     completion: (fileURL: String?, error: NSError?) -> Void) {
         let fileInfo = fileType.getFileInfo()
-        
-        self.POST(kLINUploadPath, parameters: nil, constructingBodyWithBlock: { (formData) -> Void in
+        let path = "\(kLINAPIPath)" + "\(kLINUploadPath)"
+                        
+        self.POST(path, parameters: nil, constructingBodyWithBlock: { (formData) -> Void in
             formData.appendPartWithFileData(data, name: "file", fileName: fileInfo.fileName, mimeType: fileInfo.mimeType)
         }) { (response, error) -> Void in
                 if error != nil {
@@ -461,5 +474,48 @@ extension LINNetworkClient {
             completion(data: nil, error: error)
         })
         operation.start()
+    }
+}
+
+// MARK: Languages
+
+extension LINNetworkClient {
+    
+    func getLanguages(success: (languages: [[LINLanguage]], headers: [String]) -> Void, failture: (error: NSError?) -> Void) {
+        let path = "\(kLINAPIPath)" + "\(kLINLanguagePath)"
+        self.GET(path, parameters: nil, completion: { (response: AnyObject?, error: NSError?) -> Void in
+            if error != nil {
+                failture(error: error)
+                return
+            }
+            
+            if var languages = (response as OVCResponse).result as? [LINLanguage] {
+                languages.sort {
+                    switch $0.languageName.localizedCaseInsensitiveCompare($1.languageName) {
+                    case .OrderedAscending: return true
+                    default: return false
+                    }
+                }
+                var headers = languages.map { "\(Array($0.languageName)[0])" }
+                var distinctHeaders = [headers[0]] //Initialize with first object from Headers
+                var structedArray: [[LINLanguage]] = [[languages[0]]] //Initialize with first object from Languages
+                var structedArrayIndex = structedArray.count - 1
+                for var i = 1; i < headers.count; i++ {
+                    if headers[i] == headers[i - 1] {
+                        structedArray[structedArrayIndex].append(languages[i])
+                    }
+                    else {
+                        distinctHeaders.append(headers[i])
+                        var subArray = [languages[i]]
+                        structedArray.append(subArray)
+                        structedArrayIndex++
+                    }
+                }
+                success(languages: structedArray, headers: distinctHeaders)
+                return
+            }
+            
+            failture(error: nil)
+        })
     }
 }

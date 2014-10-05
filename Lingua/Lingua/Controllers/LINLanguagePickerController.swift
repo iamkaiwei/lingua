@@ -13,7 +13,6 @@ protocol LINLanguagePickerControllerDelegate {
 }
 
 class LINLanguagePickerController: LINViewController {
-
     @IBOutlet weak var tableView: UITableView!
 
     private var languages = [[LINLanguage]]()
@@ -24,15 +23,17 @@ class LINLanguagePickerController: LINViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         prepareTableView()
         titleLabel?.text = titleText
         loadingView.showInView(self.view)
-        LINLanguage.getLanguages({
+        
+        LINNetworkClient.sharedInstance.getLanguages({
             self.languages = $0
             self.headers = $1
             self.loadingView.hide()
             self.tableView.reloadData()
-            }, failture: { println($0)})
+        }, failture: { println($0)})
     }
 
     func prepareTableView() {
