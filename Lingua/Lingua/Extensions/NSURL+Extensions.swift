@@ -13,6 +13,7 @@ extension NSURL {
         let query: String = self.query!
         var result: NSMutableDictionary = NSMutableDictionary()
         let parameters = query.componentsSeparatedByString("&")
+        
         for parameter in parameters {
             let parts = parameter.componentsSeparatedByString("=")
             let key = (parts[0] as NSString).stringByReplacingPercentEscapesUsingEncoding(NSUTF8StringEncoding)

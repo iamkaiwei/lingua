@@ -355,18 +355,29 @@ class LINComposeBarView: UIView, LINEmoticonsViewDelegate, LINAudioHelperRecorde
     
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         if text.utf16Count > 1 {
-            //if the replacement text count > 1 char that mean user paste a bulk of text
-            //Call the text view to re-adjust it manually
+            // if the replacement text count > 1 char that mean user paste a bulk of text
+            // Call the text view to re-adjust it manually
             adjustTextViewFrameWithText(text)
         }
         return true
     }
     
-    func adjustTextViewFrameWithText(newInputText:String) {
-        var fullText:String = emoticonsTextStorage.getOriginalText().stringByAppendingString(newInputText)
+    func adjustTextViewFrameWithText(newInputText: String) {
+        let fullText = emoticonsTextStorage.getOriginalText().stringByAppendingString(newInputText)
         let newSize = fullText.sizeOfStringUseTextStorage()
-        textView.scrollToCaret()
+        
+        scrollContentOfTextViewToCaret()
+        
         let newHeight = min(newSize.height,kTextViewMaxContentHeight) + kTextViewOuterMargin
         delegate?.composeBar(self, willChangeHeight: newHeight)
+    }
+    
+    // MAKR: Utility methods
+    
+    private func scrollContentOfTextViewToCaret() {
+        textView.layoutManager.ensureLayoutForTextContainer(textView.textContainer)
+        let caretRect = textView.caretRectForPosition(textView.endOfDocument)
+        
+        textView.scrollRectToVisible(caretRect, animated: false)
     }
 }

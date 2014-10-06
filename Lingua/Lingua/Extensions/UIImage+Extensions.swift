@@ -13,22 +13,27 @@ extension UIImage {
         return imageWithColor(UIColor.appTealColor())
     }
 
-    class func imageWithColor(color:UIColor) -> UIImage {
-        var rect = CGRect(x: 0, y: 0, width: 1, height: 1)
+    class func imageWithColor(color: UIColor) -> UIImage {
+        let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
         UIGraphicsBeginImageContext(rect.size)
-        var context:CGContextRef = UIGraphicsGetCurrentContext()
+        
+        let context: CGContextRef = UIGraphicsGetCurrentContext()
         CGContextSetFillColorWithColor(context, color.CGColor)
         CGContextFillRect(context, rect)
-        var image:UIImage = UIGraphicsGetImageFromCurrentImageContext()
+        
+        let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
+        
         return image
     }
 
     func resizableImageWithNewSize(newSize: CGSize) -> UIImage {
         UIGraphicsBeginImageContext(newSize)
         self.drawInRect(CGRectMake(0, 0, newSize.width, newSize.height))
+        
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
+        
         return newImage
     }
 }

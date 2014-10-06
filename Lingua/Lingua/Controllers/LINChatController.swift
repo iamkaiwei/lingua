@@ -476,7 +476,7 @@ class LINChatController: LINViewController, UITableViewDelegate {
         
         // Bind to event to receive data
         currentChannel.bindToEventNamed(kPusherEventNameNewMessage, handleWithBlock: { channelEvent in
-            let replyData = channelEvent.getReplyData()
+            let replyData = self.getReplyDataInChannelEvent(channelEvent)
             let type = MessageType.fromRaw(replyData.type)
             let aMessage = LINMessage(incoming: true, sendDate: replyData.sendDate, content: replyData.text, type: type!)
             aMessage.state = MessageState.Sent
@@ -686,6 +686,22 @@ class LINChatController: LINViewController, UITableViewDelegate {
             self.unsentMessagesArray = NSKeyedUnarchiver.unarchiveObjectWithData(cachedData!) as [LINMessage]
             println("You have \(self.unsentMessagesArray.count) un-sent messages.")
         }
+    }
+    
+    
+    // MARK: Utility methods
+    
+    private func getReplyDataInChannelEvent(channelEvent: PTPusherEvent) -> (userId: String, firstName: String, avatarURL: String, text: String, sendDate: NSDate, type: Int) {
+        let data = (channelEvent.data as NSDictionary)
+        let userId = data[kUserIdKey] as String
+        let firstName = data[kFirstName] as String
+        let avatarURL = data[kAvatarURL] as String
+        let text = data[kMessageTextKey] as String
+        let tmpDate = data[kMessageSendDateKey] as String
+        let sendDate = NSDateFormatter.iSODateFormatter().dateFromString(tmpDate)
+        let type = data[kMessageTypeKey] as Int
+        
+        return (userId, firstName, avatarURL, text, sendDate!, type)
     }
 }
 

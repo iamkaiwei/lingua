@@ -9,7 +9,6 @@
 import UIKit
 
 class LINBadgeFlowLayout: UICollectionViewFlowLayout {
-   
     var sections = [LINBadgeSection]()
     var contentSize = CGSizeZero
     var recession: CGFloat = 8
@@ -116,7 +115,6 @@ class LINBadgeRow {
 }
 
 class LINBadgeSection {
-    
     var frame = CGRectZero
     var headerFrame = CGRectZero
     var rows = [LINBadgeRow]()
