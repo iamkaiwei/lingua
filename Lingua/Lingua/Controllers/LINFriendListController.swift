@@ -59,7 +59,8 @@ class LINFriendListController: LINViewController, UITableViewDataSource, UITable
     }
     
     // MARK: LINChatControllerDelegate
-    func shouldMoveConversationToTheTop(conversationId:String) {
+    
+    func chatControllerShouldMoveConversationToTheTop(conversationId:String) {
         moveConversationToTop(conversationId,markAsNewMessage:false)
     }
     

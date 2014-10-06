@@ -18,26 +18,26 @@ enum LINChatMode {
 }
 
 protocol LINChatControllerDelegate {
-    func shouldMoveConversationToTheTop(conversationId:String) -> Void
+    func chatControllerShouldMoveConversationToTheTop(conversationId: String) -> Void
 }
 
 class LINChatController: LINViewController, UITableViewDelegate {
     @IBOutlet weak var composeBar: LINComposeBarView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var topNavigationView:LINTopNavigationView!
-    @IBOutlet weak var likeButton:UIButton!
-    @IBOutlet weak var flagButton:UIButton!
+    @IBOutlet weak var topNavigationView: LINTopNavigationView!
+    @IBOutlet weak var likeButton: UIButton!
+    @IBOutlet weak var flagButton: UIButton!
     
-    private var pullRefreshControl: UIRefreshControl = UIRefreshControl()
+    private var pullRefreshControl = UIRefreshControl()
     private var messageArray = [LINMessage]()
     private var dataSource: LINArrayDataSource?
     private let cellIdentifier = "kLINBubbleCell"
     private var onPlayVoiceMessage: LINMessage?
     
     private var currentChannel = PTPusherPresenceChannel()
-    private var conversationChanged : Bool = false
-    var delegate:LINChatControllerDelegate?
+    private var conversationChanged = false
+    var delegate: LINChatControllerDelegate?
 
     var conversation: LINConversation = LINConversation() {
         didSet {
@@ -63,39 +63,21 @@ class LINChatController: LINViewController, UITableViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Add loading view to load older messages
-        pullRefreshControl.addTarget(self, action: Selector("loadOlderMessages"), forControlEvents: UIControlEvents.ValueChanged)
-        tableView.addSubview(pullRefreshControl)
         composeBar.delegate = self
+        LINPusherManager.sharedInstance.delegate = self
         
-        configureTapGestureOnTableView()
-        
-        if let tmpuser = LINUserManager.sharedInstance.currentUser {
-            currentUser = tmpuser
-        }
-        
-        nameLabel.text = userChat.firstName
-        likeButton.selected = conversation.isLiked
-        flagButton.selected = conversation.isFlagged
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "appDidBecomActive", name: kNotificationAppDidBecomActive, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "appDidEnterBackground", name: kNotificationAppDidEnterBackground, object: nil)
-        
+        configureUI()
         setupTableView()
-
+        
         loadCachedUnsentChatData()
         
         if LINNetworkHelper.isReachable() {
             loadListLastestMessages()
-        }
-        else {
+        } else {
             loadingCachedChatHistory()
         }
         
-        self.topNavigationView.registerForNetworkStatusNotification(lostConnection: kNotificationAppDidLostConnection, restoreConnection: kNotificationAppDidRestoreConnection)
-        self.tableView.registerForNetworkStatusNotification(lossConnection: kNotificationAppDidLostConnection, restoreConnection: kNotificationAppDidRestoreConnection)
-        
-        LINPusherManager.sharedInstance.delegate = self
+        setupNotifications()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -119,20 +101,39 @@ class LINChatController: LINViewController, UITableViewDelegate {
         cachingChatHistoryData()
         cachingUnsentChatData()
 
-        //Call previous view controller to re-arrange the order
+        // Call previous view controller to re-arrange the order
         if conversationChanged {
-            self.delegate?.shouldMoveConversationToTheTop(conversationId)
+            self.delegate?.chatControllerShouldMoveConversationToTheTop(conversationId)
         }
 
-        //Stop audio helper
+        // Stop audio helper
         LINAudioHelper.sharedInstance.stopPlaying()
     }
     
     // MARK: Configuration
     
-    private func configureTapGestureOnTableView() {
+    private func configureUI() {
+        pullRefreshControl.addTarget(self, action: Selector("loadOlderMessages"), forControlEvents: UIControlEvents.ValueChanged)
+        tableView.addSubview(pullRefreshControl)
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: "didTapOnTableView:")
         tableView.addGestureRecognizer(tapGesture)
+        
+        if let tmpuser = LINUserManager.sharedInstance.currentUser {
+            currentUser = tmpuser
+        }
+        
+        nameLabel.text = userChat.firstName
+        likeButton.selected = conversation.isLiked
+        flagButton.selected = conversation.isFlagged
+    }
+    
+    private func setupNotifications() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "appDidBecomActive", name: kNotificationAppDidBecomActive, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "appDidEnterBackground", name: kNotificationAppDidEnterBackground, object: nil)
+        
+        topNavigationView.registerForNetworkStatusNotification(lostConnection: kNotificationAppDidLostConnection, restoreConnection: kNotificationAppDidRestoreConnection)
+        tableView.registerForNetworkStatusNotification(lossConnection: kNotificationAppDidLostConnection, restoreConnection: kNotificationAppDidRestoreConnection)
     }
     
     func didTapOnTableView(sender: UITapGestureRecognizer) {
@@ -173,56 +174,44 @@ class LINChatController: LINViewController, UITableViewDelegate {
         dismissViewControllerAnimated(true, completion: nil)
     }
     
-    @IBAction func onFlagButton(sender:UIButton) {
-        var actionType:LINActionType
-        var isOn : Bool = !sender.selected
-        if isOn {
-            actionType = LINActionType.LINActionTypeFlag
-        }
-        else {
-            actionType = LINActionType.LINActionTypeUnFlag
-        }
-        
-        LINNetworkClient.sharedInstance.callActionAPI(actionType, userId:userChat.userId, {(error) -> Void in
-            if error == nil {
-                println("Action completed successfully")
-                sender.selected = isOn
-                self.conversation.isFlagged = isOn
-            }
-            else {
-                println("Action got error : \(error?.localizedDescription)")
-            }
-        })
+    @IBAction func onFlagButton(sender: UIButton) {
+        onAction(likeButtonTouched: false, sender: sender)
     }
     
-    @IBAction func onLikeButton(sender:UIButton) {
-        var actionType:LINActionType
-        var isOn : Bool = !sender.selected
-        if isOn {
-            actionType = LINActionType.LINActionTypeLike
-        }
-        else {
-            actionType = LINActionType.LINActionTypeUnLike
-        }
-        
-        LINNetworkClient.sharedInstance.callActionAPI(actionType, userId:userChat.userId, {(error) -> Void in
-            if error == nil {
-                println("Action completed successfully")
-                sender.selected = isOn
-                self.conversation.isLiked = isOn
-            }
-            else {
-                println("Action got error : \(error?.localizedDescription)")
-            }
-        })
+    @IBAction func onLikeButton(sender: UIButton) {
+        onAction(likeButtonTouched: true, sender: sender)
     }
     
     // MARK: Utility Methods
     
-    private func leaveConversation() {
-        LINNetworkClient.sharedInstance.leaveConversationWithConversationId(conversationId,
-            completion: { (success) -> Void in
+    private func onAction(#likeButtonTouched: Bool, sender: UIButton) {
+        var actionType: LINActionType
+        let isOn: Bool = !sender.selected
+        
+        if likeButtonTouched {
+            actionType = isOn == true ? .LINActionTypeLike : .LINActionTypeUnLike
+        } else {
+            actionType = isOn == true ? .LINActionTypeFlag : .LINActionTypeUnFlag
+        }
+        
+        LINNetworkClient.sharedInstance.callActionAPI(actionType, userId: userChat.userId, {(error) -> Void in
+            if error == nil {
+                println("Action completed successfully")
+                sender.selected = isOn
+                
+                if likeButtonTouched {
+                    self.conversation.isLiked = isOn
+                } else {
+                    self.conversation.isFlagged = isOn
+                }
+            } else {
+                println("Action got error : \(error?.localizedDescription)")
+            }
         })
+    }
+    
+    private func leaveConversation() {
+        LINNetworkClient.sharedInstance.leaveConversationWithConversationId(conversationId, completion: { (success) -> Void in })
     }
     
     func appDidEnterBackground() {
@@ -447,7 +436,7 @@ class LINChatController: LINViewController, UITableViewDelegate {
     }
     
     func getLastestMessages() -> [LINMessage]? {
-        let numberOfMessage = min(self.messageArray.count,kChatHistoryMaxLenght)
+        let numberOfMessage = min(self.messageArray.count, kChatHistoryMaxLenght)
         if numberOfMessage == 0 {
             return nil
         }
@@ -688,10 +677,10 @@ class LINChatController: LINViewController, UITableViewDelegate {
         }
     }
     
-    
     // MARK: Utility methods
     
-    private func getReplyDataInChannelEvent(channelEvent: PTPusherEvent) -> (userId: String, firstName: String, avatarURL: String, text: String, sendDate: NSDate, type: Int) {
+    private func getReplyDataInChannelEvent(channelEvent: PTPusherEvent) -> (userId: String, firstName: String, avatarURL: String,
+                                                                             text: String, sendDate: NSDate, type: Int) {
         let data = (channelEvent.data as NSDictionary)
         let userId = data[kUserIdKey] as String
         let firstName = data[kFirstName] as String
