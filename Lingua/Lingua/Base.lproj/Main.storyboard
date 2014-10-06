@@ -1475,7 +1475,7 @@
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="Yesterday" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CCa-Gv-m22">
                                                     <rect key="frame" x="521" y="12" width="69" height="20"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="69" id="64s-XT-oMc"/>
+                                                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="80" id="64s-XT-oMc"/>
                                                         <constraint firstAttribute="height" constant="20" id="R2c-Jh-yZN"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="RobotoSlab-Light" family="Roboto Slab" pointSize="13"/>
