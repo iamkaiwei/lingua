@@ -31,7 +31,7 @@ let kLINAccessTokenKey = "kLINAccessTokenKey"
 let kLINCurrentUserKey = "kLINCurrentUserKey"
 let kLINLastOnlineKey  = "kLINLastOnlineKey"
 
-enum LINActionType{
+enum LINActionType {
     case LINActionTypeFlag
     case LINActionTypeUnFlag
     case LINActionTypeLike
