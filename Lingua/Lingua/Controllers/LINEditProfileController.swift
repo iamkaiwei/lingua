@@ -9,6 +9,8 @@
 import UIKit
 
 class LINEditProfileController: LINViewController, LINAboutMeControllerDelegate, LINLanguagePickerControllerDelegate, LINProficiencyControllerDelegate {
+    
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var firstName: UITextField!
     @IBOutlet weak var lastName: UITextField!
     @IBOutlet weak var gender: UILabel!
@@ -16,6 +18,7 @@ class LINEditProfileController: LINViewController, LINAboutMeControllerDelegate,
     @IBOutlet weak var learningLanguage: UILabel!
     @IBOutlet weak var writingProficiency: UIImageView!
     @IBOutlet weak var speakingProficiency: UIImageView!
+    @IBOutlet weak var logoutView: UIView!
     
     private var me: LINUser?
     private var newAboutMe: String?
@@ -26,7 +29,7 @@ class LINEditProfileController: LINViewController, LINAboutMeControllerDelegate,
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         me = LINUserManager.sharedInstance.currentUser
         firstName.text = me?.firstName
         lastName.text = me?.lastName
@@ -35,6 +38,12 @@ class LINEditProfileController: LINViewController, LINAboutMeControllerDelegate,
         learningLanguage.text = me?.learningLanguage?.languageName
         writingProficiency.image = UIImage(named: "Proficiency\((me?.writingProficiency?.proficiencyID ?? 1) - 1)")
         speakingProficiency.image = UIImage(named: "Proficiency\((me?.speakingProficiency?.proficiencyID ?? 1) - 1)")
+        
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        scrollView.contentSize = CGSizeMake(CGRectGetWidth(logoutView.frame), CGRectGetMaxY(logoutView.frame))
     }
     
     @IBAction func close(sender: UIButton) {
