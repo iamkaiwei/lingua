@@ -58,6 +58,8 @@ class LINUser: MTLModel, MTLJSONSerializing {
         ]
     }
     
+    // MARK: MTLJSONSerializing
+    
     class func nativeLanguageJSONTransformer()-> NSValueTransformer {
         return NSValueTransformer.mtl_JSONDictionaryTransformerWithModelClass(LINLanguage.self)
     }

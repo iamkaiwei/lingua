@@ -52,12 +52,16 @@ class LINOnboardingController: LINViewController, LINFacebookManagerDelegate {
     }
 }
 
+// MARK: UIScrollViewDelegate
+
 extension LINOnboardingController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(scrollView: UIScrollView!) {
         pageControl.currentPage = Int(scrollView.contentOffset.x / CGRectGetWidth(scrollView.frame));
     }
 }
+
+// MARK: LINLoginViewDelegate
 
 extension LINOnboardingController: LINLoginViewDelegate {
     
@@ -116,6 +120,8 @@ extension LINOnboardingController: LINLoginViewDelegate {
          NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAppDidBecomActive, object: nil)
     }
 }
+
+// MARK: GPPSignInDelegate
 
 extension LINOnboardingController: GPPSignInDelegate {
     

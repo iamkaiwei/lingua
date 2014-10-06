@@ -29,7 +29,7 @@ protocol LINBubbleCellDelegate {
     func bubbleCellDidOpenPhotoPreview(bubbleCell: LINBubbleCell)
 }
 
-class LINBubbleCell: UITableViewCell, LINAudioHelperPlayerDelegate {
+class LINBubbleCell: UITableViewCell {
     private var contentTextView = UITextView()
     private var bubbleImageView = UIImageView()
     private var createAtLabel = UILabel()
@@ -315,7 +315,20 @@ class LINBubbleCell: UITableViewCell, LINAudioHelperPlayerDelegate {
         }
     }
     
-    //MARK: LINAudioHelperPlayerDelegate
+    // MARK: Utility methods
+    
+    class func maxWidthOfMessage() -> CGFloat {
+        return UIScreen.mainScreen().bounds.size.width - 87
+    }
+    
+    class func maxWidthOfPhotoMessage() -> CGFloat {
+        return UIScreen.mainScreen().bounds.size.width - 100
+    }
+}
+
+// MARK: LINAudioHelperPlayerDelegate
+
+extension LINBubbleCell: LINAudioHelperPlayerDelegate {
     
     func audioHelperDidFinishPlaying(duration: NSTimeInterval) {
         let simplified = Int(duration + 0.5)
@@ -334,15 +347,5 @@ class LINBubbleCell: UITableViewCell, LINAudioHelperPlayerDelegate {
             let simplified = Int(duration - progress)
             self.durationLabel?.text = String(format: "%02d:%02d", simplified/60, simplified%60)
         }
-    }
-    
-    // MARK: Utility methods
-    
-    class func maxWidthOfMessage() -> CGFloat {
-        return UIScreen.mainScreen().bounds.size.width - 87
-    }
-    
-    class func maxWidthOfPhotoMessage() -> CGFloat {
-        return UIScreen.mainScreen().bounds.size.width - 100
     }
 }

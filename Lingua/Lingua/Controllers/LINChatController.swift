@@ -21,7 +21,7 @@ protocol LINChatControllerDelegate {
     func shouldMoveConversationToTheTop(conversationId:String) -> Void
 }
 
-class LINChatController: LINViewController {
+class LINChatController: LINViewController, UITableViewDelegate {
     @IBOutlet weak var composeBar: LINComposeBarView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -160,6 +160,12 @@ class LINChatController: LINViewController {
         tableView.registerClass(LINBubbleCell.self, forCellReuseIdentifier: cellIdentifier)
     }
     
+    // MARK: UITableviewDelegate
+    
+    func tableView(tableView: UITableView!, heightForRowAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
+        return heightForCellAtIndexPath(indexPath)
+    }
+    
     // MARK: Actions
     
     @IBAction func backButtonTouched(sender: UIButton) {
@@ -211,7 +217,7 @@ class LINChatController: LINViewController {
         })
     }
     
-    // MARK: Functions
+    // MARK: Utility Methods
     
     private func leaveConversation() {
         LINNetworkClient.sharedInstance.leaveConversationWithConversationId(conversationId,
@@ -470,7 +476,7 @@ class LINChatController: LINViewController {
         
         // Bind to event to receive data
         currentChannel.bindToEventNamed(kPusherEventNameNewMessage, handleWithBlock: { channelEvent in
-            let replyData = channelEvent.getReplyData()
+            let replyData = self.getReplyDataInChannelEvent(channelEvent)
             let type = MessageType.fromRaw(replyData.type)
             let aMessage = LINMessage(incoming: true, sendDate: replyData.sendDate, content: replyData.text, type: type!)
             aMessage.state = MessageState.Sent
@@ -537,8 +543,6 @@ class LINChatController: LINViewController {
             }
         } else {
             let tmpRepliesArray = [replyDict]
-            
-            // KTODO: No internet --> Add this message to replies array
             
             LINNetworkClient.sharedInstance.creatBulkWithConversationId(conversationId, messagesArray: tmpRepliesArray) {
                 (success) -> Void in
@@ -683,9 +687,28 @@ class LINChatController: LINViewController {
             println("You have \(self.unsentMessagesArray.count) un-sent messages.")
         }
     }
+    
+    
+    // MARK: Utility methods
+    
+    private func getReplyDataInChannelEvent(channelEvent: PTPusherEvent) -> (userId: String, firstName: String, avatarURL: String, text: String, sendDate: NSDate, type: Int) {
+        let data = (channelEvent.data as NSDictionary)
+        let userId = data[kUserIdKey] as String
+        let firstName = data[kFirstName] as String
+        let avatarURL = data[kAvatarURL] as String
+        let text = data[kMessageTextKey] as String
+        let tmpDate = data[kMessageSendDateKey] as String
+        let sendDate = NSDateFormatter.iSODateFormatter().dateFromString(tmpDate)
+        let type = data[kMessageTypeKey] as Int
+        
+        return (userId, firstName, avatarURL, text, sendDate!, type)
+    }
 }
 
+// MARK: LINBubbleCellDelegate
+
 extension LINChatController: LINBubbleCellDelegate {
+    
     func bubbleCellDidStartPlayingRecord(bubbleCell: LINBubbleCell) {
         if let indexPath = tableView.indexPathForCell(bubbleCell) {
             onPlayVoiceMessage = messageArray[indexPath.row]
@@ -726,9 +749,10 @@ extension LINChatController: LINBubbleCellDelegate {
     }
 }
 
-extension LINChatController: LINComposeBarViewDelegate {
-    //MARK: LINComposeBarViewDelegate
+//MARK: LINComposeBarViewDelegate
 
+extension LINChatController: LINComposeBarViewDelegate {
+    
     func composeBar(composeBar: LINComposeBarView, willChangeHeight newHeight: CGFloat) {
         composeBarHeightConstraint.constant = newHeight
         scrollBubbleTableViewToBottomAnimated(true)
@@ -797,16 +821,9 @@ extension LINChatController: LINComposeBarViewDelegate {
     }
 }
 
-extension LINChatController: UITableViewDelegate {
-    // MARK: UITableviewDelegate
-    
-    func tableView(tableView: UITableView!, heightForRowAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
-        return heightForCellAtIndexPath(indexPath)
-    }
-}
+// MARK: PTPusherPresenceDelegate
 
 extension LINChatController: PTPusherPresenceChannelDelegate {
-    // MARK: PTPusherPresenceDelegate
     
     func presenceChannelDidSubscribe(channel: PTPusherPresenceChannel!) {
         println("[pusher] Channel members: \(channel.members)")
@@ -828,7 +845,10 @@ extension LINChatController: PTPusherPresenceChannelDelegate {
     }
 }
 
+// MARK: LINPusherManagerDelegate
+
 extension LINChatController: LINPusherManagerDelegate {
+    
     func pusherManager(pusherManager: LINPusherManager, didFailToSubscribeToChannel channel: PTPusherChannel) {
         println("Auto re-subscribe to channel: \(channel.name)")
         subscribeToPresenceChannel()

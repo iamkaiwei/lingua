@@ -9,11 +9,11 @@
 import Foundation
 
 class LINConversationCell: UITableViewCell {
-    @IBOutlet weak var avatarImgView: UIImageView!
+    @IBOutlet weak var avatarImgView: LINRoundedCornerImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var roleName: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var dotView:UIImageView!
+    @IBOutlet weak var dotView: UIImageView!
     
     func configureWithConversation(conversation:LINConversation) {
         let opponentDetail = conversation.getOpponentDetail()
@@ -23,7 +23,6 @@ class LINConversationCell: UITableViewCell {
         // set avatar
         avatarImgView.sd_setImageWithURL(NSURL(string: opponentDetail.avatar),
             placeholderImage: UIImage(named: "avatar_holder"))
-        avatarImgView.addRoundedCorner()
         
         // set conversation date
         var conversationDate: NSDate? = nil

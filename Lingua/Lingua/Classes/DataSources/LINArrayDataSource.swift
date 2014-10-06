@@ -23,7 +23,7 @@ class LINArrayDataSource: NSObject, UITableViewDataSource {
         super.init()
     }
     
-    // MARK: Utils
+    // MARK: Utility Methods
     
     func itemAtIndexPath(indexPath: NSIndexPath) -> AnyObject {
         return items[indexPath.row]

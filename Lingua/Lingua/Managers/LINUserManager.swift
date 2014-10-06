@@ -27,7 +27,7 @@ class LINUserManager {
         if serverToken == nil {
             return false
         }
-        return serverToken!.isTokenValid() // KTODO: Calc exprire date
+        return serverToken!.isTokenValid()
     }
     
     func loginWithFacebookToken(facebookToken: String?, completion: (success: Bool) -> Void){

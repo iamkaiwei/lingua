@@ -9,7 +9,6 @@
 import UIKit
 
 class LINMyProfileController: LINViewController {
-
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var proficiencyImageView: UIImageView!
     @IBOutlet weak var avatarImageView: UIImageView!

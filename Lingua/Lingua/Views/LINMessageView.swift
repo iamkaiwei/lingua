@@ -9,7 +9,7 @@
 import Foundation
 
 class LINMessageView: UIView {
-    @IBOutlet weak var avatarImageView: UIImageView!
+    @IBOutlet weak var avatarImageView: LINRoundedCornerImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var textLabel: UILabel!
     
@@ -65,7 +65,6 @@ class LINMessageView: UIView {
         
         avatarImageView.sd_setImageWithURL(NSURL(string: avatarURL),
             placeholderImage: UIImage(named: "avatar_holder"))
-        avatarImageView.addRoundedCorner()
         
         // Add gesture
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("openChatScreenWithGesture:"))
