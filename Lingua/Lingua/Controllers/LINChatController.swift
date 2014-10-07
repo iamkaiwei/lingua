@@ -431,8 +431,9 @@ class LINChatController: LINViewController, UITableViewDelegate {
         
         // Bind to event to receive data
         currentChannel.bindToEventNamed(kPusherEventNameNewMessage, handleWithBlock: { channelEvent in
-            let replyData = self.getReplyDataInChannelEvent(channelEvent)
+            let replyData = channelEvent.getReplyData()
             let type = MessageType.fromRaw(replyData.type)
+            
             let aMessage = LINMessage(incoming: true, sendDate: replyData.sendDate, content: replyData.text, type: type!)
             aMessage.state = MessageState.Sent
             
@@ -485,13 +486,13 @@ class LINChatController: LINViewController, UITableViewDelegate {
         
         if currentChatMode == LINChatMode.Online {
             currentChannel.triggerEventNamed(kPusherEventNameNewMessage,
-                data: [kUserIdKey: currentUser.userId,
-                       kFirstName: currentUser.firstName,
-                       kAvatarURL: currentUser.avatarURL,
-                       kMessageTextKey: content!,
-                       kMessageSendDateKey: sendDate,
-                       kMessageTypeKey: message.type.toRaw()
-                ])
+                                             data: [kUserIdKey: currentUser.userId,
+                                                   kFirstName: currentUser.firstName,
+                                                   kAvatarURL: currentUser.avatarURL,
+                                                   kMessageTextKey: content!,
+                                                   kMessageSendDateKey: sendDate,
+                                                   kMessageTypeKey: message.type.toRaw()
+                                             ])
             
             repliesArray.append(replyDict)
             
@@ -501,9 +502,7 @@ class LINChatController: LINViewController, UITableViewDelegate {
         } else {
             let tmpRepliesArray = [replyDict]
             
-            LINNetworkClient.sharedInstance.creatBulkWithConversationId(conversationId, messagesArray: tmpRepliesArray) {
-                (success) -> Void in
-            }
+            LINNetworkClient.sharedInstance.creatBulkWithConversationId(conversationId, messagesArray: tmpRepliesArray) { (_) -> Void in }
             
             pushNotificationWithMessage(message)
         }
@@ -644,24 +643,6 @@ class LINChatController: LINViewController, UITableViewDelegate {
             self.unsentMessagesArray = NSKeyedUnarchiver.unarchiveObjectWithData(cachedData!) as [LINMessage]
             println("You have \(self.unsentMessagesArray.count) un-sent messages.")
         }
-    }
-    
-    // MARK: Utility methods
-    
-    // KTODO: Refactor - Move to PTPusherEvent class
-    
-    private func getReplyDataInChannelEvent(channelEvent: PTPusherEvent) -> (userId: String, firstName: String, avatarURL: String,
-                                                                             text: String, sendDate: NSDate, type: Int) {
-        let data = (channelEvent.data as NSDictionary)
-        let userId = data[kUserIdKey] as String
-        let firstName = data[kFirstName] as String
-        let avatarURL = data[kAvatarURL] as String
-        let text = data[kMessageTextKey] as String
-        let tmpDate = data[kMessageSendDateKey] as String
-        let sendDate = NSDateFormatter.iSODateFormatter().dateFromString(tmpDate)
-        let type = data[kMessageTypeKey] as Int
-        
-        return (userId, firstName, avatarURL, text, sendDate!, type)
     }
 }
 
