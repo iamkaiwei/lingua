@@ -343,37 +343,16 @@ class LINChatController: LINViewController, UITableViewDelegate {
     }
     
     private func heightForCellAtIndexPath(indexPath: NSIndexPath) -> CGFloat {
-        var height: CGFloat = 0.0
         let message = messageArray[indexPath.row]
-        
-        switch(message.type) {
-        case .Text:
-            if message.height != 0 {
-                height = message.height
-            } else {
-                height = (message.content! as String).sizeOfStringUseTextStorage().height
-            }
-            height += kTextCellHeightPadding
-        case .Photo:
-            var imageSize = CGSize()
-            if let tmpImageURL = message.url {
-                imageSize = CGSize.getSizeFromImageURL(tmpImageURL).scaledSize()
-            } else {
-                imageSize = (message.content as UIImage).size.scaledSize()
-            }
-            height = imageSize.height + kPhotoCellHeightPadding
-        case .Voice:
-            height = kVoiceMessageMaxHeight
-        default:
-            break
-        }
-        return height
+        return message.getHeightForCell()
     }
     
     private func loadListLastestMessages() {
         loadChatHistoryWithLenght(kChatHistoryMaxLenght, page: currentPageIndex)
     }
     
+    // KTODO: Refator - Long method
+
     private func loadChatHistoryWithLenght(lenght: Int, page: Int) {
         LINNetworkClient.sharedInstance.getChatHistoryWithConversationId(conversationId,
             length: lenght,
@@ -428,6 +407,8 @@ class LINChatController: LINViewController, UITableViewDelegate {
                 }
         }
     }
+    
+    // KTODO: Refactor - dry code
     
     func reloadChatTableContent() {
         self.dataSource!.items = self.messageArray
@@ -493,6 +474,8 @@ class LINChatController: LINViewController, UITableViewDelegate {
         }
         return nil
     }
+    
+    // KTODO: Refactor - Long method
     
     private func replyWithMessage(message: LINMessage) {
         if !LINNetworkHelper.isReachable() {
@@ -678,6 +661,8 @@ class LINChatController: LINViewController, UITableViewDelegate {
     }
     
     // MARK: Utility methods
+    
+    // KTODO: Refactor - Move to PTPusherEvent class
     
     private func getReplyDataInChannelEvent(channelEvent: PTPusherEvent) -> (userId: String, firstName: String, avatarURL: String,
                                                                              text: String, sendDate: NSDate, type: Int) {
