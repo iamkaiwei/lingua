@@ -95,11 +95,7 @@ class LINChatController: LINViewController, UITableViewDelegate {
 
         NSNotificationCenter.defaultCenter().removeObserver(self)
         
-        leaveConversation()
-        currentChannel.unsubscribe()
-        postMessagesToServer()
-        cachingChatHistoryData()
-        cachingUnsentChatData()
+        appDidEnterBackground()
 
         // Call previous view controller to re-arrange the order
         if conversationChanged {
@@ -273,7 +269,6 @@ class LINChatController: LINViewController, UITableViewDelegate {
         // Update data source
         messageArray.append(message)
         dataSource!.items = messageArray
-        tableView.dataSource = dataSource
         
         let indexPaths = [NSIndexPath(forRow: messageArray.count - 1, inSection: 0)]
         
@@ -293,8 +288,7 @@ class LINChatController: LINViewController, UITableViewDelegate {
         messageArray.removeAtIndex(indexPath.row)
         messageArray.append(message)
         dataSource!.items = messageArray
-        tableView.dataSource = dataSource
-        
+
         let toIndexPath = NSIndexPath(forRow: messageArray.count - 1, inSection: 0)
         
         tableView.beginUpdates()
@@ -343,37 +337,16 @@ class LINChatController: LINViewController, UITableViewDelegate {
     }
     
     private func heightForCellAtIndexPath(indexPath: NSIndexPath) -> CGFloat {
-        var height: CGFloat = 0.0
         let message = messageArray[indexPath.row]
-        
-        switch(message.type) {
-        case .Text:
-            if message.height != 0 {
-                height = message.height
-            } else {
-                height = (message.content! as String).sizeOfStringUseTextStorage().height
-            }
-            height += kTextCellHeightPadding
-        case .Photo:
-            var imageSize = CGSize()
-            if let tmpImageURL = message.url {
-                imageSize = CGSize.getSizeFromImageURL(tmpImageURL).scaledSize()
-            } else {
-                imageSize = (message.content as UIImage).size.scaledSize()
-            }
-            height = imageSize.height + kPhotoCellHeightPadding
-        case .Voice:
-            height = kVoiceMessageMaxHeight
-        default:
-            break
-        }
-        return height
+        return message.getHeightForCell()
     }
     
     private func loadListLastestMessages() {
         loadChatHistoryWithLenght(kChatHistoryMaxLenght, page: currentPageIndex)
     }
     
+    // KTODO: Refator - Long method
+
     private func loadChatHistoryWithLenght(lenght: Int, page: Int) {
         LINNetworkClient.sharedInstance.getChatHistoryWithConversationId(conversationId,
             length: lenght,
@@ -408,7 +381,6 @@ class LINChatController: LINViewController, UITableViewDelegate {
                             
                             // Update data source and reload tableview
                             self.dataSource!.items = self.messageArray
-                            self.tableView.dataSource = self.dataSource
                             
                             if self.currentPageIndex == kChatHistoryBeginPageIndex {
                                 self.tableView.reloadData()
@@ -427,12 +399,6 @@ class LINChatController: LINViewController, UITableViewDelegate {
                     }
                 }
         }
-    }
-    
-    func reloadChatTableContent() {
-        self.dataSource!.items = self.messageArray
-        self.tableView.dataSource = self.dataSource
-        self.tableView.reloadData()
     }
     
     func getLastestMessages() -> [LINMessage]? {
@@ -465,8 +431,9 @@ class LINChatController: LINViewController, UITableViewDelegate {
         
         // Bind to event to receive data
         currentChannel.bindToEventNamed(kPusherEventNameNewMessage, handleWithBlock: { channelEvent in
-            let replyData = self.getReplyDataInChannelEvent(channelEvent)
+            let replyData = channelEvent.getReplyData()
             let type = MessageType.fromRaw(replyData.type)
+            
             let aMessage = LINMessage(incoming: true, sendDate: replyData.sendDate, content: replyData.text, type: type!)
             aMessage.state = MessageState.Sent
             
@@ -494,6 +461,8 @@ class LINChatController: LINViewController, UITableViewDelegate {
         return nil
     }
     
+    // KTODO: Refactor - Long method
+    
     private func replyWithMessage(message: LINMessage) {
         if !LINNetworkHelper.isReachable() {
             updateMessageWithNewState(MessageState.UnSent, messageId: message.messageId!)
@@ -517,13 +486,13 @@ class LINChatController: LINViewController, UITableViewDelegate {
         
         if currentChatMode == LINChatMode.Online {
             currentChannel.triggerEventNamed(kPusherEventNameNewMessage,
-                data: [kUserIdKey: currentUser.userId,
-                    kFirstName: currentUser.firstName,
-                    kAvatarURL: currentUser.avatarURL,
-                    kMessageTextKey: content!,
-                    kMessageSendDateKey: sendDate,
-                    kMessageTypeKey: message.type.toRaw()
-                ])
+                                             data: [kUserIdKey: currentUser.userId,
+                                                   kFirstName: currentUser.firstName,
+                                                   kAvatarURL: currentUser.avatarURL,
+                                                   kMessageTextKey: content!,
+                                                   kMessageSendDateKey: sendDate,
+                                                   kMessageTypeKey: message.type.toRaw()
+                                             ])
             
             repliesArray.append(replyDict)
             
@@ -533,9 +502,7 @@ class LINChatController: LINViewController, UITableViewDelegate {
         } else {
             let tmpRepliesArray = [replyDict]
             
-            LINNetworkClient.sharedInstance.creatBulkWithConversationId(conversationId, messagesArray: tmpRepliesArray) {
-                (success) -> Void in
-            }
+            LINNetworkClient.sharedInstance.creatBulkWithConversationId(conversationId, messagesArray: tmpRepliesArray) { (_) -> Void in }
             
             pushNotificationWithMessage(message)
         }
@@ -658,7 +625,8 @@ class LINChatController: LINViewController, UITableViewDelegate {
         let cachedData = LINResourceHelper.retrievingChatHistoryData(self.conversationId)
         if cachedData != nil {
             self.messageArray = NSKeyedUnarchiver.unarchiveObjectWithData(cachedData!) as [LINMessage]
-            self.reloadChatTableContent()
+            self.dataSource!.items = self.messageArray
+            self.tableView.reloadData()
         }
     }
     
@@ -675,22 +643,6 @@ class LINChatController: LINViewController, UITableViewDelegate {
             self.unsentMessagesArray = NSKeyedUnarchiver.unarchiveObjectWithData(cachedData!) as [LINMessage]
             println("You have \(self.unsentMessagesArray.count) un-sent messages.")
         }
-    }
-    
-    // MARK: Utility methods
-    
-    private func getReplyDataInChannelEvent(channelEvent: PTPusherEvent) -> (userId: String, firstName: String, avatarURL: String,
-                                                                             text: String, sendDate: NSDate, type: Int) {
-        let data = (channelEvent.data as NSDictionary)
-        let userId = data[kUserIdKey] as String
-        let firstName = data[kFirstName] as String
-        let avatarURL = data[kAvatarURL] as String
-        let text = data[kMessageTextKey] as String
-        let tmpDate = data[kMessageSendDateKey] as String
-        let sendDate = NSDateFormatter.iSODateFormatter().dateFromString(tmpDate)
-        let type = data[kMessageTypeKey] as Int
-        
-        return (userId, firstName, avatarURL, text, sendDate!, type)
     }
 }
 

@@ -32,7 +32,7 @@ enum MessageState: Int {
     case UnSent // The message has not been sent.
 }
 
-class LINMessage:NSObject , NSCoding {
+class LINMessage: NSObject, NSCoding {
     var messageId: String?
     var incoming: Bool = false
     var sendDate: NSDate = NSDate()
@@ -90,5 +90,31 @@ class LINMessage:NSObject , NSCoding {
         if messageId != nil {
             encoder.encodeObject(messageId!, forKey: "messageId")
         }
+    }
+    
+    func getHeightForCell() -> CGFloat {
+        var result: CGFloat = 0.0
+        switch(self.type) {
+        case .Text:
+            if self.height != 0 {
+                result = self.height
+            } else {
+                result = (self.content! as String).sizeOfStringUseTextStorage().height
+            }
+            result += kTextCellHeightPadding
+        case .Photo:
+            var imageSize = CGSize()
+            if let tmpImageURL = self.url {
+                imageSize = CGSize.getSizeFromImageURL(tmpImageURL).scaledSize()
+            } else {
+                imageSize = (self.content as UIImage).size.scaledSize()
+            }
+            result = imageSize.height + kPhotoCellHeightPadding
+        case .Voice:
+            result = kVoiceMessageMaxHeight
+        default:
+            break
+        }
+        return result
     }
 }

@@ -11,11 +11,11 @@ import Foundation
 class LINNotificationHelper {
     class func handlePushNotificationWithUserInfo(userInfo: NSDictionary, applicationState: UIApplicationState) {
         let alert = (userInfo["aps"] as NSDictionary)["alert"] as? String
-        let userId = (userInfo as NSDictionary)[kUserIdKey] as? String
-        let firstName = (userInfo as NSDictionary)[kFirstName] as? String
-        let avatarURL = (userInfo as NSDictionary)[kAvatarURL] as? String
-        let type = (userInfo as NSDictionary)[kMessageTypeKey] as? Int
-        let conversationId = (userInfo as NSDictionary)[kConversationIdKey] as? String
+        let userId = userInfo[kUserIdKey] as? String
+        let firstName = userInfo[kFirstName] as? String
+        let avatarURL = userInfo[kAvatarURL] as? String
+        let type = userInfo[kMessageTypeKey] as? Int
+        let conversationId = userInfo[kConversationIdKey] as? String
         
         // Only show banner when app is active
         if applicationState == .Active {
@@ -26,6 +26,7 @@ class LINNotificationHelper {
                 
                 //Post notification for FriendListViewController to update new message counter
                 NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAppReceivedNewMessage, object: conversationId)
+                
                 LINAudioHelper.sharedInstance.playAlertSound()
             }
         } else if applicationState == .Background || applicationState == .Inactive {
