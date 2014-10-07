@@ -95,11 +95,7 @@ class LINChatController: LINViewController, UITableViewDelegate {
 
         NSNotificationCenter.defaultCenter().removeObserver(self)
         
-        leaveConversation()
-        currentChannel.unsubscribe()
-        postMessagesToServer()
-        cachingChatHistoryData()
-        cachingUnsentChatData()
+        appDidEnterBackground()
 
         // Call previous view controller to re-arrange the order
         if conversationChanged {
@@ -273,7 +269,6 @@ class LINChatController: LINViewController, UITableViewDelegate {
         // Update data source
         messageArray.append(message)
         dataSource!.items = messageArray
-        tableView.dataSource = dataSource
         
         let indexPaths = [NSIndexPath(forRow: messageArray.count - 1, inSection: 0)]
         
@@ -293,8 +288,7 @@ class LINChatController: LINViewController, UITableViewDelegate {
         messageArray.removeAtIndex(indexPath.row)
         messageArray.append(message)
         dataSource!.items = messageArray
-        tableView.dataSource = dataSource
-        
+
         let toIndexPath = NSIndexPath(forRow: messageArray.count - 1, inSection: 0)
         
         tableView.beginUpdates()
@@ -387,7 +381,6 @@ class LINChatController: LINViewController, UITableViewDelegate {
                             
                             // Update data source and reload tableview
                             self.dataSource!.items = self.messageArray
-                            self.tableView.dataSource = self.dataSource
                             
                             if self.currentPageIndex == kChatHistoryBeginPageIndex {
                                 self.tableView.reloadData()
@@ -406,14 +399,6 @@ class LINChatController: LINViewController, UITableViewDelegate {
                     }
                 }
         }
-    }
-    
-    // KTODO: Refactor - dry code
-    
-    func reloadChatTableContent() {
-        self.dataSource!.items = self.messageArray
-        self.tableView.dataSource = self.dataSource
-        self.tableView.reloadData()
     }
     
     func getLastestMessages() -> [LINMessage]? {
@@ -501,11 +486,11 @@ class LINChatController: LINViewController, UITableViewDelegate {
         if currentChatMode == LINChatMode.Online {
             currentChannel.triggerEventNamed(kPusherEventNameNewMessage,
                 data: [kUserIdKey: currentUser.userId,
-                    kFirstName: currentUser.firstName,
-                    kAvatarURL: currentUser.avatarURL,
-                    kMessageTextKey: content!,
-                    kMessageSendDateKey: sendDate,
-                    kMessageTypeKey: message.type.toRaw()
+                       kFirstName: currentUser.firstName,
+                       kAvatarURL: currentUser.avatarURL,
+                       kMessageTextKey: content!,
+                       kMessageSendDateKey: sendDate,
+                       kMessageTypeKey: message.type.toRaw()
                 ])
             
             repliesArray.append(replyDict)
@@ -641,7 +626,8 @@ class LINChatController: LINViewController, UITableViewDelegate {
         let cachedData = LINResourceHelper.retrievingChatHistoryData(self.conversationId)
         if cachedData != nil {
             self.messageArray = NSKeyedUnarchiver.unarchiveObjectWithData(cachedData!) as [LINMessage]
-            self.reloadChatTableContent()
+            self.dataSource!.items = self.messageArray
+            self.tableView.reloadData()
         }
     }
     
