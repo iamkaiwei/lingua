@@ -11,7 +11,6 @@ import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-                            
     var window: UIWindow?
     var storyboard = UIStoryboard()
     var drawerController = MMDrawerController()
@@ -19,44 +18,49 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: NSDictionary?) -> Bool {
         setupAppearance()
-        // Register to use Parse Server
+        
         Parse.setApplicationId("OMS2KayfQ1rDTjkWvAjdiF3GFkxTD9hoPR9SnLSR", clientKey: "JPXeT1Kelnsw66qLwQlrOAP69ybbLXhb5Bvh7YQ5")
-        
-        // Track statistics around application opens
         PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
-        
         AFNetworkActivityIndicatorManager.sharedManager().enabled = true
-       
         LINPusherManager.sharedInstance.connectToPusher()
         
+        registerRemoteNotification(application: application)
+        
+        window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        window!.makeKeyAndVisible()
+        
+        storyboard = UIStoryboard(name: "Main", bundle: nil)
+        mainNavigationController = storyboard.instantiateViewControllerWithIdentifier("kRootNavigationController") as? UINavigationController
+        window!.rootViewController = mainNavigationController
+        
+        // Check If User logined
+        if LINUserManager.sharedInstance.isLoggedIn() && LINUserManager.sharedInstance.currentUser?.learningLanguage != nil {
+            showHomeScreen(animated: false)
+            
+            // App launched via push notification
+            let userInfo = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? NSDictionary
+            if userInfo != nil {
+                LINNotificationHelper.handlePushNotificationWithUserInfo(userInfo!, applicationState: application.applicationState)
+            }
+        }
+        
+        LINNetworkHelper.setupWithDefaultViewController(window!.rootViewController!)
+        
+        return true
+    }
+    
+    // MARK: Utility methods
+    
+    private func registerRemoteNotification(#application: UIApplication) {
         if application.respondsToSelector(Selector("registerUserNotificationSettings:")) {
             application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: .Alert | .Badge | .Sound, categories: nil))
             application.registerForRemoteNotifications()
         } else {
             application.registerForRemoteNotificationTypes(.Alert | .Badge | .Sound)
         }
-        
-        window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        window!.makeKeyAndVisible()
-        
-        let userInfo = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? NSDictionary
-       
-        storyboard = UIStoryboard(name: "Main", bundle: nil)
-        mainNavigationController = storyboard.instantiateViewControllerWithIdentifier("kRootNavigationController") as? UINavigationController
-        window!.rootViewController = mainNavigationController
-        
-        if LINUserManager.sharedInstance.isLoggedIn() && LINUserManager.sharedInstance.currentUser?.learningLanguage != nil {
-            showHomeScreen(false)
-            if userInfo != nil {
-                // App launched via push notification
-                LINNotificationHelper.handlePushNotificationWithUserInfo(userInfo!, applicationState: application.applicationState)
-            }
-        }
-        LINNetworkHelper.setupWithDefaultViewController(window!.rootViewController!)
-        return true
     }
 
-    func setupAppearance() {
+    private func setupAppearance() {
         UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: false)
         UINavigationBar.appearance().setBackgroundImage(UIImage.navigationBarBackgroundImage(), forBarMetrics:UIBarMetrics.Default)
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
@@ -67,7 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return UIApplication.sharedApplication().delegate! as AppDelegate
     }
     
-    func showHomeScreen(animated: Bool) {
+    func showHomeScreen(#animated: Bool) {
         let leftDrawer = storyboard.instantiateViewControllerWithIdentifier("kLINMyProfileController") as LINMyProfileController
         let center = storyboard.instantiateViewControllerWithIdentifier("kLINHomeController") as LINHomeController
         let rightDrawer = storyboard.instantiateViewControllerWithIdentifier("kLINFriendListController") as LINFriendListController
@@ -77,13 +81,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         drawerController.openDrawerGestureModeMask = MMOpenDrawerGestureMode.PanningCenterView | MMOpenDrawerGestureMode.PanningNavigationBar
 
         mainNavigationController!.pushViewController(drawerController, animated: animated)
-        //
-        
     }
     
     func showOnboardingScreen() {
         mainNavigationController?.popToRootViewControllerAnimated(true)
     }
+    
+    // MARK: UIApplicationDelegate
     
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
         let characterSet = NSCharacterSet(charactersInString: "<>")
@@ -135,7 +139,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
-        
     }
 
     func application(application: UIApplication!, openURL url: NSURL!, sourceApplication: String!, annotation: AnyObject!) -> Bool {

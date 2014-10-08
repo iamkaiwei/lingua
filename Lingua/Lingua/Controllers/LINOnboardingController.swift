@@ -9,7 +9,6 @@
 import UIKit
 
 class LINOnboardingController: LINViewController, LINFacebookManagerDelegate {
-    
     let kClientId = "749496516991-rn2ks5ka1jdbm7l040d0mhs4v0pja35j.apps.googleusercontent.com"
     let GPPSignInInstance = GPPSignIn.sharedInstance()
     
@@ -90,7 +89,6 @@ extension LINOnboardingController: LINLoginViewDelegate {
     // MARK: LINFacebookManager Delegate
     
     func facebookLoginSuccessed(facebookManager: LINFacebookManager)  {
-        
         SVProgressHUD.showWithStatus("Signing In ...")
         
         LINUserManager.sharedInstance.loginWithFacebookToken(LINFacebookManager.sharedInstance.facebookToken, completion: {
@@ -120,8 +118,9 @@ extension LINOnboardingController: LINLoginViewDelegate {
     }
     
     func showHomeScreen() {
-         AppDelegate.sharedDelegate().showHomeScreen(true)
-         //Post this notification to make sure that ConversationList will be refreshed after logged-in
+         AppDelegate.sharedDelegate().showHomeScreen(animated: true)
+        
+        //Post this notification to make sure that ConversationList will be refreshed after logged-in
          NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAppDidBecomActive, object: nil)
     }
 }
