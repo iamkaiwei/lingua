@@ -21,11 +21,6 @@ class LINMyProfileController: LINViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
         
         let me = LINUserManager.sharedInstance.currentUser
         

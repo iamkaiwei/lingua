@@ -51,6 +51,7 @@ class LINFacebookManager: NSObject {
             return
         }
         FBSession.activeSession().closeAndClearTokenInformation()
+        LINStorageHelper.setObject("", forKey: kLINAccessTokenKey)
     }
     
     func sessionStateChanged(session: FBSession, state: FBSessionState, error: NSError?) {
@@ -59,7 +60,9 @@ class LINFacebookManager: NSObject {
             delegate?.facebookLoginSuccessed(self)
         case FBSessionState.Closed, FBSessionState.ClosedLoginFailed:
             FBSession.activeSession().closeAndClearTokenInformation()
-            delegate?.facebookLoginFailed(self)
+            if error != nil {
+                delegate?.facebookLoginFailed(self)
+            }
         default:
             break
         }

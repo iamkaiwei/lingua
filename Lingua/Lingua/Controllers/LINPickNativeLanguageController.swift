@@ -62,7 +62,7 @@ class LINPickNativeLanguageController: LINViewController {
     }
     
     func showHome() {
-        AppDelegate.sharedDelegate().showHomeScreenWithNavigationController(navigationController)
+        AppDelegate.sharedDelegate().showHomeScreen(true)
     }
     
     @IBAction func showCountryList(sender: UITapGestureRecognizer) {
