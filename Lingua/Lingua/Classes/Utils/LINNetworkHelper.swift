@@ -9,7 +9,7 @@
 import Foundation
 
 class LINNetworkHelper : NSObject{
-
+    
     enum LINNetworkNotificationType{
         case NetworkStatusOnline
         case NetworkStatusOffline
@@ -41,21 +41,20 @@ class LINNetworkHelper : NSObject{
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
-
+    // MARK: Class functions
     
-    //Class function
     class func isReachable() -> Bool {
         return LINNetworkHelper.sharedInstance.reachability.isReachable()
     }
     
     class func setupWithDefaultViewController(defaultViewController:UIViewController){
         TSMessage.setDefaultViewController(defaultViewController)
-        var instance:LINNetworkHelper = LINNetworkHelper.sharedInstance
+        var instance: LINNetworkHelper = LINNetworkHelper.sharedInstance
     }
     
     class func showNotificationWithType(type:LINNetworkNotificationType){
-        var message:String? = nil
-        var messageType:TSMessageNotificationType
+        var message: String? = nil
+        var messageType: TSMessageNotificationType
         
         switch type {
         case LINNetworkNotificationType.NetworkStatusOffline :
