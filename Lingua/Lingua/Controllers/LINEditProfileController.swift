@@ -8,7 +8,11 @@
 
 import UIKit
 
-class LINEditProfileController: LINViewController, LINAboutMeControllerDelegate, LINLanguagePickerControllerDelegate, LINProficiencyControllerDelegate {
+protocol LINEditProfileControllerDelegate {
+    func didUpdateUser()
+}
+
+class LINEditProfileController: LINViewController, UIAlertViewDelegate, LINAboutMeControllerDelegate, LINLanguagePickerControllerDelegate, LINProficiencyControllerDelegate {
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var firstName: UITextField!
@@ -19,6 +23,8 @@ class LINEditProfileController: LINViewController, LINAboutMeControllerDelegate,
     @IBOutlet weak var writingProficiency: UIImageView!
     @IBOutlet weak var speakingProficiency: UIImageView!
     @IBOutlet weak var logoutView: UIView!
+    
+    var delegate: LINEditProfileControllerDelegate?
     
     private var me: LINUser?
     private var newAboutMe: String?
@@ -47,7 +53,74 @@ class LINEditProfileController: LINViewController, LINAboutMeControllerDelegate,
     }
     
     @IBAction func close(sender: UIButton) {
-        dismissViewControllerAnimated(true, completion: nil)
+        if isInMiddleOfEditting() {
+            UIAlertView(title: "",
+                message: "You have pending changes. Are you sure you want to cancel?",
+                delegate: self,
+                cancelButtonTitle: "Okay",
+                otherButtonTitles: "Wait").show()
+        }
+    }
+    
+    @IBAction func save(sender: UIButton) {
+        if isInMiddleOfEditting() {
+            UIAlertView(title: "",
+                message: "Are you sure you want to update your profile?",
+                delegate: self,
+                cancelButtonTitle: "Yes, please",
+                otherButtonTitles: "Cancel").show()
+        }
+    }
+    
+    func isInMiddleOfEditting() -> Bool {
+        if  firstName.text != me?.firstName ||
+            lastName.text != me?.lastName ||
+            gender.text != me?.gender.capitalizedString ||
+            newAboutMe != nil ||
+            newNativeLanguage != nil ||
+            newLearningLanguage != nil ||
+            newWritingProficiency != nil ||
+            newSpeakingProficiency != nil {
+            return true
+        }
+        
+        return false
+    }
+    
+    func updateCurrentUser() {
+        me?.firstName = firstName.text
+        me?.lastName = lastName.text
+        me?.gender = gender.text!
+        
+        if newAboutMe != nil {
+            me?.introduction = newAboutMe!
+        }
+        if newNativeLanguage != nil {
+            me?.nativeLanguage = newNativeLanguage
+        }
+        
+        if newLearningLanguage != nil {
+            me?.learningLanguage = newLearningLanguage
+        }
+        
+        if newWritingProficiency != nil {
+            me?.writingProficiency = newWritingProficiency
+        }
+        
+        if newSpeakingProficiency != nil {
+            me?.speakingProficiency = newSpeakingProficiency
+        }
+        
+        SVProgressHUD.showWithStatus("Updating..")
+        LINNetworkClient.sharedInstance.updateCurrentUser({ _ in
+            SVProgressHUD.showSuccessWithStatus("Updated successfully")
+            self.delegate?.didUpdateUser()
+            self.dismissViewControllerAnimated(true, completion: nil)
+            },
+            failture: { error in
+                println(error)
+                SVProgressHUD.showErrorWithStatus("Updated unsuccessfully, please try again")
+        })
     }
     
     @IBAction func aboutYou(sender: UITapGestureRecognizer) {
@@ -94,6 +167,16 @@ class LINEditProfileController: LINViewController, LINAboutMeControllerDelegate,
         dismissViewControllerAnimated(true, completion: nil)
         AppDelegate.sharedDelegate().showOnboardingScreen()
         LINFacebookManager.sharedInstance.logout()
+    }
+    
+    //MARK: UIAlertViewDelegate
+    func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
+        if alertView.buttonTitleAtIndex(buttonIndex) == "Okay" {
+            dismissViewControllerAnimated(true, completion: nil)
+        }
+        else if alertView.buttonTitleAtIndex(buttonIndex) == "Yes, please" {
+            updateCurrentUser()
+        }
     }
     
     //MARK: UITextFieldDelegate

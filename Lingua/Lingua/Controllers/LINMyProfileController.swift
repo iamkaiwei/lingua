@@ -22,6 +22,18 @@ class LINMyProfileController: LINViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        updateUserRelevantUI()
+        
+        collectionView.registerClass(LINBadgeCell.self, forCellWithReuseIdentifier: "BadgeCellIdentifier")
+        collectionView.registerClass(LINBadgeHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "BadgeHeaderIdentifier")
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        collectionView.setNeedsUpdateConstraints()
+    }
+    
+    func updateUserRelevantUI() {
         let me = LINUserManager.sharedInstance.currentUser
         
         //User name
@@ -56,18 +68,11 @@ class LINMyProfileController: LINViewController {
         if averageProficiency <= imageNames.count {
             proficiencyImageView.image = UIImage(named: imageNames[averageProficiency])
         }
-        
-        collectionView.registerClass(LINBadgeCell.self, forCellWithReuseIdentifier: "BadgeCellIdentifier")
-        collectionView.registerClass(LINBadgeHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "BadgeHeaderIdentifier")
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        collectionView.setNeedsUpdateConstraints()
     }
     
     @IBAction func editProfile(sender: UIButton) {
         let editProfileVC = storyboard!.instantiateViewControllerWithIdentifier("kLINEditProfileController") as LINEditProfileController
+        editProfileVC.delegate = self
         let navigationController = UINavigationController(rootViewController: editProfileVC)
         navigationController.navigationBarHidden = true
         navigationController.transitioningDelegate = self
@@ -118,5 +123,11 @@ extension LINMyProfileController: LINIntroductionViewDelegate {
         }
         
         collectionViewTopSpaceConstraint.constant = height + padding
+    }
+}
+
+extension LINMyProfileController: LINEditProfileControllerDelegate {
+    func didUpdateUser() {
+        updateUserRelevantUI()
     }
 }
