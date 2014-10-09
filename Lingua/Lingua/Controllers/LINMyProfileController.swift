@@ -22,14 +22,13 @@ class LINMyProfileController: LINViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        updateUserRelevantUI()
-        
         collectionView.registerClass(LINBadgeCell.self, forCellWithReuseIdentifier: "BadgeCellIdentifier")
         collectionView.registerClass(LINBadgeHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "BadgeHeaderIdentifier")
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        updateUserRelevantUI()
         collectionView.setNeedsUpdateConstraints()
     }
     
@@ -115,13 +114,6 @@ extension LINMyProfileController: LINIntroductionViewDelegate {
     
     func introductionView(introductionView: LINIntroductionView, didChangeToHeight height: CGFloat) {
         let padding: CGFloat = 20
-        
-        if UIDevice.currentDevice().model != "iPhone Simulator" {
-            let frame = CGRectMake(0, CGRectGetMaxY(introductionView.frame) + padding, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - CGRectGetMaxY(introductionView.frame) - padding)
-            collectionView.frame = frame
-            return
-        }
-        
         collectionViewTopSpaceConstraint.constant = height + padding
     }
 }
