@@ -60,6 +60,9 @@ class LINEditProfileController: LINViewController, UIAlertViewDelegate, LINAbout
                 cancelButtonTitle: "Okay",
                 otherButtonTitles: "Wait").show()
         }
+        else {
+            dismissViewControllerAnimated(true, completion: nil)
+        }
     }
     
     @IBAction func save(sender: UIButton) {
