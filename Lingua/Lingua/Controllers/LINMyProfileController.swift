@@ -65,7 +65,7 @@ class LINMyProfileController: LINViewController {
         let averageProficiency: Int = (meSpeakingProficiency + meWritingProficiency)/2.0 + 0.5
         let imageNames = ["Proficiency0", "Proficiency1", "Proficiency2", "Proficiency3", "Proficiency4"]
         if averageProficiency <= imageNames.count {
-            proficiencyImageView.image = UIImage(named: imageNames[averageProficiency])
+            proficiencyImageView.image = UIImage(named: imageNames[averageProficiency - 1])
         }
     }
     
