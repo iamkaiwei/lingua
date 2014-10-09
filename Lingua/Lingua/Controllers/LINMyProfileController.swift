@@ -22,6 +22,17 @@ class LINMyProfileController: LINViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        collectionView.registerClass(LINBadgeCell.self, forCellWithReuseIdentifier: "BadgeCellIdentifier")
+        collectionView.registerClass(LINBadgeHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "BadgeHeaderIdentifier")
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        updateUserRelevantUI()
+        collectionView.setNeedsUpdateConstraints()
+    }
+    
+    func updateUserRelevantUI() {
         let me = LINUserManager.sharedInstance.currentUser
         
         //User name
@@ -54,20 +65,13 @@ class LINMyProfileController: LINViewController {
         let averageProficiency: Int = (meSpeakingProficiency + meWritingProficiency)/2.0 + 0.5
         let imageNames = ["Proficiency0", "Proficiency1", "Proficiency2", "Proficiency3", "Proficiency4"]
         if averageProficiency <= imageNames.count {
-            proficiencyImageView.image = UIImage(named: imageNames[averageProficiency])
+            proficiencyImageView.image = UIImage(named: imageNames[averageProficiency - 1])
         }
-        
-        collectionView.registerClass(LINBadgeCell.self, forCellWithReuseIdentifier: "BadgeCellIdentifier")
-        collectionView.registerClass(LINBadgeHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "BadgeHeaderIdentifier")
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        collectionView.setNeedsUpdateConstraints()
     }
     
     @IBAction func editProfile(sender: UIButton) {
         let editProfileVC = storyboard!.instantiateViewControllerWithIdentifier("kLINEditProfileController") as LINEditProfileController
+        editProfileVC.delegate = self
         let navigationController = UINavigationController(rootViewController: editProfileVC)
         navigationController.navigationBarHidden = true
         navigationController.transitioningDelegate = self
@@ -110,13 +114,12 @@ extension LINMyProfileController: LINIntroductionViewDelegate {
     
     func introductionView(introductionView: LINIntroductionView, didChangeToHeight height: CGFloat) {
         let padding: CGFloat = 20
-        
-        if UIDevice.currentDevice().model != "iPhone Simulator" {
-            let frame = CGRectMake(0, CGRectGetMaxY(introductionView.frame) + padding, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - CGRectGetMaxY(introductionView.frame) - padding)
-            collectionView.frame = frame
-            return
-        }
-        
         collectionViewTopSpaceConstraint.constant = height + padding
+    }
+}
+
+extension LINMyProfileController: LINEditProfileControllerDelegate {
+    func didUpdateUser() {
+        updateUserRelevantUI()
     }
 }

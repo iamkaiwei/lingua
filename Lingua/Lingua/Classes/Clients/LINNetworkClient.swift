@@ -204,7 +204,10 @@ extension LINNetworkClient {
                             
             if let currentUser = LINUserManager.sharedInstance.currentUser {
                 path = "\(path)/\(currentUser.userId)"
-                parameters = ["learn_language_id": currentUser.learningLanguage!.languageID,
+                parameters = ["firstname": currentUser.firstName,
+                              "lastname": currentUser.lastName,
+                              "gender": currentUser.gender,
+                              "learn_language_id": currentUser.learningLanguage!.languageID,
                               "native_language_id":     currentUser.nativeLanguage!.languageID,
                               "spoken_proficiency_id":  currentUser.speakingProficiency!.proficiencyID,
                               "written_proficiency_id": currentUser.writingProficiency!.proficiencyID,
@@ -219,7 +222,7 @@ extension LINNetworkClient {
                     failture(error: error)
                     return
                 }
-                println(response?.result)
+                LINStorageHelper.setObject(LINUserManager.sharedInstance.currentUser, forKey: kLINCurrentUserKey)
                 success()
             })
     }

@@ -8,9 +8,14 @@
 
 import UIKit
 
-class LINEditProfileController: LINViewController, LINAboutMeControllerDelegate, LINLanguagePickerControllerDelegate, LINProficiencyControllerDelegate {
+protocol LINEditProfileControllerDelegate {
+    func didUpdateUser()
+}
+
+class LINEditProfileController: LINViewController, UIAlertViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, LINAboutMeControllerDelegate, LINLanguagePickerControllerDelegate, LINProficiencyControllerDelegate {
     
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var avatar: UIImageView!
     @IBOutlet weak var firstName: UITextField!
     @IBOutlet weak var lastName: UITextField!
     @IBOutlet weak var gender: UILabel!
@@ -20,7 +25,10 @@ class LINEditProfileController: LINViewController, LINAboutMeControllerDelegate,
     @IBOutlet weak var speakingProficiency: UIImageView!
     @IBOutlet weak var logoutView: UIView!
     
+    var delegate: LINEditProfileControllerDelegate?
+    
     private var me: LINUser?
+    private var newPicture: UIImage?
     private var newAboutMe: String?
     private var newNativeLanguage: LINLanguage?
     private var newLearningLanguage: LINLanguage?
@@ -31,6 +39,18 @@ class LINEditProfileController: LINViewController, LINAboutMeControllerDelegate,
         super.viewDidLoad()
         
         me = LINUserManager.sharedInstance.currentUser
+        avatar.layer.cornerRadius = CGRectGetWidth(avatar.frame)/2
+        avatar.layer.borderWidth = 1
+        avatar.layer.borderColor = UIColor.whiteColor().CGColor
+        if let url = me?.avatarURL {
+            avatar.sd_setImageWithURL(NSURL(string: url),
+                placeholderImage: avatar.image) {
+                    (image, _, _, _) in
+                    if let tmpImage = image {
+                        self.avatar.image = tmpImage
+                    }
+            }
+        }
         firstName.text = me?.firstName
         lastName.text = me?.lastName
         gender.text = me?.gender.capitalizedString
@@ -47,7 +67,74 @@ class LINEditProfileController: LINViewController, LINAboutMeControllerDelegate,
     }
     
     @IBAction func close(sender: UIButton) {
-        dismissViewControllerAnimated(true, completion: nil)
+        if isInMiddleOfEditting() {
+            UIAlertView(title: "",
+                message: "You have pending changes. Are you sure you want to cancel?",
+                delegate: self,
+                cancelButtonTitle: "Okay",
+                otherButtonTitles: "Wait").show()
+        }
+        else {
+            dismissViewControllerAnimated(true, completion: nil)
+        }
+    }
+    
+    @IBAction func save(sender: UIButton) {
+        if isInMiddleOfEditting() {
+            UIAlertView(title: "",
+                message: "Are you sure you want to update your profile?",
+                delegate: self,
+                cancelButtonTitle: "Yes, please",
+                otherButtonTitles: "Cancel").show()
+        }
+    }
+    
+    func isInMiddleOfEditting() -> Bool {
+        return (firstName.text != me?.firstName ||
+                lastName.text != me?.lastName ||
+                gender.text != me?.gender.capitalizedString ||
+                newPicture != nil ||
+                newAboutMe != nil ||
+                newNativeLanguage != nil ||
+                newLearningLanguage != nil ||
+                newWritingProficiency != nil ||
+                newSpeakingProficiency != nil)
+    }
+    
+    func updateCurrentUser() {
+        me?.firstName = firstName.text
+        me?.lastName = lastName.text
+        me?.gender = gender.text!
+        
+        if newAboutMe != nil {
+            me?.introduction = newAboutMe!
+        }
+        if newNativeLanguage != nil {
+            me?.nativeLanguage = newNativeLanguage
+        }
+        
+        if newLearningLanguage != nil {
+            me?.learningLanguage = newLearningLanguage
+        }
+        
+        if newWritingProficiency != nil {
+            me?.writingProficiency = newWritingProficiency
+        }
+        
+        if newSpeakingProficiency != nil {
+            me?.speakingProficiency = newSpeakingProficiency
+        }
+        
+        SVProgressHUD.showWithStatus("Updating..")
+        LINNetworkClient.sharedInstance.updateCurrentUser({ _ in
+            SVProgressHUD.showSuccessWithStatus("Updated successfully")
+            self.delegate?.didUpdateUser()
+            self.dismissViewControllerAnimated(true, completion: nil)
+            },
+            failture: { error in
+                println(error)
+                SVProgressHUD.showErrorWithStatus("Updated unsuccessfully, please try again")
+        })
     }
     
     @IBAction func aboutYou(sender: UITapGestureRecognizer) {
@@ -96,6 +183,20 @@ class LINEditProfileController: LINViewController, LINAboutMeControllerDelegate,
         LINFacebookManager.sharedInstance.logout()
     }
     
+    @IBAction func changeProfilePicture(sender: UITapGestureRecognizer) {
+        UIActionSheet(title: "Do you want to change your profile picture?", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil, otherButtonTitles: "Choose from library", "Take photo").showInView(self.view)
+    }
+    
+    //MARK: UIAlertViewDelegate
+    func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
+        if alertView.buttonTitleAtIndex(buttonIndex) == "Okay" {
+            dismissViewControllerAnimated(true, completion: nil)
+        }
+        else if alertView.buttonTitleAtIndex(buttonIndex) == "Yes, please" {
+            updateCurrentUser()
+        }
+    }
+    
     //MARK: UITextFieldDelegate
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
@@ -110,10 +211,18 @@ class LINEditProfileController: LINViewController, LINAboutMeControllerDelegate,
     //MARK: LINLanguagePickerControllerDelegate
     func controller(controller: LINLanguagePickerController, didSelectLanguage language: LINLanguage) {
         if controller.titleLabel?.text == "Native Language" {
+            if learningLanguage.text == language.languageName {
+                learningLanguage.text = nativeLanguage.text
+                newLearningLanguage = me?.nativeLanguage
+            }
             newNativeLanguage = language
             nativeLanguage.text = language.languageName
         }
         else {
+            if nativeLanguage.text == language.languageName {
+                nativeLanguage.text = learningLanguage.text
+                newNativeLanguage = me?.learningLanguage
+            }
             newLearningLanguage = language
             learningLanguage.text = language.languageName
         }
@@ -131,5 +240,39 @@ class LINEditProfileController: LINViewController, LINAboutMeControllerDelegate,
             speakingProficiency.image = UIImage(named: "Proficiency\(proficiency.proficiencyID - 1)")
         }
         navigationController?.popToViewController(self, animated: true)
+    }
+    
+    //MARK: UIActionSheetDelegate
+    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
+        if actionSheet.buttonTitleAtIndex(buttonIndex) == "Choose from library" {
+            showPickerControllerWithSourceType(.PhotoLibrary)
+        }
+        else if actionSheet.buttonTitleAtIndex(buttonIndex) == "Take photo" {
+            showPickerControllerWithSourceType(.Camera)
+        }
+    }
+    
+    func showPickerControllerWithSourceType(sourceType: UIImagePickerControllerSourceType) {
+        if !UIImagePickerController.isSourceTypeAvailable(.Camera) &&  sourceType == .Camera {
+            UIAlertView(title: "Error", message: "Device has no camera.", delegate: self, cancelButtonTitle: "OK").show()
+            return
+        }
+        
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = true
+        picker.sourceType = sourceType
+        presentViewController(picker, animated: true, completion: nil)
+    }
+    
+    //MARK: UIImagePickerControllerDelegate
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+        newPicture = info[UIImagePickerControllerEditedImage] as? UIImage
+        avatar.image = newPicture
+        picker.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        picker.dismissViewControllerAnimated(true, completion: nil)
     }
 }
