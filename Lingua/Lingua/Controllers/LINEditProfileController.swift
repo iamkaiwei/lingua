@@ -76,18 +76,14 @@ class LINEditProfileController: LINViewController, UIAlertViewDelegate, LINAbout
     }
     
     func isInMiddleOfEditting() -> Bool {
-        if  firstName.text != me?.firstName ||
-            lastName.text != me?.lastName ||
-            gender.text != me?.gender.capitalizedString ||
-            newAboutMe != nil ||
-            newNativeLanguage != nil ||
-            newLearningLanguage != nil ||
-            newWritingProficiency != nil ||
-            newSpeakingProficiency != nil {
-            return true
-        }
-        
-        return false
+        return (firstName.text != me?.firstName ||
+                lastName.text != me?.lastName ||
+                gender.text != me?.gender.capitalizedString ||
+                newAboutMe != nil ||
+                newNativeLanguage != nil ||
+                newLearningLanguage != nil ||
+                newWritingProficiency != nil ||
+                newSpeakingProficiency != nil)
     }
     
     func updateCurrentUser() {
@@ -196,10 +192,18 @@ class LINEditProfileController: LINViewController, UIAlertViewDelegate, LINAbout
     //MARK: LINLanguagePickerControllerDelegate
     func controller(controller: LINLanguagePickerController, didSelectLanguage language: LINLanguage) {
         if controller.titleLabel?.text == "Native Language" {
+            if learningLanguage.text == language.languageName {
+                learningLanguage.text = nativeLanguage.text
+                newLearningLanguage = me?.nativeLanguage
+            }
             newNativeLanguage = language
             nativeLanguage.text = language.languageName
         }
         else {
+            if nativeLanguage.text == language.languageName {
+                nativeLanguage.text = learningLanguage.text
+                newNativeLanguage = me?.learningLanguage
+            }
             newLearningLanguage = language
             learningLanguage.text = language.languageName
         }
