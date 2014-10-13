@@ -32,23 +32,23 @@ class LINPusherChannel {
     func receivedMessage(#completion: (message: LINMessage) -> Void) {
         presenceChannel?.bindToEventNamed(kPusherEventNameNewMessage, handleWithBlock: { channelEvent in
             let replyData = channelEvent.getReplyData()
-            let type = MessageType.fromRaw(replyData.type)
+            let type = LINMessageType.fromRaw(replyData.type)
             
             let aMessage = LINMessage(incoming: true, sendDate: replyData.sendDate, content: replyData.text, type: type!)
-            aMessage.state = MessageState.Sent
+            aMessage.state = LINMessageState.Sent
             
             completion(message: aMessage)
         })
     }
     
-    func sendMessage(#currentUser: LINUser, text: String, sendDate: String, messageType: MessageType) {
+    func sendMessage(#currentUser: LINUser, text: String, sendDate: String, messageType: LINMessageType) {
         presenceChannel?.triggerEventNamed(kPusherEventNameNewMessage,
-                                           data: [kUserIdKey: currentUser.userId,
-                                                  kFirstName: currentUser.firstName,
-                                                  kAvatarURL: currentUser.avatarURL,
-                                                  kMessageTextKey: text,
-                                                  kMessageSendDateKey: sendDate,
-                                                  kMessageTypeKey: messageType.toRaw()
+                                           data: [kLINUserIdKey: currentUser.userId,
+                                                  kLINFirstName: currentUser.firstName,
+                                                  kLINAvatarURL: currentUser.avatarURL,
+                                                  kLINMessageTextKey: text,
+                                                  kLINMessageSendDateKey: sendDate,
+                                                  kLINMessageTypeKey: messageType.toRaw()
                                            ])
     }
     

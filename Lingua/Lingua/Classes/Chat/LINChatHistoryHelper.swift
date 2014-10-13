@@ -38,7 +38,7 @@ class LINChatHistoryHelper {
     
     func moveMessageToIndex(index: Int) {
         let message = messagesArray[index]
-        message.state = MessageState.Submitted
+        message.state = LINMessageState.Submitted
         message.sendDate = NSDate()
         
         messagesArray.removeAtIndex(index)
@@ -98,8 +98,8 @@ class LINChatHistoryHelper {
                     let aMessage = LINMessage(incoming: incoming,
                                               sendDate: NSDateFormatter.iSODateFormatter().dateFromString(reply.createdAt)!,
                                               content: reply.content,
-                                              type: MessageType.fromRaw(reply.messageTypeId)!)
-                    aMessage.state = MessageState.Sent
+                                              type: LINMessageType.fromRaw(reply.messageTypeId)!)
+                    aMessage.state = LINMessageState.Sent
                     self.messagesArray.insert(aMessage, atIndex: 0)
                 }
                 
@@ -137,7 +137,7 @@ class LINChatHistoryHelper {
     // MARK: Utility methods
     
     private func getLastestMessages() -> [LINMessage]? {
-        let numberOfMessage = min(messagesArray.count, kChatHistoryMaxLenght)
+        let numberOfMessage = min(messagesArray.count, kLINChatHistoryMaxLenght)
         if numberOfMessage == 0 {
             return nil
         }

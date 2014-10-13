@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum MessageType: Int {
+enum LINMessageType: Int {
     case Text = 1, Photo, Voice
     func getSubtitleWithText(text: String) -> String {
         var result = ""
@@ -26,7 +26,7 @@ enum MessageType: Int {
     }
 }
 
-enum MessageState: Int {
+enum LINMessageState: Int {
     case Submitted = 1 // The message is waiting to be sent.
     case Sent // The message has sent.
     case UnSent // The message has not been sent.
@@ -39,14 +39,14 @@ class LINMessage: NSObject, NSCoding {
     var content: AnyObject?
     var url: String?
     var duration: NSTimeInterval = 0  //in seconds, reserved for type voice record.
-    var type: MessageType = MessageType.Text
-    var state: MessageState = MessageState.Submitted
+    var type: LINMessageType = LINMessageType.Text
+    var state: LINMessageState = LINMessageState.Submitted
     var downloaded: Bool = false // To know If photo downloaded
     
     // Cache height for emoticons textview
     var height: CGFloat = 0
     
-    init(incoming: Bool, sendDate: NSDate, content: AnyObject, type: MessageType) {
+    init(incoming: Bool, sendDate: NSDate, content: AnyObject, type: LINMessageType) {
         self.incoming = incoming
         self.sendDate = sendDate
         self.type = type
@@ -67,8 +67,8 @@ class LINMessage: NSObject, NSCoding {
         self.url = aDecoder.decodeObjectForKey("url") as? String
         self.height = CGFloat(aDecoder.decodeFloatForKey("height"))
         self.duration = aDecoder.decodeObjectForKey("duration") as NSTimeInterval
-        self.type = MessageType.fromRaw(aDecoder.decodeIntegerForKey("type"))!
-        self.state = MessageState.fromRaw(aDecoder.decodeIntegerForKey("state"))!
+        self.type = LINMessageType.fromRaw(aDecoder.decodeIntegerForKey("type"))!
+        self.state = LINMessageState.fromRaw(aDecoder.decodeIntegerForKey("state"))!
     }
     
     func encodeWithCoder(encoder: NSCoder){
@@ -101,7 +101,7 @@ class LINMessage: NSObject, NSCoding {
             } else {
                 result = (self.content! as String).sizeOfStringUseTextStorage().height
             }
-            result += kTextCellHeightPadding
+            result += kLINTextCellHeightPadding
         case .Photo:
             var imageSize = CGSize()
             if let tmpImageURL = self.url {
@@ -109,9 +109,9 @@ class LINMessage: NSObject, NSCoding {
             } else {
                 imageSize = (self.content as UIImage).size.scaledSize()
             }
-            result = imageSize.height + kPhotoCellHeightPadding
+            result = imageSize.height + kLINPhotoCellHeightPadding
         case .Voice:
-            result = kVoiceMessageMaxHeight
+            result = kLINVoiceMessageMaxHeight
         default:
             break
         }

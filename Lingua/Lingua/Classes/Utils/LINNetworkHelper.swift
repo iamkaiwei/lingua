@@ -28,11 +28,11 @@ class LINNetworkHelper : NSObject{
         self.reachability = Reachability.reachabilityForInternetConnection() as Reachability
         
         self.reachability.unreachableBlock = {(reachability:Reachability!) -> Void in
-            NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAppDidLostConnection, object: nil)
+            NSNotificationCenter.defaultCenter().postNotificationName(kLINNotificationAppDidLostConnection, object: nil)
         }
     
         self.reachability.reachableBlock = {(reachability:Reachability!) -> Void in
-            NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAppDidRestoreConnection, object: nil)
+            NSNotificationCenter.defaultCenter().postNotificationName(kLINNotificationAppDidRestoreConnection, object: nil)
         }
         self.reachability.startNotifier()
     }

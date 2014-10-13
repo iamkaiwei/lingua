@@ -29,17 +29,18 @@ class LINFriendListController: LINViewController, UITableViewDataSource, UITable
         loadCachedConversationData()
         
         //Register notification
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "appDidEnterBackground", name: kNotificationAppDidEnterBackground, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "appDidBecomeActive", name: kNotificationAppDidBecomActive, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "appReceivedNewMessage:", name: kNotificationAppReceivedNewMessage, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "appDidOpenChatViewFromHUD:", name: kNotificationAppDidOpenChatViewFromHUD, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "appDidEnterBackground", name: kLINNotificationAppDidEnterBackground, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "appDidBecomeActive", name: kLINNotificationAppDidBecomActive, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "appReceivedNewMessage:", name: kLINNotificationAppReceivedNewMessage, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "appDidOpenChatViewFromHUD:", name: kLINNotificationAppDidOpenChatViewFromHUD, object: nil)
     }
     
     func updateNewMessageCount(){
         if self.newMessageCount < 0 {
             self.newMessageCount = 0
         }
-        NSNotificationCenter.defaultCenter().postNotificationName(kNotificationShouldUpdateNewMessageCount, object: self.newMessageCount)
+        
+        NSNotificationCenter.defaultCenter().postNotificationName(kLINNotificationShouldUpdateNewMessageCount, object: self.newMessageCount)
     }
     
     override func didReceiveMemoryWarning() {

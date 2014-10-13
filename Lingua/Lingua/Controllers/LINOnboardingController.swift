@@ -69,7 +69,7 @@ extension LINOnboardingController: UIScrollViewDelegate {
 
 extension LINOnboardingController: LINLoginViewDelegate {
     
-    func loginView(loginView: LINLoginView, option: LoginOptions) {
+    func loginView(loginView: LINLoginView, option: LINLoginOptions) {
         switch option {
         case .Google:
             GPPSignInInstance.authenticate()
@@ -121,7 +121,7 @@ extension LINOnboardingController: LINLoginViewDelegate {
          AppDelegate.sharedDelegate().showHomeScreen(animated: true)
         
         //Post this notification to make sure that ConversationList will be refreshed after logged-in
-         NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAppDidBecomActive, object: nil)
+         NSNotificationCenter.defaultCenter().postNotificationName(kLINNotificationAppDidBecomActive, object: nil)
     }
 }
 

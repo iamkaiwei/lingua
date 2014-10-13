@@ -12,19 +12,19 @@ class LINRemoteNotificationHelper {
  
     func pushNotificationWithMessage(message: LINMessage, currentUser: LINUser, partnerId: String, conversationId: String) {
         let pushQuery = PFInstallation.query()
-        pushQuery.whereKey(kUserIdKey, equalTo: partnerId)
+        pushQuery.whereKey(kLINUserIdKey, equalTo: partnerId)
         
-        var content = message.type.getSubtitleWithText((message.type == MessageType.Text) ? message.content as String : "")
+        var content = message.type.getSubtitleWithText((message.type == LINMessageType.Text) ? message.content as String : "")
         let alertTitle = "\(currentUser.firstName): \(content)"
         
         let push = PFPush()
         push.setData(["aps": ["alert": alertTitle, "sound": "default.m4r"],
-                      kUserIdKey: currentUser.userId,
-                      kFirstName: currentUser.firstName,
-                      kAvatarURL: currentUser.avatarURL,
-                      kMessageSendDateKey: message.sendDate,
-                      kMessageTypeKey: message.type.toRaw(),
-                      kConversationIdKey: conversationId])
+                      kLINUserIdKey: currentUser.userId,
+                      kLINFirstName: currentUser.firstName,
+                      kLINAvatarURL: currentUser.avatarURL,
+                      kLINMessageSendDateKey: message.sendDate,
+                      kLINMessageTypeKey: message.type.toRaw(),
+                      kLINConversationIdKey: conversationId])
         push.setQuery(pushQuery)
         
         push.sendPushInBackgroundWithBlock({ (success, error) in

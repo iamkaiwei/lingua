@@ -35,8 +35,8 @@ class LINHomeController: LINViewController {
         teachButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "startMatching"))
         timer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "changeQuote", userInfo: nil, repeats: true)
         
-        self.topNavigationView.registerForNetworkStatusNotification(lostConnection: kNotificationAppDidLostConnection, restoreConnection: kNotificationAppDidRestoreConnection)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateNewMessageCount:", name: kNotificationShouldUpdateNewMessageCount, object: nil)
+        self.topNavigationView.registerForNetworkStatusNotification(lostConnection: kLINNotificationAppDidLostConnection, restoreConnection: kLINNotificationAppDidRestoreConnection)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateNewMessageCount:", name: kLINNotificationShouldUpdateNewMessageCount, object: nil)
         
         configureBadgeViewAppearance()
     }

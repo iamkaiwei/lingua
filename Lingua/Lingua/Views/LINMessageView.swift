@@ -60,7 +60,7 @@ class LINMessageView: UIView {
         self.conversationId = conversationId
         nameLabel.text = name
         
-        let messageType = MessageType.fromRaw(type)
+        let messageType = LINMessageType.fromRaw(type)
         textLabel.text = messageType?.getSubtitleWithText(text)
         
         avatarImageView.sd_setImageWithURL(NSURL(string: avatarURL),
@@ -73,7 +73,7 @@ class LINMessageView: UIView {
     
     func openChatScreenWithGesture(recognizer: UITapGestureRecognizer) {
         hideNotification()
-        NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAppDidOpenChatViewFromHUD, object: conversationId!)
+        NSNotificationCenter.defaultCenter().postNotificationName(kLINNotificationAppDidOpenChatViewFromHUD, object: conversationId!)
         LINNotificationHelper.openChatScreenWithUserId(userId!, name: nameLabel.text!, conversationId: conversationId!)
     }
 }

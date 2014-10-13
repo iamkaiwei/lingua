@@ -10,8 +10,8 @@ import Foundation
 import QuartzCore
 
 let kPusherEventNameNewMessage = "client-chat";
-let kChatHistoryBeginPageIndex = 1
-let kChatHistoryMaxLenght = 20
+let kLINChatHistoryBeginPageIndex = 1
+let kLINChatHistoryMaxLenght = 20
 
 enum LINChatMode {
     case Online, Offline
@@ -54,7 +54,7 @@ class LINChatController: LINViewController, UITableViewDelegate {
     
     var userChat = LINUser()
     private var currentUser = LINUser()
-    private var currentPageIndex = kChatHistoryBeginPageIndex
+    private var currentPageIndex = kLINChatHistoryBeginPageIndex
     private var currentChatMode = LINChatMode.Offline
     
     // Helpers
@@ -131,11 +131,11 @@ class LINChatController: LINViewController, UITableViewDelegate {
     }
 
     private func setupNotifications() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "appDidBecomActive", name: kNotificationAppDidBecomActive, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "appDidEnterBackground", name: kNotificationAppDidEnterBackground, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "appDidBecomActive", name: kLINNotificationAppDidBecomActive, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "appDidEnterBackground", name: kLINNotificationAppDidEnterBackground, object: nil)
         
-        topNavigationView.registerForNetworkStatusNotification(lostConnection: kNotificationAppDidLostConnection, restoreConnection: kNotificationAppDidRestoreConnection)
-        tableView.registerForNetworkStatusNotification(lossConnection: kNotificationAppDidLostConnection, restoreConnection: kNotificationAppDidRestoreConnection)
+        topNavigationView.registerForNetworkStatusNotification(lostConnection: kLINNotificationAppDidLostConnection, restoreConnection: kLINNotificationAppDidRestoreConnection)
+        tableView.registerForNetworkStatusNotification(lossConnection: kLINNotificationAppDidLostConnection, restoreConnection: kLINNotificationAppDidRestoreConnection)
     }
     
     func didTapOnTableView(sender: UITapGestureRecognizer) {
@@ -263,15 +263,15 @@ class LINChatController: LINViewController, UITableViewDelegate {
     }
     
     private func showStateSentForBubbleCell(#message: LINMessage) {
-        if message.type == MessageType.Text {
+        if message.type == LINMessageType.Text {
             NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "timerFireUpdateTextMessageHasSent:",
                 userInfo: message.messageId!, repeats: false)
         } else {
-            updateMessageWithNewState(MessageState.Sent, messageId: message.messageId!)
+            updateMessageWithNewState(LINMessageState.Sent, messageId: message.messageId!)
         }
     }
     
-    private func updateMessageWithNewState(state: MessageState, messageId: String) {
+    private func updateMessageWithNewState(state: LINMessageState, messageId: String) {
         let messageTuple = chatHistoryHelper.getMessageById(messageId)
         if messageTuple != nil {
             let message = messageTuple!.message
@@ -286,7 +286,7 @@ class LINChatController: LINViewController, UITableViewDelegate {
     
     func timerFireUpdateTextMessageHasSent(timer: NSTimer) {
         let messageId = timer.userInfo as String
-        updateMessageWithNewState(MessageState.Sent, messageId: messageId)
+        updateMessageWithNewState(LINMessageState.Sent, messageId: messageId)
     }
     
     private func addListBubbleCellsWithCount(count: Int) {
@@ -309,7 +309,7 @@ class LINChatController: LINViewController, UITableViewDelegate {
     }
     
     private func loadListLastestMessages() {
-        loadChatHistoryWithLenght(kChatHistoryMaxLenght, page: currentPageIndex)
+        loadChatHistoryWithLenght(kLINChatHistoryMaxLenght, page: currentPageIndex)
     }
     
     private func loadChatHistoryWithLenght(lenght: Int, page: Int) {
@@ -329,7 +329,7 @@ class LINChatController: LINViewController, UITableViewDelegate {
                 // Update data source and reload tableview
                 self.dataSource!.items = self.chatHistoryHelper.messagesArray
                 
-                if self.currentPageIndex == kChatHistoryBeginPageIndex {
+                if self.currentPageIndex == kLINChatHistoryBeginPageIndex {
                     self.tableView.reloadData()
                     self.scrollBubbleTableViewToBottomAnimated(true)
                 } else {
@@ -338,7 +338,7 @@ class LINChatController: LINViewController, UITableViewDelegate {
                 
                 self.currentPageIndex++
                 
-                if page == kChatHistoryBeginPageIndex {
+                if page == kLINChatHistoryBeginPageIndex {
                     self.chatHistoryHelper.cachingChatHistoryData()
                 }
             }
@@ -348,7 +348,7 @@ class LINChatController: LINViewController, UITableViewDelegate {
     }
     
     func loadOlderMessages() {
-        loadChatHistoryWithLenght(kChatHistoryMaxLenght, page: currentPageIndex)
+        loadChatHistoryWithLenght(kLINChatHistoryMaxLenght, page: currentPageIndex)
     }
     
     private func scrollBubbleTableViewToBottomAnimated(animated: Bool) {
@@ -367,13 +367,13 @@ class LINChatController: LINViewController, UITableViewDelegate {
     
     private func replyWithMessage(message: LINMessage) {
         if !LINNetworkHelper.isReachable() { // No connection
-            updateMessageWithNewState(MessageState.UnSent, messageId: message.messageId!)
+            updateMessageWithNewState(LINMessageState.UnSent, messageId: message.messageId!)
             return
         }
         
         self.conversationChanged = true
         let sendDate = NSDateFormatter.iSODateFormatter().stringFromDate(NSDate())
-        let content: String? = message.type == MessageType.Text ? message.content as? String : message.url
+        let content: String? = message.type == LINMessageType.Text ? message.content as? String : message.url
         
         let replyDict = ["sender_id": currentUser.userId,
                          "message_type_id": message.type.toRaw(),
@@ -395,19 +395,19 @@ class LINChatController: LINViewController, UITableViewDelegate {
     }
     
     private func resendThisMessage(message: LINMessage) {
-        if message.type == MessageType.Text || message.url != nil {
+        if message.type == LINMessageType.Text || message.url != nil {
             replyWithMessage(message)
             return
         }
         
         if message.content == nil {
-            self.updateMessageWithNewState(MessageState.UnSent, messageId: message.messageId!)
+            self.updateMessageWithNewState(LINMessageState.UnSent, messageId: message.messageId!)
             return
         }
         
         var data: NSData?
         var fileType = LINFileType.Audio
-        if message.type == MessageType.Photo {
+        if message.type == LINMessageType.Photo {
             data = UIImageJPEGRepresentation(message.content as UIImage, 0.8)
             fileType = LINFileType.Image
         } else {
@@ -422,7 +422,7 @@ class LINChatController: LINViewController, UITableViewDelegate {
             }
             
             // Upload failed
-            self.updateMessageWithNewState(MessageState.UnSent, messageId: message.messageId!)
+            self.updateMessageWithNewState(LINMessageState.UnSent, messageId: message.messageId!)
         })
     }
     
@@ -525,7 +525,7 @@ extension LINChatController: LINComposeBarViewDelegate {
     }
 
     func composeBar(composeBar: LINComposeBarView, didFailToUploadFile error: NSError?, messageId: String) {
-        updateMessageWithNewState(MessageState.UnSent, messageId: messageId)
+        updateMessageWithNewState(LINMessageState.UnSent, messageId: messageId)
     }
     
     func composeBar(composeBar: LINComposeBarView, didRecord data: NSData, messageId: String) {

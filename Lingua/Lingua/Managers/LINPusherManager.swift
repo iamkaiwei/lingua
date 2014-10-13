@@ -8,7 +8,6 @@
 
 import Foundation
 
-// Global constants
 let kPusherAPIKey = "760826ac4922c8b7563a"
 let kPusherAPIID = "76720"
 let kPusherAPISecret = "b0d277089fc2d751fb8a"

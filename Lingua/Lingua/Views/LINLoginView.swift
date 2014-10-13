@@ -8,12 +8,12 @@
 
 import UIKit
 
-enum LoginOptions {
+enum LINLoginOptions {
     case Facebook, Google
 }
 
 protocol LINLoginViewDelegate {
-    func loginView(loginView: LINLoginView, option didLoginWithOption: LoginOptions)
+    func loginView(loginView: LINLoginView, option didLoginWithOption: LINLoginOptions)
 }
 
 class LINLoginView: UIView {
@@ -29,6 +29,7 @@ class LINLoginView: UIView {
     }
     
     // MARK: Actions
+    
     @IBAction func loginWithGoogle(sender: UIButton) {
         delegate?.loginView(self, option: .Google)
     }

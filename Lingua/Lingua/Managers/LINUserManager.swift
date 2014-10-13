@@ -47,7 +47,7 @@ class LINUserManager {
                             
                             // Check device token
                             if tmpUser.deviceToken.utf16Count == 0 {
-                                let deviceToken = LINStorageHelper.getStringValueForKey(kDeviceTokenKey)
+                                let deviceToken = LINStorageHelper.getStringValueForKey(kLINDeviceTokenKey)
                                 if let tmpToken = deviceToken {
                                     self.currentUser!.deviceToken = tmpToken
                                     LINNetworkClient.sharedInstance.updateDeviceTokenWithUserId(self.currentUser!.userId, deviceToken: tmpToken)
@@ -57,7 +57,7 @@ class LINUserManager {
                             // Save user_id to parse
                             let currentInstallation = PFInstallation.currentInstallation()
                             if currentInstallation != nil {
-                                currentInstallation.setObject(self.currentUser!.userId, forKey: kUserIdKey)
+                                currentInstallation.setObject(self.currentUser!.userId, forKey: kLINUserIdKey)
                                 currentInstallation.saveInBackground()
                             }
                             completion(success: success)

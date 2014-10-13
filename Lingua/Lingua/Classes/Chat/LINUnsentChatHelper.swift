@@ -37,7 +37,7 @@ class LINUnsentChatHelper {
         for message in unsentMessagesArray {
             let timeInterval = message.sendDate.timeIntervalSince1970
             
-            if currentPageIndex == kChatHistoryBeginPageIndex {
+            if currentPageIndex == kLINChatHistoryBeginPageIndex {
                 if timeInterval > minSendDate.timeIntervalSince1970 {
                     unsentsChatTemp.append(message)
                 }
@@ -78,9 +78,9 @@ class LINUnsentChatHelper {
     }
     
     func addOrRemoveMessage(#message: LINMessage) {
-        if message.state == MessageState.UnSent {
+        if message.state == LINMessageState.UnSent {
             addMessage(message)
-        } else if message.state == MessageState.Sent {
+        } else if message.state == LINMessageState.Sent {
             removeMessage(messageId: message.messageId!)
         }
     }
