@@ -26,30 +26,30 @@ class LINResourceHelper: NSObject {
     }
     
     class func cachingConversationOfflineData(data: NSData) {
-        cachingOfflineData(data, filePath: kCachedConversationDataFile)
+        cachingOfflineData(data, filePath: kLINCachedConversationDataFile)
     }
     
     class func retrievingCachedConversation() -> NSData? {
-        return retrievingOfflineDataWithFilePath(kCachedConversationDataFile)
+        return retrievingOfflineDataWithFilePath(kLINCachedConversationDataFile)
     }
     
     class func cachingChatHistoryData(conversationId: String, data: NSData) {
-        let filePath = String("\(conversationId).\(kLinguaResourceExtension)")
+        let filePath = String("\(conversationId).\(kLINLinguaResourceExtension)")
         cachingOfflineData(data, filePath: filePath)
     }
     
     class func retrievingChatHistoryData(conversationId: String) -> NSData? {
-        let filePath = String("\(conversationId).\(kLinguaResourceExtension)")
+        let filePath = String("\(conversationId).\(kLINLinguaResourceExtension)")
         return retrievingOfflineDataWithFilePath(filePath)
     }
     
     class func cachingUnsentChatData(conversationId: String, data: NSData) {
-        let filePath = String("\(kUnsentChatPrefixName)_\(conversationId).\(kLinguaResourceExtension)")
+        let filePath = String("\(kLINUnsentChatPrefixName)_\(conversationId).\(kLINLinguaResourceExtension)")
         cachingOfflineData(data, filePath: filePath)
     }
     
     class func retrievingUnsentChatData(conversationId: String) -> NSData? {
-        let filePath = String("\(kUnsentChatPrefixName)_\(conversationId).\(kLinguaResourceExtension)")
+        let filePath = String("\(kLINUnsentChatPrefixName)_\(conversationId).\(kLINLinguaResourceExtension)")
         return retrievingOfflineDataWithFilePath(filePath)
     }
     

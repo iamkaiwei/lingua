@@ -249,7 +249,7 @@ extension LINNetworkClient {
     func sendNotificationWithUserId(userId: String, text: String, sendDate: String) {
         setAuthorizedRequest()
         
-        let parameters = [kUserIdKey: userId,
+        let parameters = [kLINUserIdKey: userId,
                           "message": text,
                           "time_created": sendDate]
         let path = "\(kLINAPIPath)" + "\(kLINSendNotification)"
@@ -260,8 +260,8 @@ extension LINNetworkClient {
     func updateDeviceTokenWithUserId(userId: String, deviceToken: String) {
         setAuthorizedRequest()
         
-        let parameters = [kUserIdKey: userId,
-            kDeviceTokenKey: deviceToken]
+        let parameters = [kLINUserIdKey: userId,
+            kLINDeviceTokenKey: deviceToken]
         let path = "\(kLINAPIPath)" + "\(kLINUsersPath)/\(userId)"
 
         self.PUT(path, parameters: parameters, { (response: AnyObject?, error: NSError?) -> Void in

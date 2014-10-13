@@ -8,7 +8,7 @@
 
 import UIKit
 
-let kEmoticonsViewCancelButtonIndex = 4
+let kLINEmoticonsViewCancelButtonIndex = 4
 
 class LINEmoticonCell: UICollectionViewCell {
     var emoticonImgView = UIImageView()
@@ -29,7 +29,7 @@ class LINEmoticonCell: UICollectionViewCell {
     }
     
     func configureAtIndexPath(indexPath: NSIndexPath) {
-        if indexPath.row == kEmoticonsViewCancelButtonIndex {
+        if indexPath.row == kLINEmoticonsViewCancelButtonIndex {
             let cancelImage = UIImage(named: "icn_cancel")
             cancelImgView.image = cancelImage
             cancelImgView.frame = CGRectMake(CGRectGetWidth(bounds)/2 - 13,
@@ -38,7 +38,7 @@ class LINEmoticonCell: UICollectionViewCell {
             addSubview(cancelImgView)
         } else {
             var row = indexPath.row
-            if indexPath.row < kEmoticonsViewCancelButtonIndex {
+            if indexPath.row < kLINEmoticonsViewCancelButtonIndex {
                 row += 1
             }
             emoticonImgView.frame = bounds

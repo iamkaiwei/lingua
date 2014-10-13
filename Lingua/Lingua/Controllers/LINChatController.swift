@@ -10,8 +10,8 @@ import Foundation
 import QuartzCore
 
 let kPusherEventNameNewMessage = "client-chat";
-let kChatHistoryBeginPageIndex = 1
-let kChatHistoryMaxLenght = 20
+let kLINChatHistoryBeginPageIndex = 1
+let kLINChatHistoryMaxLenght = 20
 
 enum LINChatMode {
     case Online, Offline
@@ -30,13 +30,12 @@ class LINChatController: LINViewController, UITableViewDelegate {
     @IBOutlet weak var flagButton: UIButton!
     
     private var pullRefreshControl = UIRefreshControl()
-    private var messageArray = [LINMessage]()
+    
     private var dataSource: LINArrayDataSource?
     private let cellIdentifier = "kLINBubbleCell"
     private var onPlayVoiceMessage: LINMessage?
-    
-    private var currentChannel = PTPusherPresenceChannel()
     private var conversationChanged = false
+    
     var delegate: LINChatControllerDelegate?
 
     var conversation: LINConversation = LINConversation() {
@@ -45,17 +44,24 @@ class LINChatController: LINViewController, UITableViewDelegate {
             conversationId = conversation.conversationId
         }
     }
-    var conversationId: String = ""
-    var userChat = LINUser()
     
+    var conversationId: String = "" {
+        didSet {
+            chatHistoryHelper.conversationId = conversationId
+            unsentChatHelper.conversationId = conversationId
+        }
+    }
+    
+    var userChat = LINUser()
     private var currentUser = LINUser()
-    private var repliesArray = [AnyObject]()
-    private var currentPageIndex = kChatHistoryBeginPageIndex
+    private var currentPageIndex = kLINChatHistoryBeginPageIndex
     private var currentChatMode = LINChatMode.Offline
     
-    // Unsent messages
-    private var unsentMessagesArray = [LINMessage]()
-
+    // Helpers
+    private var pusherChannel = LINPusherChannel()
+    private var unsentChatHelper = LINUnsentChatHelper()
+    private var chatHistoryHelper = LINChatHistoryHelper()
+    
     // Layout contraints
     @IBOutlet weak var composeBarBottomLayoutGuideConstraint: NSLayoutConstraint!
     @IBOutlet weak var composeBarHeightConstraint: NSLayoutConstraint!
@@ -68,8 +74,8 @@ class LINChatController: LINViewController, UITableViewDelegate {
         
         configureUI()
         setupTableView()
-        
-        loadCachedUnsentChatData()
+
+        unsentChatHelper.loadCachedUnsentChatData()
         
         if LINNetworkHelper.isReachable() {
             loadListLastestMessages()
@@ -92,7 +98,6 @@ class LINChatController: LINViewController, UITableViewDelegate {
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-
         NSNotificationCenter.defaultCenter().removeObserver(self)
         
         appDidEnterBackground()
@@ -116,20 +121,21 @@ class LINChatController: LINViewController, UITableViewDelegate {
         tableView.addGestureRecognizer(tapGesture)
         
         if let tmpuser = LINUserManager.sharedInstance.currentUser {
-            currentUser = tmpuser
+            self.currentUser = tmpuser
+            chatHistoryHelper.currentUserId = self.currentUser.userId
         }
         
         nameLabel.text = userChat.firstName
         likeButton.selected = conversation.isLiked
         flagButton.selected = conversation.isFlagged
     }
-    
+
     private func setupNotifications() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "appDidBecomActive", name: kNotificationAppDidBecomActive, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "appDidEnterBackground", name: kNotificationAppDidEnterBackground, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "appDidBecomActive", name: kLINNotificationAppDidBecomActive, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "appDidEnterBackground", name: kLINNotificationAppDidEnterBackground, object: nil)
         
-        topNavigationView.registerForNetworkStatusNotification(lostConnection: kNotificationAppDidLostConnection, restoreConnection: kNotificationAppDidRestoreConnection)
-        tableView.registerForNetworkStatusNotification(lossConnection: kNotificationAppDidLostConnection, restoreConnection: kNotificationAppDidRestoreConnection)
+        topNavigationView.registerForNetworkStatusNotification(lostConnection: kLINNotificationAppDidLostConnection, restoreConnection: kLINNotificationAppDidRestoreConnection)
+        tableView.registerForNetworkStatusNotification(lossConnection: kLINNotificationAppDidLostConnection, restoreConnection: kLINNotificationAppDidRestoreConnection)
     }
     
     func didTapOnTableView(sender: UITapGestureRecognizer) {
@@ -149,7 +155,7 @@ class LINChatController: LINViewController, UITableViewDelegate {
             }
         }
         
-        dataSource = LINArrayDataSource(items: messageArray, cellIdentifier: cellIdentifier, configureClosure: configureClosure)
+        dataSource = LINArrayDataSource(items: chatHistoryHelper.messagesArray, cellIdentifier: cellIdentifier, configureClosure: configureClosure)
         tableView.dataSource = dataSource
         tableView.delegate = self
         
@@ -191,17 +197,15 @@ class LINChatController: LINViewController, UITableViewDelegate {
         }
         
         LINNetworkClient.sharedInstance.callActionAPI(actionType, userId: userChat.userId, {(error) -> Void in
-            if error == nil {
-                println("Action completed successfully")
-                sender.selected = isOn
-                
-                if likeButtonTouched {
-                    self.conversation.isLiked = isOn
-                } else {
-                    self.conversation.isFlagged = isOn
-                }
+            if error != nil {
+                return
+            }
+            
+            sender.selected = isOn
+            if likeButtonTouched {
+                self.conversation.isLiked = isOn
             } else {
-                println("Action got error : \(error?.localizedDescription)")
+                self.conversation.isFlagged = isOn
             }
         })
     }
@@ -212,10 +216,10 @@ class LINChatController: LINViewController, UITableViewDelegate {
     
     func appDidEnterBackground() {
         leaveConversation()
-        currentChannel.unsubscribe()
-        postMessagesToServer()
-        cachingChatHistoryData()
-        cachingUnsentChatData()
+        pusherChannel.unsubscribe()
+        chatHistoryHelper.postMessagesToServer()
+        chatHistoryHelper.cachingChatHistoryData()
+        unsentChatHelper.cachingUnsentChatData()
     }
     
     func appDidBecomActive() {
@@ -225,52 +229,17 @@ class LINChatController: LINViewController, UITableViewDelegate {
     }
     
     private func pushNotificationWithMessage(message: LINMessage) {
-        // Create our Installation query
-        let pushQuery = PFInstallation.query()
-        pushQuery.whereKey(kUserIdKey, equalTo: userChat.userId)
-        
-        var content = message.type.getSubtitleWithText((message.type == MessageType.Text) ? message.content as String : "")
-        let alertTitle = "\(currentUser.firstName): \(content)"
-        
-        let push = PFPush()
-        push.setData(["aps": ["alert": alertTitle, "sound": "default.m4r"],
-                     kUserIdKey: currentUser.userId,
-                     kFirstName: currentUser.firstName,
-                     kAvatarURL: currentUser.avatarURL,
-                     kMessageSendDateKey: message.sendDate,
-                     kMessageTypeKey: message.type.toRaw(),
-                     kConversationIdKey: conversationId])
-        push.setQuery(pushQuery)
-        
-        push.sendPushInBackgroundWithBlock({ (success, error) in
-            if success {
-                println("[parse] push notification successfully.")
-            } else {
-                println("[parse] push notification has some errors: \(error!.description)")
-            }
-        })
-    }
-    
-    private func postMessagesToServer() {
-        if repliesArray.count <= 0 {
-            return
-        }
-        
-        LINNetworkClient.sharedInstance.creatBulkWithConversationId(conversationId,
-            messagesArray: repliesArray) {
-                (success) -> Void in
-                if success {
-                    self.repliesArray.removeAll(keepCapacity: false)
-                }
-        }
+        let remoteNotificationHelper = LINRemoteNotificationHelper()
+        remoteNotificationHelper.pushNotificationWithMessage(message, currentUser: self.currentUser,
+                                                             partnerId: self.userChat.userId,
+                                                             conversationId: self.conversationId)
     }
     
     private func addBubbleViewCellWithMessage(message: LINMessage) {
-        // Update data source
-        messageArray.append(message)
-        dataSource!.items = messageArray
+        chatHistoryHelper.messagesArray.append(message)
+        dataSource!.items = chatHistoryHelper.messagesArray
         
-        let indexPaths = [NSIndexPath(forRow: messageArray.count - 1, inSection: 0)]
+        let indexPaths = [NSIndexPath(forRow: chatHistoryHelper.messagesArray.count - 1, inSection: 0)]
         
         tableView.beginUpdates()
         tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.Bottom)
@@ -280,16 +249,10 @@ class LINChatController: LINViewController, UITableViewDelegate {
     }
     
     private func moveBubbleCellToBottomAtIndexPath(indexPath: NSIndexPath) {
-        let message = messageArray[indexPath.row]
-        message.state = MessageState.Submitted
-        message.sendDate = NSDate()
-        
-        // Update data source
-        messageArray.removeAtIndex(indexPath.row)
-        messageArray.append(message)
-        dataSource!.items = messageArray
+        chatHistoryHelper.moveMessageToIndex(indexPath.row)
+        dataSource!.items = chatHistoryHelper.messagesArray
 
-        let toIndexPath = NSIndexPath(forRow: messageArray.count - 1, inSection: 0)
+        let toIndexPath = NSIndexPath(forRow: chatHistoryHelper.messagesArray.count - 1, inSection: 0)
         
         tableView.beginUpdates()
         tableView.moveRowAtIndexPath(indexPath, toIndexPath: toIndexPath)
@@ -299,26 +262,31 @@ class LINChatController: LINViewController, UITableViewDelegate {
         scrollBubbleTableViewToBottomAnimated(true)
     }
     
-    private func updateMessageWithNewState(state: MessageState, messageId: String) {
-        for (index, message) in enumerate(messageArray) {
-            if message.messageId == messageId {
-                message.state = state
-                
-                let indexPaths = [NSIndexPath(forRow: index, inSection: 0)]
-                
-                tableView.beginUpdates()
-                tableView.reloadRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.None)
-                tableView.endUpdates()
-                
-                // Add un-sent message to an array
-                if state == MessageState.UnSent {
-                    addToUnsentMessagesArrayWithMessage(message)
-                } else if state == MessageState.Sent && unsentMessagesArray.count > 0 {
-                    removeMessageFromUnsentMessagesArrayWithMessageId(messageId)
-                }
-                break
-            }
+    private func showStateSentForBubbleCell(#message: LINMessage) {
+        if message.type == LINMessageType.Text {
+            NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "timerFireUpdateTextMessageHasSent:",
+                userInfo: message.messageId!, repeats: false)
+        } else {
+            updateMessageWithNewState(LINMessageState.Sent, messageId: message.messageId!)
         }
+    }
+    
+    private func updateMessageWithNewState(state: LINMessageState, messageId: String) {
+        let messageTuple = chatHistoryHelper.getMessageById(messageId)
+        if messageTuple != nil {
+            let message = messageTuple!.message
+            message.state = state
+            
+            let indexPaths = [NSIndexPath(forRow: messageTuple!.index, inSection: 0)]
+            tableView.reloadRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.None)
+            
+            unsentChatHelper.addOrRemoveMessage(message: message)
+        }
+    }
+    
+    func timerFireUpdateTextMessageHasSent(timer: NSTimer) {
+        let messageId = timer.userInfo as String
+        updateMessageWithNewState(LINMessageState.Sent, messageId: messageId)
     }
     
     private func addListBubbleCellsWithCount(count: Int) {
@@ -337,147 +305,75 @@ class LINChatController: LINViewController, UITableViewDelegate {
     }
     
     private func heightForCellAtIndexPath(indexPath: NSIndexPath) -> CGFloat {
-        let message = messageArray[indexPath.row]
-        return message.getHeightForCell()
+        return chatHistoryHelper.getHeightForCellAtIndex(indexPath.row)
     }
     
     private func loadListLastestMessages() {
-        loadChatHistoryWithLenght(kChatHistoryMaxLenght, page: currentPageIndex)
+        loadChatHistoryWithLenght(kLINChatHistoryMaxLenght, page: currentPageIndex)
     }
     
-    // KTODO: Refator - Long method
-
     private func loadChatHistoryWithLenght(lenght: Int, page: Int) {
-        LINNetworkClient.sharedInstance.getChatHistoryWithConversationId(conversationId,
-            length: lenght,
-            page: page) {
-                (repliesArray, error) -> Void in
-                if let tmpRepliesArray = repliesArray {
-                    for reply in tmpRepliesArray  {
-                        var incoming = true
-                        if reply.senderId == self.currentUser.userId {
-                            incoming = false
-                        }
-                        
-                        let aMessage = LINMessage(incoming: incoming,
-                                                  sendDate: NSDateFormatter.iSODateFormatter().dateFromString(reply.createdAt)!,
-                                                  content: reply.content,
-                                                  type: MessageType.fromRaw(reply.messageTypeId)!)
-                        aMessage.state = MessageState.Sent
-                        self.messageArray.insert(aMessage, atIndex: 0)
-                    }
-                    
-                    dispatch_async(dispatch_get_main_queue()) {
-                        () -> Void in
-                        if tmpRepliesArray.count > 0 {
-                            // Load un-sents chat
-                            let maxSendDate = NSDateFormatter.iSODateFormatter().dateFromString(tmpRepliesArray.first!.createdAt)
-                            let minSendDate = NSDateFormatter.iSODateFormatter().dateFromString(tmpRepliesArray.last!.createdAt)
-                            let unsentsChatTemp = self.getListUnsentsChatWithMinSendDate(minSendDate!, maxSendDate: maxSendDate!)
-                            if unsentsChatTemp.count > 0 {
-                                self.messageArray += unsentsChatTemp
-                                self.sortMessagesArrayAccordingToSendDate()
-                            }
-                            
-                            // Update data source and reload tableview
-                            self.dataSource!.items = self.messageArray
-                            
-                            if self.currentPageIndex == kChatHistoryBeginPageIndex {
-                                self.tableView.reloadData()
-                                self.scrollBubbleTableViewToBottomAnimated(true)
-                            } else {
-                                self.addListBubbleCellsWithCount(tmpRepliesArray.count)
-                            }
-                            
-                            self.currentPageIndex++
-                            
-                            if page == kChatHistoryBeginPageIndex {
-                                self.cachingChatHistoryData()
-                            }
-                        }
-                        self.pullRefreshControl.endRefreshing()
-                    }
+        chatHistoryHelper.loadChatHistoryWithLenght(lenght, page: page) { (repliesArray) -> Void in
+            if let tmpRepliesArray = repliesArray {
+                // Get un-sents chat
+                let dateFormatter = NSDateFormatter.iSODateFormatter()
+                let maxSendDate = dateFormatter.dateFromString(tmpRepliesArray.first!.createdAt)
+                let minSendDate = dateFormatter.dateFromString(tmpRepliesArray.last!.createdAt)
+                let unsentsChatTemp = self.unsentChatHelper.getListUnsentsChat(minSendDate: minSendDate!,
+                    maxSendDate: maxSendDate!,
+                    currentPageIndex: self.currentPageIndex)
+                
+                // Mix unsents chat to chat history
+                self.chatHistoryHelper.mixAnUnsentMessages(unsentsChatTemp)
+                
+                // Update data source and reload tableview
+                self.dataSource!.items = self.chatHistoryHelper.messagesArray
+                
+                if self.currentPageIndex == kLINChatHistoryBeginPageIndex {
+                    self.tableView.reloadData()
+                    self.scrollBubbleTableViewToBottomAnimated(true)
+                } else {
+                    self.addListBubbleCellsWithCount(tmpRepliesArray.count)
                 }
+                
+                self.currentPageIndex++
+                
+                if page == kLINChatHistoryBeginPageIndex {
+                    self.chatHistoryHelper.cachingChatHistoryData()
+                }
+            }
+            
+            self.pullRefreshControl.endRefreshing()
         }
-    }
-    
-    func getLastestMessages() -> [LINMessage]? {
-        let numberOfMessage = min(self.messageArray.count, kChatHistoryMaxLenght)
-        if numberOfMessage == 0 {
-            return nil
-        }
-        let messageCount = self.messageArray.count
-        let startIndex:Int = abs(messageCount - numberOfMessage)
-        let endIndex:Int = messageCount - 1
-        let lastestMessages = Array(self.messageArray[startIndex...endIndex]) as [LINMessage]
-        return lastestMessages
     }
     
     func loadOlderMessages() {
-        loadChatHistoryWithLenght(kChatHistoryMaxLenght, page: currentPageIndex)
+        loadChatHistoryWithLenght(kLINChatHistoryMaxLenght, page: currentPageIndex)
     }
     
     private func scrollBubbleTableViewToBottomAnimated(animated: Bool) {
-        let lastRowIdx = messageArray.count - 1
+        let lastRowIdx = chatHistoryHelper.messagesArray.count - 1
         if lastRowIdx >= 0 {
-            tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: lastRowIdx, inSection: 0), atScrollPosition: UITableViewScrollPosition.Bottom, animated: animated)
+            tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: lastRowIdx, inSection: 0), atScrollPosition: .Bottom, animated: animated)
         }
     }
     
     private func subscribeToPresenceChannel() {
-        let channelName = generateUniqueChannelNameFromUserId(currentUser.userId, toUserId: userChat.userId)
-        currentChannel.unsubscribe()
-        currentChannel = LINPusherManager.sharedInstance.subscribeToPresenceChannelNamed(channelName, delegate: self)
-        
-        // Bind to event to receive data
-        currentChannel.bindToEventNamed(kPusherEventNameNewMessage, handleWithBlock: { channelEvent in
-            let replyData = channelEvent.getReplyData()
-            let type = MessageType.fromRaw(replyData.type)
-            
-            let aMessage = LINMessage(incoming: true, sendDate: replyData.sendDate, content: replyData.text, type: type!)
-            aMessage.state = MessageState.Sent
-            
-            self.addBubbleViewCellWithMessage(aMessage)
+        pusherChannel.subcribe(fromUserId: currentUser.userId, toUserId: userChat.userId, delegate: self)
+        pusherChannel.receivedMessage(completion: { (message) -> Void in
+            self.addBubbleViewCellWithMessage(message)
         })
     }
     
-    private func generateUniqueChannelNameFromUserId(fromUserId: String, toUserId: String) -> String {
-        var channelName = ""
-        if fromUserId.compare(toUserId, options: NSStringCompareOptions.CaseInsensitiveSearch) == NSComparisonResult.OrderedAscending {
-            channelName = "\(fromUserId)-\(toUserId)"
-        } else {
-            channelName = "\(toUserId)-\(fromUserId)"
-        }
-        
-        return channelName
-    }
-    
-    private func getMessageById(messageId: String) -> LINMessage? {
-        for message in messageArray {
-            if message.messageId == messageId {
-                return message
-            }
-        }
-        return nil
-    }
-    
-    // KTODO: Refactor - Long method
-    
     private func replyWithMessage(message: LINMessage) {
-        if !LINNetworkHelper.isReachable() {
-            updateMessageWithNewState(MessageState.UnSent, messageId: message.messageId!)
+        if !LINNetworkHelper.isReachable() { // No connection
+            updateMessageWithNewState(LINMessageState.UnSent, messageId: message.messageId!)
             return
         }
         
         self.conversationChanged = true
         let sendDate = NSDateFormatter.iSODateFormatter().stringFromDate(NSDate())
-        
-        var content: String?
-        if message.type == MessageType.Text {
-            content = message.content as? String
-        } else {
-            content = message.url
-        }
+        let content: String? = message.type == LINMessageType.Text ? message.content as? String : message.url
         
         let replyDict = ["sender_id": currentUser.userId,
                          "message_type_id": message.type.toRaw(),
@@ -485,60 +381,33 @@ class LINChatController: LINViewController, UITableViewDelegate {
                          "created_at": sendDate]
         
         if currentChatMode == LINChatMode.Online {
-            currentChannel.triggerEventNamed(kPusherEventNameNewMessage,
-                                             data: [kUserIdKey: currentUser.userId,
-                                                   kFirstName: currentUser.firstName,
-                                                   kAvatarURL: currentUser.avatarURL,
-                                                   kMessageTextKey: content!,
-                                                   kMessageSendDateKey: sendDate,
-                                                   kMessageTypeKey: message.type.toRaw()
-                                             ])
-            
-            repliesArray.append(replyDict)
-            
-            if repliesArray.count == 20 {
-                postMessagesToServer()
-            }
+            pusherChannel.sendMessage(currentUser: currentUser, text: content!, sendDate: sendDate, messageType: message.type)
+            chatHistoryHelper.addNewReply(replyDict)
+            chatHistoryHelper.shouldPostRepliesArrayToServer()
         } else {
+            // Offline mode
             let tmpRepliesArray = [replyDict]
-            
             LINNetworkClient.sharedInstance.creatBulkWithConversationId(conversationId, messagesArray: tmpRepliesArray) { (_) -> Void in }
-            
             pushNotificationWithMessage(message)
         }
         
-        // Check if message has sent or not
-        if message.messageId != nil {
-            if message.type == MessageType.Text {
-                NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "timerFireUpdateTextMessageHasSent:",
-                    userInfo: message.messageId!, repeats: false)
-            } else {
-                updateMessageWithNewState(MessageState.Sent, messageId: message.messageId!)
-            }
-        }
-        
-        println("pusher] Count channel members: \(self.currentChannel.members.count)");
-    }
-    
-    func timerFireUpdateTextMessageHasSent(timer: NSTimer) {
-        let messageId = timer.userInfo as String
-        updateMessageWithNewState(MessageState.Sent, messageId: messageId)
+        showStateSentForBubbleCell(message: message)
     }
     
     private func resendThisMessage(message: LINMessage) {
-        if message.type == MessageType.Text || message.url != nil {
+        if message.type == LINMessageType.Text || message.url != nil {
             replyWithMessage(message)
             return
         }
         
         if message.content == nil {
-            self.updateMessageWithNewState(MessageState.UnSent, messageId: message.messageId!)
+            self.updateMessageWithNewState(LINMessageState.UnSent, messageId: message.messageId!)
             return
         }
         
         var data: NSData?
         var fileType = LINFileType.Audio
-        if message.type == MessageType.Photo {
+        if message.type == LINMessageType.Photo {
             data = UIImageJPEGRepresentation(message.content as UIImage, 0.8)
             fileType = LINFileType.Image
         } else {
@@ -552,98 +421,17 @@ class LINChatController: LINViewController, UITableViewDelegate {
                 return
             }
             
-            self.updateMessageWithNewState(MessageState.UnSent, messageId: message.messageId!)
+            // Upload failed
+            self.updateMessageWithNewState(LINMessageState.UnSent, messageId: message.messageId!)
         })
-    }
-    
-    // MARK: Load un-sent messages
-    
-    private func getListUnsentsChatWithMinSendDate(minSendDate: NSDate, maxSendDate: NSDate) -> [LINMessage] {
-        var unsentsChatTemp = [LINMessage]()
-        for message in unsentMessagesArray {
-            let timeInterval = message.sendDate.timeIntervalSince1970
-            
-            if self.currentPageIndex == kChatHistoryBeginPageIndex {
-                if timeInterval > minSendDate.timeIntervalSince1970 {
-                    unsentsChatTemp.append(message)
-                }
-            } else {
-                if timeInterval > minSendDate.timeIntervalSince1970 && timeInterval < maxSendDate.timeIntervalSince1970 {
-                    unsentsChatTemp.append(message)
-                }
-            }
-        }
-        return unsentsChatTemp
-    }
-    
-    private func sortMessagesArrayAccordingToSendDate() {
-        messageArray.sort{ $0.sendDate.timeIntervalSince1970 < $1.sendDate.timeIntervalSince1970 }
-    }
-    
-    // MARK: Resend messages
-    
-    private func addToUnsentMessagesArrayWithMessage(message: LINMessage) {
-        let index = getMessageInTempArrayWithMessageId(message.messageId)
-        if index >= 0 {
-            unsentMessagesArray.removeAtIndex(index)
-        }
-        
-        unsentMessagesArray.append(message)
-    }
-    
-    private func removeMessageFromUnsentMessagesArrayWithMessageId(messageId: String?) {
-        let index = getMessageInTempArrayWithMessageId(messageId)
-        if index >= 0 {
-            unsentMessagesArray.removeAtIndex(index)
-        }
-    }
-    
-    private func getMessageInTempArrayWithMessageId(messageId: String?) -> Int {
-        for (index, message) in enumerate(unsentMessagesArray) {
-            if message.messageId == messageId {
-                return index
-            }
-        }
-        
-        return -1
     }
     
     // MARK: Caching offline data
     
-    func cachingChatHistoryData() {
-        //Caching only first page (20 latest message)
-        let lastestMessages = self.getLastestMessages()
-        if lastestMessages != nil {
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { () -> Void in
-                let chatHistoryData = NSKeyedArchiver.archivedDataWithRootObject(lastestMessages!)
-                LINResourceHelper.cachingChatHistoryData(self.conversationId, data: chatHistoryData)
-            })
-        }
-    }
-    
     func loadingCachedChatHistory() {
-        let cachedData = LINResourceHelper.retrievingChatHistoryData(self.conversationId)
-        if cachedData != nil {
-            self.messageArray = NSKeyedUnarchiver.unarchiveObjectWithData(cachedData!) as [LINMessage]
-            self.dataSource!.items = self.messageArray
-            self.tableView.reloadData()
-        }
-    }
-    
-    func cachingUnsentChatData() {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { () -> Void in
-            let data = NSKeyedArchiver.archivedDataWithRootObject(self.unsentMessagesArray)
-            LINResourceHelper.cachingUnsentChatData(self.conversationId, data: data)
-        })
-    }
-    
-    func loadCachedUnsentChatData() {
-        let cachedData = LINResourceHelper.retrievingUnsentChatData(self.conversationId)
-        if cachedData != nil {
-            self.unsentMessagesArray = NSKeyedUnarchiver.unarchiveObjectWithData(cachedData!) as [LINMessage]
-            println("You have \(self.unsentMessagesArray.count) un-sent messages.")
-        }
-    }
+        chatHistoryHelper.loadCachedChatHistory()
+        self.dataSource!.items = chatHistoryHelper.messagesArray
+     }
 }
 
 // MARK: LINBubbleCellDelegate
@@ -652,7 +440,7 @@ extension LINChatController: LINBubbleCellDelegate {
     
     func bubbleCellDidStartPlayingRecord(bubbleCell: LINBubbleCell) {
         if let indexPath = tableView.indexPathForCell(bubbleCell) {
-            onPlayVoiceMessage = messageArray[indexPath.row]
+            onPlayVoiceMessage = chatHistoryHelper.messagesArray[indexPath.row]
             if let data = onPlayVoiceMessage!.content as? NSData {
                 LINAudioHelper.sharedInstance.stopPlaying()
                 LINAudioHelper.sharedInstance.playerDelegate = bubbleCell
@@ -671,13 +459,13 @@ extension LINChatController: LINBubbleCellDelegate {
             moveBubbleCellToBottomAtIndexPath(indexPath)
             
             // Try to resend this message
-            resendThisMessage(messageArray.last!)
+            resendThisMessage(chatHistoryHelper.messagesArray.last!)
         }
     }
     
     func bubbleCellDidOpenPhotoPreview(bubbleCell: LINBubbleCell) {
         if let indexPath = tableView.indexPathForCell(bubbleCell) {
-            let message = messageArray[indexPath.row]
+            let message = chatHistoryHelper.messagesArray[indexPath.row]
             if let photo = message.content as? UIImage {
                 let photoPreviewController = storyboard?.instantiateViewControllerWithIdentifier("kLINPhotoPreviewController") as LINPhotoPreviewController
                 photoPreviewController.photo = photo
@@ -690,7 +478,7 @@ extension LINChatController: LINBubbleCellDelegate {
     }
 }
 
-//MARK: LINComposeBarViewDelegate
+// MARK: LINComposeBarViewDelegate
 
 extension LINChatController: LINComposeBarViewDelegate {
     
@@ -727,14 +515,17 @@ extension LINChatController: LINComposeBarViewDelegate {
     }
         
     func composeBar(composeBar: LINComposeBarView, didUploadFile url: String, messageId: String) {
-        let message = getMessageById(messageId)
-        message?.url = url
-        
-        replyWithMessage(message!)
+        let messageTuple = chatHistoryHelper.getMessageById(messageId)
+        if messageTuple != nil {
+            let message = messageTuple!.message
+            message.url = url
+            
+            replyWithMessage(message)
+        }
     }
 
     func composeBar(composeBar: LINComposeBarView, didFailToUploadFile error: NSError?, messageId: String) {
-        updateMessageWithNewState(MessageState.UnSent, messageId: messageId)
+        updateMessageWithNewState(LINMessageState.UnSent, messageId: messageId)
     }
     
     func composeBar(composeBar: LINComposeBarView, didRecord data: NSData, messageId: String) {
@@ -782,7 +573,7 @@ extension LINChatController: PTPusherPresenceChannelDelegate {
         println("[pusher] Member left channel: \(member)")
         currentChatMode = LINChatMode.Offline
         
-        postMessagesToServer()
+        chatHistoryHelper.postMessagesToServer()
     }
 }
 

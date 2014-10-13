@@ -8,9 +8,9 @@
 
 import UIKit
 
-let kTextViewMaxContentHeight: CGFloat = 100
-let kTextViewPlaceHolderText = "Type a message..."
-let kTextViewOuterMargin: CGFloat = 15
+let kLINTextViewMaxContentHeight: CGFloat = 100
+let kLINTextViewPlaceHolderText = "Type a message..."
+let kLINTextViewOuterMargin: CGFloat = 15
 
 protocol LINComposeBarViewDelegate {
     func composeBar(composeBar: LINComposeBarView, sendMessage text: String)
@@ -66,7 +66,7 @@ class LINComposeBarView: UIView, LINEmoticonsViewDelegate, LINAudioHelperRecorde
         emoticonsTextStorage.addLayoutManager(textView.layoutManager)
         textView.layer.cornerRadius = 10
         textView.contentInset = UIEdgeInsetsMake(0, 0, 2, 0)
-        emoticonsTextStorage.addPlaceHolderForTextViewWithText(kTextViewPlaceHolderText)
+        emoticonsTextStorage.addPlaceHolderForTextViewWithText(kLINTextViewPlaceHolderText)
         let size = textView.sizeThatFits(CGSizeMake(textView.frame.size.width, CGFloat(MAXFLOAT)))
         currentContentHeight = size.height
         speakButton.exclusiveTouch = true
@@ -265,7 +265,7 @@ class LINComposeBarView: UIView, LINEmoticonsViewDelegate, LINAudioHelperRecorde
     
     func emoticonsView(emoticonsView: LINEmoticonsView, didSelectEmoticonAtIndex index: Int) {
         let selectedRange = textView.selectedRange
-        if index == kEmoticonsViewCancelButtonIndex {
+        if index == kLINEmoticonsViewCancelButtonIndex {
             if selectedRange.location >= 1 {
                 let removedRange = NSMakeRange(selectedRange.location - 1, 1)
                 textView.selectedRange = NSMakeRange(removedRange.location, 0)
@@ -273,7 +273,7 @@ class LINComposeBarView: UIView, LINEmoticonsViewDelegate, LINAudioHelperRecorde
             }
         } else {
             var row = index
-            if index < kEmoticonsViewCancelButtonIndex {
+            if index < kLINEmoticonsViewCancelButtonIndex {
                 row += 1
             }
             let tmpKey = LINParsingEmoticonsTextStorage.serchEmoticonKeyByName("emoticon_\(row)")
@@ -324,7 +324,7 @@ class LINComposeBarView: UIView, LINEmoticonsViewDelegate, LINAudioHelperRecorde
         voicePanelView.hidden = true
         moreButton.hidden = false
         moreButton.setImage(UIImage(named: "Icn_add"), forState: UIControlState.Normal)
-        emoticonsTextStorage.addPlaceHolderForTextViewWithText(kTextViewPlaceHolderText)
+        emoticonsTextStorage.addPlaceHolderForTextViewWithText(kLINTextViewPlaceHolderText)
     }
 
     // MAKR: UITextViewDelegate
@@ -342,14 +342,14 @@ class LINComposeBarView: UIView, LINEmoticonsViewDelegate, LINAudioHelperRecorde
     }
     
     func textViewDidBeginEditing(textView: UITextView) {
-        if emoticonsTextStorage.getOriginalText() == kTextViewPlaceHolderText {
+        if emoticonsTextStorage.getOriginalText() == kLINTextViewPlaceHolderText {
             clearTextView()
         }
     }
     
     func textViewDidEndEditing(textView: UITextView) {
         if emoticonsTextStorage.getOriginalText() == "" {
-            emoticonsTextStorage.addPlaceHolderForTextViewWithText(kTextViewPlaceHolderText)
+            emoticonsTextStorage.addPlaceHolderForTextViewWithText(kLINTextViewPlaceHolderText)
         }
     }
     
@@ -368,7 +368,7 @@ class LINComposeBarView: UIView, LINEmoticonsViewDelegate, LINAudioHelperRecorde
         
         scrollContentOfTextViewToCaret()
         
-        let newHeight = min(newSize.height,kTextViewMaxContentHeight) + kTextViewOuterMargin
+        let newHeight = min(newSize.height,kLINTextViewMaxContentHeight) + kLINTextViewOuterMargin
         delegate?.composeBar(self, willChangeHeight: newHeight)
     }
     

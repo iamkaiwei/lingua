@@ -9,35 +9,33 @@
 
 import Foundation
 
-let kDeviceTokenKey = "device_token"
+let kLINDeviceTokenKey = "device_token"
 
 // User
-let kUserIdKey = "user_id"
-let kFirstName = "first_name"
-let kAvatarURL = "avatar_url"
+let kLINUserIdKey = "user_id"
+let kLINFirstName = "first_name"
+let kLINAvatarURL = "avatar_url"
 
 // Message
-let kMessageTextKey = "text"
-let kMessageSendDateKey = "send_date"
-let kMessageTypeKey = "message_type"
+let kLINMessageTextKey = "text"
+let kLINMessageSendDateKey = "send_date"
+let kLINMessageTypeKey = "message_type"
 
 // Conversation
-let kConversationIdKey = "conversation_id"
+let kLINConversationIdKey = "conversation_id"
 
 // Notifications
-let kNotificationAppDidBecomActive = "kNotificationAppDidBecomActive"
-let kNotificationAppDidEnterBackground = "kNotificationAppDidEnterBackground"
-
-let kNotificationAppDidLostConnection = "kNotificationAppDidLostConnection"
-let kNotificationAppDidRestoreConnection      = "kNotificationAppDidRestoreConnection"
-
-let kNotificationShouldUpdateNewMessageCount = "kNotificationShouldUpdateNewMessageCount"
-let kNotificationAppReceivedNewMessage       = "kNotificationAppReceivedNewMessage"
-let kNotificationAppDidOpenChatViewFromHUD   = "kNotificationAppDidOpenChatViewFromHUD"
+let kLINNotificationAppDidBecomActive = "kNotificationAppDidBecomActive"
+let kLINNotificationAppDidEnterBackground = "kNotificationAppDidEnterBackground"
+let kLINNotificationAppDidLostConnection = "kNotificationAppDidLostConnection"
+let kLINNotificationAppDidRestoreConnection = "kNotificationAppDidRestoreConnection"
+let kLINNotificationShouldUpdateNewMessageCount = "kNotificationShouldUpdateNewMessageCount"
+let kLINNotificationAppReceivedNewMessage = "kNotificationAppReceivedNewMessage"
+let kLINNotificationAppDidOpenChatViewFromHUD = "kNotificationAppDidOpenChatViewFromHUD"
 
 // External resources
-let kCachedConversationDataFile = "conversations_data.lingua"
-let kLinguaResourceExtension = "lingua"
-let kUnsentChatPrefixName = "unsent_chat"
-let kAlertSoundFileName = "default"
-let kAlertSoundExtension = "m4r"
+let kLINCachedConversationDataFile = "conversations_data.lingua"
+let kLINLinguaResourceExtension = "lingua"
+let kLINUnsentChatPrefixName = "unsent_chat"
+let kLINAlertSoundFileName = "default"
+let kLINAlertSoundExtension = "m4r"

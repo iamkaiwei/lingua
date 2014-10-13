@@ -64,7 +64,7 @@ class LINAudioHelper: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
         recorder.delegate = self
         recorder.prepareToRecord()
         
-        let soundPath = NSBundle.mainBundle().pathForResource(kAlertSoundFileName, ofType: kAlertSoundExtension)
+        let soundPath = NSBundle.mainBundle().pathForResource(kLINAlertSoundFileName, ofType: kLINAlertSoundExtension)
         if soundPath != nil {
             AudioServicesCreateSystemSoundID(NSURL(fileURLWithPath: soundPath!) as CFURL, &messageAlertSoundID)
         }

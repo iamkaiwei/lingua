@@ -9,19 +9,18 @@
 import Foundation
 
 
-let kTextMessageMaxHeight: CGFloat = 9999
-let kPhotoMessageMaxHeight: CGFloat = 230
-let kVoiceMessageMaxHeight: CGFloat = 55
-let kTimeLabelMaxWidth: CGFloat = 100
-let kTimeLabelMaxHeight: CGFloat = 20
+let kLINTextMessageMaxHeight: CGFloat = 9999
+let kLINVoiceMessageMaxHeight: CGFloat = 55
+let kLINTimeLabelMaxWidth: CGFloat = 100
+let kLINTimeLabelMaxHeight: CGFloat = 20
 
-let kSideMargin: CGFloat = 10
-let kTextCellHeightPadding: CGFloat = 5
-let kPhotoCellHeightPadding: CGFloat = 30
+let kLINSideMargin: CGFloat = 10
+let kLINTextCellHeightPadding: CGFloat = 5
+let kLINPhotoCellHeightPadding: CGFloat = 30
 
 // Resend message
-let kResendButtonWidth: CGFloat = 20
-let kResendButtonHeight: CGFloat = 20
+let kLINResendButtonWidth: CGFloat = 20
+let kLINResendButtonHeight: CGFloat = 20
 
 protocol LINBubbleCellDelegate {
     func bubbleCellDidStartPlayingRecord(bubbleCell: LINBubbleCell)
@@ -120,7 +119,7 @@ class LINBubbleCell: UITableViewCell {
     private func configureWithTextMessage(message: LINMessage) {
         emoticonsTextStorage.setAttributedString(NSAttributedString(string: message.content as String))
         
-        let size = contentTextView.sizeThatFits(CGSize(width: LINBubbleCell.maxWidthOfMessage(), height: kTextMessageMaxHeight))
+        let size = contentTextView.sizeThatFits(CGSize(width: LINBubbleCell.maxWidthOfMessage(), height: kLINTextMessageMaxHeight))
         let insets = (message.incoming == false ? textInsetsMine : textInsetsSomeone)
         let offsetX = (message.incoming == true ? 0 : UIScreen.mainScreen().bounds.size.width - size.width - insets.left - insets.right)
         
@@ -177,21 +176,21 @@ class LINBubbleCell: UITableViewCell {
         }
 
         let voiceMessageMaxWidth = LINBubbleCell.maxWidthOfMessage()
-        let x = message.incoming == true ? kSideMargin : UIScreen.mainScreen().bounds.size.width - voiceMessageMaxWidth - kSideMargin/2
+        let x = message.incoming == true ? kLINSideMargin : UIScreen.mainScreen().bounds.size.width - voiceMessageMaxWidth - kLINSideMargin/2
         
         // Set up other UIs
-        playButton = UIButton(frame: CGRectMake(x, 5, kVoiceMessageMaxHeight, kVoiceMessageMaxHeight))
+        playButton = UIButton(frame: CGRectMake(x, 5, kLINVoiceMessageMaxHeight, kLINVoiceMessageMaxHeight))
         playButton?.setImage(UIImage(named: "PlayButton"), forState: .Normal)
         playButton?.setImage(UIImage(named: "PauseButton"), forState: .Selected)
         playButton?.addTarget(self, action: "toggleAudioButton:", forControlEvents: .TouchUpInside)
         addSubview(playButton!)
         
-        voiceProgressBar = UIProgressView(frame: CGRectMake(CGRectGetMaxX(playButton!.frame) - 7, kVoiceMessageMaxHeight/2 + kSideMargin - 7, voiceMessageMaxWidth - CGRectGetWidth(playButton!.frame)*2, 2))
+        voiceProgressBar = UIProgressView(frame: CGRectMake(CGRectGetMaxX(playButton!.frame) - 7, kLINVoiceMessageMaxHeight/2 + kLINSideMargin - 7, voiceMessageMaxWidth - CGRectGetWidth(playButton!.frame)*2, 2))
         voiceProgressBar?.progressTintColor = UIColor.appTealColor()
         voiceProgressBar?.trackTintColor = UIColor.lightGrayColor()
         addSubview(voiceProgressBar!)
         
-        durationLabel = UILabel(frame: CGRectMake(CGRectGetMaxX(voiceProgressBar!.frame) + kSideMargin, kVoiceMessageMaxHeight/2 - kSideMargin/2, 50, 20))
+        durationLabel = UILabel(frame: CGRectMake(CGRectGetMaxX(voiceProgressBar!.frame) + kLINSideMargin, kLINVoiceMessageMaxHeight/2 - kLINSideMargin/2, 50, 20))
         durationLabel?.font = UIFont.appLightFontWithSize(14)
         let simplified = Int(message.duration + 0.5)
         durationLabel?.text = String(format: "%02d:%02d", simplified/60, simplified%60)
@@ -199,7 +198,7 @@ class LINBubbleCell: UITableViewCell {
         addSubview(durationLabel!)
         
         // Bubble imageview
-        bubbleImageView.frame = CGRectMake(x, 0,  voiceMessageMaxWidth - 7,  kVoiceMessageMaxHeight - 5)
+        bubbleImageView.frame = CGRectMake(x, 0,  voiceMessageMaxWidth - 7,  kLINVoiceMessageMaxHeight - 5)
         addOtherViewsToBubbleCellWithMessage(message)
     }
     
@@ -241,9 +240,9 @@ class LINBubbleCell: UITableViewCell {
     private func addBubbleViewWithMessage(message: LINMessage) {
         var boxImgName: String?
         if message.incoming {
-            boxImgName = (message.state == MessageState.UnSent ? "box_resend_left" : "ChatBoxLeft")
+            boxImgName = (message.state == LINMessageState.UnSent ? "box_resend_left" : "ChatBoxLeft")
         } else {
-            boxImgName = (message.state == MessageState.UnSent ? "box_resend_right" : "ChatBoxRight")
+            boxImgName = (message.state == LINMessageState.UnSent ? "box_resend_right" : "ChatBoxRight")
         }
         
         bubbleImageView.image = UIImage(named: boxImgName!)
@@ -254,25 +253,25 @@ class LINBubbleCell: UITableViewCell {
         
         // Size for time value
         let bubbleViewFrame = bubbleImageView.frame
-        let delta: CGFloat = (message.state == MessageState.UnSent ? (resendButtonInsets.right + kResendButtonWidth) : 0)
-        let sizeTimeLabel = (timeValue as NSString).boundingRectWithSize(CGSizeMake(kTimeLabelMaxWidth, kTimeLabelMaxHeight), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: [NSFontAttributeName: createAtLabel.font], context: nil).size
+        let delta: CGFloat = (message.state == LINMessageState.UnSent ? (resendButtonInsets.right + kLINResendButtonWidth) : 0)
+        let sizeTimeLabel = (timeValue as NSString).boundingRectWithSize(CGSizeMake(kLINTimeLabelMaxWidth, kLINTimeLabelMaxHeight), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: [NSFontAttributeName: createAtLabel.font], context: nil).size
         
         // (x, y) for time label
         let offsetX = (message.incoming == true ? (bubbleViewFrame.origin.x + bubbleViewFrame.size.width + resendButtonInsets.right + delta) : (bubbleViewFrame.origin.x - (5 + sizeTimeLabel.width + delta)))
         let offsetY = bubbleViewFrame.origin.y + bubbleViewFrame.size.height / 2 - resendButtonInsets.right
         
-        createAtLabel.frame = CGRect(x: offsetX, y: offsetY, width: sizeTimeLabel.width, height: kTimeLabelMaxHeight)
+        createAtLabel.frame = CGRect(x: offsetX, y: offsetY, width: sizeTimeLabel.width, height: kLINTimeLabelMaxHeight)
         createAtLabel.text = timeValue
     }
     
     private func addResendButtonWithMessage(message: LINMessage) {
-        if message.state == MessageState.UnSent {
+        if message.state == LINMessageState.UnSent {
             let bubbleViewFrame = bubbleImageView.frame
-            let offsetX = (message.incoming == true ? (bubbleViewFrame.origin.x + bubbleViewFrame.size.width + resendButtonInsets.right) : (bubbleViewFrame.origin.x - (resendButtonInsets.right + kResendButtonWidth)))
+            let offsetX = (message.incoming == true ? (bubbleViewFrame.origin.x + bubbleViewFrame.size.width + resendButtonInsets.right) : (bubbleViewFrame.origin.x - (resendButtonInsets.right + kLINResendButtonWidth)))
             let offsetY = createAtLabel.frame.origin.y
             
             resendButton?.removeFromSuperview()
-            resendButton = UIButton(frame: CGRectMake(offsetX, offsetY, kResendButtonWidth, kResendButtonHeight))
+            resendButton = UIButton(frame: CGRectMake(offsetX, offsetY, kLINResendButtonWidth, kLINResendButtonHeight))
             resendButton?.setImage(UIImage(named: "icn_resend"), forState: .Normal)
             resendButton?.addTarget(self, action: "resendButtonTouched:", forControlEvents: .TouchUpInside)
             addSubview(resendButton!)
@@ -280,7 +279,7 @@ class LINBubbleCell: UITableViewCell {
     }
     
     private func addOverlayViewWithMessage(message: LINMessage) {
-        if message.state == MessageState.Submitted {
+        if message.state == LINMessageState.Submitted {
             var overlayImgName: String?
             if message.incoming {
                 overlayImgName = "Box_chat_left_opacity"
