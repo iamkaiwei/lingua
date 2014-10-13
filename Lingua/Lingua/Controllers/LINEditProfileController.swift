@@ -29,6 +29,7 @@ class LINEditProfileController: LINViewController, UIAlertViewDelegate, UIAction
     
     private var me: LINUser?
     private var newPicture: UIImage?
+    private var isNewProfilePictureReady = false
     private var newAboutMe: String?
     private var newNativeLanguage: LINLanguage?
     private var newLearningLanguage: LINLanguage?
@@ -102,6 +103,13 @@ class LINEditProfileController: LINViewController, UIAlertViewDelegate, UIAction
     }
     
     func updateCurrentUser() {
+        
+        if newPicture != nil && !isNewProfilePictureReady {
+            prepareProfilePictureURL()
+            return
+        }
+        isNewProfilePictureReady  = false
+        
         me?.firstName = firstName.text
         me?.lastName = lastName.text
         me?.gender = gender.text!
@@ -134,6 +142,21 @@ class LINEditProfileController: LINViewController, UIAlertViewDelegate, UIAction
             failture: { error in
                 println(error)
                 SVProgressHUD.showErrorWithStatus("Updated unsuccessfully, please try again")
+        })
+    }
+    
+    func prepareProfilePictureURL() {
+        let data = UIImageJPEGRepresentation(newPicture?.LINprofileResizeImage(), 1)
+        SVProgressHUD.showWithStatus("Updating..")
+        LINNetworkClient.sharedInstance.uploadFile(data, fileType: .Image, completion: { (fileURL, error) -> Void in
+            if error != nil {
+                SVProgressHUD.showErrorWithStatus("Updated unsuccessfully, please try again")
+            }
+            else if let tmpFileURL = fileURL {
+                self.me?.avatarURL = tmpFileURL
+                self.isNewProfilePictureReady = true
+                self.updateCurrentUser()
+            }
         })
     }
     
