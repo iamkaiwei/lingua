@@ -50,6 +50,8 @@
 		920A9C09199CAA3900940693 /* LINPhotoPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 920A9C08199CAA3900940693 /* LINPhotoPreviewController.swift */; };
 		9214F01219DE8FFC00F786E4 /* LINPopPresentAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214F01019DE8FFC00F786E4 /* LINPopPresentAnimationController.swift */; };
 		9214F01319DE8FFC00F786E4 /* LINShrinkDismissAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214F01119DE8FFC00F786E4 /* LINShrinkDismissAnimationController.swift */; };
+		92197BE319E683F500A6FC06 /* LINRemoteNotificationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92197BE219E683F500A6FC06 /* LINRemoteNotificationHelper.swift */; };
+		92197BE619E6A58500A6FC06 /* LINPusherChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92197BE519E6A58500A6FC06 /* LINPusherChannel.swift */; };
 		9222F8C019972AE6005420EC /* LINEmoticonsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9222F8BF19972AE6005420EC /* LINEmoticonsView.xib */; };
 		9222F8C219972EA6005420EC /* LINEmoticonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9222F8C119972EA6005420EC /* LINEmoticonsView.swift */; };
 		9222F8C41997782D005420EC /* LINEmoticonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9222F8C31997782D005420EC /* LINEmoticonCell.swift */; };
@@ -64,6 +66,7 @@
 		925E002A19740C06001D75D4 /* LINChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925E002919740C06001D75D4 /* LINChatController.swift */; };
 		9265867B19B5784E00D89288 /* NSURL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9265867A19B5784E00D89288 /* NSURL+Extensions.swift */; };
 		9265867D19B57D6400D89288 /* CGSize+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9265867C19B57D6400D89288 /* CGSize+Extensions.swift */; };
+		9267DE5719E7A19400388C3F /* LINUnsentChatHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9267DE5619E7A19400388C3F /* LINUnsentChatHelper.swift */; };
 		9268B6BE1984E4B400D526AA /* LINArrayDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9268B6BD1984E4B400D526AA /* LINArrayDataSource.swift */; };
 		9268B6C01984E73300D526AA /* LINNetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9268B6BF1984E73300D526AA /* LINNetworkClient.swift */; };
 		9268B6C21984EFFF00D526AA /* LINAccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9268B6C11984EFFF00D526AA /* LINAccessToken.swift */; };
@@ -74,6 +77,7 @@
 		9286009519E1BA82000F5A15 /* LINRoundedCornerImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286009419E1BA82000F5A15 /* LINRoundedCornerImageView.swift */; };
 		92894CAF1996156D00824A3B /* LINConversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92894CAE1996156D00824A3B /* LINConversation.swift */; };
 		929824EC199B7BB300C56819 /* LINFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929824EB199B7BB300C56819 /* LINFile.swift */; };
+		92BB810619E678AD0082322A /* LINChatHistoryHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BB810519E678AD0082322A /* LINChatHistoryHelper.swift */; };
 		92BC4B3419A58CB40046DED6 /* Emoticons.plist in Resources */ = {isa = PBXBuildFile; fileRef = 92BC4B3319A58CB40046DED6 /* Emoticons.plist */; };
 		92BC4B3719A58D100046DED6 /* LINParsingEmoticonsTextStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BC4B3619A58D100046DED6 /* LINParsingEmoticonsTextStorage.swift */; };
 		92C2A4AC1982146500ABF826 /* LINFacebookManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C2A4AB1982146500ABF826 /* LINFacebookManager.swift */; };
@@ -193,6 +197,8 @@
 		920A9C08199CAA3900940693 /* LINPhotoPreviewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINPhotoPreviewController.swift; sourceTree = "<group>"; };
 		9214F01019DE8FFC00F786E4 /* LINPopPresentAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINPopPresentAnimationController.swift; sourceTree = "<group>"; };
 		9214F01119DE8FFC00F786E4 /* LINShrinkDismissAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINShrinkDismissAnimationController.swift; sourceTree = "<group>"; };
+		92197BE219E683F500A6FC06 /* LINRemoteNotificationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINRemoteNotificationHelper.swift; sourceTree = "<group>"; };
+		92197BE519E6A58500A6FC06 /* LINPusherChannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINPusherChannel.swift; sourceTree = "<group>"; };
 		9222F8BF19972AE6005420EC /* LINEmoticonsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LINEmoticonsView.xib; sourceTree = "<group>"; };
 		9222F8C119972EA6005420EC /* LINEmoticonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINEmoticonsView.swift; sourceTree = "<group>"; };
 		9222F8C31997782D005420EC /* LINEmoticonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINEmoticonCell.swift; sourceTree = "<group>"; };
@@ -208,6 +214,7 @@
 		9265867A19B5784E00D89288 /* NSURL+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURL+Extensions.swift"; sourceTree = "<group>"; };
 		9265867C19B57D6400D89288 /* CGSize+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGSize+Extensions.swift"; sourceTree = "<group>"; };
 		9267833919655D4500F19DB4 /* LINUserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINUserManager.swift; sourceTree = "<group>"; };
+		9267DE5619E7A19400388C3F /* LINUnsentChatHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINUnsentChatHelper.swift; sourceTree = "<group>"; };
 		9268B6BD1984E4B400D526AA /* LINArrayDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINArrayDataSource.swift; sourceTree = "<group>"; };
 		9268B6BF1984E73300D526AA /* LINNetworkClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINNetworkClient.swift; sourceTree = "<group>"; };
 		9268B6C11984EFFF00D526AA /* LINAccessToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINAccessToken.swift; sourceTree = "<group>"; };
@@ -220,6 +227,7 @@
 		929824EB199B7BB300C56819 /* LINFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINFile.swift; sourceTree = "<group>"; };
 		929C45B119C0442900FEAEF7 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		929F38AB196C7C0F009A7E6A /* libPods-libPusher.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-libPusher.a"; path = "Pods/build/Debug-iphoneos/libPods-libPusher.a"; sourceTree = "<group>"; };
+		92BB810519E678AD0082322A /* LINChatHistoryHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINChatHistoryHelper.swift; sourceTree = "<group>"; };
 		92BC4B3319A58CB40046DED6 /* Emoticons.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Emoticons.plist; sourceTree = "<group>"; };
 		92BC4B3619A58D100046DED6 /* LINParsingEmoticonsTextStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINParsingEmoticonsTextStorage.swift; sourceTree = "<group>"; };
 		92C2A4AB1982146500ABF826 /* LINFacebookManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINFacebookManager.swift; sourceTree = "<group>"; };
@@ -456,6 +464,7 @@
 		9224D47F197FB81200BE9EE4 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				92BB810019E648AB0082322A /* Chat */,
 				92BC4B3519A58D100046DED6 /* Emoticons */,
 				9268B6BB1984E49F00D526AA /* Clients */,
 				9236A69C197FD5E100210EBE /* Utils */,
@@ -535,6 +544,17 @@
 				92781D46199FBF0B00FAAFBB /* LINReply.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		92BB810019E648AB0082322A /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				92BB810519E678AD0082322A /* LINChatHistoryHelper.swift */,
+				92197BE219E683F500A6FC06 /* LINRemoteNotificationHelper.swift */,
+				92197BE519E6A58500A6FC06 /* LINPusherChannel.swift */,
+				9267DE5619E7A19400388C3F /* LINUnsentChatHelper.swift */,
+			);
+			path = Chat;
 			sourceTree = "<group>";
 		};
 		92BC4B3519A58D100046DED6 /* Emoticons */ = {
@@ -739,6 +759,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				97CCA2E019A32E0D00455D1D /* LINTopNavigationView.swift in Sources */,
+				92197BE619E6A58500A6FC06 /* LINPusherChannel.swift in Sources */,
 				201F2B3D195AF1E100E0C17A /* UIColor+Extensions.swift in Sources */,
 				20C7BB44197C491300E4D9FE /* LINIntroductionView.swift in Sources */,
 				920A9C09199CAA3900940693 /* LINPhotoPreviewController.swift in Sources */,
@@ -755,6 +776,7 @@
 				20BFCCEB1956E1C400A86C2E /* LINPickLearningLanguageController.swift in Sources */,
 				9268B6BE1984E4B400D526AA /* LINArrayDataSource.swift in Sources */,
 				20DC6564197BEA4F008DA659 /* LINBubbleCell.swift in Sources */,
+				92197BE319E683F500A6FC06 /* LINRemoteNotificationHelper.swift in Sources */,
 				926B2859198647380089DDAA /* LINStorageHelper.swift in Sources */,
 				20BF3FA91957EAAA00963B1F /* LINMyProfileController.swift in Sources */,
 				92F0BF401993417400608803 /* LINMessageView.swift in Sources */,
@@ -791,6 +813,7 @@
 				9268B6C01984E73300D526AA /* LINNetworkClient.swift in Sources */,
 				20CDFA6E19D17B7A00EBB755 /* LINProficiencyController.swift in Sources */,
 				9222F8C219972EA6005420EC /* LINEmoticonsView.swift in Sources */,
+				92BB810619E678AD0082322A /* LINChatHistoryHelper.swift in Sources */,
 				2043DFD7196550F8005905B9 /* LINViewController.swift in Sources */,
 				2078D969196C1769009BF095 /* LINUserManager.swift in Sources */,
 				9268DFBB1969CEFC00C89603 /* LINUser.swift in Sources */,
@@ -798,6 +821,7 @@
 				9265867D19B57D6400D89288 /* CGSize+Extensions.swift in Sources */,
 				20502E1219A518C90051410E /* LINAudioHelper.swift in Sources */,
 				20D484A61956D35D007B4E96 /* LINOnboardingController.swift in Sources */,
+				9267DE5719E7A19400388C3F /* LINUnsentChatHelper.swift in Sources */,
 				201323A619683F70004B884D /* LINLoadingView.swift in Sources */,
 				92E9456B19E3920E0035CB53 /* PTPusherEvent+Extensions.swift in Sources */,
 				92313496197E5B08003BD927 /* LINMessage.swift in Sources */,
