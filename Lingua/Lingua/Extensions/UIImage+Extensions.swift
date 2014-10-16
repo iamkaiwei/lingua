@@ -36,4 +36,49 @@ extension UIImage {
         
         return newImage
     }
+    
+    func LINprofileResizeImage() -> UIImage {
+        let w = self.size.width
+        let h = self.size.height
+        
+        let imageRef = self.CGImage
+        var width, height: CGFloat
+        let destWidth: CGFloat = 200.0
+        let destHeight: CGFloat = 200.0
+        
+        if w > h {
+            width = destWidth
+            height = h*destWidth/w
+        }
+        else {
+            height = destHeight;
+            width = w*destHeight/h
+        }
+        
+        let colorSpace:CGColorSpace = CGColorSpaceCreateDeviceRGB()
+        let bitmapInfo = CGBitmapInfo.fromRaw(CGImageAlphaInfo.PremultipliedLast.toRaw())!
+        let bitmap = CGBitmapContextCreate(nil, UInt(width), UInt(height), 8, 4 * UInt(width), colorSpace, bitmapInfo)
+        
+        if self.imageOrientation == .Left {
+            CGContextRotateCTM (bitmap, CGFloat(M_PI)/2)
+            CGContextTranslateCTM (bitmap, 0, -height)
+        }
+        else if self.imageOrientation == .Right {
+            CGContextRotateCTM (bitmap, CGFloat(-M_PI)/2)
+            CGContextTranslateCTM (bitmap, -width, 0)
+        }
+        else if self.imageOrientation == .Up {
+            
+        }
+        else if self.imageOrientation == .Down {
+            CGContextTranslateCTM (bitmap, width,height)
+            CGContextRotateCTM (bitmap, CGFloat(-M_PI))
+        }
+        
+        CGContextDrawImage(bitmap, CGRectMake(0, 0, width, height), imageRef)
+        let ref = CGBitmapContextCreateImage(bitmap)
+        let result = UIImage(CGImage: ref)
+        
+        return result
+    }
 }

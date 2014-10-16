@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14A386a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14A388a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
@@ -1341,6 +1341,9 @@
                                     <constraint firstItem="IfT-nz-XQ6" firstAttribute="top" secondItem="hOi-3I-uz0" secondAttribute="top" id="b87-Fd-odx"/>
                                     <constraint firstAttribute="bottom" secondItem="IfT-nz-XQ6" secondAttribute="bottom" id="dTQ-zY-iNJ"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="4q9-vU-YM0" id="pVc-Jp-6em"/>
+                                </connections>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" red="0.89403235910000001" green="0.89417922500000002" blue="0.89400106670000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

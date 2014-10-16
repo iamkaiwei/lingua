@@ -204,7 +204,8 @@ extension LINNetworkClient {
                             
             if let currentUser = LINUserManager.sharedInstance.currentUser {
                 path = "\(path)/\(currentUser.userId)"
-                parameters = ["firstname": currentUser.firstName,
+                parameters = ["avatar_url": currentUser.avatarURL,
+                              "firstname": currentUser.firstName,
                               "lastname": currentUser.lastName,
                               "gender": currentUser.gender,
                               "learn_language_id": currentUser.learningLanguage!.languageID,
