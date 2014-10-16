@@ -1,26 +1,26 @@
 PODS:
-  - AFNetworking (2.3.1):
+  - AFNetworking (2.4.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
     - AFNetworking/UIKit
-  - AFNetworking/NSURLConnection (2.3.1):
+  - AFNetworking/NSURLConnection (2.4.1):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.3.1):
+  - AFNetworking/NSURLSession (2.4.1):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.3.1)
-  - AFNetworking/Security (2.3.1)
-  - AFNetworking/Serialization (2.3.1)
-  - AFNetworking/UIKit (2.3.1):
+  - AFNetworking/Reachability (2.4.1)
+  - AFNetworking/Security (2.4.1)
+  - AFNetworking/Serialization (2.4.1)
+  - AFNetworking/UIKit (2.4.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - Bolts (1.1.2)
+  - Bolts (1.1.3)
   - Facebook-iOS-SDK (3.16.0):
     - Bolts
   - google-plus-ios-sdk (1.5.1)
@@ -29,9 +29,9 @@ PODS:
     - libPusher/Core
   - libPusher/Core (1.5):
     - SocketRocket (= 0.3.1-beta2)
-  - Mantle (1.5):
+  - Mantle (1.5.1):
     - Mantle/extobjc
-  - Mantle/extobjc (1.5)
+  - Mantle/extobjc (1.5.1)
   - MMDrawerController (0.5.6):
     - MMDrawerController/Core
     - MMDrawerController/MMDrawerBarButtonItem
@@ -87,13 +87,13 @@ EXTERNAL SOURCES:
     :git: https://github.com/untouchable741/UIView-MGBadgeView.git
 
 SPEC CHECKSUMS:
-  AFNetworking: 6d7b76aa5d04c8c37daad3eef4b7e3f2a7620da3
-  Bolts: 2635e8698a630774689441047f3465d78c48d485
+  AFNetworking: 0aabc6fae66d6e5d039eeb21c315843c7aae51ab
+  Bolts: 3db0a875235e0c9042b013af13af0f00f79b102c
   Facebook-iOS-SDK: 56046bfc288be00c593e884bd2dc7639627f65f2
   google-plus-ios-sdk: 98d76ce1f1edbfe8730628aafe017301a734042c
   HexColors: 01384d2bbe8dc4ffa43c3b4135db6e976952d153
   libPusher: 583326327a72ab7cd0f38692f61f9061cf4be3d9
-  Mantle: c67a7e45e14196ed42b2a7cbb98ff6a9920e6b92
+  Mantle: d7c5ac734579ec751c58fecbf56189853056c58c
   MMDrawerController: 4bae84535ca7a5f4cb55a66a001e6035c3571677
   Overcoat: a9504cd1f0389641526ba1784592503c012c4b5f
   Parse-iOS-SDK: 5e1f7e649a02f1cc19e73cc95bd43d7778848314
@@ -105,4 +105,4 @@ SPEC CHECKSUMS:
   TSMessages: 2999ef55e532378692e9d14d32da2bb60e285129
   UIView+MGBadgeView: 08e881f428d75ef3d4f51bbdb506383059964dd5
 
-COCOAPODS: 0.33.1
+COCOAPODS: 0.34.2
