@@ -12,7 +12,7 @@ protocol LINEditProfileControllerDelegate {
     func didUpdateUser()
 }
 
-class LINEditProfileController: LINViewController, UIAlertViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, LINAboutMeControllerDelegate, LINLanguagePickerControllerDelegate, LINProficiencyControllerDelegate {
+class LINEditProfileController: LINViewController, UIScrollViewDelegate, UIAlertViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, LINAboutMeControllerDelegate, LINLanguagePickerControllerDelegate, LINProficiencyControllerDelegate {
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var avatar: UIImageView!
@@ -163,7 +163,7 @@ class LINEditProfileController: LINViewController, UIAlertViewDelegate, UIAction
     @IBAction func aboutYou(sender: UITapGestureRecognizer) {
         let aboutMeVC = storyboard!.instantiateViewControllerWithIdentifier("kLINAboutMeController") as LINAboutMeController
         aboutMeVC.delegate = self
-        aboutMeVC.aboutMe = me?.introduction ?? ""
+        aboutMeVC.aboutMe = newAboutMe ?? me?.introduction ?? ""
         navigationController?.pushViewController(aboutMeVC, animated: true)
     }
     
@@ -208,6 +208,15 @@ class LINEditProfileController: LINViewController, UIAlertViewDelegate, UIAction
     
     @IBAction func changeProfilePicture(sender: UITapGestureRecognizer) {
         UIActionSheet(title: "Do you want to change your profile picture?", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil, otherButtonTitles: "Choose from library", "Take photo").showInView(self.view)
+    }
+    
+    //MARK: UIScrollViewDelegate
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        for textField in [firstName, lastName] {
+            if textField.isFirstResponder() {
+                textField.resignFirstResponder()
+            }
+        }
     }
     
     //MARK: UIAlertViewDelegate
