@@ -25,7 +25,9 @@ class LINLoginView: UIView {
     
     init(_ frame: CGRect) {
         super.init(frame: frame)
-        addSubview(UINib(nibName: "LINLoginView", bundle: nil).instantiateWithOwner(self, options: nil)[0] as UIView)
+        var contentView = UINib(nibName: "LINLoginView", bundle: nil).instantiateWithOwner(self, options: nil)[0] as UIView
+        contentView.frame = frame
+        addSubview(contentView)
     }
     
     // MARK: Actions

@@ -29,18 +29,21 @@ class LINOnboardingController: LINViewController, LINFacebookManagerDelegate {
     
     func prepareOnboarding() {
         var frame = view.frame
-        for index in 0...2 {
+        var pageView: UIView
+        for index in 0...3 {
             frame.origin.x = CGRectGetWidth(frame) * CGFloat(index)
-            let pageView = UIImageView(image: UIImage(named: "Onboarding\(index)"))
+            if index < 3 {
+                pageView = UIImageView(image: UIImage(named: "Onboarding\(index)"))
+            }
+            else {
+                pageView = LINLoginView(view.frame)
+                let castPageView = pageView as LINLoginView
+                castPageView.delegate = self
+            }
             pageView.frame = frame
             onboardingView.addSubview(pageView)
         }
         
-        // Login page
-        frame.origin.x += CGRectGetWidth(frame)
-        let loginView = LINLoginView(frame);
-        loginView.delegate = self
-        onboardingView.addSubview(loginView)
         onboardingView.contentSize = CGSizeMake(CGRectGetMaxX(frame), CGRectGetHeight(frame))
     }
     
