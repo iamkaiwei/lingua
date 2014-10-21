@@ -23,7 +23,7 @@ class LINRemoteNotificationHelper {
                       kLINFirstName: currentUser.firstName,
                       kLINAvatarURL: currentUser.avatarURL,
                       kLINMessageSendDateKey: message.sendDate,
-                      kLINMessageTypeKey: message.type.toRaw(),
+                      kLINMessageTypeKey: message.type.rawValue,
                       kLINConversationIdKey: conversationId])
         push.setQuery(pushQuery)
         

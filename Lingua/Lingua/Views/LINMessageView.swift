@@ -60,7 +60,7 @@ class LINMessageView: UIView {
         self.conversationId = conversationId
         nameLabel.text = name
         
-        let messageType = LINMessageType.fromRaw(type)
+        let messageType = LINMessageType(rawValue: type)
         textLabel.text = messageType?.getSubtitleWithText(text)
         
         avatarImageView.sd_setImageWithURL(NSURL(string: avatarURL),

@@ -75,7 +75,7 @@ class LINComposeBarView: UIView, LINEmoticonsViewDelegate, LINAudioHelperRecorde
         self.textView.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.New, context: nil)
     }
 
-    override func observeValueForKeyPath(keyPath: String!, ofObject object: AnyObject!, change: [NSObject : AnyObject]!, context: UnsafeMutablePointer<Void>) {
+    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
         if keyPath == "contentSize" {
             adjustTextViewFrameWithText("")
         }
@@ -291,7 +291,7 @@ class LINComposeBarView: UIView, LINEmoticonsViewDelegate, LINAudioHelperRecorde
         resetStateForNextRecord()
         
         // Generate a message id
-        let messageId = NSUUID.UUID().UUIDString
+        let messageId = NSUUID().UUIDString
 
         delegate?.composeBar(self, didRecord: voice, messageId: messageId)
         

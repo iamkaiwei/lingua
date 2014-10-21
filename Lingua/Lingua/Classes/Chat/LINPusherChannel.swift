@@ -32,7 +32,7 @@ class LINPusherChannel {
     func receivedMessage(#completion: (message: LINMessage) -> Void) {
         presenceChannel?.bindToEventNamed(kPusherEventNameNewMessage, handleWithBlock: { channelEvent in
             let replyData = channelEvent.getReplyData()
-            let type = LINMessageType.fromRaw(replyData.type)
+            let type = LINMessageType(rawValue: replyData.type)
             
             let aMessage = LINMessage(incoming: true, sendDate: replyData.sendDate, content: replyData.text, type: type!)
             aMessage.state = LINMessageState.Sent
@@ -48,7 +48,7 @@ class LINPusherChannel {
                                                   kLINAvatarURL: currentUser.avatarURL,
                                                   kLINMessageTextKey: text,
                                                   kLINMessageSendDateKey: sendDate,
-                                                  kLINMessageTypeKey: messageType.toRaw()
+                                                  kLINMessageTypeKey: messageType.rawValue
                                            ])
     }
     

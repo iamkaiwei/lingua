@@ -30,7 +30,7 @@ class LINEmoticonCell: UICollectionViewCell {
     
     func configureAtIndexPath(indexPath: NSIndexPath) {
         if indexPath.row == kLINEmoticonsViewCancelButtonIndex {
-            let cancelImage = UIImage(named: "icn_cancel")
+            let cancelImage = UIImage(named: "icn_cancel")!
             cancelImgView.image = cancelImage
             cancelImgView.frame = CGRectMake(CGRectGetWidth(bounds)/2 - 13,
                                              CGRectGetHeight(bounds)/2 - cancelImage.size.height/2,

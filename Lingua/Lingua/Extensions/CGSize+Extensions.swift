@@ -10,7 +10,7 @@ import Foundation
 
 extension CGSize {
     static func getSizeFromImageURL(imageURL: String) -> CGSize {
-        let dict = NSURL(string: imageURL).queryParameters()
+        let dict = NSURL(string: imageURL)!.queryParameters()
         let width = dict["width" as NSString]?.doubleValue
         let height = dict["height" as NSString]?.doubleValue
         return CGSize(width: width!, height: height!)

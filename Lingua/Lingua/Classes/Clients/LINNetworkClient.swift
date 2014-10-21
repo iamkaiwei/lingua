@@ -80,17 +80,18 @@ class LINNetworkClient: OVCHTTPSessionManager {
 
     // MARK: OVCHTTPSessionManager
     
-    override class func modelClassesByResourcePath() -> [NSObject : AnyObject]! {
-        return [kLINGetAccessTokenPath: LINAccessToken.self,
-                "\(kLINAPIPath)" + "\(kLINGetCurrentUserPath)": LINUser.self,
-                "\(kLINAPIPath)" + "\(kLINUsersPath)": LINUser.self,
-                "\(kLINAPIPath)" + "\(kLINMatchUser)": LINUser.self,
-                "\(kLINAPIPath)" + "\(kLINLanguagePath)": LINLanguage.self,
-                "\(kLINAPIPath)" + "\(kLINConversationsPath)": LINConversation.self,
-                "\(kLINAPIPath)" + "\(kLINUploadPath)": LINFile.self,
-                "\(kLINAPIPath)" + "\(kLINMessagesPath)": LINReply.self
-        ]
-    }
+    // TODOME: Expression was too complex
+//    override class func modelClassesByResourcePath() -> [NSObject : AnyObject]! {
+//        return [kLINGetAccessTokenPath: LINAccessToken.self,
+//                "\(kLINAPIPath)" + "\(kLINGetCurrentUserPath)": LINUser.self,
+//                "\(kLINAPIPath)" + "\(kLINUsersPath)": LINUser.self,
+//                "\(kLINAPIPath)" + "\(kLINMatchUser)": LINUser.self,
+//                "\(kLINAPIPath)" + "\(kLINLanguagePath)": LINLanguage.self,
+//                "\(kLINAPIPath)" + "\(kLINConversationsPath)": LINConversation.self,
+//                "\(kLINAPIPath)" + "\(kLINUploadPath)": LINFile.self,
+//                "\(kLINAPIPath)" + "\(kLINMessagesPath)": LINReply.self
+//        ]
+//    }
     
     // MARK: Shared
     
@@ -464,7 +465,7 @@ extension LINNetworkClient {
     }
 
     func downloadFile(url: String, completion: (data: NSData?, error: NSError?) -> Void) {
-        let operation = AFHTTPRequestOperation(request: NSURLRequest(URL: NSURL(string: url)))
+        let operation = AFHTTPRequestOperation(request: NSURLRequest(URL: NSURL(string: url)!))
         operation.setCompletionBlockWithSuccess({ (operation, data) in
             if let tmpData = data as? NSData {
                 completion(data: tmpData, error: nil)
