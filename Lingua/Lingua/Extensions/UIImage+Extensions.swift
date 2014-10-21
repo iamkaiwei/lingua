@@ -56,7 +56,7 @@ extension UIImage {
         }
         
         let colorSpace:CGColorSpace = CGColorSpaceCreateDeviceRGB()
-        let bitmapInfo = CGBitmapInfo.fromRaw(CGImageAlphaInfo.PremultipliedLast.toRaw())!
+        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.PremultipliedLast.rawValue)
         let bitmap = CGBitmapContextCreate(nil, UInt(width), UInt(height), 8, 4 * UInt(width), colorSpace, bitmapInfo)
         
         if self.imageOrientation == .Left {
@@ -77,7 +77,7 @@ extension UIImage {
         
         CGContextDrawImage(bitmap, CGRectMake(0, 0, width, height), imageRef)
         let ref = CGBitmapContextCreateImage(bitmap)
-        let result = UIImage(CGImage: ref)
+        let result = UIImage(CGImage: ref)!
         
         return result
     }

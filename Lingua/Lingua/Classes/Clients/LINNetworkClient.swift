@@ -80,18 +80,17 @@ class LINNetworkClient: OVCHTTPSessionManager {
 
     // MARK: OVCHTTPSessionManager
     
-    // TODOME: Expression was too complex
-//    override class func modelClassesByResourcePath() -> [NSObject : AnyObject]! {
-//        return [kLINGetAccessTokenPath: LINAccessToken.self,
-//                "\(kLINAPIPath)" + "\(kLINGetCurrentUserPath)": LINUser.self,
-//                "\(kLINAPIPath)" + "\(kLINUsersPath)": LINUser.self,
-//                "\(kLINAPIPath)" + "\(kLINMatchUser)": LINUser.self,
-//                "\(kLINAPIPath)" + "\(kLINLanguagePath)": LINLanguage.self,
-//                "\(kLINAPIPath)" + "\(kLINConversationsPath)": LINConversation.self,
-//                "\(kLINAPIPath)" + "\(kLINUploadPath)": LINFile.self,
-//                "\(kLINAPIPath)" + "\(kLINMessagesPath)": LINReply.self
-//        ]
-//    }
+    override class func modelClassesByResourcePath() -> [NSObject : AnyObject]! {
+        return [kLINGetAccessTokenPath: LINAccessToken.self,
+                "\(kLINAPIPath)\(kLINGetCurrentUserPath)": LINUser.self,
+                "\(kLINAPIPath)\(kLINUsersPath)": LINUser.self,
+                "\(kLINAPIPath)\(kLINMatchUser)": LINUser.self,
+                "\(kLINAPIPath)\(kLINLanguagePath)": LINLanguage.self,
+                "\(kLINAPIPath)\(kLINConversationsPath)": LINConversation.self,
+                "\(kLINAPIPath)\(kLINUploadPath)": LINFile.self,
+                "\(kLINAPIPath)\(kLINMessagesPath)": LINReply.self
+        ]
+    }
     
     // MARK: Shared
     

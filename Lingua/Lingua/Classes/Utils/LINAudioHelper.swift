@@ -60,24 +60,24 @@ class LINAudioHelper: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
             println(error)
         }
         
-        player = AVAudioPlayer(data: nil, error: nil)
+        //New change to xcode 6.1, AVAudioPlayer have to initialized with non-nil data.
+        let soundPath = NSBundle.mainBundle().pathForResource(kLINAlertSoundFileName, ofType: kLINAlertSoundExtension)
+        player = AVAudioPlayer(data: NSData(contentsOfFile: soundPath!)!, error: nil)
         
         super.init()
-        
+
         recorder.meteringEnabled = true
         recorder.delegate = self
         recorder.prepareToRecord()
-        
-        let soundPath = NSBundle.mainBundle().pathForResource(kLINAlertSoundFileName, ofType: kLINAlertSoundExtension)
-        if soundPath != nil {
-            AudioServicesCreateSystemSoundID(NSURL(fileURLWithPath: soundPath!) as CFURL, &messageAlertSoundID)
-        }
     }
     
     // MARK: Playing Alert sound system
     
     func playAlertSound(){
-        AudioServicesPlaySystemSound(messageAlertSoundID)
+        let tempSoundPath = NSBundle.mainBundle().pathForResource(kLINAlertSoundFileName, ofType: kLINAlertSoundExtension)
+        if let soundPath = tempSoundPath {
+            startPlaying(NSData(contentsOfFile: soundPath)!)
+        }
     }
 
     // MARK: Recording

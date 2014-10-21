@@ -140,7 +140,7 @@ class LINBubbleCell: UITableViewCell {
             
             // Resize place holder image
             let newSize = CGSize.getSizeFromImageURL(message.url! as String).scaledSize()
-            message.content = placeholderImage.resizableImageWithNewSize(newSize)
+            message.content = placeholderImage!.resizableImageWithNewSize(newSize)
             addPhotoToBubbleCellWithMessage(message)
 
             // Add photo to cell by image URL

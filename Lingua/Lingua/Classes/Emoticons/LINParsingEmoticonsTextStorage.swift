@@ -127,7 +127,7 @@ class LINParsingEmoticonsTextStorage: NSTextStorage {
         if Static.expression == nil {
             let dict = LINParsingEmoticonsTextStorage.getMappingDict()
             let regex = dict["regex"] as String
-            Static.expression = NSRegularExpression.regularExpressionWithPattern(regex, options: NSRegularExpressionOptions.CaseInsensitive, error: nil)
+            Static.expression = NSRegularExpression(pattern: regex, options: NSRegularExpressionOptions.CaseInsensitive, error: nil)
         }
         return Static.expression!
     }
