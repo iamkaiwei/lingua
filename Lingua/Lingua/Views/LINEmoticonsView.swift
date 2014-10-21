@@ -62,7 +62,7 @@ extension LINEmoticonsView: UIImagePickerControllerDelegate, UINavigationControl
     
     func imagePickerController(picker: UIImagePickerController!, didFinishPickingMediaWithInfo info: NSDictionary!) {
         // Generate a message id
-        let messageId = NSUUID.UUID().UUIDString
+        let messageId = NSUUID().UUIDString
         
         let chooseImage = info[UIImagePickerControllerEditedImage] as UIImage
         delegate?.emoticonsView(self, didPickPhoto: chooseImage, messageId: messageId)

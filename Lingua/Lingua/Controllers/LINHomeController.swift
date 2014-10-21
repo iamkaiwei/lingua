@@ -26,7 +26,7 @@ class LINHomeController: LINViewController {
         super.viewDidLoad()
         
         for i in 0...49 {
-            animationImages.append(UIImage(named: "loading_elip_\(i)"))
+            animationImages.append(UIImage(named: "loading_elip_\(i)")!)
         }
         selectedIndexQuote = arc4random_uniform(UInt32(quotes.count))
         tipLabel.text = self.quotes[Int(selectedIndexQuote)]

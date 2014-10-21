@@ -376,7 +376,7 @@ class LINChatController: LINViewController, UITableViewDelegate {
         let content: String? = message.type == LINMessageType.Text ? message.content as? String : message.url
         
         let replyDict = ["sender_id": currentUser.userId,
-                         "message_type_id": message.type.toRaw(),
+                         "message_type_id": message.type.rawValue,
                          "content": content!,
                          "created_at": sendDate]
         
@@ -489,7 +489,7 @@ extension LINChatController: LINComposeBarViewDelegate {
     
     func composeBar(composeBar: LINComposeBarView, sendMessage text: String) {
         let message = LINMessage(incoming: false, sendDate: NSDate(), content: text, type: .Text)
-        message.messageId = NSUUID.UUID().UUIDString
+        message.messageId = NSUUID().UUIDString
         addBubbleViewCellWithMessage(message)
         
         replyWithMessage(message)

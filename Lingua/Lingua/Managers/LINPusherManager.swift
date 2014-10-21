@@ -33,7 +33,7 @@ class LINPusherManager : NSObject, PTPusherDelegate {
         super.init()
         
         pusherClient = PTPusher.pusherWithKey(kPusherAPIKey, delegate: self, encrypted: true) as PTPusher
-        pusherClient.authorizationURL = NSURL.URLWithString(kPuserAuthorizationURL)
+        pusherClient.authorizationURL = NSURL(string: kPuserAuthorizationURL)
     }
     
     // MARK: Pusher utils

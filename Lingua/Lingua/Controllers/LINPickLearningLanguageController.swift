@@ -64,8 +64,8 @@ extension LINPickLearningLanguageController: UITableViewDataSource, UITableViewD
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = self.tableView.dequeueReusableCellWithIdentifier("CellIdentifier") as LINProficiencyCell
-        cell.textLabel?.text = proficiencies[indexPath.row]
-        cell.imageView?.image = accessoryImages[indexPath.row]
+        cell.textLabel.text = proficiencies[indexPath.row]
+        cell.imageView.image = accessoryImages[indexPath.row]
         return cell
     }
     
@@ -127,7 +127,7 @@ extension LINPickLearningLanguageController: UITableViewDataSource, UITableViewD
 
         //Update header UI
         let header = tableView.headerViewForSection(indexPath.section) as LINLanguagePickingHeaderView
-        header.updateAccessoryViewWith(cell.imageView!.image!)
+        header.updateAccessoryViewWith(cell.imageView.image!)
     }
 }
 

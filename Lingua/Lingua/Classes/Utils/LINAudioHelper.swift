@@ -49,17 +49,21 @@ class LINAudioHelper: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     }
     
     override init() {
-        let settings = [AVFormatIDKey: NSNumber.numberWithInteger(kAudioFormatMPEG4AAC),
-                        AVSampleRateKey: NSNumber.numberWithFloat(44100.0),
-                        AVNumberOfChannelsKey: NSNumber.numberWithInt(2)];
+        let settings = [AVFormatIDKey: NSNumber(integer: kAudioFormatMPEG4AAC),
+                        AVSampleRateKey: NSNumber(float: 44100.0),
+                        AVNumberOfChannelsKey: NSNumber(integer: 2)]
         var error: NSError?
         let pathComponents: [AnyObject] = [NSSearchPathForDirectoriesInDomains(.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true).last!, "TempAudioFile.caf"]
         recorder = AVAudioRecorder(URL: NSURL.fileURLWithPathComponents(pathComponents), settings: settings, error: &error)
+        
         if error != nil {
             println(error)
         }
+        
         player = AVAudioPlayer(data: nil, error: nil)
+        
         super.init()
+        
         recorder.meteringEnabled = true
         recorder.delegate = self
         recorder.prepareToRecord()
@@ -71,11 +75,13 @@ class LINAudioHelper: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     }
     
     // MARK: Playing Alert sound system
+    
     func playAlertSound(){
         AudioServicesPlaySystemSound(messageAlertSoundID)
     }
 
     // MARK: Recording
+    
     func startRecording() {
         //Stop player if any
         stopPlaying()
@@ -198,7 +204,7 @@ class LINAudioHelper: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
             return
         }
         
-        if getDurationFromData(voiceData) <= 1 {
+        if getDurationFromData(voiceData!) <= 1 {
             let userInfo = [NSLocalizedDescriptionKey: "The record is too short."]
             let error = NSError(domain: "Lingua", code: 0, userInfo: userInfo)
             self.recorderDelegate?.audioHelperDidFailToComposeVoice(error)
@@ -206,7 +212,7 @@ class LINAudioHelper: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
             return
         }
 
-        recorderDelegate?.audioHelperDidComposeVoice(voiceData)
+        recorderDelegate?.audioHelperDidComposeVoice(voiceData!)
     }
 
     func audioRecorderEncodeErrorDidOccur(recorder: AVAudioRecorder!, error: NSError!) {

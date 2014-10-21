@@ -98,7 +98,7 @@ class LINChatHistoryHelper {
                     let aMessage = LINMessage(incoming: incoming,
                                               sendDate: NSDateFormatter.iSODateFormatter().dateFromString(reply.createdAt)!,
                                               content: reply.content,
-                                              type: LINMessageType.fromRaw(reply.messageTypeId)!)
+                                              type: LINMessageType(rawValue: reply.messageTypeId)!)
                     aMessage.state = LINMessageState.Sent
                     self.messagesArray.insert(aMessage, atIndex: 0)
                 }

@@ -16,7 +16,7 @@ class LINProficiencyCell: UITableViewCell {
         selectedBackgroundView = UIView(frame: frame)
         selectedBackgroundView.backgroundColor = UIColor.appTealColor()
         selectedBackgroundView.alpha = 0
-        textLabel?.font = UIFont.appThinFontWithSize(14)
+        textLabel.font = UIFont.appThinFontWithSize(14)
         
         let origin = CGPointMake(CGRectGetWidth(self.frame) - CGRectGetWidth(accessory.frame) - 15, CGRectGetHeight(self.frame)/2 - CGRectGetHeight(accessory.frame)/2)
         accessory.frame = CGRect(origin: origin, size: accessory.frame.size)

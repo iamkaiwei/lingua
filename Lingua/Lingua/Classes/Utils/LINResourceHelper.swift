@@ -12,8 +12,8 @@ class LINResourceHelper: NSObject {
     
     class func quotes() -> (quotes: [String], authors: [String]) {
         let path = NSBundle.mainBundle().pathForResource("Quotes", ofType: "txt")
-        let fullText = String.stringWithContentsOfFile(path!, encoding: NSUTF8StringEncoding, error: nil)!
-        let fullArray = fullText.componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet()).filter{countElements($0) > 0} as [String]
+        let fullText = String(contentsOfFile: path!, encoding: NSUTF8StringEncoding, error: nil)
+        let fullArray = fullText!.componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet()).filter{countElements($0) > 0} as [String]
         var quotes = [String]()
         var authors = [String]()
         for var index = 0; index < fullArray.count; index = index + 2 {
@@ -67,7 +67,7 @@ class LINResourceHelper: NSObject {
     
     class func dataFromCachedFile(fullFilePath: String) -> NSData? {
         if NSFileManager.defaultManager().fileExistsAtPath(fullFilePath) {
-            return NSData.dataWithContentsOfFile(fullFilePath, options: NSDataReadingOptions.UncachedRead, error: nil)
+            return NSData(contentsOfFile: fullFilePath, options: NSDataReadingOptions.UncachedRead, error: nil)
         }
         
         return nil

@@ -60,6 +60,7 @@ class LINMyProfileController: LINViewController {
         }
         
         //User average proficiency (writing and speaking)
+        // TODOME: FIX ME
         let meSpeakingProficiency = me?.speakingProficiency?.value ?? 1
         let meWritingProficiency = me?.writingProficiency?.value ?? 1
         let averageProficiency: Int = (meSpeakingProficiency + meWritingProficiency)/2.0 + 0.5
