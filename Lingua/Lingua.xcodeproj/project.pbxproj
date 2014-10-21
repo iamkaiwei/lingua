@@ -76,10 +76,11 @@
 		92781D47199FBF0B00FAAFBB /* LINReply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92781D46199FBF0B00FAAFBB /* LINReply.swift */; };
 		9286009519E1BA82000F5A15 /* LINRoundedCornerImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286009419E1BA82000F5A15 /* LINRoundedCornerImageView.swift */; };
 		92894CAF1996156D00824A3B /* LINConversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92894CAE1996156D00824A3B /* LINConversation.swift */; };
+		92954B4219F51EEE0076B6C8 /* LINParsingEmoticonsTextStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92954B4119F51EEE0076B6C8 /* LINParsingEmoticonsTextStorage.swift */; };
+		92954B4419F51F810076B6C8 /* LINDataDetectorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92954B4319F51F810076B6C8 /* LINDataDetectorHelper.swift */; };
 		929824EC199B7BB300C56819 /* LINFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929824EB199B7BB300C56819 /* LINFile.swift */; };
 		92BB810619E678AD0082322A /* LINChatHistoryHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BB810519E678AD0082322A /* LINChatHistoryHelper.swift */; };
 		92BC4B3419A58CB40046DED6 /* Emoticons.plist in Resources */ = {isa = PBXBuildFile; fileRef = 92BC4B3319A58CB40046DED6 /* Emoticons.plist */; };
-		92BC4B3719A58D100046DED6 /* LINParsingEmoticonsTextStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BC4B3619A58D100046DED6 /* LINParsingEmoticonsTextStorage.swift */; };
 		92C2A4AC1982146500ABF826 /* LINFacebookManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C2A4AB1982146500ABF826 /* LINFacebookManager.swift */; };
 		92CA2A4C198F9DA800367DB2 /* LINConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92CA2A4B198F9DA800367DB2 /* LINConstants.swift */; };
 		92CA2A4E198FA05D00367DB2 /* NSDateFormatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92CA2A4D198FA05D00367DB2 /* NSDateFormatter+Extensions.swift */; };
@@ -224,12 +225,13 @@
 		92781D46199FBF0B00FAAFBB /* LINReply.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINReply.swift; sourceTree = "<group>"; };
 		9286009419E1BA82000F5A15 /* LINRoundedCornerImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINRoundedCornerImageView.swift; sourceTree = "<group>"; };
 		92894CAE1996156D00824A3B /* LINConversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINConversation.swift; sourceTree = "<group>"; };
+		92954B4119F51EEE0076B6C8 /* LINParsingEmoticonsTextStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINParsingEmoticonsTextStorage.swift; sourceTree = "<group>"; };
+		92954B4319F51F810076B6C8 /* LINDataDetectorHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINDataDetectorHelper.swift; sourceTree = "<group>"; };
 		929824EB199B7BB300C56819 /* LINFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINFile.swift; sourceTree = "<group>"; };
 		929C45B119C0442900FEAEF7 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		929F38AB196C7C0F009A7E6A /* libPods-libPusher.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-libPusher.a"; path = "Pods/build/Debug-iphoneos/libPods-libPusher.a"; sourceTree = "<group>"; };
 		92BB810519E678AD0082322A /* LINChatHistoryHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINChatHistoryHelper.swift; sourceTree = "<group>"; };
 		92BC4B3319A58CB40046DED6 /* Emoticons.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Emoticons.plist; sourceTree = "<group>"; };
-		92BC4B3619A58D100046DED6 /* LINParsingEmoticonsTextStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINParsingEmoticonsTextStorage.swift; sourceTree = "<group>"; };
 		92C2A4AB1982146500ABF826 /* LINFacebookManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINFacebookManager.swift; sourceTree = "<group>"; };
 		92CA2A4B198F9DA800367DB2 /* LINConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINConstants.swift; sourceTree = "<group>"; };
 		92CA2A4D198FA05D00367DB2 /* NSDateFormatter+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDateFormatter+Extensions.swift"; sourceTree = "<group>"; };
@@ -464,8 +466,8 @@
 		9224D47F197FB81200BE9EE4 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				92954B4019F51EEE0076B6C8 /* TextKit */,
 				92BB810019E648AB0082322A /* Chat */,
-				92BC4B3519A58D100046DED6 /* Emoticons */,
 				9268B6BB1984E49F00D526AA /* Clients */,
 				9236A69C197FD5E100210EBE /* Utils */,
 				9268B6BC1984E4B400D526AA /* DataSources */,
@@ -546,6 +548,15 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		92954B4019F51EEE0076B6C8 /* TextKit */ = {
+			isa = PBXGroup;
+			children = (
+				92954B4119F51EEE0076B6C8 /* LINParsingEmoticonsTextStorage.swift */,
+				92954B4319F51F810076B6C8 /* LINDataDetectorHelper.swift */,
+			);
+			path = TextKit;
+			sourceTree = "<group>";
+		};
 		92BB810019E648AB0082322A /* Chat */ = {
 			isa = PBXGroup;
 			children = (
@@ -555,14 +566,6 @@
 				9267DE5619E7A19400388C3F /* LINUnsentChatHelper.swift */,
 			);
 			path = Chat;
-			sourceTree = "<group>";
-		};
-		92BC4B3519A58D100046DED6 /* Emoticons */ = {
-			isa = PBXGroup;
-			children = (
-				92BC4B3619A58D100046DED6 /* LINParsingEmoticonsTextStorage.swift */,
-			);
-			path = Emoticons;
 			sourceTree = "<group>";
 		};
 		92CA2A4A198F9D9000367DB2 /* Constants */ = {
@@ -767,11 +770,13 @@
 				20B943ED19CBEE07000CDF28 /* LINEditProfileController.swift in Sources */,
 				92CA2A4E198FA05D00367DB2 /* NSDateFormatter+Extensions.swift in Sources */,
 				92052F3F199522A900EA773B /* LINNotificationHelper.swift in Sources */,
+				92954B4419F51F810076B6C8 /* LINDataDetectorHelper.swift in Sources */,
 				2083827E19D04981007A1ED9 /* LINAboutMeController.swift in Sources */,
 				9214F01319DE8FFC00F786E4 /* LINShrinkDismissAnimationController.swift in Sources */,
 				92F0BF421993449E00608803 /* LINMessageHelper.swift in Sources */,
 				2082DEF5195762E8009ADF45 /* LINHomeController.swift in Sources */,
 				92CA2A4C198F9DA800367DB2 /* LINConstants.swift in Sources */,
+				92954B4219F51EEE0076B6C8 /* LINParsingEmoticonsTextStorage.swift in Sources */,
 				20974985196FCCC00070E8C3 /* LINLanguagePickerController.swift in Sources */,
 				20BFCCEB1956E1C400A86C2E /* LINPickLearningLanguageController.swift in Sources */,
 				9268B6BE1984E4B400D526AA /* LINArrayDataSource.swift in Sources */,
@@ -785,7 +790,6 @@
 				92C2A4AC1982146500ABF826 /* LINFacebookManager.swift in Sources */,
 				2065405E197D3B0B00E9F978 /* LINBadgeHeaderView.swift in Sources */,
 				9247D627199287420011FC85 /* AppDelegate.swift in Sources */,
-				92BC4B3719A58D100046DED6 /* LINParsingEmoticonsTextStorage.swift in Sources */,
 				20B27FB4196D3D7B003BFFB6 /* LINBadgeFlowLayout.swift in Sources */,
 				20DC6568197BEA4F008DA659 /* LINCountryCell.swift in Sources */,
 				207630B9195AC19800D23B2A /* UIFont+Extensions.swift in Sources */,
