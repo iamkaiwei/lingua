@@ -40,6 +40,7 @@ class LINAudioHelper: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     private var trackingTimer: NSTimer?
     //1004 is default system sound ID
     private var messageAlertSoundID: SystemSoundID = 1004
+    private let defaultSoundPath = NSBundle.mainBundle().pathForResource(kLINAlertSoundFileName, ofType: kLINAlertSoundExtension)
     
     class var sharedInstance: LINAudioHelper {
     struct Static {
@@ -60,9 +61,8 @@ class LINAudioHelper: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
             println(error)
         }
         
-        //New change to xcode 6.1, AVAudioPlayer have to initialized with non-nil data.
-        let soundPath = NSBundle.mainBundle().pathForResource(kLINAlertSoundFileName, ofType: kLINAlertSoundExtension)
-        player = AVAudioPlayer(data: NSData(contentsOfFile: soundPath!)!, error: nil)
+        //New change to xcode 6.1, AVAudioPlayer can't be initialized with non-nil data.
+        player = AVAudioPlayer(data: NSData(contentsOfFile: defaultSoundPath!)!, error: nil)
         
         super.init()
 
@@ -74,8 +74,7 @@ class LINAudioHelper: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     // MARK: Playing Alert sound system
     
     func playAlertSound(){
-        let tempSoundPath = NSBundle.mainBundle().pathForResource(kLINAlertSoundFileName, ofType: kLINAlertSoundExtension)
-        if let soundPath = tempSoundPath {
+        if let soundPath = defaultSoundPath {
             startPlaying(NSData(contentsOfFile: soundPath)!)
         }
     }
