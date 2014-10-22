@@ -158,7 +158,7 @@ extension LINNetworkClient {
     func isValidToken(completion: (success: Bool) -> Void) {
         setAuthorizedRequest()
         
-        let path = "\(kLINAPIPath)" + "\(kLINGetCurrentUserPath)"
+        let path = "\(kLINAPIPath)\(kLINGetCurrentUserPath)"
         self.GET(path, parameters: nil, completion: { (response: AnyObject?, error: NSError?) -> Void in
             if error != nil {
                 println("Token is not valid.")
@@ -179,7 +179,7 @@ extension LINNetworkClient {
                         failture: (error: NSError?) -> Void) {
             setAuthorizedRequest()
             
-            let path = "\(kLINAPIPath)" + "\(kLINGetCurrentUserPath)"
+            let path = "\(kLINAPIPath)\(kLINGetCurrentUserPath)"
             self.GET(path, parameters: nil, completion: { (response: AnyObject?, error: NSError?) -> Void in
                 if error != nil {
                     failture(error: error!)
@@ -232,7 +232,7 @@ extension LINNetworkClient {
                      failture: (error: NSError?) -> Void) {
             setAuthorizedRequest()
             
-            let path = "\(kLINAPIPath)" + "\(kLINUsersPath)"
+            let path = "\(kLINAPIPath)\(kLINUsersPath)"
             self.GET(path, parameters: nil, completion: { (response: AnyObject?, error: NSError?) -> Void in
                 if error != nil {
                     failture(error: error!)
@@ -253,7 +253,7 @@ extension LINNetworkClient {
         let parameters = [kLINUserIdKey: userId,
                           "message": text,
                           "time_created": sendDate]
-        let path = "\(kLINAPIPath)" + "\(kLINSendNotification)"
+        let path = "\(kLINAPIPath)\(kLINSendNotification)"
         
         self.POST(path, parameters: parameters, completion: nil)
     }
@@ -263,7 +263,7 @@ extension LINNetworkClient {
         
         let parameters = [kLINUserIdKey: userId,
             kLINDeviceTokenKey: deviceToken]
-        let path = "\(kLINAPIPath)" + "\(kLINUsersPath)/\(userId)"
+        let path = "\(kLINAPIPath)\(kLINUsersPath)/\(userId)"
 
         self.PUT(path, parameters: parameters, { (response: AnyObject?, error: NSError?) -> Void in
             if error != nil {
@@ -278,7 +278,7 @@ extension LINNetworkClient {
         setAuthorizedRequest()
         
         let parameters = ["partner_role": partnerRole.stringFromRole()]
-        let path = "\(kLINAPIPath)" + "\(kLINMatchUser)"
+        let path = "\(kLINAPIPath)\(kLINMatchUser)"
         
         self.GET(path, parameters: parameters, completion: { (response: AnyObject?, error: NSError?) -> Void in
             if error != nil {
@@ -331,7 +331,7 @@ extension LINNetworkClient {
         
         let parameters = ["teacher_id": teacherId,
                           "learner_id": learnerId]
-        let path = "\(kLINAPIPath)" + "\(kLINConversationsPath)"
+        let path = "\(kLINAPIPath)\(kLINConversationsPath)"
                                                 
         self.POST(path, parameters: parameters, { (response: AnyObject?, error: NSError?) -> Void in
             if error != nil {
@@ -350,7 +350,7 @@ extension LINNetworkClient {
     func getAllConversations(completion:(conversationsArray: [LINConversation]? , error: NSError?) -> Void) {
         setAuthorizedRequest()
         
-        let path = "\(kLINAPIPath)" + "\(kLINConversationsPath)"
+        let path = "\(kLINAPIPath)\(kLINConversationsPath)"
         self.GET(path, parameters: nil, completion: { (response: AnyObject?, error: NSError?) -> Void in
             if error != nil {
                 println("Get all conversations has some errors: \(error!.description)")
@@ -370,7 +370,7 @@ extension LINNetworkClient {
                                      completion: (success: Bool) -> Void) {
         setAuthorizedRequest()
         
-        let path = "\(kLINAPIPath)" + "\(kLINConversationsPath)/\(conversationId)/messages"
+        let path = "\(kLINAPIPath)\(kLINConversationsPath)/\(conversationId)/messages"
         
         var error: NSError?
         let jsonData  = NSJSONSerialization.dataWithJSONObject(messagesArray, options: NSJSONWritingOptions(0), error: &error)
@@ -445,7 +445,7 @@ extension LINNetworkClient {
                     fileType: LINFileType,
                     completion: (fileURL: String?, error: NSError?) -> Void) {
         let fileInfo = fileType.getFileInfo()
-        let path = "\(kLINAPIPath)" + "\(kLINUploadPath)"
+        let path = "\(kLINAPIPath)\(kLINUploadPath)"
                         
         self.POST(path, parameters: nil, constructingBodyWithBlock: { (formData) -> Void in
             formData.appendPartWithFileData(data, name: "file", fileName: fileInfo.fileName, mimeType: fileInfo.mimeType)
@@ -486,7 +486,7 @@ extension LINNetworkClient {
 extension LINNetworkClient {
     
     func getLanguages(success: (languages: [[LINLanguage]], headers: [String]) -> Void, failture: (error: NSError?) -> Void) {
-        let path = "\(kLINAPIPath)" + "\(kLINLanguagePath)"
+        let path = "\(kLINAPIPath)\(kLINLanguagePath)"
         self.GET(path, parameters: nil, completion: { (response: AnyObject?, error: NSError?) -> Void in
             if error != nil {
                 failture(error: error)
