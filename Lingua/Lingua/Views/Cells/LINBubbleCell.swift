@@ -29,7 +29,7 @@ protocol LINBubbleCellDelegate {
 }
 
 class LINBubbleCell: UITableViewCell {
-    private var contentTextView = UITextView()
+    private var contentTextView: UITextView?
     private var bubbleImageView = UIImageView()
     private var createAtLabel = UILabel()
     private var photoImgView = UIImageView()
@@ -39,7 +39,7 @@ class LINBubbleCell: UITableViewCell {
     private var overlayView = UIImageView()
     private var resendButton: UIButton?
     
-    //Voice message
+    // Voice message
     private var playButton: UIButton?
     private var voiceProgressBar: UIProgressView?
     private var durationLabel: UILabel?
@@ -66,19 +66,27 @@ class LINBubbleCell: UITableViewCell {
         // Bubble imageview
         addSubview(bubbleImageView)
         
+        // Text kit
+        let layoutManager = NSLayoutManager()
+        emoticonsTextStorage.addLayoutManager(layoutManager)
+        
+        let textContainer = NSTextContainer(size: CGSizeZero)
+        layoutManager.addTextContainer(textContainer)
+        
         // Content
-        contentTextView.userInteractionEnabled = false
-        contentTextView.scrollEnabled = false
-        contentTextView.editable = false
-        contentTextView.backgroundColor = UIColor.clearColor()
-        contentTextView.font = UIFont.appRegularFontWithSize(14)
+        contentTextView = UITextView(frame: CGRectZero, textContainer: textContainer)
+        contentTextView?.scrollEnabled = false
+        contentTextView?.editable = false
+        contentTextView?.backgroundColor = UIColor.clearColor()
+        contentTextView?.font = UIFont.appRegularFontWithSize(14)
+        contentTextView?.selectable = true
+        contentTextView?.dataDetectorTypes = UIDataDetectorTypes.All
+        contentTextView?.delegate = self
         
         // CreateAt label
         createAtLabel.font = UIFont.appRegularFontWithSize(8)
         createAtLabel.textColor =  UIColor(red: 153/255.0, green: 153/255.0, blue: 153/255.0, alpha: 1.0)
         addSubview(createAtLabel)
-
-        emoticonsTextStorage.addLayoutManager(contentTextView.layoutManager)
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -86,7 +94,7 @@ class LINBubbleCell: UITableViewCell {
     }
     
     override func prepareForReuse() {
-        contentTextView.removeFromSuperview()
+        contentTextView?.removeFromSuperview()
         photoImgView.removeFromSuperview()
         playButton?.removeFromSuperview()
         voiceProgressBar?.removeFromSuperview()
@@ -119,17 +127,17 @@ class LINBubbleCell: UITableViewCell {
     private func configureWithTextMessage(message: LINMessage) {
         emoticonsTextStorage.setAttributedString(NSAttributedString(string: message.content as String))
         
-        let size = contentTextView.sizeThatFits(CGSize(width: LINBubbleCell.maxWidthOfMessage(), height: kLINTextMessageMaxHeight))
+        let size = contentTextView!.sizeThatFits(CGSize(width: LINBubbleCell.maxWidthOfMessage(), height: kLINTextMessageMaxHeight))
         let insets = (message.incoming == false ? textInsetsMine : textInsetsSomeone)
         let offsetX = (message.incoming == true ? 0 : UIScreen.mainScreen().bounds.size.width - size.width - insets.left - insets.right)
         
-        contentTextView.frame = CGRectMake(offsetX + insets.left, insets.top, size.width, size.height)
-        addSubview(contentTextView)
+        contentTextView!.frame = CGRectMake(offsetX + insets.left, insets.top, size.width, size.height)
+        addSubview(contentTextView!)
         
         // Bubble imageview
-        bubbleImageView.frame = CGRect(x: contentTextView.frame.origin.x - 5, y: 0,
-                                       width: contentTextView.frame.size.width + 10,
-                                       height: contentTextView.frame.size.height)
+        bubbleImageView.frame = CGRect(x: contentTextView!.frame.origin.x - 5, y: 0,
+                                       width: contentTextView!.frame.size.width + 10,
+                                       height: contentTextView!.frame.size.height)
         
         addOtherViewsToBubbleCellWithMessage(message)
     }
@@ -322,6 +330,21 @@ class LINBubbleCell: UITableViewCell {
     
     class func maxWidthOfPhotoMessage() -> CGFloat {
         return UIScreen.mainScreen().bounds.size.width - 100
+    }
+}
+
+// MAKR: UITextViewDelegate
+
+extension LINBubbleCell: UITextViewDelegate {
+    
+    func textView(textView: UITextView, shouldInteractWithURL URL: NSURL, inRange characterRange: NSRange) -> Bool {
+        let dataDetectorHelper = LINDataDetectorHelper()
+        let resultType = dataDetectorHelper.getTextTypeWithString(URL.absoluteString!)
+        
+        let textCheckingTypeHelper = LINTextCheckingTypeHelper(checkingType: resultType)
+        textCheckingTypeHelper.openURL(URL)
+            
+        return false
     }
 }
 

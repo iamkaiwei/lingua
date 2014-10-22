@@ -12,6 +12,7 @@ class LINParsingEmoticonsTextStorage: NSTextStorage {
     private var imp = NSMutableAttributedString()
     private var dict = NSDictionary()
     private var expression = NSRegularExpression()
+    private var dataDetector: NSDataDetector?
     var enablePlaceHolderText = false
     
     override init() {
@@ -19,6 +20,7 @@ class LINParsingEmoticonsTextStorage: NSTextStorage {
         
         dict = LINParsingEmoticonsTextStorage.getMappingDict()
         expression = LINParsingEmoticonsTextStorage.getRegularExpression()
+        dataDetector = LINDataDetectorHelper.getDataDetector()
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -44,6 +46,31 @@ class LINParsingEmoticonsTextStorage: NSTextStorage {
     
     override func setAttributes(attrs: [NSObject : AnyObject]!, range: NSRange) {
         imp.setAttributes(attrs, range: range)
+        edited(NSTextStorageEditActions.EditedCharacters, range: range, changeInLength: 0)
+    }
+    
+    override func setAttributedString(attrString: NSAttributedString) {
+        super.setAttributedString(attrString)
+
+        let wholeRange = NSMakeRange(0, self.string.utf16Count)
+        removeAttribute(NSLinkAttributeName, range: wholeRange)
+        
+        dataDetector!.enumerateMatchesInString(self.string, options: NSMatchingOptions(0), range: wholeRange) { (result, flags, stop) -> Void in
+            var value: AnyObject?
+            
+            switch(result.resultType) {
+            case NSTextCheckingType.Link:
+                value = result.URL!
+            case NSTextCheckingType.PhoneNumber:
+                value = result.phoneNumber!
+            default:
+                break
+            }
+            
+            if value != nil {
+                self.addAttribute(NSLinkAttributeName, value: value!, range: result.range)
+            }
+        }
     }
     
     // MARK: Adding emoticons
@@ -106,6 +133,8 @@ class LINParsingEmoticonsTextStorage: NSTextStorage {
         placeHolderText.addAttribute(NSForegroundColorAttributeName, value: color, range: NSMakeRange(0, text.utf16Count))
         self.setAttributedString(placeHolderText)
     }
+    
+    // MARK: Class methods
     
     class func getMappingDict() -> NSDictionary {
         struct Static {
