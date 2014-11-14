@@ -22,6 +22,7 @@ class LINUser: MTLModel, MTLJSONSerializing {
     var learningLanguage: LINLanguage?
     var speakingProficiency: LINProficiency?
     var writingProficiency: LINProficiency?
+    var point: Int = 0
     
     override init() {
         super.init()
@@ -54,7 +55,8 @@ class LINUser: MTLModel, MTLJSONSerializing {
                 "nativeLanguage": "native_language_id",
                 "learningLanguage": "learn_language_id",
                 "speakingProficiency": "spoken_proficiency_id",
-                "writingProficiency": "written_proficiency_id"
+                "writingProficiency": "written_proficiency_id",
+                "point": "point"
         ]
     }
     

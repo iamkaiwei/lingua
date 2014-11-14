@@ -34,6 +34,14 @@ class LINStorageHelper {
         }
     }
     
+    class func removeObjectForKey(key: String) {
+        if key.utf16Count == 0 {
+            return
+        }
+        NSUserDefaults.standardUserDefaults().removeObjectForKey(key)
+        NSUserDefaults.standardUserDefaults().synchronize()
+    }
+    
     class func setStringValue(value: String, forkey key: String) {
         if key.utf16Count == 0 {
             return

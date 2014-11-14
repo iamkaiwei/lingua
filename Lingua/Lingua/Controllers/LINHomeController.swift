@@ -24,7 +24,7 @@ class LINHomeController: LINViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         for i in 0...49 {
             animationImages.append(UIImage(named: "loading_elip_\(i)")!)
         }
@@ -102,6 +102,7 @@ class LINHomeController: LINViewController {
             }
             
             let aUser = arrUsers[0] as LINUser
+            LINStorageHelper.setObject(aUser.point--, forKey: kLINMatchingThreshold)
             LINNetworkClient.sharedInstance.createNewConversationWithTeacherId(aUser.userId,
                 learnerId: LINUserManager.sharedInstance.currentUser!.userId,
                 success: {

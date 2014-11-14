@@ -30,6 +30,7 @@ let kLINUnlikePath = "/users/*/unlike"
 let kLINAccessTokenKey = "kLINAccessTokenKey"
 let kLINCurrentUserKey = "kLINCurrentUserKey"
 let kLINLastOnlineKey  = "kLINLastOnlineKey"
+let kLINMatchingThreshold = "kLINMatchingThreshold"
 
 enum LINActionType {
     case LINActionTypeFlag
@@ -277,7 +278,11 @@ extension LINNetworkClient {
     func matchUser(partnerRole: LINPartnerRole, success: (arrUsers: [LINUser]) -> Void, failture: (error: NSError?) -> Void) {
         setAuthorizedRequest()
         
-        let parameters = ["partner_role": partnerRole.stringFromRole()]
+        var parameters = ["partner_role": partnerRole.stringFromRole()]
+        if let threshold = LINStorageHelper.objectForKey(kLINMatchingThreshold) as? Int {
+            parameters["threshold"] = "\(threshold)"
+        }
+        
         let path = "\(kLINAPIPath)\(kLINMatchUser)"
         
         self.GET(path, parameters: parameters, completion: { (response: AnyObject?, error: NSError?) -> Void in
@@ -288,7 +293,20 @@ extension LINNetworkClient {
             
             println("Match users: \(response)")
             if let arrUsers = (response as OVCResponse).result as? [LINUser] {
-                success(arrUsers: arrUsers)
+                if arrUsers.count > 0 {
+                    success(arrUsers: arrUsers)
+                }
+                else if let threshold = LINStorageHelper.objectForKey(kLINMatchingThreshold) as? Int {
+                    LINStorageHelper.removeObjectForKey(kLINMatchingThreshold)
+                    self.matchUser(partnerRole, { (arrUsers: [LINUser]) -> Void in
+                        success(arrUsers: arrUsers)
+                        }, failture: { error in
+                            failture(error: error)
+                    })
+                }
+                else {
+                    UIAlertView(title: "Ooops", message: "Currently we can not find a proper match for you, please come back later.", delegate: self, cancelButtonTitle: "OK").show()
+                }
                 return
             }
             
