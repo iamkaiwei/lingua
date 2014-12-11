@@ -1005,7 +1005,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a927aa42-5b7d-43db-a1b6-b09a8608626a";
+				PROVISIONING_PROFILE = "fe809874-cbdd-4c58-b19b-42b719553309";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Lingua/Lingua-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1026,7 +1026,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a927aa42-5b7d-43db-a1b6-b09a8608626a";
+				PROVISIONING_PROFILE = "fe809874-cbdd-4c58-b19b-42b719553309";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Lingua/Lingua-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;

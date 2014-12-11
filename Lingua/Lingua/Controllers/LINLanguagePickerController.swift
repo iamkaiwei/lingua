@@ -52,7 +52,7 @@ extension LINLanguagePickerController: UITableViewDataSource, UITableViewDelegat
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = self.tableView.dequeueReusableCellWithIdentifier("CellIdentifier") as UITableViewCell
         let language = languages[indexPath.section][indexPath.row]
-        cell.textLabel.text = language.languageName
+        cell.textLabel?.text = language.languageName
         return cell
     }
     
