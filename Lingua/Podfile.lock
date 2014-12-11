@@ -86,6 +86,14 @@ EXTERNAL SOURCES:
   UIView+MGBadgeView:
     :git: https://github.com/untouchable741/UIView-MGBadgeView.git
 
+CHECKOUT OPTIONS:
+  Facebook-iOS-SDK:
+    :commit: 933c69820903a93b105149c9bcca0ecc279fae77
+    :git: https://github.com/pgaspar/facebook-ios-sdk.git
+  UIView+MGBadgeView:
+    :commit: 698f87623d649c6f227bd35241541f87a8b93053
+    :git: https://github.com/untouchable741/UIView-MGBadgeView.git
+
 SPEC CHECKSUMS:
   AFNetworking: 0aabc6fae66d6e5d039eeb21c315843c7aae51ab
   Bolts: 3db0a875235e0c9042b013af13af0f00f79b102c
@@ -105,4 +113,4 @@ SPEC CHECKSUMS:
   TSMessages: 2999ef55e532378692e9d14d32da2bb60e285129
   UIView+MGBadgeView: 08e881f428d75ef3d4f51bbdb506383059964dd5
 
-COCOAPODS: 0.35.0.rc2
+COCOAPODS: 0.35.0

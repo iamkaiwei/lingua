@@ -39,8 +39,8 @@ extension LINProficiencyController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = self.tableView.dequeueReusableCellWithIdentifier("CellIdentifier") as LINProficiencyCell
-        cell.textLabel.text = proficiencies[indexPath.row]
-        cell.imageView.image = accessoryImages[indexPath.row]
+        cell.textLabel?.text = proficiencies[indexPath.row]
+        cell.imageView?.image = accessoryImages[indexPath.row]
         return cell
     }
     
